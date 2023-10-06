@@ -1,2 +1,2 @@
-# server
-SABU server
+# SABU server
+<a target="_blank" href="https://github.com/SABU-WS/server"><img src="https://img.shields.io/github/contributors/SABU-WS/server" /></a> <a target="_blank" href="https://github.com/SABU-WS/server"><img src="https://img.shields.io/github/last-commit/SABU-WS/server" /></a> <a target="_blank" href="https://github.com/SABU-WS/server"><img src="https://img.shields.io/github/repo-size/SABU-WS/server" /></a> <a target="_blank" href="https://github.com/SABU-WS/server"><img src="https://img.shields.io/github/license/SABU-WS/server" /></a>
