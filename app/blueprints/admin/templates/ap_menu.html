@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABU | Home</title>
+    <link rel="icon" type="image/x-icon" href="/static/assets/icons/sabu.ico">
+    <!-- import tailwind -->
+    <link rel="stylesheet" href="/static/dist/output.css">
+    <!-- import fontawesome -->
+    <link rel="stylesheet" href="/static/assets/fontawesome/css/all.css">
+</head>
+<body class="bg-gray-100">
+    <!-- NAV BAR -->
+    <nav class="fixed top-0 w-full bg-white shadow-md">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+                <!-- button allow in small-screen -->
+                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                    </svg>
+                </button>
+
+                <div class="flex ml-72 md:mr-24">
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Home</span>
+                </div>
+            </div>
+            
+            <!-- RIGHT NAV BAR -->
+            <div class="flex items-center">
+                <!-- BELL BUTTON -->
+                <button id="dropdownAlertsButton" data-dropdown-toggle="dropdownAlerts" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+                    <div class="text-dark text-xl">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <span class="absolute inset-0 object-right-top -mr-5 -mt-2">
+                      <div class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
+                        3
+                      </div>
+                    </span>
+                </button>
+                <!-- Dropdown bell -->
+                <div id="dropdownAlerts" class="z-20 hidden w-72 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownAlerts">
+                <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
+                    Alerts
+                </div>
+                <div class="py-2 divide-y divide-gray-100 dark:divide-gray-700">
+                    <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <div class="w-full pl-3">
+                        <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">ENDPOINT1</span> Disconnected</div>
+                        <div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</div>
+                    </div>
+                    </a>
+                    <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <div class="w-full pl-3">
+                        <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">SABU SERVER</span> Disk is full</div>
+                        <div class="text-xs text-blue-600 dark:text-blue-500">10 minutes ago</div>
+                    </div>
+                    </a>
+                    <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <div class="w-full pl-3">
+                        <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">ENDPOINT2</span> is not reachable</div>
+                        <div class="text-xs text-blue-600 dark:text-blue-500">44 minutes ago</div>
+                    </div>
+                    </a>
+                </div>
+                <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                    <div class="inline-flex items-center ">
+                        <div>
+                            <i class="fa-solid fa-eye"></i>
+                            View all
+                        </div>
+                    </div>
+                </a>
+                </div>
+
+                <!-- MENU BUTTON -->
+                <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+                    <div class="text-xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </button>
+                <!-- Dropdown MENU -->
+                <div id="dropdownMenu" class="z-20 hidden w-48 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownMenu">
+                <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
+                    Shortcut
+                </div>
+                <div class="divide-gray-100">
+                    <div class="flex justify-center space-x-4 p-2">
+                        <!-- addEndpoint -->
+                        <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                            <i class="fa-solid fa-desktop"></i>
+                        </div>
+                        <!-- addUser -->
+                        <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                            <button id="adduser" type="button">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </button>
+                        </div>
+                        <!-- addUSB -->
+                        <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                            <i class="fa-brands fa-usb"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-center space-x-4 p-2">
+                        <!-- browser-admin shortcut -->
+                        <a href="#">
+                            <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                                <i class="fa-solid fa-folder-tree"></i>
+                            </div>
+                        </a>
+                        <!-- remote ssh -->
+                        <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <!-- power -->
+                        <div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+                            <button id="dropdownPowerButton" data-dropdown-toggle="dropdownPowerButtonBottom" data-dropdown-placement="bottom" data-dropdown-offset-distance="15" type="button">
+                                <i class="fa-solid fa-power-off"></i>
+                            </button>
+                            <!-- Dropdown power -->
+                            <div id="dropdownPowerButtonBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownPowerButton">
+                                    <li>
+                                        <a href="#" data-modal-target="staticModal" data-modal-toggle="staticModal" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reboot</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shutdown</a>
+                                     </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                        <div class="inline-flex items-center ">
+                            <div>
+                                <i class="fa-solid fa-circle-question"></i>
+                                Help
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                </div>
+                
+                <!-- USER BUTTON -->
+                <div>
+                    <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                    <span class="sr-only">Open user menu</span>
+                    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full dark:bg-gray-600">
+                        <span class="font-bold text-white dark:text-gray-300">JD</span>
+                    </div>
+
+                    </button>
+                </div>
+                <!-- Dropdown user -->
+                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                    <div class="px-8 py-3 bg-gray-100" role="none">
+                    <p class="text-sm font-semibold text-gray-900 dark:text-white" role="none">
+                        John DOE
+                    </p>
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                        Administrator
+                    </p>
+                    </div>
+                    <ul class="py-1" role="none">
+                    <li>
+                        <a href="profil-settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                            <div>
+                                <i class="fa-solid fa-circle-user"></i>
+                                Profil
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                            <div>
+                                <i class="fa-solid fa-moon"></i>
+                                Dark mode  
+                            </div>
+                            
+                            <label class="ml-2 relative inline-flex items-center cursor-pointer">
+                              <input type="checkbox" value="" class="sr-only peer">
+                              <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
+                            </label>
+                        </a>
+                    </li>
+                    </ul>
+                    <ul class="py-1" role="none">
+                    <li>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                            <div>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Sign out
+                            </div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </nav>
+    
+    <!--SIDEBAR -->
+    <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-6 transition-transform -translate-x-full bg-slate-800 sm:translate-x-0" aria-label="Sidebar">
+        <div class="flex ml-2 md:mr-24 mb-6 ml-4">
+            <img src="../static/assets/icons/logo_sabu.png" class="h-10 mr-3 rounded-full" alt="Logo" />
+            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">SABU SERVER</span>
+        </div>
+        <div class="h-full px-3 pb-4 pt-6 overflow-y-auto bg-slate-700">
+            <ul class="space-y-2 font-medium">
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 border-r-8 bg-gray-500">
+                    <div class="text-white">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <span class="ml-3 px-1 text-white">Home</span>
+                </a>
+            </li>
+            <div class="pt-4 font-medium border-b border-white"></div>
+            <div class="pt-2 text-white text-sm font-semibold">Management</div>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <span class="ml-3 px-1 text-white">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-regular fa-file-lines"></i>
+                    </div>
+                    <span class="ml-4 px-2 text-white">Logs</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-folder-tree"></i>
+                    </div>
+                    <span class="ml-2 px-2 text-white">Browser</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <span class="flex-1 ml-3 whitespace-nowrap text-white">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-brands fa-usb"></i>
+                    </div>
+                    <span class="ml-3 text-white">USB Keys</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <span class="ml-3 px-1 text-white">Settings</span>
+                </a>
+            </li>
+            <div class="pt-4 font-medium border-b border-white"></div>
+            <div class="pt-2 text-white text-sm font-semibold">Equipment</div>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <span class="ml-3 px-1 text-white">Manage Server</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
+                    <div class="text-white">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <span class="ml-3 px-1 text-white">Manage Endpoints</span>
+                </a>
+            </li>
+            </ul>
+
+            <div class="fixed bottom-0 mb-4">
+                <div class="text-white font-semibold ml-16">SABU - V2.0</div>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- import flowbite lib js -->
+    <script src="../static/node_modules/flowbite/dist/flowbite.min.js"></script>
+</body>
+</html>

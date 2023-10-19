@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Request Example</title>
+</head>
+<body>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input name="toto" type="text" id="inputData" placeholder="Enter data">
+        <button>Send POST Request</button>
+        <!-- <button onclick="sendPostRequest()">Send POST Request</button> -->
+    </form>
+    <!-- <script>
+        function sendPostRequest() {
+            const inputData = document.getElementById('inputData').value;
+
+            fetch('/login/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: inputData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from server:', data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script> -->
+</body>
+</html>
