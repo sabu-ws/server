@@ -153,3 +153,21 @@ def manage_users_del_user():
 	else:
 		logout_user()
 		return "user not found"
+
+@admin_bp.route("/manage_users/able_user",methods=["POST"])
+def manage_users_able_user():
+	if "uuid" in request.form:
+		guuid = request.form["uuid"]
+		search = Users.query.filter_by(uuid=guuid).first()
+		if search != None:
+			if search.enable == 1:
+				search.enable = 0
+			elif search.enable == 0:
+				search.enable = 1
+			db.session.commit()
+			return "ok"
+		else:
+			return "user not found"
+	else:
+		logout_user()
+		return "user not found"
