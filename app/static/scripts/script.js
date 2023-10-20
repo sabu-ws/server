@@ -24,11 +24,34 @@ $(document).ready(function(){
 		// document.getElementById("noUserFound").style  = "display: none;";
 		// var getRowUserTable = $("#bodyUsersTable").children('tr:first');
 	// }
-	if($("#bodyUsersTable").find('tr').is(':hidden')){
-		document.getElementById("noUserFound").style  = "display: True;";
-	}else{
-		document.getElementById("noUserFound").style  = "display: none;";
-	}
+
+
+	// Add user
+
+	$("#addUserForm").submit(function(e) {
+		e.preventDefault();
+
+		var form = $(this);
+		var actionUrl = urlAdd;
+		// console.log(actionUrl);
+		$.ajax({
+			type: "POST",
+			url: actionUrl,
+			data: form.serialize(),
+			success: function(data)
+			{
+				if(data == "ok"){
+					window.location.reload();
+				}else{
+					alertAddUserForm = document.getElementById("alertAddUserForm");
+					alertAddUserForm.style = "display: true;";
+					const ErrorMSG= "Error : ";
+					$("#alertAddUserForm span").text(ErrorMSG.concat(data));
+				}
+			}
+		});
+	});
+
 
 	$('.buttonDeleteRow').click(function(e){
 		// $("#confirmRemoveModal").show();
@@ -38,6 +61,9 @@ $(document).ready(function(){
 				.text();
 		temp_uuid = $item.trim();
 	});
+
+	// ====== Delete User
+
 	$("#yesButtonDeleteUser").click(function(e){
 		$.ajax({
 			type: "POST",
@@ -51,6 +77,9 @@ $(document).ready(function(){
 			error: function(data){alert(data);}
 		});
 	});
+
+	// ====== Modify User 
+
 	$('.buttonModifyRow').click(function(e){
 		document.getElementById("editErrorFieldForm").style = "display: none;";	
 		var GetUUID = $(this).closest("tr")
@@ -75,16 +104,74 @@ $(document).ready(function(){
 		});
 
 	});
+
+	$("#editUserForm").submit(function(e) {
+		e.preventDefault();
+
+		var form = $(this);
+		var actionUrl = urlModify;
+		$.ajax({
+			type: "POST",
+			url: actionUrl,
+			data: form.serialize(),
+			success: function(data)
+			{
+				if(data == "ok"){
+					window.location.reload();
+				}else{
+					editErrorFieldForm = document.getElementById("editErrorFieldForm");
+					editErrorFieldForm.style = "display: true;";
+					// $("#editErrorFieldForm").css({"display":"true"});
+					const ErrorMSG= "Error : ";
+					$("#editErrorFieldForm span").text(ErrorMSG.concat(data));
+				}
+			}
+		});
+	});
+
+	// ======= Enable / Disable user
+	$(".buttonDisableUser").on("click",function(){
+		$("#messageEnablModal").html("Are you sure you want to disable this user ?");
+	});
+	$(".buttonEnableUser").on("click",function(){
+		$("#messageEnablModal").html("Are you sure you want to enable this user ?");
+	});
+
+	$('.buttonAbleUser').click(function(){
+		console.log("click");
+		var $item = $(this).closest("tr")
+				.find("#uuidUserTable")
+				.text();
+		temp_uuid = $item.trim();
+	});
+
+	$("#yesButtonAbleUser").click(function(e){
+		$.ajax({
+			type: "POST",
+			url: urlAble,
+			data: {'uuid':temp_uuid},
+			success: function(data){
+				if(data == "ok"){
+					window.location.reload();
+				}
+			},
+			error: function(data){alert(data);}
+		});
+	});
+
+
+	// ====== SearchBar
+
 	$("#table-search-users").keyup(function() {
 			var value = $(this).val().toLowerCase();
 			$("#bodyUsersTable tr").filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-			if($(this).text().toLowerCase().indexOf(value) == -1){
-				document.getElementById("noUserFound").style  = "display: True;";
-			}else{
-				document.getElementById("noUserFound").style  = "display: none;";
-			}
 		});
+		if($("#bodyUsersTable").find('tr').is(':visible')){
+			document.getElementById("noUserFound").style  = "display: none;";
+		}else{
+			document.getElementById("noUserFound").style  = "display: True;";
+		}
 	});
 
 	// old search bar with dynamic search in db
@@ -118,52 +205,8 @@ $(document).ready(function(){
 	// 	});
 	// });
 
-	$("#addUserForm").submit(function(e) {
-		e.preventDefault();
-
-		var form = $(this);
-		var actionUrl = urlAdd;
-		// console.log(actionUrl);
-		$.ajax({
-			type: "POST",
-			url: actionUrl,
-			data: form.serialize(),
-			success: function(data)
-			{
-				if(data == "ok"){
-					window.location.reload();
-				}else{
-					alertAddUserForm = document.getElementById("alertAddUserForm");
-					alertAddUserForm.style = "display: true;";
-					const ErrorMSG= "Error : ";
-					$("#alertAddUserForm span").text(ErrorMSG.concat(data));
-				}
-			}
-		});
-	});
-	$("#editUserForm").submit(function(e) {
-		e.preventDefault();
-
-		var form = $(this);
-		var actionUrl = urlModify;
-		$.ajax({
-			type: "POST",
-			url: actionUrl,
-			data: form.serialize(),
-			success: function(data)
-			{
-				if(data == "ok"){
-					window.location.reload();
-				}else{
-					editErrorFieldForm = document.getElementById("editErrorFieldForm");
-					editErrorFieldForm.style = "display: true;";
-					// $("#editErrorFieldForm").css({"display":"true"});
-					const ErrorMSG= "Error : ";
-					$("#editErrorFieldForm span").text(ErrorMSG.concat(data));
-				}
-			}
-		});
-	});
+	
+	
 });
 
 
