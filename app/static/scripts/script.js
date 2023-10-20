@@ -1,13 +1,6 @@
 var temp_uuid;
 var getRowUserTable;
 
-// if(document.getElementById("bodyUsersTable").rows.length == 0){
-// 	document.getElementById("noUserFound").style  = "display: True;";
-// }else{
-// 	document.getElementById("noUserFound").style  = "display: none;";
-// 	document.getElementById
-// }
-
 $.ajaxSetup({
 	beforeSend: function(xhr, settings) {
 		if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
@@ -15,17 +8,7 @@ $.ajaxSetup({
 		}
 	}
 });
-// ajax for submit form
 $(document).ready(function(){
-	var socketio = io.connect(location.protocol+'//' + document.domain + ':' + location.port);
-	// if($("#bodyUsersTable").children().length == 0){
-		// document.getElementById("noUserFound").style  = "display: True;";
-	// }else{
-		// document.getElementById("noUserFound").style  = "display: none;";
-		// var getRowUserTable = $("#bodyUsersTable").children('tr:first');
-	// }
-
-
 	// Add user
 
 	$("#addUserForm").submit(function(e) {
@@ -53,16 +36,15 @@ $(document).ready(function(){
 	});
 
 
+
+
+	// ====== Delete User
 	$('.buttonDeleteRow').click(function(e){
-		// $("#confirmRemoveModal").show();
-		console.log("click");
 		var $item = $(this).closest("tr")
 				.find("#uuidUserTable")
 				.text();
 		temp_uuid = $item.trim();
 	});
-
-	// ====== Delete User
 
 	$("#yesButtonDeleteUser").click(function(e){
 		$.ajax({
@@ -172,40 +154,7 @@ $(document).ready(function(){
 		}else{
 			document.getElementById("noUserFound").style  = "display: True;";
 		}
-	});
-
-	// old search bar with dynamic search in db
-
-	// $("#table-search-users").keyup(function(e){
-	// 	var getElement = $(this).val();
-	// 	socketio.emit("sendGetUsers",getElement);
-	// 	socketio.on("getUsers",function(data){
-	// 		var getBodyTable = $("#bodyUsersTable");
-	// 		getBodyTable.empty();
-	// 		$(data).each(function( userL ){
-	// 			var userLi =  data[userL]
-	// 			var newe = getRowUserTable.clone();
-	// 			newe.find("#uuidUserTable").html(userLi[0]);
-	// 			newe.find("#longNameUserTable").html(userLi[1].concat(" ",userLi[2]));
-	// 			newe.find("#emailUserTable").html(userLi[3]);
-	// 			newe.find("#usernameUserTable").html(userLi[4]);
-	// 			newe.find("#jobUserTable").html(userLi[5]);
-	// 			if(userLi){
-	// 				newe.find("#totpUserTable").html('<div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div> Disabled');
-	// 			}else{
-	// 				newe.find("#totpUserTable").html('<div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Enabled');
-	// 			}
-	// 			$("#bodyUsersTable").append(newe);
-	// 		});
-	// 		if(data.length == 0){
-	// 			document.getElementById("noUserFound").style  = "display: True;";
-	// 		}else{
-	// 			document.getElementById("noUserFound").style  = "display: none;";
-	// 		}
-	// 	});
-	// });
-
-	
+	});	
 	
 });
 

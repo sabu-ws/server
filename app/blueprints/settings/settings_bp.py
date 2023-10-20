@@ -1,10 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint
 
-from app import login_required, current_user, bcrypt
+from app import login_required
 
-from app.utils import logging
-# from app.forms import LoginForm
-from app.models import User
 from config import *
 
 settings_bp = Blueprint(
@@ -14,7 +11,7 @@ settings_bp = Blueprint(
 	)
 
 @settings_bp.route("/",methods=["GET","POST"])
-@login_required()
+@login_required
 def settings():
-	return "settings page"
-	return render_template("settings.html")
+	return "comming soon"
+	return render_template("profil-settings.html")

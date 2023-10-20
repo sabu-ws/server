@@ -21,18 +21,6 @@ class Users(db.Model, UserMixin):
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    def to_dict(self):
-        return {
-            'name': self.name,
-            'firstname': self.firstname,
-            'username': self.username,
-            'job': self.job,
-            'email': self.email,
-            'role': self.role,
-            'enable': self.enable,
-            'OTPSecret': True if self.OTPSecret else False,
-        }
-
 class USBlog(db.Model):
     __tablename__ = 'USBlog'
     id = db.Column(db.Integer, primary_key=True,unique=True)
