@@ -367,7 +367,7 @@
                                     <input type="password" id="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonCurrentPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonCurrentPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewCurrentPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -378,7 +378,7 @@
                                     <input type="password" id="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonNewPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonNewPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewNewPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -389,7 +389,7 @@
                                     <input type="password" id="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonRepeatNewPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonRepeatNewPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewRepeatNewPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -526,34 +526,34 @@
         toggleButtonCurrentPassword.addEventListener('click', function() {
             if (currentPassword.type === 'password') {
                 currentPassword.type = 'text';
-            document.getElementById("toggleButtonCurrentPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonCurrentPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.add("fa-eye-slash");
             } else {
                 currentPassword.type = 'password';
-            document.getElementById("toggleButtonCurrentPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonCurrentPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.add("fa-eye");
             }
         });
         toggleButtonNewPassword.addEventListener('click', function() {
             if (newPassword.type === 'password') {
                 newPassword.type = 'text';
-            document.getElementById("toggleButtonNewPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonNewPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewNewPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewNewPassword").classList.add("fa-eye-slash");
             } else {
                 newPassword.type = 'password';
-            document.getElementById("toggleButtonNewPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonNewPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewNewPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewNewPassword").classList.add("fa-eye");
             }
         });
         toggleButtonRepeatNewPassword.addEventListener('click', function() {
             if (RepeatNewPassword.type === 'password') {
                 RepeatNewPassword.type = 'text';
-            document.getElementById("toggleButtonRepeatNewPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonRepeatNewPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.add("fa-eye-slash");
             } else {
                 RepeatNewPassword.type = 'password';
-            document.getElementById("toggleButtonRepeatNewPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonRepeatNewPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.add("fa-eye");
             }
         });
     </script>
