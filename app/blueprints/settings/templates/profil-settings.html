@@ -325,7 +325,7 @@
                 <!-- Profil information -->
                 <div class="bg-white rounded-lg shadow-md">
                     <h1 class="flex justify-center p-4 text-2xl">Profil Information</h1>
-                    <div class="flex-col ml-20 mt-10">
+                    <div class="flex-col ml-20 mt-4">
                         <label for="FirstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                         <div class="flex mb-4">
                             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -342,6 +342,14 @@
                             <input type="text" id="LastName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-96 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="NAME_PERSON">
                         </div>
 
+                        <label for="Job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job</label>
+                        <div class="flex mb-4">
+                            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </span>
+                            <input type="text" id="Job" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-96 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="JOB_PERSON">
+                        </div>
+
                         <label for="Email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <div class="flex mb-4">
                             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -350,7 +358,7 @@
                             <input type="email" id="Email" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-96 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="person@email.com">
                         </div>
                     </div>
-                    <div class="flex justify-end mr-12 mb-4 mt-20">
+                    <div class="flex justify-end mr-12 mb-4">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                     </div>
                 </div>
@@ -367,7 +375,7 @@
                                     <input type="password" id="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonCurrentPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonCurrentPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewCurrentPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -378,7 +386,7 @@
                                     <input type="password" id="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonNewPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonNewPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewNewPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -389,7 +397,7 @@
                                     <input type="password" id="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-9/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
                                     <button id="toggleButtonRepeatNewPassword" type="button" class="absolute inset-y-0 right-44 px-3 py-2 bg-transparent">
                                         <div class="text-gray-500">
-                                          <i id="toggleButtonRepeatNewPassword" class="fa-solid fa-eye"></i>
+                                          <i id="toggleButtonViewRepeatNewPassword" class="fa-solid fa-eye"></i>
                                         </div>
                                     </button>
                                 </div>
@@ -401,7 +409,7 @@
                     </div>
                 </div>
 
-                <!-- 2FA information -->
+                <!-- MFA information -->
                 <div class="bg-white rounded-lg shadow-md">
                     <h1 class="flex justify-center p-4 text-2xl">Two Factor Authentication</h1>
                     <p class="flex justify-center ml-4 mb-4 p-4">When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's authenticator application.</p>
@@ -413,78 +421,9 @@
                     </div>
 
                     <div class="flex justify-end mr-12 mb-4">
-                        <button type="submit" data-modal-target="Setup2FA" data-modal-toggle="Setup2FA" class="text-white bg-green-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enabled</button>
-                        <button type="submit" data-modal-target="Disable2FA" data-modal-toggle="Disable2FA" class="text-white bg-red-700 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Disabled</button>
+                        <button type="submit" class="text-white bg-green-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enabled</button>
+                        <button type="submit" class="text-white bg-red-700 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Disabled</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2FA SETUP modal -->
-    <div id="Setup2FA" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        2FA SETUP
-                    </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="Setup2FA">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="flex-col p-6 space-y-4">
-                    <p class="flex justify-center">Flash the QR code in your phone's authenticator application :</p>
-                    <div class="flex justify-center">
-                        <img src="/static/assets/icons/qr_code.svg" alt="QR_CODE" class="border rounded-lg">
-                    </div>
-                    <p class="flex justify-center">Or copy the url in your phone's authenticator application :</p>
-                    <a href="https://sabu-ws/server/auth/?=48661865163161" class="flex justify-center">https://sabu-ws/server/auth/?=48661865163161</a>
-                </div>
-                <div class="flex justify-center items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <div class="flex-col space-y-4">
-                    <label for="TestCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter the code below to verify your phone and complete the setup :</label>
-                    <input type="text" name="TestCode" id="TestCode" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Authentication code" required>
-                </div> 
-                </div>
-                <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <div class="flex-col w-full">
-                    <button id="TestCode" type="submit" class="flex m-auto mr-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Finish</button>
-                    <div class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                        <span class="font-bold">Error !</span>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2FA DISABLE modal -->
-    <div id="Disable2FA" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="Disable2FA">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-6 text-center">
-                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure to want to disable 2FA ?</h3>
-                    <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                        Yes
-                    </button>
-                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
                 </div>
             </div>
         </div>
@@ -526,34 +465,34 @@
         toggleButtonCurrentPassword.addEventListener('click', function() {
             if (currentPassword.type === 'password') {
                 currentPassword.type = 'text';
-            document.getElementById("toggleButtonCurrentPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonCurrentPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.add("fa-eye-slash");
             } else {
                 currentPassword.type = 'password';
-            document.getElementById("toggleButtonCurrentPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonCurrentPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewCurrentPassword").classList.add("fa-eye");
             }
         });
         toggleButtonNewPassword.addEventListener('click', function() {
             if (newPassword.type === 'password') {
                 newPassword.type = 'text';
-            document.getElementById("toggleButtonNewPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonNewPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewNewPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewNewPassword").classList.add("fa-eye-slash");
             } else {
                 newPassword.type = 'password';
-            document.getElementById("toggleButtonNewPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonNewPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewNewPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewNewPassword").classList.add("fa-eye");
             }
         });
         toggleButtonRepeatNewPassword.addEventListener('click', function() {
             if (RepeatNewPassword.type === 'password') {
                 RepeatNewPassword.type = 'text';
-            document.getElementById("toggleButtonRepeatNewPassword").classList.remove("fa-eye");
-            document.getElementById("toggleButtonRepeatNewPassword").classList.add("fa-eye-slash");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.remove("fa-eye");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.add("fa-eye-slash");
             } else {
                 RepeatNewPassword.type = 'password';
-            document.getElementById("toggleButtonRepeatNewPassword").classList.remove("fa-eye-slash");
-            document.getElementById("toggleButtonRepeatNewPassword").classList.add("fa-eye");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.remove("fa-eye-slash");
+            document.getElementById("toggleButtonViewRepeatNewPassword").classList.add("fa-eye");
             }
         });
     </script>
