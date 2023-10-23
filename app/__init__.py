@@ -34,7 +34,7 @@ bcrypt = Bcrypt(app)
 
 # sqlalchemy database
 db = SQLAlchemy()
-from app.models import Users
+from app.models import Users, Job
 if not os.path.exists(os.path.join("instance",db_name)):
 	db.init_app(app)
 	with app.app_context():
@@ -42,7 +42,10 @@ if not os.path.exists(os.path.join("instance",db_name)):
 		while True:
 			passwordAdmin = "".join(random.choices(string.ascii_letters+string.digits+"@!:;,?./+-*",k=20))
 			if re.match(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\*\.!@$%^\&\(\)\{\}\[\]:;<>,\.\?\/~_\+-=\|]).{12,255}$",passwordAdmin):
-				set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job="Administrateur")
+				set_job_admin = Job(name="Administrator")
+				db.session.add(set_job_admin)
+				db.session.commit()
+				set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
 				set_admin.set_password(passwordAdmin)
 				db.session.add(set_admin)
 				db.session.commit()
@@ -63,7 +66,7 @@ from app.models import *
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'login.login'
 
 @login_manager.user_loader
 def load_user(user_id):

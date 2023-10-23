@@ -17,7 +17,7 @@ login_bp = Blueprint(
 
 def check_user():
 	if current_user.role == "Admin":
-		return redirect(url_for("admin.manage_users"))
+		return redirect(url_for("panel.users.index"))
 	elif current_user.role == "User":
 		return redirect(url_for("browser.index"))
 	else:
@@ -33,16 +33,19 @@ def login():
 		form = LoginForm(data=data)
 		if form.password.validate(form):
 			user = Users.query.filter_by(username=form.username.data).first()
-			if user != None:
-				if bcrypt.check_password_hash(user.password,form.password.data) :
-					if user.OTPSecret != None:
-						session["totp"] = True
-						session["user"] = user.username
-						login_user(user)
-						return redirect(url_for("login.mfa"))
+			if user.enable == 1:
+				if user != None:
+					if bcrypt.check_password_hash(user.password,form.password.data) :
+						if user.OTPSecret != None:
+							session["totp"] = True
+							session["user"] = user.username
+							login_user(user)
+							return redirect(url_for("login.mfa"))
+						else:
+							login_user(user)
+							return render_template("login.html",con="ok")
 					else:
-						login_user(user)
-						return render_template("login.html",con="ok")
+						return render_template("login.html",con="ko")
 				else:
 					return render_template("login.html",con="ko")
 			else:

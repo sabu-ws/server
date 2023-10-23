@@ -12,14 +12,20 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=True)
-    job = db.Column(db.String(255), nullable=True)
+    job = db.Column(db.Integer,db.ForeignKey('Job.id'))
+    role = db.Column(db.String(64), nullable=False)
     OTPSecret = db.Column(db.String(255),unique=True, nullable=True)
     codeEP = db.Column(db.String(255),unique=True, nullable=True)
-    role = db.Column(db.String(64), nullable=False)
+    picture = db.Column(db.String(1024),unique=True,nullable=True)
     enable = db.Column(db.Integer, nullable=True, default=1)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+class Job(db.Model):
+    __tablename__ = 'Job'
+    id = db.Column(db.Integer, primary_key=True,unique=True)
+    name=db.Column(db.String(255),nullable=False, unique=True)
 
 class USBlog(db.Model):
     __tablename__ = 'USBlog'

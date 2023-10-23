@@ -9,14 +9,28 @@ $.ajaxSetup({
 	}
 });
 $(document).ready(function(){
-	// Add user
+
+	// toggle buttont view password
+	$(".toggleView").click(function(){
+		if($(this).closest("div").closest("button").prev().attr("type") == "password"){
+			$(this).closest("div").closest("button").prev().attr("type","text");
+			$(this).removeClass("fa-eye");
+			$(this).addClass("fa-eye-slash");
+		}else{
+			$(this).closest("div").closest("button").prev().attr("type","password");
+			$(this).removeClass("fa-eye-slash");
+			$(this).addClass("fa-eye");
+		}
+	});
+
+
+	// ======= Add user
 
 	$("#addUserForm").submit(function(e) {
 		e.preventDefault();
 
 		var form = $(this);
 		var actionUrl = urlAdd;
-		// console.log(actionUrl);
 		$.ajax({
 			type: "POST",
 			url: actionUrl,
@@ -103,7 +117,6 @@ $(document).ready(function(){
 				}else{
 					editErrorFieldForm = document.getElementById("editErrorFieldForm");
 					editErrorFieldForm.style = "display: true;";
-					// $("#editErrorFieldForm").css({"display":"true"});
 					const ErrorMSG= "Error : ";
 					$("#editErrorFieldForm span").text(ErrorMSG.concat(data));
 				}
@@ -142,6 +155,42 @@ $(document).ready(function(){
 	});
 
 
+	// ===== Job manage
+	$("#AddJobForm").submit(function(e){
+		e.preventDefault();
+		$.ajax({
+			type: "POST",
+			url: urlAddJob,
+			data: $(this).serialize(),
+			success: function(data){
+				if(data == "ok"){
+					window.location.reload();
+				}else{
+					$("#ErrorJob").attr("style","");
+					$("#ErrorJobMSG").html(data);
+				}
+			}
+		});
+	});
+
+	$("#RemoveJobForm").submit(function(e){
+		e.preventDefault();
+		$.ajax({
+			type: "POST",
+			url: urlRemoveJob,
+			data: $(this).serialize(),
+			success: function(data){
+				if(data == "ok"){
+					window.location.reload();
+				}else{
+					$("#ErrorJob").attr("style","");
+					$("#ErrorJobMSG").html(data);
+				}
+			}
+		});
+	});	
+
+
 	// ====== SearchBar
 
 	$("#table-search-users").keyup(function() {
@@ -155,65 +204,41 @@ $(document).ready(function(){
 			document.getElementById("noUserFound").style  = "display: True;";
 		}
 	});	
+
+
+	// ====== user settings
+	$("#enable2fa").click(function(){	
+				$.ajax({
+					type: "GET",
+					url: otp_url,
+					success: function(data)
+					{
+						$("#otp_url").html(data);
+						$("#qrcode_render").attr('src',qrcode_url+"?url="+data);
+					}
+				});
+			});
+			$("#FormCheckTotp").submit(function(e){
+				e.preventDefault();
+				if($("#TestTOTPCodeInput").val()==""){
+					$("#ErrorTotp").attr("style","");
+					$("#ErrorTotpMSG").html("Please enter your code.");
+				}else{
+					$.ajax({
+						type: "POST",
+						url: check_otp_url,
+						data: $(this).serialize(),
+						success: function(data)
+						{
+							if(data=="ok"){
+								window.location.reload();
+							}else{
+								$("#ErrorTotp").attr("style","");
+								$("#ErrorTotpMSG").html(data);
+							}
+						}
+					});
+				}
+			});
 	
-});
-
-
-// Part add modal
-const toggleButtonAddPassword = document.getElementById('toggleButtonAddPassword');
-const toggleButtonAddRepeatPassword = document.getElementById('toggleButtonAddRepeatPassword');
-const AddPassword = document.getElementById('AddPassword');
-const AddRepeatPassword = document.getElementById('AddRepeatPassword');
-
-toggleButtonAddPassword.addEventListener('click', function() {
-	if (AddPassword.type === 'password') {
-		AddPassword.type = 'text';
-	document.getElementById("toggleviewAddPassword").classList.remove("fa-eye");
-	document.getElementById("toggleviewAddPassword").classList.add("fa-eye-slash");
-	} else {
-		AddPassword.type = 'password';
-	document.getElementById("toggleviewAddPassword").classList.remove("fa-eye-slash");
-	document.getElementById("toggleviewAddPassword").classList.add("fa-eye");
-	}
-});
-toggleButtonAddRepeatPassword.addEventListener('click', function() {
-	if (AddRepeatPassword.type === 'password') {
-		AddRepeatPassword.type = 'text';
-	document.getElementById("toggleviewAddRepeatPassword").classList.remove("fa-eye");
-	document.getElementById("toggleviewAddRepeatPassword").classList.add("fa-eye-slash");
-	} else {
-		AddRepeatPassword.type = 'password';
-	document.getElementById("toggleviewAddRepeatPassword").classList.remove("fa-eye-slash");
-	document.getElementById("toggleviewAddRepeatPassword").classList.add("fa-eye");
-	}
-});
-
-
-// Part edit modal
-const toggleButtonEditPassword = document.getElementById('toggleButtonEditPassword');
-const toggleButtonEditRepeatPassword = document.getElementById('toggleButtonEditRepeatPassword');
-const EditPassword = document.getElementById('EditPassword');
-const EditRepeatPassword = document.getElementById('EditRepeatPassword');
-
-toggleButtonEditPassword.addEventListener('click', function() {
-	if (EditPassword.type === 'password') {
-		EditPassword.type = 'text';
-	document.getElementById("toggleviewEditPassword").classList.remove("fa-eye");
-	document.getElementById("toggleviewEditPassword").classList.add("fa-eye-slash");
-	} else {
-		EditPassword.type = 'password';
-	document.getElementById("toggleviewEditPassword").classList.remove("fa-eye-slash");
-	document.getElementById("toggleviewEditPassword").classList.add("fa-eye");
-	}
-});
-toggleButtonEditRepeatPassword.addEventListener('click', function() {
-	if (EditRepeatPassword.type === 'password') {
-		EditRepeatPassword.type = 'text';
-	document.getElementById("toggleviewEditRepeatPassword").classList.remove("fa-eye");
-	document.getElementById("toggleviewEditRepeatPassword").classList.add("fa-eye-slash");
-	} else {
-		EditRepeatPassword.type = 'password';
-	document.getElementById("toggleviewEditRepeatPassword").classList.remove("fa-eye-slash");
-	document.getElementById("toggleviewEditRepeatPassword").classList.add("fa-eye");
-	}
 });
