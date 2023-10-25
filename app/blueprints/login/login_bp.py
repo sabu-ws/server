@@ -39,7 +39,6 @@ def login():
 						if user.OTPSecret != None:
 							session["totp"] = True
 							session["user"] = user.username
-							login_user(user)
 							return redirect(url_for("login.mfa"))
 						else:
 							login_user(user)
