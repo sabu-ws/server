@@ -5,7 +5,6 @@ from wtforms.validators import InputRequired, Length, ValidationError, Regexp, I
 class LoginForm(FlaskForm):
     username = StringField(validators=[Length(min=4, max=20)])
     password = PasswordField(validators=[Length(min=12, max=255),Regexp(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\*\.!@$%^\&\(\)\{\}\[\]:;<>,\.\?\/~_\+-=\|]).{12,255}$",message=u"The password not match with padding") ])
-    submit = SubmitField()
 
 class AddUserForm(FlaskForm):
     firstname = StringField(validators=[Length(min=3, max=255,message="First Name fields must be between 3 and 255 characters long"),Regexp(r"^[a-zA-Z0-9-]{3,255}$",message=u"The firstname not match with padding")])

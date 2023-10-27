@@ -23,7 +23,7 @@
 							<div class="flex-col">
 								<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fileInput">Upload file</label>
 								<input name="filePP" accept="image/png, image/jpeg, image/jpg" class="block w-96 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="fileInputHelp" id="fileInput" type="file">
-								<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="fileInputHelp">PNG or JPG (MAX. 400x400px).</p>
+								<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="fileInputHelp">PNG or JPG (MAX. 400x400px, Max. <100 KB).</p>
 							</div>
 						</div>
 						<div class="flex justify-end mr-12 mb-4">
@@ -207,37 +207,16 @@
 						<button  data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
 							Yes
 						</button>
-					<button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+					<button data-modal-hide="popup-modal" type="submit" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
 					</form>	
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<!-- ALERTS -->
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-	<div class="flex justify-end m-auto fixed right-4 bottom-2">
-		<div id="error-alert" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-300 dark:bg-gray-800 dark:text-red-400" role="alert">
-			<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-			  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-			</svg>
-			<span class="sr-only">Info</span>
-			<div class="ml-3 mr-2 text-sm font-medium">
-			  <span class="font-bold">{{ messages[0] }}</span>
-			</div>
-			  <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-300 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#error-alert" aria-label="Close">
-				<span class="sr-only">Close</span>
-				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-				  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-				</svg>
-			</button>
-		  </div>
-	</div>
-	{% endif %}
-	{% endwith %}
 	<!-- js view mdp -->
 	<script type="text/javascript">
+		var csrf_token = "{{ csrf_token() }}";
 		var otp_url = "{{ url_for('user.totpmake') }}"
 		var qrcode_url = "{{ url_for('user.qrcoderender') }}"
 		var check_otp_url = "{{ url_for('user.totpcheck') }}"

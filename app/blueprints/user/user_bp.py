@@ -37,9 +37,9 @@ def mod_info():
 		user.firstname = form.firstname.data
 		user.email = form.email.data
 		db.session.commit()
-		flash("Your informations has been change!")
+		flash("Your informations has been change!","good")
 	else:
-		flash(form.errors[list(form.errors.keys())[0]][0])
+		flash(form.errors[list(form.errors.keys())[0]][0],"error")
 	return redirect(url_for("user.index"))
 
 # change password
@@ -57,15 +57,15 @@ def change_password():
 				if AddUserForm(data=data).password.validate(data):
 					user.set_password(repeat_new_password)
 					db.session.commit()
-					flash("Your password has been change.")
+					flash("Your password has been change","good")
 				else:
-					flash("Bad paddings for new passwords.")
+					flash("Bad paddings for new passwords","error")
 			else:
-				flash("New password and repeat password is not same.")
+				flash("New password and repeat password is not same","error")
 		else:
-			flash("Current password is same that new password.")
+			flash("Current password is same that new password","error")
 	else:
-		flash("Bad current password.")
+		flash("Bad current password","error")
 	return redirect(url_for("user.index"))
 
 
@@ -107,7 +107,7 @@ def totpcheck():
 			user = Users.query.filter_by(id=current_user.id).first()
 			user.OTPSecret = totpsec
 			db.session.commit()
-			flash("you have enable 2FA.")
+			flash("You have enable 2FA","good")
 			return "ok"
 		else:
 			return "Bad totp code"
@@ -119,7 +119,7 @@ def totpdisable():
 	if user.OTPSecret != None:
 		user.OTPSecret = None
 		db.session.commit()
-		flash("You have disable 2FA.")
+		flash("You have disable 2FA","good")
 	return redirect(url_for('user.index'))
 
 
@@ -133,23 +133,25 @@ def sendPicture():
 		if not os.path.exists("ProfilePicture"):
 			os.makedirs("ProfilePicture")
 		file = request.files["filePP"]
-		# file.save("toto.jpg")
-		# return ""
 		if file.content_type in allowed_ext:
 			image = Image.open(file)
 			px, py = image.size
 			guuid = user.uuid
 			filename =  guuid +"."+ file.content_type.split("/")[1]
-			if px <= 400 and py <= 400:
-				path = os.path.join("ProfilePicture",filename)
-				image.save(path)
-				user.picture = path
-				db.session.commit()
-				flash("your profile picture has been change")
+			MAX_SIZE = 100 * 1024
+			if len(file.read()) <= MAX_SIZE:
+				if px <= 400 and py <= 400:
+					path = os.path.join("ProfilePicture",filename)
+					image.save(path)
+					user.picture = path
+					db.session.commit()
+					flash("Your profile picture has been change","good")
+				else:
+					flash("Your image must did 400x400","error")
 			else:
-				flash("Your image must did 400x400")
+				flash("You image must be less than 100 KB")
 		else:
-			flash("Your picture must be to format png or jpg")
+			flash("Your picture must be to format png or jpg","error")
 		return redirect(url_for("user.index")) 
 	else:
 		logout_user()

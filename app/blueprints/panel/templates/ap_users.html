@@ -83,12 +83,12 @@
 												<i class="fa-solid fa-trash"></i>
 										</button>
 										{% if user.enable == 1 %}
-										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-green-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-green-600">
-											<i class="fa-solid fa-check"></i>
+										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-red-600">
+											<i class="fa-solid fa-xmark"></i>
 										</button>
 										{% else %}
-										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-red-600">
-											<i class="fa-solid fa-xmark"></i>
+										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-green-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-green-600">
+											<i class="fa-solid fa-check"></i>
 										</button>
 										{% endif %}
 									</div>
@@ -177,17 +177,17 @@
 									</div>
 								</div>
 								<!-- Modal footer -->
-                                <div class="p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                    <div class="flex items-center">
-                                        <button type="submit" class="m-auto ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                                        <button type="submit" class="m-auto mr-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Disable 2FA</button>
-                                    </div>
-                                    <div class="w-full">
-                                        <div class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                            <span class="font-bold">Error !</span>
-                                        </div>
-                                    </div>                                    
-                                </div>
+								<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+									<div class="flex-col w-full">
+										<div class="flex items-center">
+											<button type="submit" class="m-auto ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+											<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" style="display: none;">Disable 2FA</button>
+										</div>
+										<div id="editErrorFieldForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+											<span class="font-bold">Error !</span>
+										</div>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -385,11 +385,12 @@
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
 		var urlDelete = "{{ url_for('panel.users.del_user') }}";
-		var urlModifyQuery = "{{ url_for('panel.users.mod_user_query') }}"
-		var urlAdd = "{{ url_for('panel.users.add_user') }}"
-		var urlModify = "{{ url_for('panel.users.mod_user') }}"
-		var urlAble = "{{ url_for('panel.users.able_user') }}"
-		var urlAddJob = "{{ url_for('panel.users.add_job') }}"
-		var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}"
+		var urlModifyQuery = "{{ url_for('panel.users.mod_user_query') }}";
+		var urlAdd = "{{ url_for('panel.users.add_user') }}";
+		var urlModify = "{{ url_for('panel.users.mod_user') }}";
+		var urlDisTotp = "{{ url_for('panel.users.mod_user_disable_otp') }}";
+		var urlAble = "{{ url_for('panel.users.able_user') }}";
+		var urlAddJob = "{{ url_for('panel.users.add_job') }}";
+		var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}";
 	</script>
 {% endblock %}

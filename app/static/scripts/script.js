@@ -69,8 +69,7 @@ $(document).ready(function(){
 				if(data == "ok"){
 					window.location.reload();
 				}
-			},
-			error: function(data){alert(data);}
+			}
 		});
 	});
 
@@ -95,21 +94,22 @@ $(document).ready(function(){
 				$("#editUserEmail").val(data["email"]);
 				$("#editUserJob").val(data["job"]);
 				$("#editUserRole").val(data["role"]);
-			},
-			error: function(data){console.log(data);}
+				if(data["totp"]){
+					$("#Disable2FAButton").attr("style","");
+				}else{
+					$("#Disable2FAButton").attr("style","display: none;");
+				}
+			}
 		});
 
 	});
 
 	$("#editUserForm").submit(function(e) {
 		e.preventDefault();
-
-		var form = $(this);
-		var actionUrl = urlModify;
 		$.ajax({
 			type: "POST",
-			url: actionUrl,
-			data: form.serialize(),
+			url: urlModify,
+			data: $(this).serialize(),
 			success: function(data)
 			{
 				if(data == "ok"){
@@ -122,6 +122,23 @@ $(document).ready(function(){
 				}
 			}
 		});
+	});
+
+	$("#Disable2FAButton").click(function(e){
+		e.preventDefault();
+		if(confirm("Are you sure to disable TOTP for this user ?")){
+			$.ajax({
+				type: "POST",
+				url: urlDisTotp,
+				data: {'uuid':$("#editUserUUID").val()},
+				success: function(data)
+				{
+					if(data == "ok"){
+						window.location.reload();
+					}
+				}
+			});
+		}
 	});
 
 	// ======= Enable / Disable user
@@ -149,8 +166,7 @@ $(document).ready(function(){
 				if(data == "ok"){
 					window.location.reload();
 				}
-			},
-			error: function(data){alert(data);}
+			}
 		});
 	});
 
@@ -218,26 +234,26 @@ $(document).ready(function(){
 					}
 				});
 			});
-			$("#FormCheckTotp").submit(function(e){
-				e.preventDefault();
-				if($("#TestTOTPCodeInput").val()==""){
-					$("#ErrorTotp").attr("style","");
-					$("#ErrorTotpMSG").html("Please enter your code.");
-				}else{
-					$.ajax({
-						type: "POST",
-						url: check_otp_url,
-						data: $(this).serialize(),
-						success: function(data)
-						{
-							if(data=="ok"){
-								window.location.reload();
-							}else{
-								$("#ErrorTotp").attr("style","");
-								$("#ErrorTotpMSG").html(data);
-							}
-						}
-					});
+	$("#FormCheckTotp").submit(function(e){
+		e.preventDefault();
+		if($("#TestTOTPCodeInput").val()==""){
+			$("#ErrorTotp").attr("style","");
+			$("#ErrorTotpMSG").html("Please enter your code.");
+		}else{
+			$.ajax({
+				type: "POST",
+				url: check_otp_url,
+				data: $(this).serialize(),
+				success: function(data)
+				{
+					if(data=="ok"){
+						window.location.reload();
+					}else{
+						$("#ErrorTotp").attr("style","");
+						$("#ErrorTotpMSG").html(data);
+					}
+				}
+			});
 				}
 			});
 	

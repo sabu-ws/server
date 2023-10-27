@@ -18,6 +18,7 @@ class Users(db.Model, UserMixin):
     codeEP = db.Column(db.String(255),unique=True, nullable=True)
     picture = db.Column(db.String(1024),unique=True,nullable=True)
     enable = db.Column(db.Integer, nullable=True, default=1)
+    firstCon = db.Column(db.Integer, default=0)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')

@@ -40,7 +40,7 @@ def add_user():
 							useradd.set_password(data["password"])
 							db.session.add(useradd)
 							db.session.commit()
-							print("New user added",data["username"])
+							flash(f"New user added {data['username']}","good")
 							return "ok"
 						else:
 							return "This username already exists"
@@ -49,10 +49,10 @@ def add_user():
 						return jsonify(dict(form.errors.items())[keys[0]][0])
 				else:
 					logout_user()
+					return "ok"
 			else:
 				return "Please select a job"
 		else:
-			flash("Please fields all input")
 			return "Please fields all input"
 	else:
 		return "Password fields are not the same "
@@ -81,6 +81,7 @@ def mod_user():
 								return "Password fields are not the same"
 					else:
 						logout_user()
+						return redirect("/")
 				else:
 					return "Please select a job"
 				queryUser.username = data["username"]
@@ -90,14 +91,17 @@ def mod_user():
 				queryUser.job = queryJob.id
 				db.session.flush()
 				db.session.commit()
+				flash(f"The informations of {queryUser.username} have been change","good")
 				return "ok"
 			else:
 				keys = list(dict(form.errors.items()))
 				return jsonify(dict(form.errors.items())[keys[0]][0])
 		else:
 			logout_user()
+			return redirect("/")
 	else:
 		logout_user()
+		return redirect("/")
 	return 
 
 @users_bp.route("/mod_user/query",methods=["POST"])
@@ -109,10 +113,32 @@ def mod_user_query():
 			user.job = Job.query.filter_by(id=user.job).first().name
 			return jsonify({"uuid":user.uuid,"name":user.name,"firstname":user.firstname,"username":user.username,"email":user.email,"job":user.job,"totp":True if user.OTPSecret else False,"role":user.role})
 		else:
-			return "user not found"	
+			logout_user()
+			return ""
 	else:
 		logout_user()
-		return "user not found"
+		return ""
+
+@users_bp.route("/mod_user/disable_otp",methods=["POST"])
+def mod_user_disable_otp():
+	if "uuid" in request.form:
+		guuid = request.form["uuid"]
+		user = Users.query.filter_by(uuid=guuid).first()
+		if user != None:
+			if user.OTPSecret != None:
+				user.OTPSecret = None
+				db.session.commit()
+				return "ok"
+			else:
+				logout_user()
+				return ""
+		else:
+			logout_user()
+			return ""
+	else:
+		logout_user()
+		return ""
+	return ""
 
 @users_bp.route("/del_user",methods=["POST"])
 def del_user():
@@ -122,12 +148,14 @@ def del_user():
 		if search != None:
 			db.session.delete(search)
 			db.session.commit()
+			flash(f"The user {search.username} has been deleted","good")
 			return "ok"
 		else:
-			return "user not found"
+			logout_user()
+			return "ok"
 	else:
 		logout_user()
-		return "user not found"
+		return "ok"
 
 @users_bp.route("/able_user",methods=["POST"])
 def able_user():
@@ -137,15 +165,18 @@ def able_user():
 		if search != None:
 			if search.enable == 1:
 				search.enable = 0
+				flash(f"The user {search.username} has been disable","good")
 			elif search.enable == 0:
 				search.enable = 1
+				flash(f"The user {search.username} has been enable","good")
 			db.session.commit()
 			return "ok"
 		else:
-			return "user not found"
+			logout_user()
+			return "ok"
 	else:
 		logout_user()
-		return "user not found"
+		return "ok"
 
 @users_bp.route("/add_job",methods=["POST"])
 def add_job():
@@ -154,11 +185,11 @@ def add_job():
 		regJob = r'^[a-zA-Z0-9-_.+\s]{1,255}$'
 		if re.match(regJob,job_name):
 			job = Job.query.filter_by(name=job_name).all()
-			if job != None:
+			if job == []:
 				new_job = Job(name=job_name)
 				db.session.add(new_job)
 				db.session.commit()
-				flash("New job had been add.")
+				flash("New job had been add.","good")
 				return "ok"
 			else:
 				return "Job already exists"
@@ -166,6 +197,7 @@ def add_job():
 			return "Bad paddings"
 	else:
 		logout_user()
+		return "ok"
 
 @users_bp.route("/remove_job",methods=["POST"])
 def remove_job():
@@ -178,13 +210,15 @@ def remove_job():
 					job = Job.query.filter_by(name=job_name).first()
 					db.session.delete(job)
 					db.session.commit()
+					flash(f"The job {job_name} has been deleted","good")
 					return "ok"
 				else:
 					return "This job was link to a person"
 			else:
 				logout_user()
+				return "ok"
 		else:
 			return "Please select a job to remove"
 	else:
 		logout_user()
-	return ""
+		return "ok"

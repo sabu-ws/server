@@ -4,7 +4,7 @@ from app import login_user, logout_user, login_required, current_user, bcrypt, d
 
 from app.utils import logging
 from app.forms import LoginForm
-from app.models import Users, Endpoint
+from app.models import Users, Job
 from config import *
 
 import pyotp
@@ -36,11 +36,15 @@ def login():
 			if user.enable == 1:
 				if user != None:
 					if bcrypt.check_password_hash(user.password,form.password.data) :
+						session["user"] = user.username
 						if user.OTPSecret != None:
 							session["totp"] = True
-							session["user"] = user.username
 							return redirect(url_for("login.mfa"))
+						elif user.firstCon == 0 :
+							return redirect(url_for('login.first_con'))
 						else:
+							session["job"] = Job.query.filter_by(id=user.job).first().name 
+							del session["totp"]
 							login_user(user)
 							return render_template("login.html",con="ok")
 					else:
@@ -51,6 +55,7 @@ def login():
 				return render_template("login.html",con="ko")
 		return render_template("login.html",con="ko")
 	return render_template("login.html")
+	return render_template("login_old.html")
 
 @login_bp.route("/mfa",methods=["GET","POST"])
 def mfa():
@@ -61,9 +66,9 @@ def mfa():
 				user = Users.query.filter_by(username=session["user"]).first()
 				totp = pyotp.TOTP(user.OTPSecret)
 				if totp.verify(data["totp"]):
-					login_user(user)
 					del session["totp"]
-					del session["user"]
+					session["job"] = Job.query.filter_by(id=user.job).first().name 
+					login_user(user)
 					return render_template("login_totp.html",con="ok")
 				else:
 					return render_template("login_totp.html",con="ko")
@@ -73,6 +78,33 @@ def mfa():
 		return redirect(url_for("login.login"))
 	return render_template("login_totp.html")
 
+
+@login_bp.route("/first_connection",methods=["GET","POST"])
+def first_con():
+	if "user" in session:
+		get_user = Users.query.filter_by(username=session['user']).first()
+		if request.method == "POST":
+			data = request.form
+			if "newPasswordInput" in data and "repeatPasswordInput" in data:
+				if data["newPasswordInput"] == data["repeatPasswordInput"]:
+					dataf={"username":session['user'],"password":data["newPasswordInput"]}
+					form = LoginForm(data=dataf)
+					if form.validate():
+						get_user.firstCon = 1
+						db.session.commit()
+						del session["totp"]
+						session["job"] = Job.query.filter_by(id=user.job).first().name 
+						login_user(get_user)
+						return render_template("login_first_con.html",con="ok")
+					else:
+						return render_template("login_first_con.html",con="ko",error=form.errors["password"][0])
+				else:
+					return render_template("login_first_con.html",con="ko",error="The password fields are not the same.")
+			else:
+				return redirect(url_for('login.login'))
+	else:
+		return redirect(url_for('login.login'))
+	return render_template("login_first_con.html")
 
 @login_bp.route("/logout",methods=["GET"])
 @login_required

@@ -39,20 +39,13 @@ if not os.path.exists(os.path.join("instance",db_name)):
 	db.init_app(app)
 	with app.app_context():
 		db.create_all()
-		while True:
-			passwordAdmin = "".join(random.choices(string.ascii_letters+string.digits+"@!:;,?./+-*",k=20))
-			if re.match(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\*\.!@$%^\&\(\)\{\}\[\]:;<>,\.\?\/~_\+-=\|]).{12,255}$",passwordAdmin):
-				set_job_admin = Job(name="Administrator")
-				db.session.add(set_job_admin)
-				db.session.commit()
-				set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
-				set_admin.set_password(passwordAdmin)
-				db.session.add(set_admin)
-				db.session.commit()
-				print("The password 'Admin' was :")
-				print(passwordAdmin)
-				break
-			print("bad gen password")
+		set_job_admin = Job(name="Administrator")
+		db.session.add(set_job_admin)
+		db.session.commit()
+		set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
+		set_admin.set_password("Admin")
+		db.session.add(set_admin)
+		db.session.commit()
 else:
 	db.init_app(app)
 
