@@ -17,8 +17,10 @@ login_bp = Blueprint(
 
 def check_user():
 	if current_user.role == "Admin":
+		session["job"] = Job.query.filter_by(id=current_user.job).first().name
 		return redirect(url_for("panel.users.index"))
 	elif current_user.role == "User":
+		session["job"] = Job.query.filter_by(id=current_user.job).first().name
 		return redirect(url_for("browser.index"))
 	else:
 		abort(404)
@@ -55,7 +57,6 @@ def login():
 				return render_template("login.html",con="ko")
 		return render_template("login.html",con="ko")
 	return render_template("login.html")
-	return render_template("login_old.html")
 
 @login_bp.route("/mfa",methods=["GET","POST"])
 def mfa():
@@ -82,6 +83,8 @@ def mfa():
 @login_bp.route("/first_connection",methods=["GET","POST"])
 def first_con():
 	if "user" in session:
+		if current_user.is_authenticated == True:
+			return check_user()
 		get_user = Users.query.filter_by(username=session['user']).first()
 		if request.method == "POST":
 			data = request.form
@@ -92,8 +95,7 @@ def first_con():
 					if form.validate():
 						get_user.firstCon = 1
 						db.session.commit()
-						del session["totp"]
-						session["job"] = Job.query.filter_by(id=user.job).first().name 
+						session["job"] = Job.query.filter_by(id=get_user.job).first().name
 						login_user(get_user)
 						return render_template("login_first_con.html",con="ok")
 					else:

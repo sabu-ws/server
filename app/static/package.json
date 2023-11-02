@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.5"
   },
   "dependencies": {
     "flowbite": "^1.8.1"

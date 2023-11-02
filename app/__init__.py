@@ -43,7 +43,7 @@ if not os.path.exists(os.path.join("instance",db_name)):
 		db.session.add(set_job_admin)
 		db.session.commit()
 		set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
-		set_admin.set_password("Admin")
+		set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
 		db.session.add(set_admin)
 		db.session.commit()
 else:
