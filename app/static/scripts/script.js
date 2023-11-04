@@ -258,36 +258,31 @@ $("#FormCheckTotp").submit(function(e){
 });
 
 $("#ToggleDarkMode").click(function(){
-	if(localStorage.theme === 'dark'){
+	if($("#ToggleDarkMode").prop("checked") === false){
 		localStorage.theme = 'light';
 		document.documentElement.classList.remove('dark');
 		$("#ToggleDarkModeIcon").removeClass("fa-moon");
 		$("#ToggleDarkModeIcon").addClass("fa-sun");
+		$("#ToggleDarkModeText").text("Light mode");
 	}else{
 		document.documentElement.classList.add('dark');
 		$("#ToggleDarkModeIcon").removeClass("fa-sun");
 		$("#ToggleDarkModeIcon").addClass("fa-moon");
+		$("#ToggleDarkModeText").text("Dark mode");
 		localStorage.theme = 'dark';
 	}
 });
 
-// localStorage.theme = 'dark'
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 	document.documentElement.classList.add('dark');
 	$("#ToggleDarkModeIcon").removeClass("fa-sun");
 	$("#ToggleDarkModeIcon").addClass("fa-moon");
-	$("#ToggleDarkMode").attr("checked",true);
+	$("#ToggleDarkModeText").text("Dark mode");
+	$("#ToggleDarkMode").prop("checked",true);
 } else {
 	document.documentElement.classList.remove('dark');
 	$("#ToggleDarkModeIcon").removeClass("fa-moon");
 	$("#ToggleDarkModeIcon").addClass("fa-sun");
-	$("#ToggleDarkMode").attr("checked",false);
-
+	$("#ToggleDarkMode").prop("checked",false);
+	$("#ToggleDarkModeText").text("Light mode");
 }
-
-// Whenever the user explicitly chooses light mode
-
-// Whenever the user explicitly chooses dark mode
-
-// Whenever the user explicitly chooses to respect the OS preference
-// localStorage.removeItem('theme')
