@@ -229,7 +229,7 @@ $("#enable2fa").click(function(){
 		url: otp_url,
 		success: function(data)
 		{
-			$("#otp_url").html(data);
+			$("#otp_url").val(data);
 			$("#qrcode_render").attr('src',qrcode_url+"?url="+data);
 		}
 	});
@@ -286,3 +286,15 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 	$("#ToggleDarkMode").prop("checked",false);
 	$("#ToggleDarkModeText").text("Light mode");
 }
+
+$("#closeButtonProfile").click(function(){
+	window.location = document.referrer;
+});
+
+
+$("#otpLinkBtn").click(function(){
+	$("#otp_url").select();
+	document.execCommand('copy');
+	$("#copyInfoText").html("Copied ✓")
+	window.getSelection().removeAllRanges();
+});
