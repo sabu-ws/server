@@ -1,0 +1,54 @@
+{% extends 'admin_base.html' %}
+{% set title='Server - Dashboard' %}
+{% block contents %}
+    <!-- SERVER DASHBOARD -->
+    <div class="p-4 sm:ml-64">
+        <div class="p-8 mt-14">
+            <!-- NAV HEADER -->
+            {% include 'subnavbar_server.html' %}
+            
+            <!-- DASH -->
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex items-center justify-center h-24 shadow-md rounded-lg bg-white dark:bg-gray-800">
+                   <p class="text-2xl text-gray-400 dark:text-gray-500">
+                      <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                      </svg>
+                   </p>
+                </div>
+                <div class="flex items-center justify-center h-24 shadow-md rounded-lg bg-white dark:bg-gray-800">
+                   <p class="text-2xl text-gray-400 dark:text-gray-500">
+                      <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                      </svg>
+                   </p>
+                </div>
+                <div class="flex items-center justify-center h-24 shadow-md rounded-lg bg-white dark:bg-gray-800">
+                   <p class="text-2xl text-gray-400 dark:text-gray-500">
+                      <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                      </svg>
+                   </p>
+                </div>
+             </div>
+             <div class="flex items-center justify-center h-48 mb-4 shadow-md rounded-lg bg-white dark:bg-gray-800">
+                <p class="text-2xl text-gray-400 dark:text-gray-500">
+                   <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                   </svg>
+                </p>
+             </div>
+            
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+</script>
+<script> 
+    document.getElementById("dashboard").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
+    document.getElementById("dashboard").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
+    document.getElementById("dashboard-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
+    document.getElementById("dashboard-svg").classList.add("text-blue-600", "dark:text-blue-500");
+</script>
+{% endblock %}

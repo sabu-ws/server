@@ -1,0 +1,110 @@
+{% extends 'admin_base.html' %}
+{% set title='Server - Settings' %}
+{% block contents %}
+<!-- SERVER DASHBOARD -->
+<div class="p-4 sm:ml-64">
+    <div class="p-8 mt-14">
+        <div class="grid grid-cols-1 gap-8 mb-8">
+            <div class="bg-gray-50 rounded-lg shadow-md">
+                <!-- NAV HEADER -->
+                {% include 'subnavbar_server.html' %}
+
+                <div class="p-8">
+                    <!-- SETTINGS -->
+                    <div class="grid grid-cols-1 mb-12">
+                        <div class="bg-white rounded-lg shadow-md">
+                            <h1 class="flex justify-center p-4 text-2xl font-semibold">Server Information</h1>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-12 mb-12">
+                        <div class="bg-white rounded-lg shadow-md">
+                            <h1 class="flex justify-center p-4 text-2xl font-medium">Hostname</h1>
+                            <div class="p-8">
+                                <h2 class="mb-2 text-lg font-semibold text-black">Requirements :</h2>
+                                <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                    <li class="flex items-center">
+                                        <svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                        </svg>
+                                        At max 253 characters
+                                    </li>
+                                </ul>
+                                <input type="text" name="hostname" class="w-full mt-4 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="HOSTNAME">
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md">
+                            <h1 class="flex justify-center p-4 text-2xl">SSL Certificate</h1>
+                            <div class="p-8">
+                                <p class="mb-4">You can define a trusted SSL certificate for the panel.</p>
+                                <div class="flex justify-center"> 
+                                    <div class="flex-col">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fileInput">Upload file</label>
+                                        <input class="block w-96 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="fileInputHelp" id="fileInput" type="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="fileInputHelp">CRT or KEY.</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-12">
+                        <div class="bg-white rounded-lg shadow-md">
+                            <h1 class="flex justify-center p-4 text-2xl">Network</h1>
+                            <div class="p-8">
+                                <div class="flex justify-center space-x-12">
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">Interface :</label>
+                                        <input type="text" name="interface" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="INTERFACE">
+                                    </div>
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">Gateway :</label>
+                                        <input type="text" name="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="GATEWAY">
+                                    </div>
+                                </div>
+                                <div class="flex justify-center space-x-12">
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">IP Address :</label>
+                                        <input type="text" name="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="IP ADDR">
+                                    </div>
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">DNS 1 :</label>
+                                        <input type="text" name="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS1">
+                                    </div>
+                                </div>
+                                <div class="flex justify-center space-x-12">
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">Netmask :</label>
+                                        <input type="text" name="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="NETMASK">
+                                    </div>
+                                    <div class="mb-4 w-full">
+                                        <label class="block mb-2">DNS 2 (Not required) :</label>
+                                        <input type="text" name="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS 2">
+                                    </div>
+                                </div>
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+</script>
+<script> 
+    document.getElementById("settings").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
+    document.getElementById("settings").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
+    document.getElementById("settings-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
+    document.getElementById("settings-svg").classList.add("text-blue-600", "dark:text-blue-500");
+</script>
+{% endblock %}

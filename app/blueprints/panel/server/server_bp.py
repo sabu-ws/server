@@ -9,4 +9,12 @@ server_bp = Blueprint(
 
 @server_bp.route("/")
 def index():
+	return render_template("ap_srv_dashboard.html")
+
+@server_bp.route("/logs")
+def logs():
 	return render_template("ap_coming_soon.html")
+
+@server_bp.route("/settings")
+def settings():
+	return render_template("ap_srv_settings.html")
