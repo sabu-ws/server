@@ -156,7 +156,7 @@
 					<span class="sr-only">Open user menu</span>
 					<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full">
 						{% if current_user.picture == None %}
-							<span class="font-bold text-white dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
+							<span class="font-bold text-white dark:text-gray-300">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
 						{% else %}
 							<img src="{{ url_for('user.renderPP') }}">
 						{% endif %}

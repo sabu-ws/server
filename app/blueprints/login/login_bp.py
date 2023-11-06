@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, g, jsonify, abort, send_file, session
+from flask import Blueprint, render_template, redirect, url_for, request, flash, g, jsonify, abort, send_file, session, make_response
 
 from app import login_user, logout_user, login_required, current_user, bcrypt, db, socketio, emit, app
 
@@ -7,7 +7,11 @@ from app.forms import LoginForm
 from app.models import Users, Job
 from config import *
 
+import datetime
+import jwt
 import pyotp
+import uuid
+import hashlib
 
 login_bp = Blueprint(
 	"login",
@@ -25,9 +29,21 @@ def check_user():
 	else:
 		abort(404)
 
+def check_token():
+	if "sabu" in request.cookies:
+		try:
+			data_prev = jwt.decode(request.cookies["sabu"], options={"verify_signature": False})
+			user = Users.query.filter_by(username=data_prev["username"]).first()
+			if user != None:
+				data = jwt.decode(request.cookies["sabu"],user.cookie , algorithms=["HS256"])
+				login_user(user)
+		except jwt.ExpiredSignatureError:
+			pass
+
 @login_bp.route("/",methods=["GET","POST"])
 def login():
 	session["totp"] = False
+	check_token()
 	if current_user.is_authenticated == True:
 		return check_user()
 	if request.method == "POST":
@@ -47,8 +63,15 @@ def login():
 						else:
 							session["job"] = Job.query.filter_by(id=user.job).first().name 
 							del session["totp"]
+							set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
+							random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
+							jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+							user.cookie = random_key
+							db.session.commit()
+							resp = make_response(render_template("login.html",con="ok"))
+							resp.set_cookie("sabu",jwt_token)
 							login_user(user)
-							return render_template("login.html",con="ok")
+							return resp
 					else:
 						return render_template("login.html",con="ko")
 				else:
@@ -94,6 +117,7 @@ def first_con():
 					form = LoginForm(data=dataf)
 					if form.validate():
 						get_user.firstCon = 1
+						get_user.set_password(data["newPasswordInput"])
 						db.session.commit()
 						session["job"] = Job.query.filter_by(id=get_user.job).first().name
 						login_user(get_user)
@@ -112,4 +136,6 @@ def first_con():
 @login_required
 def logout():
 	logout_user()
-	return redirect(url_for('login.login'))
+	resp = make_response(redirect(url_for('login.login')))
+	resp.delete_cookie("sabu")
+	return resp

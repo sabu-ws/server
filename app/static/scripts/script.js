@@ -1,10 +1,19 @@
 var temp_uuid;
 var getRowUserTable;
+var previous_url;
 
 $.ajaxSetup({
 	beforeSend: function(xhr, settings) {
 		if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
 			xhr.setRequestHeader("X-CSRFToken", csrf_token);
+		}
+	}
+});
+
+$(document).ready(function(){
+	if(previous_url!=document.referrer){
+		if(document.referrer!=window.location.href){
+			previous_url = document.referrer;
 		}
 	}
 });
@@ -288,7 +297,7 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 }
 
 $("#closeButtonProfile").click(function(){
-	window.location = document.referrer;
+	window.location = previous_url;
 });
 
 

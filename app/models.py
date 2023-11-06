@@ -14,6 +14,7 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=True)
     job = db.Column(db.Integer,db.ForeignKey('Job.id'))
     role = db.Column(db.String(64), nullable=False)
+    cookie = db.Column(db.String(255),unique=True, nullable=True)
     OTPSecret = db.Column(db.String(255),unique=True, nullable=True)
     codeEP = db.Column(db.String(255),unique=True, nullable=True)
     picture = db.Column(db.String(1024),unique=True,nullable=True)
