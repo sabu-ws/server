@@ -10,14 +10,6 @@ $.ajaxSetup({
 	}
 });
 
-$(document).ready(function(){
-	if(previous_url!=document.referrer){
-		if(document.referrer!=window.location.href){
-			previous_url = document.referrer;
-		}
-	}
-});
-
 // toggle buttont view password
 $(".toggleView").click(function(){
 	if($(this).closest("div").closest("button").prev().attr("type") == "password"){
@@ -296,10 +288,6 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 	$("#ToggleDarkModeText").text("Light mode");
 }
 
-$("#closeButtonProfile").click(function(){
-	window.location = previous_url;
-});
-
 
 $("#otpLinkBtn").click(function(){
 	$("#otp_url").select();
@@ -307,3 +295,8 @@ $("#otpLinkBtn").click(function(){
 	$("#copyInfoText").html("Copied ✓")
 	window.getSelection().removeAllRanges();
 });
+
+
+if($(".boxInfo").is(':visible')){
+	$(".boxInfo").delay(3000).fadeOut();
+}

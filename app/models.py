@@ -45,9 +45,18 @@ class Endpoint(db.Model):
     hostname = db.Column(db.String(255),nullable=True)
     state = db.Column(db.Integer,nullable=False)
 
+class Alerts(db.Model):
+    __tablename__ = "Alerts"
+    id = db.Column(db.Integer,primary_key=True,unique=True)
+    timestamp = db.Column()
+    name = db.Column(db.String(255),nullable=False)
+    description = db.Column(db.String(1024),nullable=False)
+    tag = db.Column(db.String(255),nullable=False)
+    has_read = db.Column(db.Integer,nullable=False,default=0)
 
 class Setup(db.Model):
     __tablename__ = 'Setup'
     id = db.Column(db.Integer, primary_key=True,unique=True)
     action = db.Column(db.String(255),nullable=False,unique=True)
     state = db.Column(db.Boolean, default=False)
+
