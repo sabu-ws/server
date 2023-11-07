@@ -91,9 +91,16 @@ def mfa():
 				totp = pyotp.TOTP(user.OTPSecret)
 				if totp.verify(data["totp"]):
 					del session["totp"]
-					session["job"] = Job.query.filter_by(id=user.job).first().name 
+					session["job"] = Job.query.filter_by(id=user.job).first().name
+					set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
+					random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
+					jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+					user.cookie = random_key
+					db.session.commit()
+					resp = make_response(render_template("login_totp.html",con="ok"))
+					resp.set_cookie("sabu",jwt_token)
 					login_user(user)
-					return render_template("login_totp.html",con="ok")
+					return resp
 				else:
 					return render_template("login_totp.html",con="ko")
 		else:
@@ -120,8 +127,15 @@ def first_con():
 						get_user.set_password(data["newPasswordInput"])
 						db.session.commit()
 						session["job"] = Job.query.filter_by(id=get_user.job).first().name
+						set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
+						random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
+						jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+						user.cookie = random_key
+						db.session.commit()
+						resp = make_response(render_template("login_first_con.html",con="ok"))
+						resp.set_cookie("sabu",jwt_token)
 						login_user(get_user)
-						return render_template("login_first_con.html",con="ok")
+						return resp
 					else:
 						return render_template("login_first_con.html",con="ko",error=form.errors["password"][0])
 				else:
