@@ -3562,4 +3562,9 @@ input:checked + .toggle-bg {
   .xl\:p-0 {
     padding: 0px;
   }
+
+  .xl\:text-red-500 {
+    --tw-text-opacity: 1;
+    color: rgb(240 82 82 / var(--tw-text-opacity));
+  }
 }
