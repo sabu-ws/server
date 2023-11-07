@@ -64,7 +64,7 @@
 		var con = "{{ con }}"
 		if(con == "ok"){
 			document.getElementById("successful").style = "display: True;"
-			setTimeout(function(){window.location.reload();},1000);
+			setTimeout(function(){window.location = location.protocol+"//"+document.domain+":"+location.port;},1000);
 		}else if(con == "ko"){
 			document.getElementById("failed").style = "display: True;"
 		}
