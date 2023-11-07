@@ -44,14 +44,14 @@ def check_token():
 def login():
 	session["totp"] = False
 	check_token()
-	if current_user.is_authenticated == True:
+	if current_user.is_authenticated is True:
 		return check_user()
 	if request.method == "POST":
 		data = dict(request.form)
 		form = LoginForm(data=data)
 		if form.password.validate(form):
 			user = Users.query.filter_by(username=form.username.data).first()
-			if user != None:
+			if user is not None:
 				if user.enable == 1:
 					if bcrypt.check_password_hash(user.password,form.password.data) :
 						session["user"] = user.username

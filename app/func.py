@@ -4,5 +4,3 @@ from app import current_user
 from flask import redirect, url_for
 
 from functools import wraps
-
-

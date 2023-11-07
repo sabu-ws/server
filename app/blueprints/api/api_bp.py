@@ -81,11 +81,11 @@ def ping(*args,**kwargs):
 @check_room
 def set_connect(data):
 	user = Users.query.filter_by(username=data["username"]).first()
-	if user == None:
+	if user is None:
 		emit("callback",{"error":"user not found1"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 	else:
 		if bcrypt.check_password_hash(user.password,data["password"]):
-			if user.OTPSecret == None:
+			if user.OTPSecret is None:
 				login_user(user)
 				emit("callback",{"message":"user connected","user":user.username},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 			else:
@@ -98,10 +98,10 @@ def check_otp(data):
 	print(data)
 	user = Users.query.filter_by(username=data["username"]).first()
 	if user == None:
-		emit("callback",{"error":"bad credentials"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+		emit("callback",{"error":"bad credentials"}, namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 	else:
-		if bcrypt.check_password_hash(user.password,data["password"]):
-			if user.OTPSecret == None:
+		if bcrypt.check_password_hash(user.password, data["password"]):
+			if user.OTPSecret is None:
 				emit("callback",{"error":"bad credentials"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 			else:
 				totp = pyotp.TOTP(user.OTPSecret)

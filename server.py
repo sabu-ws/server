@@ -1,6 +1,6 @@
 from app import socketio
 from app import app
-import eventlet
+# import eventlet
 
 if __name__ == '__main__':
 

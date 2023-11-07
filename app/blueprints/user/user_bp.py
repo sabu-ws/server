@@ -75,7 +75,7 @@ def change_password():
 def totpmake():
 	global totpsec
 	user = Users.query.filter_by(id=current_user.id).first()
-	if user.OTPSecret == None:
+	if user.OTPSecret is None:
 		totpsec = pyotp.random_base32()
 		return pyotp.totp.TOTP(totpsec).provisioning_uri(name=user.username, issuer_name='SABU')
 
@@ -116,7 +116,7 @@ def totpcheck():
 @login_required
 def totpdisable():
 	user = Users.query.filter_by(id=current_user.id).first()
-	if user.OTPSecret != None:
+	if user.OTPSecret is not None:
 		user.OTPSecret = None
 		db.session.commit()
 		flash("You have disable 2FA","good")
@@ -160,7 +160,7 @@ def sendPicture():
 @login_required
 def renderPP():
 	user = Users.query.filter_by(id=current_user.id).first()
-	if user.picture != None:
+	if user.picture is not None:
 		renderPP_io = open(user.picture,"rb")
 		mimeType = "image/"+renderPP_io.name.split(".")[-1]
 		return send_file(renderPP_io, mimetype=mimeType),200, {

@@ -28,6 +28,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE
 csrf = CSRFProtect()
 csrf.init_app(app)
 
+
 # flask bcrypt
 bcrypt = Bcrypt(app)
 
@@ -49,7 +50,6 @@ if not os.path.exists(os.path.join("instance",db_name)):
 else:
 	db.init_app(app)
 
-
 # Migrate db
 migrate = Migrate(app, db)
 
@@ -61,10 +61,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login.login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
 	return Users.query.get(int(user_id))
-
 
 
 # socketio
