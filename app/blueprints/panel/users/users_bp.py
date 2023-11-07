@@ -17,7 +17,7 @@ users_bp = Blueprint(
 
 @users_bp.before_request
 def users_bp_before_request():
-	if current_user.is_authenticated is False :
+	if current_user.is_authenticated == False :
 		return redirect(url_for("login.login"))
 
 @users_bp.route("/")
@@ -37,9 +37,9 @@ def add_user():
 			form = AddUserForm(data=data)
 			if data["job"] != "Choose a job":
 				queryJob = Job.query.filter_by(name=data["job"]).first()
-				if queryJob is not None:
+				if queryJob != None:
 					if AddUserForm.validate(form):
-						if Users.query.filter_by(username=data["username"]).first() is None:
+						if Users.query.filter_by(username=data["username"]).first() == None:
 							guuid = str(uuid.uuid4())
 							useradd = Users(uuid=guuid,username=data["username"],name=data["name"],firstname=data["firstname"],role=data["role"],email=data["email"],job=queryJob.id,enable=1)
 							useradd.set_password(data["password"])
@@ -69,12 +69,12 @@ def mod_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		queryUser = Users.query.filter_by(uuid=guuid).first()
-		if queryUser is not None:
+		if queryUser != None:
 			if form.firstname.validate(form) and form.name.validate(form) and form.username.validate(form) and form.role.validate(form) and form.email.validate(form):
 				job = data["job"]
 				if job != "Choose a job":
 					queryJob = Job.query.filter_by(name=job).first()
-					if queryJob is not None:
+					if queryJob != None:
 						if request.form["password"] != "" and request.form["EditRepeatPassword"] != "":
 							if request.form["password"] == request.form["EditRepeatPassword"]:
 								if form.password.validate(form):
@@ -96,6 +96,7 @@ def mod_user():
 				queryUser.job = queryJob.id
 				db.session.flush()
 				db.session.commit()
+				session["job"] = queryJob.name
 				flash(f"The informations of {queryUser.username} have been change","good")
 				return "ok"
 			else:
@@ -114,7 +115,7 @@ def mod_user_query():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		user = Users.query.filter_by(uuid=guuid).first()
-		if user is not None:
+		if user != None:
 			user.job = Job.query.filter_by(id=user.job).first().name
 			return jsonify({"uuid":user.uuid,"name":user.name,"firstname":user.firstname,"username":user.username,"email":user.email,"job":user.job,"totp":True if user.OTPSecret else False,"role":user.role})
 		else:
@@ -129,8 +130,8 @@ def mod_user_disable_otp():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		user = Users.query.filter_by(uuid=guuid).first()
-		if user is not None:
-			if user.OTPSecret is not None:
+		if user != None:
+			if user.OTPSecret != None:
 				user.OTPSecret = None
 				db.session.commit()
 				return "ok"
@@ -150,7 +151,7 @@ def del_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		search = Users.query.filter_by(uuid=guuid).first()
-		if search is not None:
+		if search != None:
 			db.session.delete(search)
 			db.session.commit()
 			flash(f"The user {search.username} has been deleted","good")
@@ -167,7 +168,7 @@ def able_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		search = Users.query.filter_by(uuid=guuid).first()
-		if search is not None:
+		if search != None:
 			if search.enable == 1:
 				search.enable = 0
 				flash(f"The user {search.username} has been disable","good")
@@ -210,8 +211,8 @@ def remove_job():
 		job_name = request.form["RemoveJob"]
 		if str(job_name) != "Choose a job":
 			query_job = Job.query.filter_by(name=job_name).first()
-			if query_job is not None:
-				if Users.query.filter_by(job=query_job.id).first() is None:
+			if query_job != None:
+				if Users.query.filter_by(job=query_job.id).first()==None:
 					job = Job.query.filter_by(name=job_name).first()
 					db.session.delete(job)
 					db.session.commit()
