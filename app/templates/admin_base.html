@@ -82,51 +82,58 @@
 				</a>
 				</div>
 
+				<!-- HELP BUTTON -->
+				<a href="https://github.com/sabu-ws/server/wiki" target="_blank" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out">
+					<div class="text-xl">
+						<i class="fa-solid fa-circle-question"></i>
+					</div>
+				</a>
+
 				<!-- MENU BUTTON -->
-				<button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+				<!-- <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
 					<div class="text-xl">
 						<i class="fa-solid fa-bars"></i>
 					</div>
 				</button>
-				<!-- Dropdown MENU -->
+				
 				<div id="dropdownMenu" class="z-20 hidden w-48 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownMenu">
 				<div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
 					Shortcut
 				</div>
 				<div class="divide-gray-100">
 					<div class="flex justify-center space-x-4 p-2">
-						<!-- addEndpoint -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-solid fa-desktop"></i>
 						</div>
-						<!-- addUser -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<button id="adduser" type="button">
 								<i class="fa-solid fa-user-plus"></i>
 							</button>
 						</div>
-						<!-- addUSB -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-brands fa-usb"></i>
 						</div>
 					</div>
 					<div class="flex justify-center space-x-4 p-2">
-						<!-- browser-admin shortcut -->
+						
 						<a href="#">
 							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 								<i class="fa-solid fa-folder-tree"></i>
 							</div>
 						</a>
-						<!-- remote ssh -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-solid fa-terminal"></i>
 						</div>
-						<!-- power -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<button id="dropdownPowerButton" data-dropdown-toggle="dropdownPowerButtonBottom" data-dropdown-placement="bottom" data-dropdown-offset-distance="15" type="button">
 								<i class="fa-solid fa-power-off"></i>
 							</button>
-							<!-- Dropdown power -->
+							
 							<div id="dropdownPowerButtonBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
 								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownPowerButton">
 									<li>
@@ -148,7 +155,7 @@
 						</div>
 					</a>
 				</div>
-				</div>
+				</div> -->
 				
 				<!-- USER BUTTON -->
 				<div>
@@ -262,14 +269,14 @@
 					<span class="flex-1 ml-3 whitespace-nowrap text-white">Users</span>
 				</a>
 			</li>
-			<li>
+			<!-- <li>
 				<a href="{{ url_for('panel.usb.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
 					<div class="text-white">
 						<i class="fa-brands fa-usb"></i>
 					</div>
 					<span class="ml-3 text-white">USB Keys</span>
 				</a>
-			</li>
+			</li> -->
 			<li>
 				<a href="{{ url_for('panel.settings.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
 					<div class="text-white">
@@ -285,7 +292,7 @@
 					<div class="text-white">
 						<i class="fa-solid fa-server"></i>
 					</div>
-					<span class="ml-3 px-1 text-white">Manage Server</span>
+					<span class="ml-3 px-1 text-white">Server</span>
 				</a>
 			</li>
 			<li>
@@ -293,7 +300,7 @@
 					<div class="text-white">
 						<i class="fa-solid fa-desktop"></i>
 					</div>
-					<span class="ml-3 px-1 text-white">Manage Endpoints</span>
+					<span class="ml-3 px-1 text-white">Endpoints</span>
 				</a>
 			</li>
 			</ul>
