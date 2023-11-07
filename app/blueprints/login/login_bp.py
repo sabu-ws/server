@@ -22,10 +22,10 @@ login_bp = Blueprint(
 def check_user():
 	if current_user.role == "Admin":
 		session["job"] = Job.query.filter_by(id=current_user.job).first().name
-		return redirect(url_for("panel.users.index"),_method="GET")
+		return redirect(url_for("panel.users.index",_method="GET"))
 	elif current_user.role == "User":
 		session["job"] = Job.query.filter_by(id=current_user.job).first().name
-		return redirect(url_for("browser.index"),_method="GET")
+		return redirect(url_for("browser.index",_method="GET"))
 	else:
 		abort(404)
 
