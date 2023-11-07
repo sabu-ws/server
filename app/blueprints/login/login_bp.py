@@ -51,8 +51,8 @@ def login():
 		form = LoginForm(data=data)
 		if form.password.validate(form):
 			user = Users.query.filter_by(username=form.username.data).first()
-			if user.enable == 1:
-				if user != None:
+			if user != None:
+				if user.enable == 1:
 					if bcrypt.check_password_hash(user.password,form.password.data) :
 						session["user"] = user.username
 						if user.OTPSecret != None:
