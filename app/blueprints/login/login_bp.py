@@ -37,7 +37,7 @@ def check_token():
 			data_prev = jwt.decode(request.cookies["sabu"], options={"verify_signature": False})
 			user = Users.query.filter_by(username=data_prev["username"]).first()
 			if user is not None:
-				data = jwt.decode(request.cookies["sabu"],user.cookie, algorithms=["HS256"])
+				data = jwt.decode(request.cookies["sabu"], user.cookie, algorithms=["HS256"])
 				login_user(user)
 		except jwt.ExpiredSignatureError:
 			pass
@@ -56,7 +56,7 @@ def login():
 			user = Users.query.filter_by(username=form.username.data).first()
 			if user is not None:
 				if user.enable == 1:
-					if bcrypt.check_password_hash(user.password, form.password.data) :
+					if bcrypt.check_password_hash(user.password, form.password.data):
 						session["user"] = user.username
 						if user.OTPSecret is not None:
 							session["totp"] = True
@@ -64,11 +64,11 @@ def login():
 						elif user.firstCon == 0:
 							return redirect(url_for('login.first_con'))
 						else:
-							session["job"] = Job.query.filter_by(id=user.job).first().name 
+							session["job"] = Job.query.filter_by(id=user.job).first().name
 							del session["totp"]
 							set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 							random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-							jwt_token = jwt.encode({"username": user.username, "exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
+							jwt_token = jwt.encode({"username": user.username, "exp": set_time, "iss": "SABU"}, random_key, algorithm="HS256")
 							user.cookie = random_key
 							db.session.commit()
 							resp = make_response(render_template("login.html", con="ok"))
@@ -98,7 +98,7 @@ def mfa():
 					session["job"] = Job.query.filter_by(id=user.job).first().name
 					set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 					random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-					jwt_token = jwt.encode({"username": user.username, "exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
+					jwt_token = jwt.encode({"username": user.username, "exp": set_time, "iss": "SABU"}, random_key, algorithm="HS256")
 					user.cookie = random_key
 					db.session.commit()
 					resp = make_response(render_template("login_totp.html", con="ok"))
@@ -124,7 +124,7 @@ def first_con():
 			data = request.form
 			if "newPasswordInput" in data and "repeatPasswordInput" in data:
 				if data["newPasswordInput"] == data["repeatPasswordInput"]:
-					dataf={"username": session['user'], "password": data["newPasswordInput"]}
+					dataf = {"username": session['user'], "password": data["newPasswordInput"]}
 					form = LoginForm(data=dataf)
 					if form.validate():
 						get_user.firstCon = 1
