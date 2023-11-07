@@ -26,7 +26,13 @@
                                             <svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
                                             </svg>
-                                            At max 253 characters
+                                            At least 5 characters
+                                        </li>
+                                        <li class="flex items-center">
+                                            <svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                            </svg>
+                                            At max 64 characters
                                         </li>
                                     </ul>
                                     <input type="text" name="hostname" class="w-full mt-4 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="HOSTNAME">
@@ -58,8 +64,11 @@
                                 <div class="p-8">
                                     <div class="flex justify-center space-x-12">
                                         <div class="mb-4 w-full">
-                                            <label class="block mb-2">Interface :</label>
-                                            <input type="text" name="interface" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="INTERFACE">
+                                            <label for="interface" class="block mb-2">Interface :</label>
+                                            <select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option selected value="eth0">eth0</option>
+                                                <option value="eth1">eth1</option>
+                                            </select>
                                         </div>
                                         <div class="mb-4 w-full">
                                             <label class="block mb-2">Gateway :</label>
