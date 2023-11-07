@@ -32,7 +32,7 @@ def check_headers(f):
 def check_room(f):
 	@wraps(f)
 	def decorated_function(*args, **kwargs):
-		get_rooms = rooms(namespace="/api/v2",sid=request.sid)
+		get_rooms = rooms(namespace="/api/v2", sid=request.sid)
 		if request.headers["X-SABUHOSTNAME"] in get_rooms:
 			return f(*args, **kwargs)
 	return decorated_function

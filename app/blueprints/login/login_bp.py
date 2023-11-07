@@ -19,15 +19,17 @@ login_bp = Blueprint(
 	template_folder="templates"
 	)
 
+
 def check_user():
 	if current_user.role == "Admin":
 		session["job"] = Job.query.filter_by(id=current_user.job).first().name
-		return redirect(url_for("panel.users.index",_method="GET"))
+		return redirect(url_for("panel.users.index", _method="GET"))
 	elif current_user.role == "User":
 		session["job"] = Job.query.filter_by(id=current_user.job).first().name
-		return redirect(url_for("browser.index",_method="GET"))
+		return redirect(url_for("browser.index", _method="GET"))
 	else:
 		abort(404)
+
 
 def check_token():
 	if "sabu" in request.cookies:
@@ -35,12 +37,13 @@ def check_token():
 			data_prev = jwt.decode(request.cookies["sabu"], options={"verify_signature": False})
 			user = Users.query.filter_by(username=data_prev["username"]).first()
 			if user is not None:
-				data = jwt.decode(request.cookies["sabu"],user.cookie , algorithms=["HS256"])
+				data = jwt.decode(request.cookies["sabu"],user.cookie, algorithms=["HS256"])
 				login_user(user)
 		except jwt.ExpiredSignatureError:
 			pass
 
-@login_bp.route("/",methods=["GET","POST"])
+
+@login_bp.route("/", methods=["GET", "POST"])
 def login():
 	session["totp"] = False
 	check_token()
@@ -53,12 +56,12 @@ def login():
 			user = Users.query.filter_by(username=form.username.data).first()
 			if user is not None:
 				if user.enable == 1:
-					if bcrypt.check_password_hash(user.password,form.password.data) :
+					if bcrypt.check_password_hash(user.password, form.password.data) :
 						session["user"] = user.username
 						if user.OTPSecret is not None:
 							session["totp"] = True
 							return redirect(url_for("login.mfa"))
-						elif user.firstCon == 0 :
+						elif user.firstCon == 0:
 							return redirect(url_for('login.first_con'))
 						else:
 							session["job"] = Job.query.filter_by(id=user.job).first().name 
@@ -68,20 +71,21 @@ def login():
 							jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
 							user.cookie = random_key
 							db.session.commit()
-							resp = make_response(render_template("login.html",con="ok"))
-							resp.set_cookie("sabu",jwt_token)
+							resp = make_response(render_template("login.html", con="ok"))
+							resp.set_cookie("sabu", jwt_token)
 							login_user(user)
 							return resp
 					else:
-						return render_template("login.html",con="ko")
+						return render_template("login.html", con="ko")
 				else:
-					return render_template("login.html",con="ko")
+					return render_template("login.html", con="ko")
 			else:
-				return render_template("login.html",con="ko")
-		return render_template("login.html",con="ko")
+				return render_template("login.html", con="ko")
+		return render_template("login.html", con="ko")
 	return render_template("login.html")
 
-@login_bp.route("/mfa",methods=["GET","POST"])
+
+@login_bp.route("/mfa", methods=["GET", "POST"])
 def mfa():
 	if "totp" in session:
 		if session["totp"] is True:
@@ -94,15 +98,15 @@ def mfa():
 					session["job"] = Job.query.filter_by(id=user.job).first().name
 					set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 					random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-					jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+					jwt_token = jwt.encode({"username":user.username, "exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
 					user.cookie = random_key
 					db.session.commit()
-					resp = make_response(render_template("login_totp.html",con="ok"))
-					resp.set_cookie("sabu",jwt_token)
+					resp = make_response(render_template("login_totp.html", con="ok"))
+					resp.set_cookie("sabu", jwt_token)
 					login_user(user)
 					return resp
 				else:
-					return render_template("login_totp.html",con="ko")
+					return render_template("login_totp.html", con="ko")
 		else:
 			return redirect(url_for("login.login"))
 	else:
@@ -110,7 +114,7 @@ def mfa():
 	return render_template("login_totp.html")
 
 
-@login_bp.route("/first_connection",methods=["GET","POST"])
+@login_bp.route("/first_connection", methods=["GET", "POST"])
 def first_con():
 	if "user" in session:
 		if current_user.is_authenticated is True:
@@ -129,24 +133,25 @@ def first_con():
 						session["job"] = Job.query.filter_by(id=get_user.job).first().name
 						set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 						random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-						jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+						jwt_token = jwt.encode({"username": user.username,"exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
 						user.cookie = random_key
 						db.session.commit()
-						resp = make_response(render_template("login_first_con.html",con="ok"))
-						resp.set_cookie("sabu",jwt_token)
+						resp = make_response(render_template("login_first_con.html", con="ok"))
+						resp.set_cookie("sabu", jwt_token)
 						login_user(get_user)
 						return resp
 					else:
-						return render_template("login_first_con.html",con="ko",error=form.errors["password"][0])
+						return render_template("login_first_con.html", con="ko", error=form.errors["password"][0])
 				else:
-					return render_template("login_first_con.html",con="ko",error="The password fields are not the same.")
+					return render_template("login_first_con.html", con="ko", error="The password fields are not the same.")
 			else:
 				return redirect(url_for('login.login'))
 	else:
 		return redirect(url_for('login.login'))
 	return render_template("login_first_con.html")
 
-@login_bp.route("/logout",methods=["GET"])
+
+@login_bp.route("/logout", methods=["GET"])
 @login_required
 def logout():
 	logout_user()

@@ -7,13 +7,16 @@ server_bp = Blueprint(
 	__name__
 	)
 
+
 @server_bp.route("/")
 def index():
 	return render_template("ap_srv_dashboard.html")
 
+
 @server_bp.route("/logs")
 def logs():
 	return render_template("ap_srv_logs.html")
+
 
 @server_bp.route("/settings")
 def settings():
