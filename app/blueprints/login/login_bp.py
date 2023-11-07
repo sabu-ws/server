@@ -37,8 +37,9 @@ def check_token():
 			data_prev = jwt.decode(request.cookies["sabu"], options={"verify_signature": False})
 			user = Users.query.filter_by(username=data_prev["username"]).first()
 			if user is not None:
-				data = jwt.decode(request.cookies["sabu"],user.cookie, algorithms=["HS256"])
-				login_user(user)
+				if user.cookie != None:
+					data = jwt.decode(request.cookies["sabu"],user.cookie, algorithms=["HS256"])
+					login_user(user)
 		except jwt.ExpiredSignatureError:
 			pass
 
@@ -119,7 +120,7 @@ def first_con():
 	if "user" in session:
 		if current_user.is_authenticated is True:
 			return check_user()
-		get_user = Users.query.filter_by(username=session['user']).first()
+		user = Users.query.filter_by(username=session['user']).first()
 		if request.method == "POST":
 			data = request.form
 			if "newPasswordInput" in data and "repeatPasswordInput" in data:
@@ -127,10 +128,10 @@ def first_con():
 					dataf={"username": session['user'], "password": data["newPasswordInput"]}
 					form = LoginForm(data=dataf)
 					if form.validate():
-						get_user.firstCon = 1
-						get_user.set_password(data["newPasswordInput"])
+						user.firstCon = 1
+						user.set_password(data["newPasswordInput"])
 						db.session.commit()
-						session["job"] = Job.query.filter_by(id=get_user.job).first().name
+						session["job"] = Job.query.filter_by(id=user.job).first().name
 						set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 						random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
 						jwt_token = jwt.encode({"username": user.username, "exp": set_time, "iss": "SABU"}, random_key, algorithm="HS256")
@@ -138,7 +139,7 @@ def first_con():
 						db.session.commit()
 						resp = make_response(render_template("login_first_con.html", con="ok"))
 						resp.set_cookie("sabu", jwt_token)
-						login_user(get_user)
+						login_user(user)
 						return resp
 					else:
 						return render_template("login_first_con.html", con="ko", error=form.errors["password"][0])
