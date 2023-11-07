@@ -21,11 +21,13 @@
 		<div class="px-3 py-3 lg:px-5 lg:pl-3">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center justify-start">
-				<a id="closeButtonProfile" href="/" class="ml-20">
-					<i class="text-4xl fa-solid fa-circle-xmark text-red-700 hover:text-red-500"></i>
+				<a id="closeButtonProfile" href="/" class="ml-8">
+					<div class="text-xl text-gray-800">
+						<i class="fa-solid fa-house"></i>
+					</div>
 				</a>
 
-				<div class="flex ml-20">
+				<div class="flex ml-12">
 					<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Profile</span>
 				</div>
 			</div>
@@ -79,73 +81,80 @@
 					</a>
 				</div>
 
+				<!-- HELP BUTTON -->
+				<a href="https://github.com/sabu-ws/server/wiki" target="_blank" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out">
+					<div class="text-xl">
+						<i class="fa-solid fa-circle-question"></i>
+					</div>
+				</a>
+
 				<!-- MENU BUTTON -->
-				<button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+				<!-- <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
 					<div class="text-xl">
 						<i class="fa-solid fa-bars"></i>
 					</div>
 				</button>
-				<!-- Dropdown MENU -->
+
 				<div id="dropdownMenu" class="z-20 hidden w-48 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownMenu">
-					<div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
-						Shortcut
+				<div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
+					Shortcut
+				</div>
+				<div class="divide-gray-100">
+					<div class="flex justify-center space-x-4 p-2">
+						
+						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+							<i class="fa-solid fa-desktop"></i>
+						</div>
+						
+						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+							<button id="adduser" type="button">
+								<i class="fa-solid fa-user-plus"></i>
+							</button>
+						</div>
+						
+						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+							<i class="fa-brands fa-usb"></i>
+						</div>
 					</div>
-					<div class="divide-gray-100">
-						<div class="flex justify-center space-x-4 p-2">
-							<!-- addEndpoint -->
+					<div class="flex justify-center space-x-4 p-2">
+						
+						<a href="#">
 							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-								<i class="fa-solid fa-desktop"></i>
-							</div>
-							<!-- addUser -->
-							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-								<button id="adduser" type="button">
-									<i class="fa-solid fa-user-plus"></i>
-								</button>
-							</div>
-							<!-- addUSB -->
-							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-								<i class="fa-brands fa-usb"></i>
-							</div>
-						</div>
-						<div class="flex justify-center space-x-4 p-2">
-							<!-- browser-admin shortcut -->
-							<a href="#">
-								<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-									<i class="fa-solid fa-folder-tree"></i>
-								</div>
-							</a>
-							<!-- remote ssh -->
-							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-								<i class="fa-solid fa-terminal"></i>
-							</div>
-							<!-- power -->
-							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
-								<button id="dropdownPowerButton" data-dropdown-toggle="dropdownPowerButtonBottom" data-dropdown-placement="bottom" data-dropdown-offset-distance="15" type="button">
-									<i class="fa-solid fa-power-off"></i>
-								</button>
-								<!-- Dropdown power -->
-								<div id="dropdownPowerButtonBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
-									<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownPowerButton">
-										<li>
-											<a href="#" data-modal-target="staticModal" data-modal-toggle="staticModal" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reboot</a>
-										</li>
-										<li>
-											<a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shutdown</a>
-										 </li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
-							<div class="inline-flex items-center ">
-								<div>
-									<i class="fa-solid fa-circle-question"></i>
-									Help
-								</div>
+								<i class="fa-solid fa-folder-tree"></i>
 							</div>
 						</a>
+						
+						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+							<i class="fa-solid fa-terminal"></i>
+						</div>
+						
+						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
+							<button id="dropdownPowerButton" data-dropdown-toggle="dropdownPowerButtonBottom" data-dropdown-placement="bottom" data-dropdown-offset-distance="15" type="button">
+								<i class="fa-solid fa-power-off"></i>
+							</button>
+							
+							<div id="dropdownPowerButtonBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
+								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownPowerButton">
+									<li>
+										<a href="#" data-modal-target="staticModal" data-modal-toggle="staticModal" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reboot</a>
+									</li>
+									<li>
+										<a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shutdown</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
+					<a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+						<div class="inline-flex items-center ">
+							<div>
+								<i class="fa-solid fa-circle-question"></i>
+								Help
+							</div>
+						</div>
+					</a>
 				</div>
+				</div> -->
 				{% endif %}
 				<!-- USER BUTTON -->
 				<div>
