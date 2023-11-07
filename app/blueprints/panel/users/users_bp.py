@@ -15,6 +15,11 @@ users_bp = Blueprint(
 	__name__
 	)
 
+@users_bp.before_request
+def users_bp_before_request():
+	if current_user.is_authenticated == False :
+		return redirect(url_for("login.login"))
+
 @users_bp.route("/")
 def index():
 	get_user_list = Users.query.all()
@@ -91,6 +96,7 @@ def mod_user():
 				queryUser.job = queryJob.id
 				db.session.flush()
 				db.session.commit()
+				session["job"] = queryJob.name
 				flash(f"The informations of {queryUser.username} have been change","good")
 				return "ok"
 			else:
