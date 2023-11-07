@@ -31,7 +31,6 @@ def check_user():
 		abort(404)
 
 
-
 def check_token():
 	if "sabu" in request.cookies:
 		try:
