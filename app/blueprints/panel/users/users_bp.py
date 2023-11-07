@@ -18,11 +18,7 @@ users_bp = Blueprint(
 
 @users_bp.before_request
 def users_bp_before_request():
-<<<<<<< HEAD
 	if current_user.is_authenticated is False:
-=======
-	if current_user.is_authenticated == False :
->>>>>>> 11e93b381d7628c7d47fa76a94068607f2532d7f
 		return redirect(url_for("login.login"))
 
 
@@ -103,12 +99,7 @@ def mod_user():
 				queryUser.job = queryJob.id
 				db.session.flush()
 				db.session.commit()
-<<<<<<< HEAD
 				flash(f"The informations of {queryUser.username} have been change", "good")
-=======
-				session["job"] = queryJob.name
-				flash(f"The informations of {queryUser.username} have been change","good")
->>>>>>> 11e93b381d7628c7d47fa76a94068607f2532d7f
 				return "ok"
 			else:
 				keys = list(dict(form.errors.items()))
