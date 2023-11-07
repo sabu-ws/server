@@ -34,7 +34,7 @@ def check_token():
 		try:
 			data_prev = jwt.decode(request.cookies["sabu"], options={"verify_signature": False})
 			user = Users.query.filter_by(username=data_prev["username"]).first()
-			if user != None:
+			if user is not None:
 				data = jwt.decode(request.cookies["sabu"],user.cookie , algorithms=["HS256"])
 				login_user(user)
 		except jwt.ExpiredSignatureError:
@@ -55,7 +55,7 @@ def login():
 				if user.enable == 1:
 					if bcrypt.check_password_hash(user.password,form.password.data) :
 						session["user"] = user.username
-						if user.OTPSecret != None:
+						if user.OTPSecret is not None:
 							session["totp"] = True
 							return redirect(url_for("login.mfa"))
 						elif user.firstCon == 0 :
@@ -84,7 +84,7 @@ def login():
 @login_bp.route("/mfa",methods=["GET","POST"])
 def mfa():
 	if "totp" in session:
-		if session["totp"] == True:
+		if session["totp"] is True:
 			if request.method=="POST":
 				data = dict(request.form)
 				user = Users.query.filter_by(username=session["user"]).first()
@@ -113,7 +113,7 @@ def mfa():
 @login_bp.route("/first_connection",methods=["GET","POST"])
 def first_con():
 	if "user" in session:
-		if current_user.is_authenticated == True:
+		if current_user.is_authenticated is True:
 			return check_user()
 		get_user = Users.query.filter_by(username=session['user']).first()
 		if request.method == "POST":

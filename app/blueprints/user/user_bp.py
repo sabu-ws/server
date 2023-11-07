@@ -102,7 +102,7 @@ def qrcoderender():
 @login_required
 def totpcheck():
 	global totpsec
-	if totpsec != None:
+	if totpsec is not None:
 		if pyotp.TOTP(totpsec).verify(request.form["TestCode"]):
 			user = Users.query.filter_by(id=current_user.id).first()
 			user.OTPSecret = totpsec

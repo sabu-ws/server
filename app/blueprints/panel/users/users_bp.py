@@ -210,8 +210,8 @@ def remove_job():
 		job_name = request.form["RemoveJob"]
 		if str(job_name) != "Choose a job":
 			query_job = Job.query.filter_by(name=job_name).first()
-			if query_job != None:
-				if Users.query.filter_by(job=query_job.id).first()==None:
+			if query_job is not None:
+				if Users.query.filter_by(job=query_job.id).first() is None:
 					job = Job.query.filter_by(name=job_name).first()
 					db.session.delete(job)
 					db.session.commit()
