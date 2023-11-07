@@ -68,7 +68,7 @@ def login():
 							del session["totp"]
 							set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 							random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-							jwt_token = jwt.encode({"username":user.username,"exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+							jwt_token = jwt.encode({"username": user.username, "exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
 							user.cookie = random_key
 							db.session.commit()
 							resp = make_response(render_template("login.html", con="ok"))
@@ -89,7 +89,7 @@ def login():
 def mfa():
 	if "totp" in session:
 		if session["totp"] is True:
-			if request.method=="POST":
+			if request.method == "POST":
 				data = dict(request.form)
 				user = Users.query.filter_by(username=session["user"]).first()
 				totp = pyotp.TOTP(user.OTPSecret)
@@ -98,7 +98,7 @@ def mfa():
 					session["job"] = Job.query.filter_by(id=user.job).first().name
 					set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 					random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-					jwt_token = jwt.encode({"username":user.username, "exp": set_time,"iss":"SABU"}, random_key, algorithm="HS256")
+					jwt_token = jwt.encode({"username": user.username, "exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
 					user.cookie = random_key
 					db.session.commit()
 					resp = make_response(render_template("login_totp.html", con="ok"))
@@ -124,7 +124,7 @@ def first_con():
 			data = request.form
 			if "newPasswordInput" in data and "repeatPasswordInput" in data:
 				if data["newPasswordInput"] == data["repeatPasswordInput"]:
-					dataf={"username":session['user'],"password":data["newPasswordInput"]}
+					dataf={"username": session['user'], "password": data["newPasswordInput"]}
 					form = LoginForm(data=dataf)
 					if form.validate():
 						get_user.firstCon = 1
@@ -133,7 +133,7 @@ def first_con():
 						session["job"] = Job.query.filter_by(id=get_user.job).first().name
 						set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
 						random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-						jwt_token = jwt.encode({"username": user.username,"exp": set_time,"iss": "SABU"}, random_key, algorithm="HS256")
+						jwt_token = jwt.encode({"username": user.username, "exp": set_time, "iss": "SABU"}, random_key, algorithm="HS256")
 						user.cookie = random_key
 						db.session.commit()
 						resp = make_response(render_template("login_first_con.html", con="ok"))
