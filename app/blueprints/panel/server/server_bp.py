@@ -13,7 +13,7 @@ def index():
 
 @server_bp.route("/logs")
 def logs():
-	return render_template("ap_coming_soon.html")
+	return render_template("ap_srv_logs.html")
 
 @server_bp.route("/settings")
 def settings():
