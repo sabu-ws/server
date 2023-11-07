@@ -34,7 +34,7 @@
 			<div class="flex items-center">
 				{% if current_user.role == "Admin" %}
 				<!-- BELL BUTTON -->
-				<button id="dropdownAlertsButton" data-dropdown-toggle="dropdownAlerts" data-dropdown-trigger="hover" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+				<button id="dropdownAlertsButton" data-dropdown-toggle="dropdownAlerts" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
 					<div class="text-dark text-xl">
 						<i class="fa-solid fa-bell"></i>
 					</div>
@@ -80,7 +80,7 @@
 				</div>
 
 				<!-- MENU BUTTON -->
-				<button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" data-dropdown-trigger="hover" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+				<button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
 					<div class="text-xl">
 						<i class="fa-solid fa-bars"></i>
 					</div>
@@ -149,7 +149,7 @@
 				{% endif %}
 				<!-- USER BUTTON -->
 				<div>
-					<button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user" data-dropdown-trigger="hover">
+					<button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
 					<span class="sr-only">Open user menu</span>
 					<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full">
 						{% if current_user.picture == None %}
@@ -445,7 +445,7 @@
 	{% set message = messages[0][1] %}
 	{% if category == "error" %}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-300 dark:bg-gray-800 dark:text-red-400" role="alert">
+			<div id="error-alert" class="boxInfo flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-300 dark:bg-gray-800 dark:text-red-400" role="alert">
 				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 				</svg>
@@ -463,7 +463,7 @@
 		</div>
 	{% elif category == "good"%}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400" role="alert">
+			<div id="error-alert" class="boxInfo flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400" role="alert">
 				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 				</svg>
@@ -481,7 +481,7 @@
 		</div>
 	{% else %}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-300 dark:bg-gray-800 dark:text-blue-400" role="alert">
+			<div id="error-alert" class="boxInfo flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-300 dark:bg-gray-800 dark:text-blue-400" role="alert">
 				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 				</svg>
