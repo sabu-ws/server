@@ -1366,6 +1366,10 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
 }
 
+.ml-2\.5 {
+  margin-left: 0.625rem;
+}
+
 .block {
   display: block;
 }
@@ -1572,6 +1576,10 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .min-w-0 {
