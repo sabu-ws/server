@@ -11,19 +11,20 @@ from app.blueprints.user.user_bp import user_bp
 
 
 app.register_blueprint(index_bp)
-app.register_blueprint(login_bp,url_prefix="/login")
-app.register_blueprint(api_bp,url_prefix="/api/v2")
-app.register_blueprint(browser_bp,url_prefix="/browser")
-app.register_blueprint(panel_bp,url_prefix="/panel")
-app.register_blueprint(user_bp,url_prefix="/user")
+app.register_blueprint(login_bp, url_prefix="/login")
+app.register_blueprint(api_bp, url_prefix="/api/v2")
+app.register_blueprint(browser_bp, url_prefix="/browser")
+app.register_blueprint(panel_bp, url_prefix="/panel")
+app.register_blueprint(user_bp, url_prefix="/user")
+
 
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
-	flash("Bad CSRF token","error")
-	print("bad csrf")
-	return redirect(url_for("login.login"))
+    flash("Bad CSRF token", "error")
+    print("bad csrf")
+    return redirect(url_for("login.login"))
+
 
 @app.errorhandler(404)
 def error404(error):
-	return render_template("error/404.html")
-
+    return render_template("error/404.html")
