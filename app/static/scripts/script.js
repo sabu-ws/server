@@ -298,5 +298,5 @@ $("#otpLinkBtn").click(function(){
 
 
 if($(".boxInfo").is(':visible')){
-	$(".boxInfo").delay(3000).fadeOut();
+	$(".boxInfo").delay(5000).fadeOut();
 }
