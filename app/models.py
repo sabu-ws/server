@@ -18,7 +18,7 @@ class Users(db.Model, UserMixin):
     cookie = db.Column(db.String(255), unique=True, nullable=True)
     OTPSecret = db.Column(db.String(255), unique=True, nullable=True)
     codeEP = db.Column(db.String(255), unique=True, nullable=True)
-    picture = db.Column(db.String(1024), unique=True,nullable=True)
+    picture = db.Column(db.String(1024), unique=True, nullable=True)
     enable = db.Column(db.Integer, nullable=True, default=1)
     firstCon = db.Column(db.Integer, default=0)
 
@@ -29,7 +29,7 @@ class Users(db.Model, UserMixin):
 class Job(db.Model):
     __tablename__ = 'Job'
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    name=db.Column(db.String(255), nullable=False, unique=True)
+    name = db.Column(db.String(255), nullable=False, unique=True)
 
 
 class USBlog(db.Model):
