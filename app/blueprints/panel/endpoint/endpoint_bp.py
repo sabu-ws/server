@@ -9,4 +9,4 @@ endpoint_bp = Blueprint(
 
 @endpoint_bp.route("/")
 def index():
-	return render_template("ap_coming_soon.html")
+	return render_template("ap_ep_index.html")
