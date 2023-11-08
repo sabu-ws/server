@@ -21,6 +21,7 @@ panel_bp = Blueprint(
 	template_folder="templates"
 	)
 
+
 @panel_bp.before_request
 @login_required
 def panel_before_request():
@@ -28,13 +29,13 @@ def panel_before_request():
 		logout_user()
 		return redirect(url_for("login.login"))
 
-panel_bp.register_blueprint(home_bp,url_prefix="/")
-panel_bp.register_blueprint(alerts_bp,url_prefix="/alerts")
-panel_bp.register_blueprint(browser_bp,url_prefix="/browser")
-panel_bp.register_blueprint(dashboard_bp,url_prefix="/dashboard")
-panel_bp.register_blueprint(logs_bp,url_prefix="/logs")
-panel_bp.register_blueprint(server_bp,url_prefix="/server")
-panel_bp.register_blueprint(usb_bp,url_prefix="/usb")
-panel_bp.register_blueprint(users_bp,url_prefix="/users")
-panel_bp.register_blueprint(settings_bp,url_prefix="/settings")
-panel_bp.register_blueprint(endpoint_bp,url_prefix="/endpoint")
+panel_bp.register_blueprint(home_bp, url_prefix="/")
+panel_bp.register_blueprint(alerts_bp, url_prefix="/alerts")
+panel_bp.register_blueprint(browser_bp, url_prefix="/browser")
+panel_bp.register_blueprint(dashboard_bp, url_prefix="/dashboard")
+panel_bp.register_blueprint(logs_bp, url_prefix="/logs")
+panel_bp.register_blueprint(server_bp, url_prefix="/server")
+panel_bp.register_blueprint(usb_bp, url_prefix="/usb")
+panel_bp.register_blueprint(users_bp, url_prefix="/users")
+panel_bp.register_blueprint(settings_bp, url_prefix="/settings")
+panel_bp.register_blueprint(endpoint_bp, url_prefix="/endpoints")

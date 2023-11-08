@@ -8,12 +8,14 @@ browser_bp = Blueprint(
 	template_folder="templates"
 	)
 
+
 @browser_bp.before_request
 @login_required
 def before_request_browser_bp():
 	if current_user.role != "User":
 		logout_user()
 		return redirect(url_for("login.login"))
+
 
 @browser_bp.route("/")
 def index():

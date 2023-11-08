@@ -7,10 +7,6 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/sabu.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{  url_for('static',filename='dist/output.css') }}"></script>
-    <script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
-
 </head>
 <body>
     <!-- LOGIN SECTION -->
@@ -35,7 +31,7 @@
                             <input type="password" name="password" id="passwordInput" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                             <button id="toggleButton" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
                               <div class="text-gray-500">
-                                <i id="toggleview" class="toggleView fa-solid fa-eye"></i>
+                                <i class="toggleView fa-solid fa-eye"></i>
                               </div>
                             </button>
                           </div>
@@ -54,11 +50,14 @@
         </div>
     </section>
     <!-- js view mdp -->
+    <script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
     <script type="text/javascript">
         var con = "{{ con }}"
         if(con == "ok"){
             document.getElementById("successful").style = "display: True;"
-            setTimeout(function(){window.location.reload();},1000);
+            setTimeout(function(){window.location = location.protocol+"//"+document.domain+":"+location.port;},1000);
         }else if(con == "ko"){
             document.getElementById("failed").style = "display: True;"
         }

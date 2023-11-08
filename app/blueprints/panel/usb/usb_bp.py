@@ -7,6 +7,7 @@ usb_bp = Blueprint(
 	__name__
 	)
 
+
 @usb_bp.route("/")
 def index():
 	return render_template("ap_coming_soon.html")

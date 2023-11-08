@@ -5,9 +5,9 @@
 	<div class="p-4 sm:ml-64">
 		<div class="p-8 mt-14">
 			<div class="grid grid-cols-1 gap-8 mb-14">
-				<div class="bg-white rounded-lg shadow-md">
-					<h1 class="flex justify-center text-4xl font-medium mt-4">Manage Users</h1>
-					<p class="flex justify-center mt-4 mb-4">This page allows you to perform various actions, from adding new users to editing their existing information, as well as deleting accounts.</p>
+				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4">
+					<h1 class="flex justify-center text-4xl font-medium dark:text-gray-300">Manage Users</h1>
+					<p class="flex justify-center mt-4 dark:text-gray-300">This page allows you to perform various actions, from adding new users to editing their existing information, as well as deleting accounts.</p>
 				</div>
 			</div>
 			<div class="grid grid-cols-1 gap-8 mb-20">
@@ -53,9 +53,19 @@
 							{% for user in userList %}
 							<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 								<td scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-									<img class="w-10 h-10 rounded-full" src="{{ url_for('static',filename='/assets/icons/profil.png') }}" alt="Jese image">
+									<div class="relative ">
+										<img class="w-10 h-10 rounded-full" src="{{ url_for('static',filename='/assets/icons/profil.png') }}">
+										{% if user.role == "Admin" %}
+										<span class="absolute inset-0 object-right-top -mr-5 -mt-2">
+											<div class="inline-flex items-center px-1 py-1 rounded-full text-xs font-semibold leading-4 bg-yellow-400 text-white">
+												<i class="fa-solid fa-crown"></i>
+											</div>
+										</span>
+										{% endif %}
+									</div>
+
 									<div class="pl-3">
-										<div class="text-base font-semibold" id="longNameUserTable">{{ user.name }} {{ user.firstname }}</div>
+										<div class="text-base font-semibold" id="longNameUserTable">{{ user.firstname }} {{ user.name }}</div>
 										<div class="font-normal text-gray-500" id="emailUserTable">{{ user.email }}</div>
 									</div>  
 								</td>
@@ -76,18 +86,18 @@
 								</td>
 								<td class="px-4 py-4">
 									<div class="flex space-x-2">
-										<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-blue-600 hover:bg-gray-200 h-6 w-6 font-medium text-white hover:text-blue-600 dark:text-blue-500">
+										<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-blue-600 hover:bg-gray-200 h-6 w-6 font-medium text-white hover:text-blue-600 dark:text-gray-900 dark:hover:text-blue-600 dark:hover:bg-gray-800">
 											<i class="fa-solid fa-pen-to-square"></i>
 										</button>
-										<button title="Delete user" type="button" data-modal-show="confirmRemoveModal" title='Remove User' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-red-600">
+										<button type="button" data-modal-show="confirmRemoveModal" title='Remove User' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-gray-900 hover:text-red-600 dark:hover:text-red-600 dark:hover:bg-gray-800">
 												<i class="fa-solid fa-trash"></i>
 										</button>
 										{% if user.enable == 1 %}
-										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-red-600">
+										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-gray-900 hover:text-red-600 dark:hover:text-red-600 dark:hover:bg-gray-800">
 											<i class="fa-solid fa-xmark"></i>
 										</button>
 										{% else %}
-										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-green-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-blue-500 hover:text-green-600">
+										<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-green-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-gray-900 hover:text-green-600 dark:hover:text-green-600 dark:hover:bg-gray-800">
 											<i class="fa-solid fa-check"></i>
 										</button>
 										{% endif %}
@@ -283,7 +293,7 @@
 						</div>
 
 					<!-- Confirm remove modal -->
-					<div id="confirmRemoveModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+					<div id="confirmRemoveModal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 						<div class="relative w-full max-w-md max-h-full">
 							<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 								<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmRemoveModal">
@@ -307,7 +317,7 @@
 					</div>
 
 					<!-- Corfirm dsable user -->
-					<div id="confirmEnableModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+					<div id="confirmEnableModal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 						<div class="relative w-full max-w-md max-h-full">
 							<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 								<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmEnableModal">
@@ -331,7 +341,7 @@
 					</div>
 
 					<!-- Manage job modal -->
-					<div id="manageJobModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+					<div id="manageJobModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 						<div class="relative w-full max-w-2xl max-h-full">
 							<!-- Modal content -->
 							<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">

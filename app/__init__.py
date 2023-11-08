@@ -1,8 +1,8 @@
 from config import *
 
 from flask import Flask
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from flask_socketio import SocketIO, emit, disconnect, send, join_room, rooms, close_room
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user  # noqa: E501
+from flask_socketio import SocketIO, emit, disconnect, send, join_room, rooms, close_room  # noqa: E501
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -17,7 +17,7 @@ import uuid
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(random.choices(string.ascii_letters + string.digits, k=30))
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"+db_name
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_name
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
@@ -28,6 +28,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE
 csrf = CSRFProtect()
 csrf.init_app(app)
 
+
 # flask bcrypt
 bcrypt = Bcrypt(app)
 
@@ -35,20 +36,19 @@ bcrypt = Bcrypt(app)
 # sqlalchemy database
 db = SQLAlchemy()
 from app.models import Users, Job
-if not os.path.exists(os.path.join("instance",db_name)):
+if not os.path.exists(os.path.join("instance", db_name)):
 	db.init_app(app)
 	with app.app_context():
 		db.create_all()
 		set_job_admin = Job(name="Administrator")
 		db.session.add(set_job_admin)
 		db.session.commit()
-		set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin",firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
+		set_admin = Users(uuid=uuid.uuid4().__str__(),name="Admin", firstname="Admin", email="admin@sabu.fr", username="Admin", role="Admin", job=1)
 		set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
 		db.session.add(set_admin)
 		db.session.commit()
 else:
 	db.init_app(app)
-
 
 # Migrate db
 migrate = Migrate(app, db)
@@ -61,10 +61,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login.login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
 	return Users.query.get(int(user_id))
-
 
 
 # socketio

@@ -10,14 +10,14 @@
 	<!-- import fontawesome -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
 	<!-- script base -->
-	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
 	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }} "></script>
 	<script src="{{ url_for('static',filename='scripts/socket.io.min.js') }} "></script>
-	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+	<script type="module" src="{{ url_for('static',filename='node_modules/apexcharts/dist/apexcharts.min.js') }}"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 dark:bg-gray-900">
 	<!-- NAV BAR -->
-	<nav class="fixed top-0 w-full bg-white shadow-md">
+	<nav class="fixed top-0 w-full bg-white shadow-md dark:bg-blue-700">
 		<div class="px-3 py-3 lg:px-5 lg:pl-3">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center justify-start">
@@ -82,51 +82,58 @@
 				</a>
 				</div>
 
+				<!-- HELP BUTTON -->
+				<a href="https://github.com/sabu-ws/server/wiki" target="_blank" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out">
+					<div class="text-xl">
+						<i class="fa-solid fa-circle-question"></i>
+					</div>
+				</a>
+
 				<!-- MENU BUTTON -->
-				<button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+				<!-- <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu" class="mr-8 relative border-2 border-transparent text-dark rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
 					<div class="text-xl">
 						<i class="fa-solid fa-bars"></i>
 					</div>
 				</button>
-				<!-- Dropdown MENU -->
+				
 				<div id="dropdownMenu" class="z-20 hidden w-48 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownMenu">
 				<div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
 					Shortcut
 				</div>
 				<div class="divide-gray-100">
 					<div class="flex justify-center space-x-4 p-2">
-						<!-- addEndpoint -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-solid fa-desktop"></i>
 						</div>
-						<!-- addUser -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<button id="adduser" type="button">
 								<i class="fa-solid fa-user-plus"></i>
 							</button>
 						</div>
-						<!-- addUSB -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-brands fa-usb"></i>
 						</div>
 					</div>
 					<div class="flex justify-center space-x-4 p-2">
-						<!-- browser-admin shortcut -->
+						
 						<a href="#">
 							<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 								<i class="fa-solid fa-folder-tree"></i>
 							</div>
 						</a>
-						<!-- remote ssh -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<i class="fa-solid fa-terminal"></i>
 						</div>
-						<!-- power -->
+						
 						<div class="flex items-center justify-center h-10 w-10 rounded text-2xl bg-gray-100 hover:bg-gray-200">
 							<button id="dropdownPowerButton" data-dropdown-toggle="dropdownPowerButtonBottom" data-dropdown-placement="bottom" data-dropdown-offset-distance="15" type="button">
 								<i class="fa-solid fa-power-off"></i>
 							</button>
-							<!-- Dropdown power -->
+							
 							<div id="dropdownPowerButtonBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
 								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownPowerButton">
 									<li>
@@ -148,15 +155,15 @@
 						</div>
 					</a>
 				</div>
-				</div>
+				</div> -->
 				
 				<!-- USER BUTTON -->
 				<div>
 					<button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
 					<span class="sr-only">Open user menu</span>
-					<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full dark:bg-gray-600">
+					<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full">
 						{% if current_user.picture == None %}
-							<span class="font-bold text-white dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
+							<span class="font-bold text-white dark:text-gray-300">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
 						{% else %}
 							<img src="{{ url_for('user.renderPP') }}">
 						{% endif %}
@@ -166,7 +173,7 @@
 				</div>
 				<!-- Dropdown user -->
 				<div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-					<div class="px-8 py-3 bg-gray-100" role="none">
+					<div class="px-8 py-3 bg-gray-100 dark:text-gray-300 dark:bg-gray-800" role="none">
 					<p class="text-sm font-semibold text-gray-900 dark:text-white" role="none">
 						{{ current_user.firstname }} {{ current_user.name }}
 					</p>
@@ -184,14 +191,11 @@
 						</a>
 					</li>
 					<li>
-						<a href="" class="flex items-center block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-							<div>
-								<i class="fa-solid fa-moon"></i>
-								Dark mode  
-							</div>
-							
+						<a class="flex items-center block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+							<i id="ToggleDarkModeIcon" class="fa-solid fa-sun"></i>
+							<p id="ToggleDarkModeText" class="ms-1">Dark mode</p>  
 							<label class="ml-2 relative inline-flex items-center cursor-pointer">
-							  <input type="checkbox" value="" class="sr-only peer">
+							  <input id="ToggleDarkMode" type="checkbox" value="" class="sr-only peer">
 							  <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 							  <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
 							</label>
@@ -216,12 +220,12 @@
 	</nav>
 	
 	<!--SIDEBAR -->
-	<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-6 transition-transform -translate-x-full bg-slate-800 sm:translate-x-0" aria-label="Sidebar">
+	<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-6 transition-transform -translate-x-full bg-slate-800 sm:translate-x-0 dark:bg-gray-900" aria-label="Sidebar">
 		<div class="flex ml-2 md:mr-24 mb-6 ml-4">
 			<img src="{{ url_for('static',filename='assets/icons/logo_sabu.png') }}" class="h-10 mr-3 rounded-full" alt="Logo" />
 			<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">SABU SERVER</span>
 		</div>
-		<div class="h-full px-3 pb-4 pt-6 overflow-y-auto bg-slate-700">
+		<div class="h-full px-3 pb-4 pt-6 overflow-y-auto bg-slate-700 dark:bg-gray-800">
 			<ul class="space-y-2 font-medium">
 			<li>
 				<a href="{{ url_for('panel.home.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500">
@@ -265,14 +269,14 @@
 					<span class="flex-1 ml-3 whitespace-nowrap text-white">Users</span>
 				</a>
 			</li>
-			<li>
+			<!-- <li>
 				<a href="{{ url_for('panel.usb.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
 					<div class="text-white">
 						<i class="fa-brands fa-usb"></i>
 					</div>
 					<span class="ml-3 text-white">USB Keys</span>
 				</a>
-			</li>
+			</li> -->
 			<li>
 				<a href="{{ url_for('panel.settings.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500 ml-4">
 					<div class="text-white">
@@ -288,7 +292,7 @@
 					<div class="text-white">
 						<i class="fa-solid fa-server"></i>
 					</div>
-					<span class="ml-3 px-1 text-white">Manage Server</span>
+					<span class="ml-3 px-1 text-white">Server</span>
 				</a>
 			</li>
 			<li>
@@ -296,7 +300,7 @@
 					<div class="text-white">
 						<i class="fa-solid fa-desktop"></i>
 					</div>
-					<span class="ml-3 px-1 text-white">Manage Endpoints</span>
+					<span class="ml-3 px-1 text-white">Endpoints</span>
 				</a>
 			</li>
 			</ul>
@@ -314,10 +318,8 @@
 	{% set message = messages[0][1] %}
 	{% if category == "error" %}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-300 dark:bg-gray-800 dark:text-red-400" role="alert">
-				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-				</svg>
+			<div id="error-alert" class="boxInfo flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-300 dark:bg-gray-800 dark:text-red-400" role="alert">
+				<i class="fa-solid fa-triangle-exclamation"></i>
 				<span class="sr-only">{{ category }}</span>
 				<div class="ml-3 mr-2 text-sm font-medium">
 				  <span class="font-bold">{{ message }}</span>
@@ -332,15 +334,13 @@
 		</div>
 	{% elif category == "good"%}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400" role="alert">
-				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-				</svg>
+			<div id="good-alert" class="boxInfo flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400" role="alert">
+				<i class="fa-solid fa-circle-check"></i>
 				<span class="sr-only">{{ category }}</span>
 				<div class="ml-3 mr-2 text-sm font-medium">
 				  <span class="font-bold">{{ message }}</span>
 				</div>
-				  <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-300 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#error-alert" aria-label="Close">
+				  <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-300 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#good-alert" aria-label="Close">
 					<span class="sr-only">Close</span>
 					<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
 					  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -350,15 +350,13 @@
 		</div>
 	{% else %}
 		<div class="flex justify-end m-auto fixed right-4 bottom-2">
-			<div id="error-alert" class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-300 dark:bg-gray-800 dark:text-blue-400" role="alert">
-				<svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-				  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-				</svg>
+			<div id="bad-alert" class="boxInfo flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-300 dark:bg-gray-800 dark:text-blue-400" role="alert">
+				<i class="fa-solid fa-circle-info"></i>
 				<span class="sr-only">{{ category }}</span>
 				<div class="ml-3 mr-2 text-sm font-medium">
 				  <span class="font-bold">{{ message }}</span>
 				</div>
-				  <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-300 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#error-alert" aria-label="Close">
+				  <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-300 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#bad-alert" aria-label="Close">
 					<span class="sr-only">Close</span>
 					<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
 					  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>

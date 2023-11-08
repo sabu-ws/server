@@ -6,7 +6,7 @@ import re
 from app import login_required, current_user, db, logout_user
 
 from app.utils import logging
-from app.forms import AddUserForm 
+from app.forms import AddUserForm
 from app.models import Users, Job
 from config import *
 
@@ -15,10 +15,12 @@ users_bp = Blueprint(
 	__name__
 	)
 
+
 @users_bp.before_request
 def users_bp_before_request():
-	if current_user.is_authenticated == False :
+	if current_user.is_authenticated is False:
 		return redirect(url_for("login.login"))
+
 
 @users_bp.route("/")
 def index():
@@ -26,14 +28,14 @@ def index():
 	get_job_name = db.session.query(Job.name).all()
 	for user in get_user_list:
 		user.job = Job.query.filter_by(id=user.job).first().name
-	return render_template("ap_users.html",userList=get_user_list,job_list=get_job_name)
+	return render_template("ap_users.html", userList=get_user_list, job_list=get_job_name)
 
 
-@users_bp.route("/add_user",methods=["POST"])
+@users_bp.route("/add_user", methods=["POST"])
 def add_user():
 	data = request.form
 	if data["password"] == data["AddRepeatPassword"]:
-		if data["name"] and data["firstname"] and  data["username"] and data["password"] and data["role"] and data["email"] and data["job"]:
+		if data["name"] and data["firstname"] and data["username"] and data["password"] and data["role"] and data["email"] and data["job"]:
 			form = AddUserForm(data=data)
 			if data["job"] != "Choose a job":
 				queryJob = Job.query.filter_by(name=data["job"]).first()
@@ -41,11 +43,11 @@ def add_user():
 					if AddUserForm.validate(form):
 						if Users.query.filter_by(username=data["username"]).first() == None:
 							guuid = str(uuid.uuid4())
-							useradd = Users(uuid=guuid,username=data["username"],name=data["name"],firstname=data["firstname"],role=data["role"],email=data["email"],job=queryJob.id,enable=1)
+							useradd = Users(uuid=guuid, username=data["username"], name=data["name"], firstname=data["firstname"], role=data["role"], email=data["email"], job=queryJob.id, enable=1)
 							useradd.set_password(data["password"])
 							db.session.add(useradd)
 							db.session.commit()
-							flash(f"New user added {data['username']}","good")
+							flash(f"New user added {data['username']}", "good")
 							return "ok"
 						else:
 							return "This username already exists"
@@ -62,19 +64,20 @@ def add_user():
 	else:
 		return "Password fields are not the same "
 
-@users_bp.route("/mod_user",methods=["POST"])
+
+@users_bp.route("/mod_user", methods=["POST"])
 def mod_user():
 	data = request.form
 	form = AddUserForm(data=data)
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		queryUser = Users.query.filter_by(uuid=guuid).first()
-		if queryUser != None:
+		if queryUser is not None:
 			if form.firstname.validate(form) and form.name.validate(form) and form.username.validate(form) and form.role.validate(form) and form.email.validate(form):
 				job = data["job"]
 				if job != "Choose a job":
 					queryJob = Job.query.filter_by(name=job).first()
-					if queryJob != None:
+					if queryJob is not None:
 						if request.form["password"] != "" and request.form["EditRepeatPassword"] != "":
 							if request.form["password"] == request.form["EditRepeatPassword"]:
 								if form.password.validate(form):
@@ -96,8 +99,7 @@ def mod_user():
 				queryUser.job = queryJob.id
 				db.session.flush()
 				db.session.commit()
-				session["job"] = queryJob.name
-				flash(f"The informations of {queryUser.username} have been change","good")
+				flash(f"The informations of {queryUser.username} have been change", "good")
 				return "ok"
 			else:
 				keys = list(dict(form.errors.items()))
@@ -108,16 +110,17 @@ def mod_user():
 	else:
 		logout_user()
 		return redirect("/")
-	return 
+	return
 
-@users_bp.route("/mod_user/query",methods=["POST"])
+
+@users_bp.route("/mod_user/query", methods=["POST"])
 def mod_user_query():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		user = Users.query.filter_by(uuid=guuid).first()
-		if user != None:
+		if user is not None:
 			user.job = Job.query.filter_by(id=user.job).first().name
-			return jsonify({"uuid":user.uuid,"name":user.name,"firstname":user.firstname,"username":user.username,"email":user.email,"job":user.job,"totp":True if user.OTPSecret else False,"role":user.role})
+			return jsonify({"uuid": user.uuid, "name": user.name, "firstname": user.firstname, "username": user.username, "email": user.email, "job": user.job, "totp": True if user.OTPSecret else False, "role": user.role})
 		else:
 			logout_user()
 			return ""
@@ -125,13 +128,14 @@ def mod_user_query():
 		logout_user()
 		return ""
 
-@users_bp.route("/mod_user/disable_otp",methods=["POST"])
+
+@users_bp.route("/mod_user/disable_otp", methods=["POST"])
 def mod_user_disable_otp():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		user = Users.query.filter_by(uuid=guuid).first()
-		if user != None:
-			if user.OTPSecret != None:
+		if user is not None:
+			if user.OTPSecret is not None:
 				user.OTPSecret = None
 				db.session.commit()
 				return "ok"
@@ -146,15 +150,16 @@ def mod_user_disable_otp():
 		return ""
 	return ""
 
-@users_bp.route("/del_user",methods=["POST"])
+
+@users_bp.route("/del_user", methods=["POST"])
 def del_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		search = Users.query.filter_by(uuid=guuid).first()
-		if search != None:
+		if search is not None:
 			db.session.delete(search)
 			db.session.commit()
-			flash(f"The user {search.username} has been deleted","good")
+			flash(f"The user {search.username} has been deleted", "good")
 			return "ok"
 		else:
 			logout_user()
@@ -163,18 +168,19 @@ def del_user():
 		logout_user()
 		return "ok"
 
-@users_bp.route("/able_user",methods=["POST"])
+
+@users_bp.route("/able_user", methods=["POST"])
 def able_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
 		search = Users.query.filter_by(uuid=guuid).first()
-		if search != None:
+		if search is not None:
 			if search.enable == 1:
 				search.enable = 0
-				flash(f"The user {search.username} has been disable","good")
+				flash(f"The user {search.username} has been disable", "good")
 			elif search.enable == 0:
 				search.enable = 1
-				flash(f"The user {search.username} has been enable","good")
+				flash(f"The user {search.username} has been enable", "good")
 			db.session.commit()
 			return "ok"
 		else:
@@ -184,18 +190,19 @@ def able_user():
 		logout_user()
 		return "ok"
 
-@users_bp.route("/add_job",methods=["POST"])
+
+@users_bp.route("/add_job", methods=["POST"])
 def add_job():
 	if "addJob" in request.form:
 		job_name = request.form["addJob"]
 		regJob = r'^[a-zA-Z0-9-_.+\s]{1,255}$'
-		if re.match(regJob,job_name):
+		if re.match(regJob, job_name):
 			job = Job.query.filter_by(name=job_name).all()
 			if job == []:
 				new_job = Job(name=job_name)
 				db.session.add(new_job)
 				db.session.commit()
-				flash("New job had been add.","good")
+				flash("New job had been add.", "good")
 				return "ok"
 			else:
 				return "Job already exists"
@@ -205,18 +212,19 @@ def add_job():
 		logout_user()
 		return "ok"
 
-@users_bp.route("/remove_job",methods=["POST"])
+
+@users_bp.route("/remove_job", methods=["POST"])
 def remove_job():
 	if "RemoveJob" in request.form:
 		job_name = request.form["RemoveJob"]
 		if str(job_name) != "Choose a job":
 			query_job = Job.query.filter_by(name=job_name).first()
-			if query_job != None:
-				if Users.query.filter_by(job=query_job.id).first()==None:
+			if query_job is not None:
+				if Users.query.filter_by(job=query_job.id).first() is None:
 					job = Job.query.filter_by(name=job_name).first()
 					db.session.delete(job)
 					db.session.commit()
-					flash(f"The job {job_name} has been deleted","good")
+					flash(f"The job {job_name} has been deleted", "good")
 					return "ok"
 				else:
 					return "This job was link to a person"

@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABU | Fisrt Connection</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/sabu.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
-    <link rel="stylesheet" href="{{  url_for('static',filename='dist/output.css') }}"></script>
-    <script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SABU | Fisrt Connection</title>
+	<link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/sabu.ico') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
+	<link rel="stylesheet" href="{{  url_for('static',filename='dist/output.css') }}"></script>
 </head>
 <body>
-    <!-- LOGIN SECTION -->
-    <section class="bg-gradient-to-b from-gray-500 to-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <img class="w-32 h-32 mr-2 mb-4 rounded-full" src="../static/assets/icons/logo_sabu.png" alt="logo">    
-            <div class="flex items-center text-2xl pb-6 font-semibold text-white">SABU SERVER</div>
-            <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="flex justify-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                        Fisrt Connection
-                    </h1>
-                    <p>Welcome to SABU ! This is your first connection so you need to change your password.</p>
-                    <form class="space-y-4 md:space-y-6" action="{{ url_for('login.first_con') }}" method="POST" >
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                        <div>
-                            <label for="totp" class="block mb-2 text-sm font-medium text-gray-900">New Password</label>
-                            <div class="relative">
-                                <input type="password" name="newPasswordInput" id="newPasswordInput" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                                <button id="toggleButtonNewPasswordInput" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-                                  <div class="text-gray-500">
-                                    <i id="toggleviewNewPasswordInput" class="toggleView fa-solid fa-eye"></i>
-                                  </div>
-                                </button>
-                              </div>
-                        </div>
-                        <div>
-                            <label for="totp" class="block mb-2 text-sm font-medium text-gray-900">Repeat Password</label>
-                            <div class="relative">
-                                <input type="password" name="repeatPasswordInput" id="repeatPasswordInput" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                                <button id="toggleButtonRepeatPasswordInput" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-                                  <div class="text-gray-500">
-                                    <i id="toggleviewRepeatPasswordInput" class="toggleView fa-solid fa-eye"></i>
-                                  </div>
-                                </button>
-                              </div>
-                        </div>
-                        <button type="submit" class="w-full text-dark bg-slate-200 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Send</button>
-                    </form>
-                    <!-- alert msg connection -->
-                    <div id="successful" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 flex justify-center" style="display: none;" role="alert">
-                        <span class="font-bold">Connection successful !</span>
-                    </div>
-                    <div id="failed" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 flex justify-center" style="display: none;" role="alert">
-                        <span class="font-bold">{{ error }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script type="text/javascript">
-        var con = "{{ con }}"
-        if(con == "ok"){
-            document.getElementById("successful").style = "display: True;"
-            setTimeout(function(){window.location.reload();},1000);
-        }else if(con == "ko"){
-            document.getElementById("failed").style = "display: True;"
-        }
-    </script>
+	<!-- LOGIN SECTION -->
+	<section class="bg-gradient-to-b from-gray-500 to-gray-900">
+		<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<img class="w-32 h-32 mr-2 mb-4 rounded-full" src="../static/assets/icons/logo_sabu.png" alt="logo">    
+			<div class="flex items-center text-2xl pb-6 font-semibold text-white">SABU SERVER</div>
+			<div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+				<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+					<h1 class="flex justify-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+						Fisrt Connection
+					</h1>
+					<p>Welcome to SABU ! This is your first connection so you need to change your password.</p>
+					<form class="space-y-4 md:space-y-6" action="{{ url_for('login.first_con') }}" method="POST" >
+						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+						<div>
+							<label for="totp" class="block mb-2 text-sm font-medium text-gray-900">New Password</label>
+							<div class="relative">
+								<input type="password" name="newPasswordInput" id="newPasswordInput" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+								<button id="toggleButtonNewPasswordInput" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
+								  <div class="text-gray-500">
+									<i id="toggleviewNewPasswordInput" class="toggleView fa-solid fa-eye"></i>
+								  </div>
+								</button>
+							  </div>
+						</div>
+						<div>
+							<label for="totp" class="block mb-2 text-sm font-medium text-gray-900">Repeat Password</label>
+							<div class="relative">
+								<input type="password" name="repeatPasswordInput" id="repeatPasswordInput" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+								<button id="toggleButtonRepeatPasswordInput" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
+								  <div class="text-gray-500">
+									<i id="toggleviewRepeatPasswordInput" class="toggleView fa-solid fa-eye"></i>
+								  </div>
+								</button>
+							  </div>
+						</div>
+						<button type="submit" class="w-full text-dark bg-slate-200 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Send</button>
+					</form>
+					<!-- alert msg connection -->
+					<div id="successful" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 flex justify-center" style="display: none;" role="alert">
+						<span class="font-bold">Connection successful !</span>
+					</div>
+					<div id="failed" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 flex justify-center" style="display: none;" role="alert">
+						<span class="font-bold">{{ error }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
+	<script type="text/javascript">
+		var con = "{{ con }}"
+		if(con == "ok"){
+			document.getElementById("successful").style = "display: True;"
+			setTimeout(function(){window.location = location.protocol+"//"+document.domain+":"+location.port;},1000);
+		}else if(con == "ko"){
+			document.getElementById("failed").style = "display: True;"
+		}
+	</script>
 </body>
 </html>

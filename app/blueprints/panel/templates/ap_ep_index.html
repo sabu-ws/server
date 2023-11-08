@@ -1,0 +1,164 @@
+{% extends 'admin_base.html' %}
+{% set title='Endpoints' %}
+{% block contents %}
+    <!-- MANAGE ENDPOINT -->
+    <div class="p-4 sm:ml-64">
+		<div class="p-8 mt-14">
+			<div class="grid grid-cols-1 gap-8 mb-14">
+				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4">
+					<h1 class="flex justify-center text-4xl font-medium dark:text-gray-300">Manage Endpoints</h1>
+					<p class="flex justify-center mt-4 dark:text-gray-300">This page allows you to perform various actions. You can add or remove an endpoint and also manage them.</p>
+				</div>
+			</div>
+            <div class="grid grid-cols-1 gap-8 mb-20">
+				<div class="overflow-x-auto shadow-md rounded-lg">
+					<div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800 p-8">
+                        <button data-modal-show="addEndpointModal" data-modal-target="addEndpointModal" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                            <div class="space-x-2">
+                                <i class="fa-solid fa-display"></i> Add Endpoint
+                            </div>
+                        </button>
+					   
+						<label for="table-search" class="sr-only">Search</label>
+						<input type="text" id="table-search-endpoint" class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for endpoints">
+					</div>
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="tableEndpointForm">
+						<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+							<tr>
+								<th scope="col" class="px-6 py-3">
+									ID
+								</th>
+								<th scope="col" class="px-6 py-3">
+									Name
+								</th>
+								<th scope="col" class="px-6 py-3">
+									Status
+								</th>
+								<th scope="col" class="px-6 py-3">
+									Action
+								</th>
+							</tr>
+						</thead>
+						<tbody id="TEMP">
+                            <!-- {% for user in userList %} -->
+							<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+								<td id="TEMP" class="px-6 py-4">
+									#1
+								</td>
+								<td id="TEMP" class="px-6 py-4">
+									ENDPOINT-1_SABU-RPI
+								</td>
+								<td class="px-6 py-4">
+									<div class="flex items-center" id="TEMP">
+										<!--{% if user.OTPSecret %}-->
+										<div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Up
+										<!-- {% else %} -->
+										<div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div> Down
+										<!-- {% endif %} -->
+									</div>
+								</td>
+								<td class="px-4 py-4">
+									<div class="flex space-x-2">
+										<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-blue-600 hover:bg-gray-200 h-6 w-6 font-medium text-white hover:text-blue-600 dark:text-gray-900 dark:hover:text-blue-600 dark:hover:bg-gray-800">
+											<i class="fa-solid fa-eye"></i>
+										</button>
+										<button type="button" data-modal-show="confirmRemoveModal" title='Remove Endpoint' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-gray-200 h-6 w-6 font-medium text-white dark:text-gray-900 hover:text-red-600 dark:hover:text-red-600 dark:hover:bg-gray-800">
+												<i class="fa-solid fa-trash"></i>
+										</button>
+									</div>
+								</td>
+								<!-- <td id="uuidUserTable" style="display: none;">{{ user.uuid }}</td> A GARDER ??-->
+							</tr>
+							<!-- {% endfor %} -->
+						</tbody>
+					</table>
+					<div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center">
+						<b>No endpoint found!</b>
+					</div>
+
+					<!-- Add endpoint modal -->
+                    <div id="addEndpointModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-2xl max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Add endpoint
+                                    </h3>
+                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="addEndpointModal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-6 space-y-6">
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                        SABU IS GOOD WHITESTATION ! <br>
+										<div class="flex-col">
+											<label class="block">Endpoint Hostname</label>
+											<input type="text">
+										</div>
+										<div class="flex space-x-2">
+											<button class="bg-red-500 p-2 rounded-lg">Generate token</button>
+											<div id="otpLinkClick" class="flex w-8/12">
+												<input type="text" id="otp_url" class="border-gray-300 dark:text-gray-200 w-full truncate bg-inherit outline-none  focus:border-transparent" readonly="readonly">
+												<span id="otpLinkBtn" data-tooltip-target="tooltip-copy" class="m-1 inline-flex items-center px-3 text-sm text-white bg-blue-600 border border-r-0 border-gray-300 rounded-full dark:bg-blue-600 dark:text-gray-300 dark:border-gray-600">
+													<i class="fa-solid fa-copy"></i>
+												</span>
+												<div id="tooltip-copy" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:black">
+													<span id="copyInfoText">Copy ✗</span>
+													<div class="tooltip-arrow" data-popper-arrow></div>
+												</div>
+											</div>
+										</div>
+                                    </p>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <div class="flex-col w-full">
+                                        <button id="submitAddUEndpointForm" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                                        <div id="alertAddEndpointForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+                                            <span id="spanErrorAddEndpointForm" class="font-bold">Error : </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  
+
+					<!-- Confirm remove modal -->
+					<div id="confirmRemoveModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+						<div class="relative w-full max-w-md max-h-full">
+							<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+								<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmRemoveModal">
+									<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+									</svg>
+									<span class="sr-only">Close modal</span>
+								</button>
+								<div class="p-6 text-center">
+									<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+									</svg>
+									<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to remove this endpoint ?</h3>
+									<button data-modal-hide="confirmRemoveModal" type="button" id="yesButtonDeleteUser" class="closeRemoveModal text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+										Yes
+									</button>
+									<button data-modal-hide="confirmRemoveModal" type="button" class="closeRemoveModal text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+</script>
+{% endblock %}

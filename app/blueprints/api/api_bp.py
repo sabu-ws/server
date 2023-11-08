@@ -32,7 +32,7 @@ def check_headers(f):
 def check_room(f):
 	@wraps(f)
 	def decorated_function(*args, **kwargs):
-		get_rooms = rooms(namespace="/api/v2",sid=request.sid)
+		get_rooms = rooms(namespace="/api/v2", sid=request.sid)
 		if request.headers["X-SABUHOSTNAME"] in get_rooms:
 			return f(*args, **kwargs)
 	return decorated_function
@@ -81,11 +81,11 @@ def ping(*args,**kwargs):
 @check_room
 def set_connect(data):
 	user = Users.query.filter_by(username=data["username"]).first()
-	if user == None:
+	if user is None:
 		emit("callback",{"error":"user not found1"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 	else:
 		if bcrypt.check_password_hash(user.password,data["password"]):
-			if user.OTPSecret == None:
+			if user.OTPSecret is None:
 				login_user(user)
 				emit("callback",{"message":"user connected","user":user.username},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
 			else:
@@ -98,36 +98,36 @@ def check_otp(data):
 	print(data)
 	user = Users.query.filter_by(username=data["username"]).first()
 	if user == None:
-		emit("callback",{"error":"bad credentials"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+		emit("callback", {"error":"bad credentials"}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 	else:
-		if bcrypt.check_password_hash(user.password,data["password"]):
-			if user.OTPSecret == None:
-				emit("callback",{"error":"bad credentials"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+		if bcrypt.check_password_hash(user.password, data["password"]):
+			if user.OTPSecret is None:
+				emit("callback", {"error":"bad credentials"}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 			else:
 				totp = pyotp.TOTP(user.OTPSecret)
 				if totp.verify(data["totp"]):
 					login_user(user)
-					emit("callback",{"message":"user connected","user":user.username},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+					emit("callback", {"message":"user connected", "user":user.username}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 				else:
-					emit("callback",{"error":"bad otp"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+					emit("callback", {"error":"bad otp"}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 		else:
-			emit("callback",{"error":"bad credentials"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+			emit("callback", {"error":"bad credentials"}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 
 
 @socketio.on("show_connection",namespace="/api/v2")
 @check_room
 def show_con():
-	emit("callback",{"message":current_user.is_authenticated},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
+	emit("callback", {"message":current_user.is_authenticated}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
+
 
 @socketio.on("set_disconnection",namespace="/api/v2")
 @check_room
 def dis_con():
 	logout_user()
-	emit("callback",{"message":"user deconnected"},namespace="/api/v2",to=request.headers["X-SABUHOSTNAME"])
-
+	emit("callback", {"message":"user deconnected"}, namespace="/api/v2", to=request.headers["X-SABUHOSTNAME"])
 
 
 @api_bp.route("/emit")
 def emitsomething():
-	emit("ping","pong",namespace='/api/v2',broadcast=True)
+	emit("ping", "pong", namespace='/api/v2', broadcast=True)
 	return request.remote_addr
