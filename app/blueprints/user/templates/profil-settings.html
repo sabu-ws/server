@@ -226,13 +226,22 @@
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
 					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200">Profil Photo</h1>
 					<div class="flex justify-center mt-8 mb-8">
-						<div class="flex items-center justify-center w-52 h-52 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
-						{% if user.picture == None %}
-							<span class="font-bold text-6xl text-gray-600 dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
-						{% else %}
-							<img src="{{ url_for('user.renderPP') }}">
-						{% endif %}
+						<div class="relative inline-block group">
+							<div class="flex items-center justify-center w-52 h-52 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
+								{% if user.picture == None %}
+									<span class="font-bold text-6xl text-gray-600 dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
+									<div class="absolute hidden group-hover:flex inset-0 items-center justify-center">
+										<button class="bg-black text-white bg-opacity-50 hover:bg-opacity-60 w-52 h-52 leading-none rounded-full font-semibold text-lg">Remove</button>
+									</div>
+									{% else %}
+									<img src="{{ url_for('user.renderPP') }}">
+									<div class="absolute hidden group-hover:flex inset-0 items-center justify-center">
+										<button class="bg-black text-white bg-opacity-50 hover:bg-opacity-60 w-52 h-52 leading-none rounded-full font-semibold text-lg">Remove</button>
+									</div>
+								{% endif %}
+							</div>
 						</div>
+						
 					</div>
 					<form action="{{ url_for('user.sendPicture') }}" method="POST" enctype="multipart/form-data">
 						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
