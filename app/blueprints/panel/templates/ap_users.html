@@ -57,7 +57,13 @@
 										{% if user.picture %}
 										<img class="w-10 h-10 rounded-full" src="{{ url_for('panel.users.index') }}renderPP_user/{{ user.uuid }}">
 										{% else %}
-										<img class="w-10 h-10 rounded-full" src="{{ url_for('static',filename='/assets/icons/profil.png') }}">
+										<div>
+											<div class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+												<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full dark:bg-gray-600">
+													<span class="font-bold text-white dark:text-gray-300">{{ user.firstname[0].upper() }}{{ user.name[0].upper() }}</span>
+												</div>
+											</div>
+										</div>
 										{% endif %}
 										{% if user.role == "Admin" %}
 										<span class="absolute inset-0 object-right-top -mr-5 -mt-2">
