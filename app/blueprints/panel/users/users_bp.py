@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, flash, jsonify
+from flask import Blueprint, render_template, redirect, request, flash, jsonify, send_file
 import uuid
 from sqlalchemy import or_
 import re
@@ -236,3 +236,14 @@ def remove_job():
 	else:
 		logout_user()
 		return "ok"
+
+@users_bp.route("/renderPP_user/<ouuid>")
+def render_o_PP(ouuid):
+	user = Users.query.filter_by(uuid=ouuid).first()
+	print(user.picture)
+	if user.picture is not None:
+		renderPP_io = open(user.picture, "rb")
+		mimeType = "image/" + renderPP_io.name.split(".")[-1]
+		return send_file(renderPP_io, mimetype=mimeType), 200, {
+			'Content-Type': mimeType}
+	return ""
