@@ -17,3 +17,6 @@ def setHostname(hostname):
     subprocess.Popen(["hostnamectl","set-hostname",str(hostname)])
     
     return ""
+
+def getInterface():
+    return ""

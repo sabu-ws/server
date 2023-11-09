@@ -98,7 +98,7 @@ def mod_user():
 						if request.form["password"] != "" and request.form["EditRepeatPassword"] != "":
 							if request.form["password"] == request.form["EditRepeatPassword"]:
 								if form.password.validate(form):
-									queryUser.password = data["password"]
+									queryUser.set_password(data["password"])
 								else:
 									keys = list(dict(form.errors.items()))
 									return dict(form.errors.items())[keys[0]][0]
