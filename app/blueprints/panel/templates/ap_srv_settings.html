@@ -18,28 +18,31 @@
 						</div>
 						<div class="grid grid-cols-2 gap-12 mb-12">
 							<div class="bg-white rounded-lg shadow-md">
-								<h1 class="flex justify-center p-4 text-2xl font-medium">Hostname</h1>
-								<div class="p-8">
-									<h2 class="mb-2 text-lg font-semibold text-black">Requirements :</h2>
-									<ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-										<li class="flex items-center">
-											<svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-												<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-											</svg>
-											At least 5 characters
-										</li>
-										<li class="flex items-center">
-											<svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-												<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-											</svg>
-											At max 64 characters
-										</li>
-									</ul>
-									<input type="text" name="hostname" class="w-full mt-4 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="HOSTNAME">
-									<div class="flex justify-end mt-10">
-										<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+								<form action="{{ url_for('panel.server.settings_hostname') }} " method="POST">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+									<h1 class="flex justify-center p-4 text-2xl font-medium">Hostname</h1>
+									<div class="p-8">
+										<h2 class="mb-2 text-lg font-semibold text-black">Requirements :</h2>
+										<ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+											<li class="flex items-center">
+												<svg id="minCharHostname" class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+												</svg>
+												At least 5 characters
+											</li>
+											<li class="flex items-center">
+												<svg id="maxCharHostname" class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+												</svg>
+												At max 64 characters
+											</li>
+										</ul>
+										<input id="inputHostname" type="text" name="hostname" class="w-full mt-4 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="HOSTNAME">
+										<div class="flex justify-end mt-10">
+											<button id="subtmitHostname" disabled type="submit" class="text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 							<form action="{{ url_for('panel.server.settings_certificates') }}" method="POST" enctype="multipart/form-data">
 								<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -51,20 +54,11 @@
 											<div class="flex-col w-10/12">
 												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="fileCrtInput">Upload crt file</label>
 												<input name="fileCRT" accept=".crt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="fileCrtInput" type="file">
-												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">Passphrase crt file:</label>
-												<div class="relative">
-													<input type="password" name="phassphraseCrtFile" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="••••••••">
-													<button id="toggleButton" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-														<div class="text-gray-500">
-														  <i class="toggleView fa-solid fa-eye"></i>
-														</div>
-													</button>
-												</div>
 											</div>
 											<div class="flex-col w-10/12">
 												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="fileKeyInput">Upload key file</label>
 												<input name="fileKEY" accept=".key" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="fileKeyInput" type="file">
-												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">Passphrase key file:</label>
+												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">Passphrase key file (Optional):</label>
 												<div class="relative">
 													<input type="password" name="phassphraseKeyFile" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="••••••••">
 													<button id="toggleButton" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">

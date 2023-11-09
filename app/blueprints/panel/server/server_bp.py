@@ -4,6 +4,7 @@ from app import logout_user
 from config import *
 
 import OpenSSL
+import re
 
 server_bp = Blueprint(
 	"server",
@@ -25,9 +26,29 @@ def logs():
 def settings():
 	return render_template("ap_srv_settings.html")
 
+@server_bp.route("/settings/hostname", methods=["POST"])
+def settings_hostname():
+	if "hostname" in request.form:
+		if 5 < len(request.form["hostname"]) < 64:
+			regex = r'^[a-zA-Z0-9-]{5,64}$'
+			print(re.match(regex,request.form["hostname"]))
+			if re.match(regex,request.form["hostname"]):
+				flash("The hostname has been change","good")
+				return redirect(url_for("panel.server.settings"))
+			else:
+				flash("You enter bad charactere for the hostname!","error")
+				return redirect(url_for("panel.server.settings"))
+		else:
+			flash("Please enter hostname between 5 and 64 charactère","error")
+			return redirect(url_for("panel.server.settings"))
+
+	else:
+		logout_user()
+		return redirect(url_for("login.logn"))
+	return ""
+
 @server_bp.route("/settings/certificates", methods=["POST"])
 def settings_certificates():
-	print(request.files)
 	if "fileCRT" in request.files and "fileKEY" in request.files:
 		crt_file = request.files["fileCRT"]
 		key_file = request.files["fileKEY"] 
@@ -38,8 +59,12 @@ def settings_certificates():
 			if key_file.mimetype != "application/octet-stream"  and key_file.filename[-4:] != ".key" :
 				flash("Please input correct type of key file !","error")
 				return redirect(url_for("panel.server.settings"))
+			passphrase_private_key = b""
+			if "phassphraseKeyFile" in request.form:
+				if request.form["phassphraseKeyFile"] != "":
+					passphrase_private_key = request.form["phassphraseKeyFile"].encode()
 			try:
-				private_key_obj = OpenSSL.crypto.load_privatekey(OpenSSL.crypto.FILETYPE_PEM, key_file.read().decode(),passphrase=b"")
+				private_key_obj = OpenSSL.crypto.load_privatekey(OpenSSL.crypto.FILETYPE_PEM, key_file.read().decode(),passphrase=passphrase_private_key)
 			except OpenSSL.crypto.Error:
 				flash("Private Key file is not correct format !","error")
 				return redirect(url_for("panel.server.settings"))
