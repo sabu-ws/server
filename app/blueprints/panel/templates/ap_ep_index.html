@@ -94,20 +94,23 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-6 space-y-6">
+                                <div class="ml-6 mr-6 mt-2 mb-2 space-y-6">
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                        SABU IS GOOD WHITESTATION ! <br>
 										<div class="flex-col">
-											<label class="block">Endpoint Hostname</label>
-											<input type="text">
+											<h1 class="mb-2 text-lg font-semibold text-black">Information :</h1>
+											<p>To add an endpoint you must enter its name and generate a token. Then you will need to enter the token when installing the endpoint.</p>
+										</div>
+										<div class="flex-col">
+											<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endpoint Hostname</label>
+											<input id="endpointHostname" type="text" name="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="endpoint-1">
 										</div>
 										<div class="flex space-x-2">
-											<button class="bg-red-500 p-2 rounded-lg">Generate token</button>
-											<div id="otpLinkClick" class="flex w-8/12">
-												<input type="text" id="otp_url" class="border-gray-300 dark:text-gray-200 w-full truncate bg-inherit outline-none  focus:border-transparent" readonly="readonly">
-												<span id="otpLinkBtn" data-tooltip-target="tooltip-copy" class="m-1 inline-flex items-center px-3 text-sm text-white bg-blue-600 border border-r-0 border-gray-300 rounded-full dark:bg-blue-600 dark:text-gray-300 dark:border-gray-600">
+											<button class="bg-blue-700 hover:bg-blue-800 p-2 rounded-lg text-white">Generate Token <i class="fa-solid fa-arrows-spin"></i></button>
+											<div id="otpLinkClick" class="flex w-9/12">
+												<input type="text" id="otp_url" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="readonly">
+												<button id="otpLinkBtn" data-tooltip-target="tooltip-copy" class="m-1 inline-flex items-center px-3 text-sm text-white bg-blue-600 border border-r-0 border-gray-300 rounded-full dark:bg-blue-600 dark:text-gray-300 dark:border-gray-600">
 													<i class="fa-solid fa-copy"></i>
-												</span>
+												</button>
 												<div id="tooltip-copy" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:black">
 													<span id="copyInfoText">Copy ✗</span>
 													<div class="tooltip-arrow" data-popper-arrow></div>

@@ -1519,20 +1519,12 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
 }
 
-.-mr-2 {
-  margin-right: -0.5rem;
+.ml-6 {
+  margin-left: 1.5rem;
 }
 
-.ml-5 {
-  margin-left: 1.25rem;
-}
-
-.-mt-4 {
-  margin-top: -1rem;
-}
-
-.-mt-3 {
-  margin-top: -0.75rem;
+.mr-6 {
+  margin-right: 1.5rem;
 }
 
 .block {
@@ -1735,6 +1727,10 @@ input:checked + .toggle-bg {
   width: 100%;
 }
 
+.w-9\/12 {
+  width: 75%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -1799,6 +1795,16 @@ input:checked + .toggle-bg {
 
 .transform-none {
   transform: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .cursor-default {
@@ -2236,31 +2242,19 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.5);
 }
 
-.bg-gray-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
-}
-
-.bg-gray-500\/50 {
-  background-color: rgb(107 114 128 / 0.5);
-}
-
-.bg-gray-500\/70 {
-  background-color: rgb(107 114 128 / 0.7);
-}
-
-.bg-gray-500\/80 {
-  background-color: rgb(107 114 128 / 0.8);
-}
-
-.bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(194 120 3 / var(--tw-bg-opacity));
-}
-
 .bg-yellow-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
+}
+
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 131 248 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2284,11 +2278,6 @@ input:checked + .toggle-bg {
 .object-right-top {
   -o-object-position: right top;
      object-position: right top;
-}
-
-.object-left-top {
-  -o-object-position: left top;
-     object-position: left top;
 }
 
 .p-1 {
@@ -2625,31 +2614,12 @@ input:checked + .toggle-bg {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-yellow-500 {
-  --tw-text-opacity: 1;
-  color: rgb(194 120 3 / var(--tw-text-opacity));
-}
-
-.text-yellow-800 {
-  --tw-text-opacity: 1;
-  color: rgb(114 59 19 / var(--tw-text-opacity));
-}
-
-.text-yellow-400 {
-  --tw-text-opacity: 1;
-  color: rgb(227 160 8 / var(--tw-text-opacity));
-}
-
 .opacity-0 {
   opacity: 0;
 }
 
 .opacity-100 {
   opacity: 1;
-}
-
-.opacity-50 {
-  opacity: 0.5;
 }
 
 .shadow {
@@ -2787,6 +2757,16 @@ input:checked + .toggle-bg {
 .after\:content-\[\'\'\]::after {
   --tw-content: '';
   content: var(--tw-content);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hover\:animate-spin:hover {
+  animation: spin 1s linear infinite;
 }
 
 .hover\:rounded-lg:hover {
