@@ -95,6 +95,7 @@
 									</div>
 								</td>
 								<td class="px-4 py-4">
+									{% if user.username != "Admin" %}
 									<div class="flex space-x-2">
 										<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-blue-600 hover:bg-gray-200 h-6 w-6 font-medium text-white hover:text-blue-600 dark:text-gray-900 dark:hover:text-blue-600 dark:hover:bg-gray-800">
 											<i class="fa-solid fa-pen-to-square"></i>
@@ -112,6 +113,7 @@
 										</button>
 										{% endif %}
 									</div>
+									{% endif %}
 								</td>
 								<td id="uuidUserTable" style="display: none;">{{ user.uuid }}</td>
 							</tr>

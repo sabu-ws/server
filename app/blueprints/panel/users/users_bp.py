@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, redirect, request, flash, jsonify, send_file
+from flask import Blueprint, render_template, redirect, request, flash, jsonify, send_file, url_for
 import uuid
 from sqlalchemy import or_
 import re
+from functools import wraps
 
 from app import login_required, current_user, db, logout_user
 
@@ -15,6 +16,21 @@ users_bp = Blueprint(
 	__name__
 	)
 
+def check_is_admin(f):
+	@wraps(f)
+	def decorated_function(*args, **kwargs):
+		if "uuid" in request.form:
+			if request.form["uuid"] != "":
+				user = Users.query.filter_by(uuid=request.form["uuid"]).first()
+				if user.username != "Admin":
+					return f(*args, **kwargs)
+				else:
+					return ""
+			else:
+				return ""
+		else:
+			return ""
+	return decorated_function
 
 @users_bp.before_request
 def users_bp_before_request():
@@ -66,6 +82,7 @@ def add_user():
 
 
 @users_bp.route("/mod_user", methods=["POST"])
+@check_is_admin
 def mod_user():
 	data = request.form
 	form = AddUserForm(data=data)
@@ -130,6 +147,7 @@ def mod_user_query():
 
 
 @users_bp.route("/mod_user/disable_otp", methods=["POST"])
+@check_is_admin
 def mod_user_disable_otp():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
@@ -152,6 +170,7 @@ def mod_user_disable_otp():
 
 
 @users_bp.route("/del_user", methods=["POST"])
+@check_is_admin
 def del_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
@@ -170,6 +189,7 @@ def del_user():
 
 
 @users_bp.route("/able_user", methods=["POST"])
+@check_is_admin
 def able_user():
 	if "uuid" in request.form:
 		guuid = request.form["uuid"]
@@ -193,6 +213,7 @@ def able_user():
 
 @users_bp.route("/add_job", methods=["POST"])
 def add_job():
+	check_is_admin()
 	if "addJob" in request.form:
 		job_name = request.form["addJob"]
 		regJob = r'^[a-zA-Z0-9-_.+\s]{1,255}$'
@@ -240,7 +261,6 @@ def remove_job():
 @users_bp.route("/renderPP_user/<ouuid>")
 def render_o_PP(ouuid):
 	user = Users.query.filter_by(uuid=ouuid).first()
-	print(user.picture)
 	if user.picture is not None:
 		renderPP_io = open(user.picture, "rb")
 		mimeType = "image/" + renderPP_io.name.split(".")[-1]

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from app import logout_user
+from app.utils import getHostname
 from config import *
 
 import OpenSSL
@@ -14,6 +15,7 @@ server_bp = Blueprint(
 
 @server_bp.route("/")
 def index():
+	print(getHostname())
 	return render_template("ap_srv_dashboard.html")
 
 
@@ -24,7 +26,7 @@ def logs():
 
 @server_bp.route("/settings")
 def settings():
-	return render_template("ap_srv_settings.html")
+	return render_template("ap_srv_settings.html",hostname=getHostname())
 
 @server_bp.route("/settings/hostname", methods=["POST"])
 def settings_hostname():

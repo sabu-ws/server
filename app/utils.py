@@ -1,4 +1,6 @@
 from datetime import datetime
+import os
+import subprocess
 
 
 def logging(action, message):
@@ -7,3 +9,11 @@ def logging(action, message):
     prefetch = f"{date_format} [GUI][{str(action)}] {message}\n"
     file.write(prefetch)
     file.close()
+
+def getHostname():
+    return subprocess.Popen(["hostname"],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","")
+
+def setHostname(hostname):
+    subprocess.Popen(["hostnamectl","set-hostname",str(hostname)])
+    
+    return ""
