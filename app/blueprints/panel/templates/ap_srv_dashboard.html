@@ -19,7 +19,7 @@
                               <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">CPU</h5>
                            </div>
                         </div>
-                        <div id="chart-cpu"></div>
+                        <div class="max-h-64" id="chart-cpu"></div>
                      </div>
        
                      <!-- RAM -->
@@ -29,7 +29,7 @@
                               <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">RAM</h5>
                            </div>
                         </div>
-                        <div id="chart-ram"></div>
+                        <div class="max-h-64" id="chart-ram"></div>
                      </div>
 
                      <!-- NETWORK -->
@@ -39,7 +39,7 @@
                               <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">NETWORK</h5>
                            </div>
                         </div>
-                        <div id="chart-network"></div>
+                        <div class="max-h-64" id="chart-network"></div>
                      </div>
  
                      <!-- DISK -->
@@ -51,7 +51,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="py-6" id="chart-disk"></div>
+                        <div class="max-h-64" class="py-6" id="chart-disk"></div>
                      </div>
                   </div>
                </div>
@@ -364,14 +364,14 @@
            yaxis: {
              labels: {
                formatter: function (value) {
-                 return value + "%"
+                 return value + " Go"
                },
              },
            },
            xaxis: {
              labels: {
                formatter: function (value) {
-                 return value  + "%"
+                 return value  + " Go"
                },
              },
              axisTicks: {
