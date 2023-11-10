@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 
-from app import logout_user
+from app import logout_user, socketio
 from app.utils import getHostname
 from config import *
 
@@ -11,6 +11,18 @@ server_bp = Blueprint(
 	"server",
 	__name__
 	)
+
+@socketio.on("startLogsServer")
+def startLogsServer():
+	temp_send_file = open("/var/log/syslog").read()
+	file_syslog = ""
+	while True:
+		socketio.sleep(1)
+		if temp_send_file != file_syslog:
+			file_syslog = temp_send_file
+			socketio.emit("receiveLogs",file_syslog)
+		else:
+			temp_send_file = open("/var/log/syslog").read()
 
 
 @server_bp.route("/")

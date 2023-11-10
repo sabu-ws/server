@@ -10,7 +10,7 @@ $.ajaxSetup({
 	}
 });
 
-// toggle buttont view password
+// =========== toggle buttont view password
 $(".toggleView").click(function(){
 	if($(this).closest("div").closest("button").prev().attr("type") == "password"){
 		$(this).closest("div").closest("button").prev().attr("type","text");
@@ -235,6 +235,8 @@ $("#enable2fa").click(function(){
 		}
 	});
 });
+
+// ====== Check totp code
 $("#FormCheckTotp").submit(function(e){
 	e.preventDefault();
 	if($("#TestTOTPCodeInput").val()==""){
@@ -257,7 +259,14 @@ $("#FormCheckTotp").submit(function(e){
 		});
 	}
 });
+$("#otpLinkBtn").click(function(){
+	$("#otp_url").select();
+	document.execCommand('copy');
+	$("#copyInfoText").html("Copied ✓")
+	window.getSelection().removeAllRanges();
+});
 
+// ======== dark mode working
 $("#ToggleDarkMode").click(function(){
 	if($("#ToggleDarkMode").prop("checked") === false){
 		localStorage.theme = 'light';
@@ -287,19 +296,15 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 	$("#ToggleDarkMode").prop("checked",false);
 	$("#ToggleDarkModeText").text("Light mode");
 }
+// =============================================
 
-
-$("#otpLinkBtn").click(function(){
-	$("#otp_url").select();
-	document.execCommand('copy');
-	$("#copyInfoText").html("Copied ✓")
-	window.getSelection().removeAllRanges();
-});
-
+// ======== Box info
 if($(".boxInfo").is(':visible')){
 	$(".boxInfo").delay(5000).fadeOut();
 }
 
+
+// ======= Check hostname length
 $("#inputHostname").on("keyup",function(){
 	if($(this).val().length <5){
 		$("#minCharHostname").removeClass("text-green-500");
@@ -327,5 +332,19 @@ $("#inputHostname").on("keyup",function(){
 		$("#subtmitHostname").removeClass("bg-blue-700");
 		$("#subtmitHostname").addClass("bg-gray-700");
 		$("#subtmitHostname").removeClass("hover:bg-blue-800")
+	}
+});
+
+
+
+// ================= Socketio all func
+$(document).ready(function(e){
+	var socket = io.connect(location.protocol+'//' + document.domain + ':' + location.port);
+	if(document.location.pathname=="/panel/server/logs"){
+		socket.emit("startLogsServer");
+		socket.on("receiveLogs",function(data){
+			$("#setLogs").html(data.replace(/\n/g, "<br />"));
+			$("#masterSetLogs").animate({ scrollTop: $("#masterSetLogs")[0].scrollHeight }, 1000);
+		})
 	}
 });
