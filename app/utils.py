@@ -10,13 +10,21 @@ def logging(action, message):
     file.write(prefetch)
     file.close()
 
+
 def getHostname():
-    return subprocess.Popen(["hostname"],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","")
+    return (
+        subprocess.Popen(["hostname"], stdout=subprocess.PIPE)
+        .communicate()[0]
+        .decode()
+        .replace("\n", "")
+    )
+
 
 def setHostname(hostname):
-    subprocess.Popen(["hostnamectl","set-hostname",str(hostname)])
-    
+    subprocess.Popen(["hostnamectl", "set-hostname", str(hostname)])
+
     return ""
+
 
 def getInterface():
     return ""

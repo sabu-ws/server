@@ -15,19 +15,16 @@ from app import login_required, current_user, logout_user
 
 from config import *
 
-panel_bp = Blueprint(
-	"panel",
-	__name__,
-	template_folder="templates"
-	)
+panel_bp = Blueprint("panel", __name__, template_folder="templates")
 
 
 @panel_bp.before_request
 @login_required
 def panel_before_request():
-	if current_user.role != "Admin":
-		logout_user()
-		return redirect(url_for("login.login"))
+    if current_user.role != "Admin":
+        logout_user()
+        return redirect(url_for("login.login"))
+
 
 panel_bp.register_blueprint(home_bp, url_prefix="/")
 panel_bp.register_blueprint(alerts_bp, url_prefix="/alerts")
