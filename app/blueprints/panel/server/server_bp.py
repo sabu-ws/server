@@ -4,6 +4,7 @@ from app import logout_user, socketio
 from app.utils import getHostname
 from config import *
 
+import subprocess
 import OpenSSL
 import re
 
@@ -43,10 +44,12 @@ def settings():
 @server_bp.route("/settings/hostname", methods=["POST"])
 def settings_hostname():
 	if "hostname" in request.form:
-		if 5 < len(request.form["hostname"]) < 64:
+		if 5 <= len(request.form["hostname"]) <= 64:
 			regex = r'^[a-zA-Z0-9-]{5,64}$'
-			print(re.match(regex,request.form["hostname"]))
 			if re.match(regex,request.form["hostname"]):
+				hostname = str(request.form["hostname"])
+				command = f"bash /sabu/server/core/scripts/update_hostname.sh -n {hostname}".split()
+				subprocess.Popen(command)
 				flash("The hostname has been change","good")
 				return redirect(url_for("panel.server.settings"))
 			else:

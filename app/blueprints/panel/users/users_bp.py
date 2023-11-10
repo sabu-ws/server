@@ -22,7 +22,7 @@ def check_is_admin(f):
 		if "uuid" in request.form:
 			if request.form["uuid"] != "":
 				user = Users.query.filter_by(uuid=request.form["uuid"]).first()
-				if user.username != "Admin":
+				if user.username != "admin":
 					return f(*args, **kwargs)
 				else:
 					return ""

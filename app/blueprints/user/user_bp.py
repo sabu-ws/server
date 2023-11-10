@@ -173,3 +173,16 @@ def renderPP():
 		return send_file(renderPP_io, mimetype=mimeType), 200, {
 			'Content-Type': mimeType}
 	return ""
+
+@user_bp.route("/removePP",methods=["POST"])
+@login_required
+def removePP():
+	user = Users.query.filter_by(id=current_user.id).first()
+	if user.picture is not None:
+		user.picture = None
+		db.session.commit()
+		flash("Your profile picture has been remove","good")
+		return redirect(url_for("user.index"))
+	logout_user()
+	return redirect(url_for("user.index"))
+

@@ -11,7 +11,7 @@ class LoginForm(FlaskForm):
 class AddUserForm(FlaskForm):
     firstname = StringField(validators=[Length(min=3, max=255, message="First Name fields must be between 3 and 255 characters long"), Regexp(r"^[a-zA-Z0-9-]{3,255}$", message=u"The firstname not match with padding")])  # noqa: E501
     name = StringField(validators=[Length(min=3, max=255, message="Last Name fields must be between 3 and 255 characters long"), Regexp(r"^[a-zA-Z0-9-]{3,255}$", message=u"The name not match with padding")])  # noqa: E501
-    username = StringField(validators=[Length(min=3, max=255, message="Username fields must be between 3 and 255 characters long"), Regexp(r"^[a-zA-Z0-9-.]{3,255}$", message=u"The username not match with padding")])  # noqa: E501
+    username = StringField(validators=[Length(min=3, max=255, message="Username fields must be between 3 and 255 characters long"), Regexp(r"^[a-z0-9-.]{3,255}$", message=u"The username not match with padding")])  # noqa: E501
     role = StringField(validators=[AnyOf(['Admin', 'User'], message="Role is not correct"), Regexp(r"^[a-zA-Z0-9-._\s]{3,255}$", message=u"The role not match with padding")])  # noqa: E501
     email = EmailField(validators=[Email(), Length(min=3, max=255, message="Email fields must be between 3 and 255 characters long")])  # noqa: E501
     job = StringField(validators=[Length(min=3, max=255, message="Job fields must be between 3 and 255 characters long"), Regexp(r"^[a-zA-Z0-9-._\s]{3,255}$", message=u"The job not match with padding")])  # noqa: E501
