@@ -1,3 +1,4 @@
+# SABU-SERVER
 #!/bin/bash
 
 while getopts n: flag
