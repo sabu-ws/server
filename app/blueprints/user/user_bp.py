@@ -144,9 +144,9 @@ def sendPicture():
 			px, py = image.size
 			guuid = user.uuid
 			filename = guuid + "." + file.content_type.split("/")[1]
-			MAX_SIZE = 100 * 1024
+			MAX_SIZE = 200 * 1024
 			if len(file.read()) <= MAX_SIZE:
-				if px <= 400 and py <= 400:
+				if px <= 500 and py <= 500:
 					path = os.path.join("ProfilePicture", filename)
 					image.save(path)
 					user.picture = path
