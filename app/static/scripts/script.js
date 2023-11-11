@@ -306,35 +306,18 @@ if($(".boxInfo").is(':visible')){
 
 // ======= Check hostname length
 $("#inputHostname").on("keyup",function(){
-	// if($(this).val().length <5){
-	// 	$("#minCharHostname").removeClass("text-green-500");
-	// 	$("#minCharHostname").addClass("text-gray-500");
-	// }else{
-	// 	$("#minCharHostname").removeClass("text-gray-500");
-	// 	$("#minCharHostname").addClass("text-green-500");
-	// }
-	// if($(this).val().length > 64){
-	// 	$("#maxCharHostname").removeClass("text-green-500");
-	// 	$("#maxCharHostname").addClass("text-gray-500");
-	// }else{
-	// 	$("#maxCharHostname").removeClass("text-gray-500");
-	// 	$("#maxCharHostname").addClass("text-green-500");
-	// }
-
 	if($(this).val().length > 4 && $(this).val().length < 65 ){
 		$("#CharHostname").removeClass("text-gray-500");
 		$("#CharHostname").addClass("text-green-500");
 		$("#subtmitHostname").removeAttr("disabled");
 		$("#subtmitHostname").removeClass("bg-gray-700");
-		$("#subtmitHostname").addClass("bg-blue-700");
-		$("#subtmitHostname").addClass("hover:bg-blue-800")
+		$("#subtmitHostname").addClass(["bg-blue-700","hover:bg-blue-800"]);
 	}else{
 		$("#CharHostname").removeClass("text-green-500");
 		$("#CharHostname").addClass("text-gray-500");
 		$("#subtmitHostname").prop("disabled",true);
-		$("#subtmitHostname").removeClass("bg-blue-700");
+		$("#subtmitHostname").removeClass(["bg-blue-700","hover:bg-blue-800"]);
 		$("#subtmitHostname").addClass("bg-gray-700");
-		$("#subtmitHostname").removeClass("hover:bg-blue-800")
 	}
 });
 
@@ -342,8 +325,8 @@ $("#inputHostname").on("keyup",function(){
 
 // ================= Socketio all func
 $(document).ready(function(e){
-	var socket = io.connect(location.protocol+'//' + document.domain + ':' + location.port);
 	if(document.location.pathname=="/panel/server/logs"){
+		var socket = io.connect("/logServer");
 		socket.emit("startLogsServer");
 		socket.on("receiveLogs",function(data){
 			$("#setLogs").html(data.replace(/\n/g, "<br />"));
