@@ -10,6 +10,7 @@ module.exports = {
       spacing: {
         '128': '34rem',
         '160': '40rem',
+        '165': '44rem',
       }},
   },
   fontFamily: {
