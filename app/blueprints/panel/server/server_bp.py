@@ -14,7 +14,7 @@ server_bp = Blueprint(
 	__name__
 	)
 
-@socketio.on("startLogsServer")
+@socketio.on("startLogsServer",namespace="/logServer")
 def startLogsServer():
 	temp_send_file = open("/var/log/syslog").read()
 	modify_syslog = os.stat("/var/log/syslog")[9] # modify time
@@ -24,10 +24,9 @@ def startLogsServer():
 		if temp_modify_syslog != modify_syslog:
 			temp_modify_syslog = modify_syslog
 			file_syslog = open("/var/log/syslog").read()
-			socketio.emit("receiveLogs",file_syslog)
+			socketio.emit("receiveLogs",file_syslog,namespace="/logServer")
 		else:
 			modify_syslog = os.stat("/var/log/syslog")[9]
-
 
 @server_bp.route("/")
 def index():
@@ -123,3 +122,10 @@ def settings_certificates():
 		logout_user()
 		return ""
 	return ""
+
+
+@server_bp.route("/ssh")
+def ssh():
+	# https://github.com/Fisherworks/flask-remote-terminal/blob/master/app.py
+	# https://docs.python.org/3/library/pty.html
+	return render_template("ap_srv_ssh.html")
