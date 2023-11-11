@@ -4,42 +4,38 @@
 	<!-- MANAGE SERVER -->
 	<div class="p-4 sm:ml-64">
 		<div class="p-8 mt-14">
-			<div class="grid grid-cols-1 gap-8 mb-8">
+			<div class="grid grid-cols-1">
 				<div class="bg-gray-50 rounded-lg shadow-md">
 					<!-- NAV HEADER -->
 					{% include 'subnavbar_server.html' %}
 
-					<div class="p-8">
+					<div class="p-4">
 						<!-- SETTINGS -->
-						<div class="grid grid-cols-1 mb-12">
-							<div class="bg-white rounded-lg shadow-md">
-								<h1 class="flex justify-center p-4 text-2xl font-semibold">Server Information</h1>
-							</div>
-						</div>
-						<div class="grid grid-cols-2 gap-12 mb-12">
+						<div class="grid grid-cols-2 gap-6 mb-6">
 							<div class="bg-white rounded-lg shadow-md">
 								<form action="{{ url_for('panel.server.settings_hostname') }} " method="POST">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-									<h1 class="flex justify-center p-4 text-2xl font-medium">Hostname</h1>
+									<h1 class="flex justify-center p-4 text-2xl font-medium">General Information</h1>
 									<div class="p-8">
-										<h2 class="mb-2 text-lg font-semibold text-black">Requirements :</h2>
+										<h2 class="mb-2 text-lg font-semibold text-black">Hostname :</h2>
 										<ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-											<li class="flex items-center">
-												<svg id="minCharHostname" class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+											<li class="flex items-center mb-2">
+												<svg id="CharHostname" class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 													<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
 												</svg>
-												At least 5 characters
-											</li>
-											<li class="flex items-center">
-												<svg id="maxCharHostname" class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-													<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-												</svg>
-												At max 64 characters
+												Must be between 5 and 64 characters
 											</li>
 										</ul>
-										<input id="inputHostname" type="text" name="hostname" class="w-full mt-4 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="{{ hostname }}">
-										<div class="flex justify-end mt-10">
-											<button id="subtmitHostname" disabled type="submit" class="text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+										<div class="flex justify-end">
+											<input id="inputHostname" type="text" name="hostname" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="{{ hostname }}">
+											<button id="subtmitHostname" disabled type="submit" class="ml-4 text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+										</div>
+										<div class="mt-8">
+											<h2 class="mb-2 text-lg font-semibold text-black">Description :</h2>
+											<div class="flex justify-end">
+												<textarea id="inputDescription" type="text" name="hostname" class="resize-none hover:resize-y w-full h-32 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="..."></textarea>
+												<button id="subtmitDescription" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+											</div>
 										</div>
 									</div>
 								</form>
@@ -77,7 +73,7 @@
 							</div>
 							
 						</div>
-						<div class="grid grid-cols-1 gap-12">
+						<div class="grid grid-cols-1">
 							<div class="bg-white rounded-lg shadow-md">
 								<h1 class="flex justify-center p-4 text-2xl">Network</h1>
 								<div class="p-8">

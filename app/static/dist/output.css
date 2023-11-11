@@ -1798,6 +1798,18 @@ input:checked + .toggle-bg {
   cursor: pointer;
 }
 
+.resize-none {
+  resize: none;
+}
+
+.resize-y {
+  resize: vertical;
+}
+
+.resize-x {
+  resize: horizontal;
+}
+
 .resize {
   resize: both;
 }
@@ -2732,6 +2744,10 @@ input:checked + .toggle-bg {
 .after\:content-\[\'\'\]::after {
   --tw-content: '';
   content: var(--tw-content);
+}
+
+.hover\:resize-y:hover {
+  resize: vertical;
 }
 
 .hover\:rounded-lg:hover {
