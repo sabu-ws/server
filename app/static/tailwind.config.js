@@ -6,7 +6,11 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: { 
+      spacing: {
+        '128': '34rem',
+        '160': '40rem',
+      }},
   },
   fontFamily: {
     'body': [
