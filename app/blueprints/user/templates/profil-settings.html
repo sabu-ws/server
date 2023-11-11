@@ -152,11 +152,11 @@
 
 	<!-- PROFIL SETTINGS -->
 	<div class="p-4">
-		<div class="p-12 mt-14">
-			<div class="grid grid-cols-2 gap-12 mb-12">
+		<div class="p-8 mt-14">
+			<div class="grid grid-cols-2 gap-6 mb-6">
 				<!-- Profile photo -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200">Profil Photo</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 underline underline-offset-3">Profil Photo</h1>
 					<div class="flex justify-center mt-8 mb-8">
 						<div class="relative inline-block group">
 							<div class="flex items-center justify-center w-52 h-52 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
@@ -189,7 +189,7 @@
 
 				<!-- Profil information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200">Profil Information</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 underline underline-offset-3">Profil Information</h1>
 						<form method="POST" action="{{ url_for('user.mod_info') }}">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 							<div class="flex flex-col place-items-center mt-10">
@@ -223,16 +223,16 @@
 									</div>
 								</div>
 							</div>
-							<div class="flex justify-end mr-12 mb-4 mt-20">
+							<div class="flex justify-end mr-12 mb-4 mt-16">
 								<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 	rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 								</div>
 						</form>
 				</div>
 			</div>
-			<div class="grid grid-cols-2 gap-12 mb-4">
+			<div class="grid grid-cols-2 gap-6">
 				<!-- Password information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200">Update Password</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 underline underline-offset-3">Update Password</h1>
 					<form method="POST" action="{{ url_for('user.change_password') }}">
 						<div class="flex flex-col place-items-center">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -278,8 +278,8 @@
 
 				<!-- 2FA information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200">Two Factor Authentication</h1>
-					<p class="flex justify-center ml-4 mb-4 p-4 dark:text-gray-300">When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's authenticator application.</p>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 underline underline-offset-3">Two Factor Authentication</h1>
+					<p class="flex justify-center ml-4 mb-8 p-4 dark:text-gray-300">When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's authenticator application.</p>
 					{% if user.OTPSecret == None %}
 						<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-800/30 dark:bg-red-800/30 dark:text-red-500 flex justify-center ml-12 mr-12" role="alert">
 							<span class="font-bold">You have not enabled two-factor authentication !</span>
@@ -290,7 +290,7 @@
 						</div>
 					{% endif %}
 
-					<div class="flex justify-end mr-12 mb-4">
+					<div class="flex justify-end mt-20 mr-12 mb-4">
 						{% if user.OTPSecret == None %}
 						<button type="submit" id="enable2fa" data-modal-target="Setup2FA" data-modal-toggle="Setup2FA" class="text-white bg-green-700 border-2 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:border-2 dark:border-transparent dark:hover:bg-gray-600/30 dark:hover:text-green-500 dark:hover:border-2 dark:hover:border-green-800 dark:focus:ring-blue-800">Enabled</button>
 						{% else %}
