@@ -1,19 +1,19 @@
 {% extends 'admin_base.html' %}
-{% set title='Server - Settings' %}
+{% set title='Endpoints - Settings' %}
 {% block contents %}
-	<!-- MANAGE SERVER -->
+	<!-- MANAGE ENDPOINTS -->
 	<div class="p-4 sm:ml-64">
 		<div class="p-8 mt-14">
 			<div class="grid grid-cols-1">
 				<div class="bg-gray-50 rounded-lg shadow-md">
 					<!-- NAV HEADER -->
-					{% include 'subnavbar_server.html' %}
+					{% include 'subnavbar_endpoints.html' %}
 
 					<div class="p-4">
 						<!-- SETTINGS -->
 						<div class="grid grid-cols-2 gap-6 mb-6">
 							<div class="bg-white rounded-lg shadow-md">
-								<form action="{{ url_for('panel.server.settings_hostname') }} " method="POST">
+								<form action="" method="POST">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 									<h1 class="flex justify-center p-4 text-2xl font-medium underline underline-offset-3">General Information</h1>
 									<div class="p-8">
@@ -27,13 +27,20 @@
 											</li>
 										</ul>
 										<div class="flex justify-end">
-											<input id="inputHostname" type="text" name="hostname" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="{{ hostname }}">
+											<input id="inputHostname" type="text" name="hostname" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="hostname">
 											<button id="subtmitHostname" disabled type="submit" class="ml-4 text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 										</div>
-										<div class="mt-8">
+                                        <div class="mt-8">
+											<h2 class="mb-2 text-lg font-semibold text-black">Location :</h2>
+											<div class="flex justify-end">
+												<input id="inputLocation" type="text" name="location" class="resize-none hover:resize-y w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="Room 1">
+												<button id="subtmitLocation" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+											</div>
+										</div>
+                                        <div class="mt-8">
 											<h2 class="mb-2 text-lg font-semibold text-black">Description :</h2>
 											<div class="flex justify-end">
-												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full h-32 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="..."></textarea>
+												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full  border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="..."></textarea>
 												<button id="subtmitDescription" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 											</div>
 										</div>
@@ -41,7 +48,7 @@
 								</form>
 							</div>
 							<div class="bg-white rounded-lg shadow-md">
-								<form action="{{ url_for('panel.server.settings_certificates') }}" method="POST" enctype="multipart/form-data">
+								<form action="" method="POST" enctype="multipart/form-data">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 									<h1 class="flex justify-center mt-4 text-2xl underline underline-offset-3">SSL Certificate</h1>
 									<div class="p-8">
@@ -65,7 +72,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="flex justify-end mt-4">
+										<div class="flex justify-end mt-10">
 											<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
 										</div>
 									</div>
