@@ -269,7 +269,6 @@ def able_user():
 
 @users_bp.route("/add_job", methods=["POST"])
 def add_job():
-    check_is_admin()
     if "addJob" in request.form:
         job_name = request.form["addJob"]
         regJob = r"^[a-zA-Z0-9-_.+\s]{1,255}$"
