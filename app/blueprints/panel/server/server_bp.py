@@ -3,20 +3,12 @@ from flask_socketio import SocketIO, rooms, disconnect
 
 from app import logout_user, socketio
 from app.utils import getHostname
-from app.func import read_and_forward_pty_output
 from config import *
 
 import subprocess
 import OpenSSL
 import re
 import os
-
-import select
-import pty
-import termios
-import struct
-import fcntl
-import psutil
 
 server_bp = Blueprint(
 	"server",
@@ -38,60 +30,6 @@ def startLogsServer():
 			socketio.emit("receiveLogs",file_syslog,namespace="/logServer")
 		else:
 			modify_syslog = os.stat("/var/log/syslog")[9]
-
-@socketio.on("connect",namespace="/pty")
-def new_connextion():
-	logf = open("log.txt","a")
-	logf.write(f"new connexion {request.sid}\n")
-	(pty_pid, fd) = pty.fork()
-	session["fd"] = fd
-	session["pid"] = pty_pid
-	if pty_pid == 0:
-		# os.execl('/usr/bin/ssh','ssh','root@localhost')
-		os.execl('/bin/bash','bash')
-	else:
-		status = psutil.Process(pty_pid).status()
-		socketio.start_background_task(read_and_forward_pty_output, fd, pty_pid,rooms()[0])
-
-@socketio.on("disconnect",namespace="/pty")
-def disconnect_user():
-	logf = open("log.txt","a")
-	logf.write(f"session {request.sid} was end\n")
-	pty_pid = psutil.Process(session["pid"])
-	logf.write(f"status child process {pty_pid.status()}\n")
-	if pty_pid.status() in ('running', 'sleeping'):
-		pty_pid.terminate()
-
-@socketio.on("pty-input", namespace="/pty")
-def pty_input(data):
-	"""write to the child pty, which now is the ssh process from this machine to the 'domain' configured
-	"""
-	try:
-		child_process = psutil.Process(session["pid"])
-	except psutil.NoSuchProcess as err:
-		disconnect()
-		return
-	if child_process.status() not in ('running', 'sleeping'):
-		disconnect()
-		return
-	fd = session["fd"]
-	if fd:
-		os.write(fd, data["input"].encode())
-
-@socketio.on("resize", namespace="/pty")
-def resize(data):
-	try:
-		child_process = psutil.Process(session["pid"])
-	except psutil.NoSuchProcess as err:
-		disconnect()
-		return
-	if child_process.status() not in ('running', 'sleeping'):
-		disconnect()
-		return
-	fd = session["fd"]
-	if fd:
-		winsize = struct.pack("HHHH", data["rows"], data["cols"], 0, 0)
-		fcntl.ioctl(fd, termios.TIOCSWINSZ, winsize)
 
 # ================= end socket io func
 
