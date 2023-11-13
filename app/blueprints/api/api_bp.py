@@ -18,7 +18,7 @@ from app import (
 )
 
 from app.utils import logging
-from app.models import Endpoint, Users
+from app.models import Devices, Users
 from config import *
 
 import pyotp
@@ -31,7 +31,7 @@ def check_headers(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if "X-SABUAPITOKEN" in request.headers and "X-SABUHOSTNAME" in request.headers:
-            if Endpoint.query.filter_by(
+            if Devices.query.filter_by(
                 hostname=request.headers["X-SABUHOSTNAME"],
                 token=request.headers["X-SABUAPITOKEN"],
             ).first():
@@ -64,7 +64,7 @@ def check_room(f):
 @check_headers
 def join(*args, **kwargs):
     join_room(request.headers["X-SABUHOSTNAME"], namespace="/api/v2", sid=request.sid)
-    set_state = Endpoint.query.filter_by(
+    set_state = Devices.query.filter_by(
         hostname=request.headers["X-SABUHOSTNAME"]
     ).first()
     set_state.state = 1
@@ -82,7 +82,7 @@ def discconnect():
     get_rooms = rooms(namespace="/api/v2", sid=request.sid)
     if request.headers["X-SABUHOSTNAME"] in get_rooms:
         close_room(request.headers["X-SABUHOSTNAME"], namespace="/api/v2")
-        set_state = Endpoint.query.filter_by(
+        set_state = Devices.query.filter_by(
             hostname=request.headers["X-SABUHOSTNAME"]
         ).first()
         set_state.state = 0
