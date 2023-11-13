@@ -9,14 +9,13 @@
 	<link rel="stylesheet" href="{{ url_for('static',filename='dist/output.css') }}">
 	<!-- import fontawesome -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
+	<!-- import xterm -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='modules/xtermjs/xterm.css') }}" />
 	<!-- script base -->
-	<script type="module" src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }} "></script>
-	<script src="{{ url_for('static',filename='scripts/socket.io.min.js') }} "></script>
-	<script type="module" src="{{ url_for('static',filename='node_modules/apexcharts/dist/apexcharts.min.js') }}"></script>
-	<!-- TEMP XTERM -->
-	<!-- <link href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css" rel="stylesheet"> -->
-	<link rel="stylesheet" href="/static/tmp/xterm.css" />
+	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='scripts/socket.io.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='node_modules/apexcharts/dist/apexcharts.min.js') }}"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900">
 	<!-- NAV BAR -->
