@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from app import logout_user, socketio
 from app.utils import getHostname
+from app.func import read_and_forward_pty_output
 from config import *
 
 import subprocess
@@ -13,6 +14,8 @@ server_bp = Blueprint(
 	"server",
 	__name__
 	)
+
+# ================= start socket io func
 
 @socketio.on("startLogsServer",namespace="/logServer")
 def startLogsServer():
@@ -27,6 +30,65 @@ def startLogsServer():
 			socketio.emit("receiveLogs",file_syslog,namespace="/logServer")
 		else:
 			modify_syslog = os.stat("/var/log/syslog")[9]
+
+@socketio.on("connect",namespace="/pty")
+def new_connextion():
+	logf = open("log.txt","a")
+	logf.write(f"new connexion {request.sid}\n")
+	(pty_pid, fd) = pty.fork()
+	session["fd"] = fd
+	session["pid"] = pty_pid
+	if pty_pid == 0:
+		# os.execl('/usr/bin/ssh','ssh','root@localhost')
+		os.execl('/bin/bash','bash')
+	else:
+		status = psutil.Process(pty_pid).status()
+		socketio.start_background_task(read_and_forward_pty_output, fd, pty_pid,rooms()[0])
+
+@socketio.on("disconnect",namespace="/pty")
+def disconnect_user():
+	logf = open("log.txt","a")
+	logf.write(f"session {request.sid} was end\n")
+	pty_pid = psutil.Process(session["pid"])
+	logf.write(f"status child process {pty_pid.status()}\n")
+	if pty_pid.status() in ('running', 'sleeping'):
+		pty_pid.terminate()
+
+@socketio.on("pty-input", namespace="/pty")
+def pty_input(data):
+	"""write to the child pty, which now is the ssh process from this machine to the 'domain' configured
+	"""
+	try:
+		child_process = psutil.Process(session["pid"])
+	except psutil.NoSuchProcess as err:
+		disconnect()
+		return
+	if child_process.status() not in ('running', 'sleeping'):
+		disconnect()
+		return
+	fd = session["fd"]
+	if fd:
+		os.write(fd, data["input"].encode())
+
+@socketio.on("resize", namespace="/pty")
+def resize(data):
+	try:
+		child_process = psutil.Process(session["pid"])
+	except psutil.NoSuchProcess as err:
+		disconnect()
+		return
+	if child_process.status() not in ('running', 'sleeping'):
+		disconnect()
+		return
+	fd = session["fd"]
+	if fd:
+		winsize = struct.pack("HHHH", data["rows"], data["cols"], 0, 0)
+		fcntl.ioctl(fd, termios.TIOCSWINSZ, winsize)
+
+# ================= end socket io func
+
+
+# ================ start router server
 
 @server_bp.route("/")
 def index():
@@ -50,7 +112,7 @@ def settings_hostname():
 			regex = r'^[a-zA-Z0-9-]{5,64}$'
 			if re.match(regex,request.form["hostname"]):
 				hostname = str(request.form["hostname"])
-				command = f"bash /sabu/server/core/scripts/update_hostname.sh -n {hostname}".split()
+				command = f"sudo bash /sabu/server/core/scripts/update_hostname.sh -n {hostname}".split()
 				subprocess.Popen(command)
 				flash("The hostname has been change","good")
 				return redirect(url_for("panel.server.settings"))
@@ -129,3 +191,6 @@ def ssh():
 	# https://github.com/Fisherworks/flask-remote-terminal/blob/master/app.py
 	# https://docs.python.org/3/library/pty.html
 	return render_template("ap_srv_ssh.html")
+
+
+# ================ end router server
