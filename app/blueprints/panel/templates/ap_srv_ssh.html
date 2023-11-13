@@ -30,17 +30,21 @@
 	 var csrf_token = "{{ csrf_token() }}";
 </script>
 <script> 
-	 document.getElementById("logs").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
-	 document.getElementById("logs").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
-	 document.getElementById("logs-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
-	 document.getElementById("logs-svg").classList.add("text-blue-600", "dark:text-blue-500");
+	 document.getElementById("ssh").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
+	 document.getElementById("ssh").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
+	 document.getElementById("ssh-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
+	 document.getElementById("ssh-svg").classList.add("text-blue-600", "dark:text-blue-500");
 </script>
-<script src="https://unpkg.com/xterm@3.6.0/dist/xterm.js"></script>
+<script src="/static/tmp/fit.js"></script>
+<script src="/static/tmp/search.js"></script>
+<script src="/static/tmp/webLinks.js"></script>
+<script src="/static/tmp/xterm.js"></script>
+<!-- <script src="https://unpkg.com/xterm@3.6.0/dist/xterm.js"></script>
 <script src="https://unpkg.com/xterm@3.6.0/dist/addons/fit/fit.js"></script>
 <script src="https://unpkg.com/xterm@3.6.0/dist/addons/webLinks/webLinks.js"></script>
-<script src="https://unpkg.com/xterm@3.6.0/dist/addons/search/search.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/xterm@3.6.0/dist/addons/search/search.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script> -->
 <script type="text/javascript">
 Terminal.applyAddon(fit)
 
