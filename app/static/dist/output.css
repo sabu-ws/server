@@ -3322,6 +3322,10 @@ input:checked + .toggle-bg {
     margin-left: 16rem;
   }
 
+  .sm\:block {
+    display: block;
+  }
+
   .sm\:hidden {
     display: none;
   }

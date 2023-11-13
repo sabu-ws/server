@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 
 from config import *
 
-endpoint_bp = Blueprint("endpoint", __name__)
+endpoint_bp = Blueprint("endpoints", __name__)
 
 
 @endpoint_bp.route("/")
