@@ -51,6 +51,8 @@ def users_bp_before_request():
 def index():
     get_user_list = Users.query.all()
     get_job_name = db.session.query(Job.name).all()
+    get_job_name = [i[0] for i in get_job_name]
+    get_job_name.remove("Administrator")
     for user in get_user_list:
         user.job = Job.query.filter_by(id=user.job).first().name
     return render_template(
@@ -74,7 +76,7 @@ def add_user():
             form = AddUserForm(data=data)
             if data["job"] != "Choose a job":
                 queryJob = Job.query.filter_by(name=data["job"]).first()
-                if queryJob != None:
+                if queryJob != None and queryJob != "Administrator":
                     if AddUserForm.validate(form):
                         if (
                             Users.query.filter_by(username=data["username"]).first()
@@ -129,7 +131,7 @@ def mod_user():
                 and form.email.validate(form)
             ):
                 job = data["job"]
-                if job != "Choose a job":
+                if job not in ["Choose a job","Administrator"]:
                     queryJob = Job.query.filter_by(name=job).first()
                     if queryJob is not None:
                         if (
