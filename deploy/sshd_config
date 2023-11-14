@@ -7,7 +7,7 @@ SyslogFacility AUTH
 
 # Auth
 LoginGraceTime 2m
-PermitRootLogin yes
+PermitRootLogin no
 StrictModes yes
 MaxAuthTries 5
 MaxSessions 4
