@@ -12,7 +12,7 @@ def index():
 
 @endpoint_bp.route("/dashboard")
 def dashboard():
-	return render_template("ap_ep_dashboard.html")
+    return render_template("ap_ep_dashboard.html")
 
 
 # @endpoint_bp.route("/logs")
@@ -22,4 +22,4 @@ def dashboard():
 
 @endpoint_bp.route("/settings")
 def settings():
-	return render_template("ap_ep_settings.html")
+    return render_template("ap_ep_settings.html")

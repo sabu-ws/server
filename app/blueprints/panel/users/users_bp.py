@@ -131,7 +131,7 @@ def mod_user():
                 and form.email.validate(form)
             ):
                 job = data["job"]
-                if job not in ["Choose a job","Administrator"]:
+                if job not in ["Choose a job", "Administrator"]:
                     queryJob = Job.query.filter_by(name=job).first()
                     if queryJob is not None:
                         if (
