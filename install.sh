@@ -6,6 +6,7 @@ apt upgrade -y
 
 # USER SABU
 useradd sabu --home /home/sabu --create-home --shell /bin/bash --password '$1$Av4Qv9gg$flzrWXMp0qC8aVEuu6XBF1'
+usermod -a -G adm sabu
 
 
 # USER SVC-SABU & RIGHTS
