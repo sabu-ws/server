@@ -9,6 +9,7 @@ import subprocess
 import OpenSSL
 import re
 import os
+import shutil
 
 server_bp = Blueprint(
 	"server",
@@ -78,7 +79,7 @@ def settings_hostname():
 def settings_certificates():
 	if "fileCRT" in request.files and "fileKEY" in request.files:
 		crt_file = request.files["fileCRT"]
-		key_file = request.files["fileKEY"] 
+		key_file = request.files["fileKEY"]
 		if crt_file.filename != "" and key_file.filename != "" :
 			if  crt_file.mimetype != "application/x-x509-ca-cert" and crt_file.filename[-4:] != ".crt"  :
 				flash("Please input correct type of certificate file !","error")
@@ -91,7 +92,7 @@ def settings_certificates():
 				if request.form["phassphraseKeyFile"] != "":
 					passphrase_private_key = request.form["phassphraseKeyFile"].encode()
 			try:
-				private_key_obj = OpenSSL.crypto.load_privatekey(OpenSSL.crypto.FILETYPE_PEM, key_file.read().decode(),passphrase=passphrase_private_key)
+				private_key_obj = OpenSSL.crypto.load_privatekey(OpenSSL.crypto.FILETYPE_PEM, key_file.read().decode(),passphrase=b"")
 			except OpenSSL.crypto.Error:
 				flash("Private Key file is not correct format !","error")
 				return redirect(url_for("panel.server.settings"))
@@ -108,19 +109,14 @@ def settings_certificates():
 			except OpenSSL.SSL.Error:
 				flash("The corresponding between certificate and key files is not coorect !","error")
 				return redirect(url_for("panel.server.settings"))
-
-			# ========================================== for tempory 
-
-			# shutil.move("/sabu/nginx/certificates/sabu-gui.crt", "/sabu/nginx/certificates/sabu-gui.crt.old")				
-			# shutil.move("/sabu/nginx/certificates/sabu-gui.key", "/sabu/nginx/certificates/sabu-gui.key.old")
-			path = "/temp/"
-			import tempfile
-			tempfile.TemporaryFile().write(crt_file.read())
-			tempfile.TemporaryFile().write(key_file.read())
-			# crt_file.save(path+"e")
-			# key_file.save(path+"m")
-			# ==========================================
-
+			private_key_dump = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, private_key_obj)
+			cert_dump = OpenSSL.crypto.dump_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_obj)
+			shutil.move("/sabu/ssl/sabu.crt", "/sabu/ssl/sabu.crt.old")				
+			shutil.move("/sabu/ssl/private/sabu.key", "/sabu/ssl/private/sabu.key.old")
+			open("/sabu/ssl/sabu.crt","wb").write(cert_dump)
+			open("/sabu/ssl/private/sabu.key","wb").write(private_key_dump)
+			subprocess.Popen("sudo /usr/bin/systemctl restart nginx.service".split())
+			subprocess.Popen("sudo /usr/bin/systemctl restart sabu.service".split())
 			flash("The certificates and private key file has been change","good")
 			return redirect(url_for("panel.server.settings"))
 		else:
