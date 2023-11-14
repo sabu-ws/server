@@ -57,7 +57,7 @@ rm /etc/nginx/sites-enabled/default
 mkdir -p /sabu/nginx/
 mkdir -p /sabu/logs/server/nginx/
 cp /sabu/server/deploy/nginx/maintenance.html /sabu/nginx/maintenance.html
-chown -R www-data:www-data /sabu/nginx/
+sed -i 's/www-data/svc-sabu/g' /etc/nginx/nginx.conf
 
 mkdir -p /sabu/ssl/private/
 
