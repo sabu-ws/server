@@ -12,8 +12,8 @@ index_bp = Blueprint("index", __name__, template_folder="templates")
 def index():
 	if current_user.is_authenticated:
 		if current_user.role == "Admin":
-			return redirect(url_for("panel.users.index"))
+			return redirect(url_for("panel.dashboard.index"))
 		elif current_user.role == "User":
-			return redirect(url_for("panel.users.index"))
+			return redirect(url_for("browser.index"))
 	else:
 		return redirect("/login")

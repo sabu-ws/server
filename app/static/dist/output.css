@@ -1308,8 +1308,24 @@ input:checked + .toggle-bg {
   z-index: 50;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
 .col-span-6 {
   grid-column: span 6 / span 6;
+}
+
+.col-start-3 {
+  grid-column-start: 3;
+}
+
+.col-start-4 {
+  grid-column-start: 4;
 }
 
 .m-1 {
@@ -1562,6 +1578,10 @@ input:checked + .toggle-bg {
   height: 0.625rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-3 {
   height: 0.75rem;
 }
@@ -1586,12 +1606,20 @@ input:checked + .toggle-bg {
   height: 1.5rem;
 }
 
+.h-72 {
+  height: 18rem;
+}
+
 .h-8 {
   height: 2rem;
 }
 
 .h-9 {
   height: 2.25rem;
+}
+
+.h-96 {
+  height: 24rem;
 }
 
 .h-\[calc\(100\%-1rem\)\] {
@@ -1824,6 +1852,10 @@ input:checked + .toggle-bg {
 
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .grid-cols-6 {
@@ -3320,10 +3352,6 @@ input:checked + .toggle-bg {
 
   .sm\:ml-64 {
     margin-left: 16rem;
-  }
-
-  .sm\:block {
-    display: block;
   }
 
   .sm\:hidden {
