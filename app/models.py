@@ -38,7 +38,7 @@ class USBlog(db.Model):
 	virus = db.Column(db.Integer, default=0)
 	date = db.Column(DateTime(timezone=True), server_default=func.now())
 	idUser = db.Column(db.Integer, db.ForeignKey("Users.id"))
-	idSlave = db.Column(db.Integer, db.ForeignKey("Endpoint.id"))
+	idSlave = db.Column(db.Integer, db.ForeignKey("Devices.id"))
 
 
 class Devices(db.Model):
