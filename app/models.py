@@ -3,6 +3,7 @@ from app import bcrypt
 from sqlalchemy.sql import func
 from sqlalchemy import DateTime
 
+import uuid
 
 class Users(db.Model, UserMixin):
     __tablename__ = "Users"
@@ -44,12 +45,12 @@ class USBlog(db.Model):
 class Devices(db.Model):
     __tablename__ = "Devices"
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    uuid = db.Column(db.String(255), unique=True)
+    uuid = db.Column(db.String(255),default=str(uuid.uuid4()), unique=True)
     ip = db.Column(db.String(64), nullable=False, unique=True)
     hostname = db.Column(db.String(255), nullable=True)
     description = db.Column(db.String(1024), nullable=True)
     token = db.Column(db.String(255), nullable=False, unique=True)
-    state = db.Column(db.Integer, nullable=False)
+    state = db.Column(db.Integer, nullable=False, default=0)
 
 
 class Metrics(db.Model):

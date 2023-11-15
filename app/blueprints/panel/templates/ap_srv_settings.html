@@ -15,6 +15,7 @@
 							<div class="bg-white rounded-lg shadow-md">
 								<form action="{{ url_for('panel.server.settings_hostname') }} " method="POST">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="uuid" value="{{ device.uuid }}">
 									<h1 class="flex justify-center p-4 text-2xl font-medium underline underline-offset-3">General Information</h1>
 									<div class="p-8">
 										<h2 class="mb-2 text-lg font-semibold text-black">Hostname :</h2>
@@ -33,7 +34,7 @@
 										<div class="mt-8">
 											<h2 class="mb-2 text-lg font-semibold text-black">Description :</h2>
 											<div class="flex justify-end">
-												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full h-32 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="..."></textarea>
+												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full h-32 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="...">{{ device.description }}</textarea>
 												<button id="subtmitDescription" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 											</div>
 										</div>

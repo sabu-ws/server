@@ -64,7 +64,8 @@ db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 # db.init_app(app)
 # migrate = Migrate(app, db,render_as_batch=True)
 
-from app.models import Users, Job
+from app.models import Users, Job, Devices
+from app.utils import get_IP_Server, getHostname
 if not os.path.exists(os.path.join("instance", db_name)):
 	db.init_app(app)
 	with app.app_context():
@@ -89,6 +90,20 @@ if not os.path.exists(os.path.join("instance", db_name)):
 				db.session.commit()
 		except:
 			pass
+		# try:
+		if Devices.query.filter_by(token="server").first()==None:
+			set_device_server = Devices(
+				ip=get_IP_Server(),
+				hostname=getHostname(),
+				description="This is the master server",
+				token="server",
+				state=1
+				)
+			db.session.add(set_device_server)
+			db.session.commit()
+		# except:
+			# pass
+
 else:
 	db.init_app(app)
 
