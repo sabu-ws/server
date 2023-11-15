@@ -112,7 +112,7 @@ def login():
                             resp = make_response(
                                 render_template("login.html", con="ok")
                             )
-                            resp.set_cookie("sabu", jwt_token)
+                            resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12))
                             login_user(user)
                             return resp
                     else:

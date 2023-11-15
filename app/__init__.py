@@ -2,23 +2,24 @@ from config import *
 
 from flask import Flask
 from flask_login import (
-    UserMixin,
-    login_user,
-    LoginManager,
-    login_required,
-    logout_user,
-    current_user,
+	UserMixin,
+	login_user,
+	LoginManager,
+	login_required,
+	logout_user,
+	current_user,
 )  # noqa: E501
 from flask_socketio import (
-    SocketIO,
-    emit,
-    disconnect,
-    send,
-    join_room,
-    rooms,
-    close_room,
+	SocketIO,
+	emit,
+	disconnect,
+	send,
+	join_room,
+	rooms,
+	close_room,
 )  # noqa: E501
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
+from sqlalchemy import MetaData
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect, CSRFError
@@ -32,7 +33,7 @@ import uuid
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(
-    random.choices(string.ascii_letters + string.digits, k=30)
+	random.choices(string.ascii_letters + string.digits, k=30)
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_name
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
@@ -49,36 +50,49 @@ csrf.init_app(app)
 # flask bcrypt
 bcrypt = Bcrypt(app)
 
+naming_convention = {
+	"ix": 'ix_%(column_0_label)s',
+	"uq": "uq_%(table_name)s_%(column_0_name)s",
+	"ck": "ck_%(table_name)s_%(column_0_name)s",
+	"fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+	"pk": "pk_%(table_name)s"
+}
 
 # sqlalchemy database
-db = SQLAlchemy()
+
+db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
+# db.init_app(app)
+# migrate = Migrate(app, db,render_as_batch=True)
+
 from app.models import Users, Job
-
 if not os.path.exists(os.path.join("instance", db_name)):
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
-        set_job_admin = Job(name="Administrator")
-        db.session.add(set_job_admin)
-        db.session.commit()
-        set_admin = Users(
-            uuid=uuid.uuid4().__str__(),
-            name="SABU",
-            firstname="Admin",
-            email="admin@sabu.fr",
-            username="admin",
-            role="Admin",
-            job=1,
-        )
-        set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
-        db.session.add(set_admin)
-        db.session.commit()
+	db.init_app(app)
+	with app.app_context():
+		db.create_all()
+		set_job_admin = Job(name="Administrator")
+		if Job.query.filter_by(name="Administrator").first()==None:
+			db.session.add(set_job_admin)
+			db.session.commit()
+		try:
+			if Users.query.filter_by(username="admin").first()==None:
+				set_admin = Users(
+					uuid=uuid.uuid4().__str__(),
+					name="SABU",
+					firstname="Admin",
+					email="admin@sabu.fr",
+					username="admin",
+					role="Admin",
+					job=1,
+				)
+				set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
+				db.session.add(set_admin)
+				db.session.commit()
+		except:
+			pass
 else:
-    db.init_app(app)
+	db.init_app(app)
 
-# Migrate db
-migrate = Migrate(app, db)
-
+migrate = Migrate(app, db,render_as_batch=True)
 
 # login manager
 from app.models import *
@@ -90,7 +104,7 @@ login_manager.login_view = "login.login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(int(user_id))
+	return Users.query.get(int(user_id))
 
 
 # socketio

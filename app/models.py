@@ -44,6 +44,7 @@ class USBlog(db.Model):
 class Devices(db.Model):
     __tablename__ = "Devices"
     id = db.Column(db.Integer, primary_key=True, unique=True)
+    uuid = db.Column(db.String(255), unique=True)
     ip = db.Column(db.String(64), nullable=False, unique=True)
     hostname = db.Column(db.String(255), nullable=True)
     description = db.Column(db.String(1024), nullable=True)
