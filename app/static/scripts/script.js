@@ -268,33 +268,31 @@ $("#otpLinkBtn").click(function(){
 
 // ======== dark mode working
 $("#ToggleDarkMode").click(function(){
-	if($("#ToggleDarkMode").prop("checked") === false){
+	if(localStorage.theme === 'dark' ){
 		localStorage.theme = 'light';
 		document.documentElement.classList.remove('dark');
 		$("#ToggleDarkModeIcon").removeClass("fa-moon");
 		$("#ToggleDarkModeIcon").addClass("fa-sun");
-		$("#ToggleDarkModeText").text("Light mode");
 	}else{
 		document.documentElement.classList.add('dark');
 		$("#ToggleDarkModeIcon").removeClass("fa-sun");
 		$("#ToggleDarkModeIcon").addClass("fa-moon");
-		$("#ToggleDarkModeText").text("Dark mode");
 		localStorage.theme = 'dark';
 	}
 });
 
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+	localStorage.theme = 'dark';
 	document.documentElement.classList.add('dark');
 	$("#ToggleDarkModeIcon").removeClass("fa-sun");
 	$("#ToggleDarkModeIcon").addClass("fa-moon");
-	$("#ToggleDarkModeText").text("Dark mode");
 	$("#ToggleDarkMode").prop("checked",true);
 } else {
+	localStorage.theme = 'light';
 	document.documentElement.classList.remove('dark');
 	$("#ToggleDarkModeIcon").removeClass("fa-moon");
 	$("#ToggleDarkModeIcon").addClass("fa-sun");
 	$("#ToggleDarkMode").prop("checked",false);
-	$("#ToggleDarkModeText").text("Light mode");
 }
 // =============================================
 

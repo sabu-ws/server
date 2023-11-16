@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SABU | Profile</title>
-	<link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/sabu.ico') }}">
+	<link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/favicon.ico') }}">
 	<!-- import tailwind -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='dist/output.css') }}">
 	<!-- import fontawesome -->
@@ -16,140 +16,85 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900">
 	<!-- NAV BAR -->
-	<nav class="fixed top-0 w-full bg-white shadow-md dark:bg-blue-700">
-		<div class="px-3 py-3 lg:px-5 lg:pl-3">
+	<nav class="fixed top-0 w-full p-8">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center justify-start">
-				<a id="closeButtonProfile" href="/" class="ml-8">
-					<div class="text-xl text-gray-800">
-						<i class="fa-solid fa-house"></i>
-					</div>
-				</a>
-
-				<div class="flex ml-12">
-					<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Profile</span>
-				</div>
-			</div>
-			
-			<!-- RIGHT NAV BAR -->
-			<div class="flex items-center">
-				{% if current_user.role == "Admin" %}
-				<!-- BELL BUTTON -->
-				<button id="dropdownAlertsButton" data-dropdown-toggle="dropdownAlerts" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
-					<div class="text-dark text-xl">
-						<i class="fa-solid fa-bell"></i>
-					</div>
-					<span class="absolute inset-0 object-right-top -mr-5 -mt-2">
-					  <div class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-						3
-					  </div>
-					</span>
+				<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+					<span class="sr-only">Open sidebar</span>
+					<svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+					</svg>
 				</button>
-				<!-- Dropdown bell -->
-				<div id="dropdownAlerts" class="z-20 hidden w-72 max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownAlerts">
-					<div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
-						Alerts
-					</div>
-					<div class="py-2 divide-y divide-gray-100 dark:divide-gray-700">
-						<a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-						<div class="w-full pl-3">
-							<div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">ENDPOINT1</span> Disconnected</div>
-							<div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</div>
+				<div class="flex-col">
+					<nav class="flex" aria-label="Breadcrumb">
+					<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+						<li class="inline-flex items-center">
+						<a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-lightblue dark:text-gray-400 dark:hover:text-white">
+							<svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+							<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+							</svg>
+							Panel
+						</a>
+						</li>
+						<li aria-current="page">
+						<div class="flex items-center">
+							<svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+							</svg>
+							<span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Profile</span>
 						</div>
-						</a>
-						<a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-						<div class="w-full pl-3">
-							<div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">SABU SERVER</span> Disk is full</div>
-							<div class="text-xs text-blue-600 dark:text-blue-500">10 minutes ago</div>
-						</div>
-						</a>
-						<a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-						<div class="w-full pl-3">
-							<div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">ENDPOINT2</span> is not reachable</div>
-							<div class="text-xs text-blue-600 dark:text-blue-500">44 minutes ago</div>
-						</div>
-						</a>
-					</div>
-					<a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
-						<div class="inline-flex items-center ">
-							<div>
-								<i class="fa-solid fa-eye"></i>
-								View all
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<!-- HELP BUTTON -->
-				<a href="https://github.com/sabu-ws/server/wiki" target="_blank" class="mr-8 relative border-2 border-transparent text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out">
-					<div class="text-xl">
-						<i class="fa-solid fa-circle-question"></i>
-					</div>
-				</a>
-
-				{% endif %}
-				<!-- USER BUTTON -->
-				<div>
-					<button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-					<span class="sr-only">Open user menu</span>
-					<div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-dark rounded-full">
-						{% if current_user.picture == None %}
-							<span class="font-bold text-white dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
-						{% else %}
-							<img src="{{ url_for('user.renderPP') }}">
-						{% endif %}
-					</div>
-
-					</button>
-				</div>
-				<!-- Dropdown user -->
-				<div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-					<div class="px-8 py-3 bg-gray-100 dark:text-gray-300 dark:bg-gray-800" role="none">
-					<p class="text-sm font-semibold text-gray-900 dark:text-white" role="none">
-						{{ current_user.firstname }} {{ current_user.name }}
-					</p>
-					<p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-						{{ session['job'] }}
-					</p>
-					</div>
-					<ul class="py-1" role="none">
-					<li>
-						<a href="{{ url_for('user.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-							<div>
-								<i class="fa-solid fa-circle-user"></i>
-								Profil
-							</div>
-						</a>
-					</li>
-					<li>
-						<a class="flex items-center block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-							<i id="ToggleDarkModeIcon" class="fa-solid fa-sun"></i>
-							<p id="ToggleDarkModeText" class="ms-1">Dark mode</p>  
-							<label class="ml-2 relative inline-flex items-center cursor-pointer">
-							  <input id="ToggleDarkMode" type="checkbox" value="" class="sr-only peer">
-							  <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-							  <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
-							</label>
-						</a>
-					</li>
-					</ul>
-					<ul class="py-1" role="none">
-					<li>
-						<a href="{{ url_for('login.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-							<div>
-								<i class="fa-solid fa-right-from-bracket"></i>
-								Sign out
-							</div>
-						</a>
-					</li>
-					</ul>
-				</div>
+						</li>
+					</ol>
+					</nav>
 				</div>
 			</div>
-		</div>
+			<div class="flex items-center justify-end">
+				<div class="flex items-center space-x-5 mr-10 text-xl text-gray-700">
+						<button class="relative hover:text-lightblue">
+							<a href="#">
+								<i class="fa-solid fa-bell"></i>
+								<div id="numberAlerts" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-1.5 -end-2">3</div><!-- If alerts 9< : write 9+ -->
+							</a>
+						</button>
+						<button id="ToggleDarkMode" class="hover:text-lightblue"><i id="ToggleDarkModeIcon" class="fa-solid fa-sun"></i></button>
+						<button class="hover:text-lightblue"><a href="https://github.com/sabu-ws/server/wiki" target="_blank"><i class="fa-solid fa-circle-question"></i></a></button>
+					<div class="border border-gray-700 border-r-1 rounded-lg h-10">
+					</div>
+				</div>
+				<div aria-expanded="false" data-dropdown-toggle="dropdown-user" class="cursor-pointer overflow-visible relative mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-lg flex items-center dark:bg-slate-800 dark:highlight-white/5">
+					{% if current_user.picture == None %}
+						<span class="flex justify-center items-center absolute -left-6 w-12 h-12 rounded-full shadow-lg border-2 border-white bg-gray-700 font-bold text-white">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
+					{% else %}
+						<img src="{{ url_for('user.renderPP') }}" class="absolute -left-6 w-12 h-12 rounded-full shadow-lg border-2 border-white">
+					{% endif %}
+				
+					<div class="flex flex-col py-0.5 pl-10 pr-4">
+						<strong class="text-slate-900 text-sm font-bold dark:text-slate-200">{{ current_user.firstname }} {{ current_user.name }}</strong>
+						<span class="text-slate-500 text-sm font-medium dark:text-slate-400">{{ session['job'] }}</span>
+					</div>
+				</div>
+				<div id="dropdown-user" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700">
+					<ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+						<li>
+						<a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-whit">
+							<i class="fa-solid fa-address-card"></i>
+							<h1>Profile</h1>
+						</a>
+						</li>
+					</ul>
+					<ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+						<li>
+							<a href="{{ url_for('login.logout') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-whit">
+								<i class="fa-solid fa-right-from-bracket"></i>
+								<h1>Sign out</h1>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</nav>
-
+	
 	<!-- PROFIL SETTINGS -->
 	<div class="p-4">
 		<div class="p-8 mt-14">

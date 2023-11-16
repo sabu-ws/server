@@ -11,7 +11,12 @@ module.exports = {
         '128': '34rem',
         '160': '40rem',
         '165': '44rem',
-      }},
+      }
+    },
+    colors: {
+      'lightblue': '#004aad',
+      'darkblue': '#002a85',
+    },
   },
   fontFamily: {
     'body': [
