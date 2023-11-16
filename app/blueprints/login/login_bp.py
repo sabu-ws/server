@@ -40,6 +40,8 @@ login_bp = Blueprint("login", __name__, template_folder="templates")
 
 
 def check_user():
+    if "next" in request.args:
+        return redirect(request.args["next"])
     if current_user.role == "Admin":
         session["job"] = Job.query.filter_by(id=current_user.job).first().name
         return redirect(url_for("panel.dashboard.index", _method="GET"))

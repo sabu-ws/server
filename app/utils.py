@@ -1,7 +1,10 @@
 from datetime import datetime
 import os
 import subprocess
+from pyroute2 import NDB, IPRoute
+from socket import AF_INET
 
+ndb = NDB()
 
 def logging(action, message):
     file = open(f"{LOG_PATH}/gui.log", "a")
@@ -20,11 +23,10 @@ def getHostname():
     )
 
 
-def setHostname(hostname):
-    subprocess.Popen(["hostnamectl", "set-hostname", str(hostname)])
+def list_interfaces():
+    with IPRoute() as ipr:
+        return [x.get_attr('IFLA_IFNAME') for x in ipr.get_links()]
 
-    return ""
 
-
-def getInterface():
-    return ""
+def get_IP_Server(interfaces="enp0s3"):
+    return tuple(ndb.interfaces[interfaces].ipaddr.summary()[0])[3]

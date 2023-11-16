@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_socketio import SocketIO, rooms, disconnect
 
-from app import logout_user, socketio
+from app import logout_user, socketio, db
 from app.utils import getHostname
 from app.models import Devices
 from config import *
@@ -40,7 +40,6 @@ def startLogsServer():
 
 @server_bp.route("/")
 def index():
-	print(getHostname())
 	return render_template("ap_srv_dashboard.html")
 
 
@@ -68,20 +67,38 @@ def settings_hostname():
 						command = f"sudo bash /sabu/server/core/scripts/update_hostname.sh -n {hostname}".split()
 						subprocess.Popen(command)
 						get_device.hostname = hostname
+						db.session.commit()
+						flash("The hostname has been change","good")
+						return redirect(url_for("panel.server.settings"))
 					else:
 						flash("You enter bad charactere for the hostname!", "error")
 						return redirect(url_for("panel.server.settings"))
 				else:
 					flash("Please enter hostname between 5 and 64 charactère", "error")
 					return redirect(url_for("panel.server.settings"))
+			
+		else:
+			logout_user()
+			return redirect(url_for("login.logn"))
+	else:
+		logout_user()
+		return redirect(url_for("login.logn"))
+	return ""
+
+@server_bp.route("/settings/description",methods=["POST"])
+def settings_description():
+	if "description" in request.form and "uuid" in request.form:
+		get_device = Devices.query.filter_by(uuid=request.form["uuid"]).first()
+		if get_device != None:
 			if request.form["description"] != "":
 				if len(request.form["description"])<=1024:
 					get_device.description = request.form["description"]
+					db.session.commit()
+					flash("The description has been change","good")
+					return redirect(url_for("panel.server.settings"))
 				else:
 					flash("The description must have maximum 1024 charactere !","error")
 					return redirect(url_for("panel.server.settings"))
-			flash("The informations has been change")
-			return redirect(url_for("panel.server.settings"))
 		else:
 			logout_user()
 			return redirect(url_for("login.logn"))
