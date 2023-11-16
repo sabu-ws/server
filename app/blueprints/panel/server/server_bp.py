@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_socketio import SocketIO, rooms, disconnect
 
 from app import logout_user, socketio, db
-from app.utils import getHostname
+from app.utils import getHostname, list_interfaces
 from app.models import Devices
 from config import *
 
@@ -51,7 +51,7 @@ def logs():
 @server_bp.route("/settings")
 def settings():
 	get_device = Devices.query.filter_by(token="server").first()
-	return render_template("ap_srv_settings.html", hostname=getHostname(),device=get_device)
+	return render_template("ap_srv_settings.html", hostname=getHostname(),device=get_device, interfaces=list_interfaces())
 
 
 @server_bp.route("/settings/hostname", methods=["POST"])

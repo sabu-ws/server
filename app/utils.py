@@ -3,6 +3,15 @@ import os
 import subprocess
 from pyroute2 import NDB, IPRoute
 from socket import AF_INET
+from dataclasses import dataclass
+
+@dataclass
+class network:
+    interface: str
+    ip: str
+    netmask: str
+    gateway: str
+
 
 ndb = NDB()
 
@@ -25,7 +34,7 @@ def getHostname():
 
 def list_interfaces():
     with IPRoute() as ipr:
-        return [x.get_attr('IFLA_IFNAME') for x in ipr.get_links()]
+        return [x.get_attr('IFLA_IFNAME') for x in ipr.get_links() if x.get_attr('IFLA_IFNAME') != "lo"]
 
 
 def get_IP_Server(interfaces="enp0s3"):

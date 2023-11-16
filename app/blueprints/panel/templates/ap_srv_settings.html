@@ -87,8 +87,13 @@
 										<div class="mb-4 w-full">
 											<label for="interface" class="block mb-2">Interface :</label>
 											<select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-												<option selected value="eth0">eth0</option>
-												<option value="eth1">eth1</option>
+												{% if interfaces.length == 0 %}
+													<option>Interface not found</option>
+												{% else %}
+													{% for interface in interfaces %}
+														<option value="{{ interface }}">{{ interface }}</option>
+													{% endfor %}
+												{% endif %}
 											</select>
 										</div>
 										<div class="mb-4 w-full">
