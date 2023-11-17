@@ -2836,6 +2836,10 @@ input:checked + .toggle-bg {
   background-color: rgb(5 122 85 / 0.7);
 }
 
+.hover\:bg-darkblue\/70:hover {
+  background-color: rgb(0 42 133 / 0.7);
+}
+
 .hover\:bg-opacity-60:hover {
   --tw-bg-opacity: 0.6;
 }
@@ -3334,6 +3338,14 @@ input:checked + .toggle-bg {
 
 :is(.dark .dark\:hover\:bg-green-600\/70:hover) {
   background-color: rgb(5 122 85 / 0.7);
+}
+
+:is(.dark .dark\:hover\:bg-darkblue\/70:hover) {
+  background-color: rgb(0 42 133 / 0.7);
+}
+
+:is(.dark .dark\:hover\:bg-darkblue\/50:hover) {
+  background-color: rgb(0 42 133 / 0.5);
 }
 
 :is(.dark .dark\:hover\:text-blue-500:hover) {

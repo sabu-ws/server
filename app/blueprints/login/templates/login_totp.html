@@ -25,9 +25,9 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div>
                             <label for="totp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CODE</label>
-                            <input type="totp" name="totp" id="totp" class="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-white text-gray-900 dark:text-white sm:text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5" placeholder="000000" required>
+                            <input type="totp" name="totp" id="totp" class="bg-gray-50 dark:bg-gray-600 border border-gray-300 dark:border-white text-gray-900 dark:text-white sm:text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5" placeholder="000000" required>
                         </div>
-                        <button type="submit" class="bg-gray-100 dark:bg-gray-900 hover:bg-darkblue dark:hover:bg-darkblue text-black dark:text-white hover:text-white text-center font-semibold rounded-lg text-sm px-5 py-2.5 w-full">Send</button>
+                        <button type="submit" class="bg-gray-100 dark:bg-gray-600 hover:bg-darkblue dark:hover:bg-darkblue focus:ring-2 focus:ring-lightblue dark:focus:ring-2 dark:focus:ring-white text-black dark:text-white hover:text-white text-center font-semibold rounded-lg text-sm px-5 py-2.5 w-full">Send</button>
                     </form>
                     <!-- alert msg connection -->
                     <div id="successful" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-green-600 dark:text-green-300 flex justify-center" role="alert" style="display: none;">
