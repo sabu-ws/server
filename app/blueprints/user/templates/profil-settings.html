@@ -29,11 +29,11 @@
                     <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                         <li class="inline-flex items-center">
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-white hover:text-lightblue dark:hover:text-lightblue">
+                        <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-white hover:text-lightblue dark:hover:text-lightblue">
                             <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                             </svg>
-                            Panel
+                            Home
                         </a>
                         </li>
                         <li aria-current="page">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div id="dropdown-user" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700">
-                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-white">
                       <li>
                         <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:rounded-t-lg">
                             <i class="fa-solid fa-address-card"></i>
@@ -88,7 +88,7 @@
                         </a>
                       </li>
                     </ul>
-                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-white">
                         <li>
                             <a href="{{ url_for('login.logout') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:rounded-b-lg">
                                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -107,13 +107,13 @@
 			<div class="grid grid-cols-2 gap-6 mb-6">
 				<!-- Profile photo -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-700">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 font-bold">Profil Photo</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">Profil Photo</h1>
 					<div class="border-t border-gray-300 dark:border-white w-full"></div>
 					<div class="flex justify-center p-10">
 						<div class="relative inline-block group">
-							<div class="flex items-center justify-center w-52 h-52 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-600">
+							<div class="flex items-center justify-center w-52 h-52 overflow-hidden rounded-full bg-gray-800 border-2 border-white">
 								{% if user.picture == None %}
-									<span class="font-bold text-6xl text-gray-600 dark:text-gray-300">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
+									<span class="font-bold text-6xl text-white">{{ current_user.username[0].upper() }}{{ current_user.name[0].upper() }}</span>
 									{% else %}
 									<img src="{{ url_for('user.renderPP') }}">
 									<div class="absolute hidden group-hover:flex inset-0 items-center justify-center">
@@ -128,9 +128,9 @@
 						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 						<div class="flex justify-center">
 							<div class="flex-col w-6/12">
-								<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="fileInput">Upload file</label>
-								<input name="filePP" accept="image/png, image/jpeg" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-200 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="fileInputHelp" id="fileInput" type="file">
-								<p class="mt-1 text-sm text-gray-500 dark:text-gray-200" id="fileInputHelp">PNG or JPG (MAX. 400x400px, Max. <100 KB).</p>
+								<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fileInput">Upload file</label>
+								<input name="filePP" accept="image/png, image/jpeg" class="block w-full text-sm text-gray-900 border border-gray-300 dark:border-white rounded-lg cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="fileInputHelp" id="fileInput" type="file">
+								<p class="mt-1 text-sm text-gray-500 dark:text-white" id="fileInputHelp">PNG or JPG (MAX. 400x400px, Max. <100 KB).</p>
 							</div>
 						</div>
 						<div class="flex justify-end mr-12 mb-4">
@@ -141,38 +141,38 @@
 
 				<!-- Profil information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-700">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 font-bold">Profil Information</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">Profil Information</h1>
 					<div class="border-t border-gray-300 dark:border-white w-full"></div>
 						<form method="POST" action="{{ url_for('user.mod_info') }}">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 							<div class="flex flex-col place-items-center mt-10">
 								<div class="flex flex-col mb-4 w-6/12">
-									<label for="FirstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">First Name</label>
+									<label for="FirstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
 									<div class="flex">
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-user-tie"></i>
 										</span>
-										<input type="text" id="FirstName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="firstname" value="{{ user.firstname }}" placeholder="{{ user.firstname }}">
+										<input type="text" id="FirstName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="firstname" value="{{ user.firstname }}" placeholder="{{ user.firstname }}">
 									</div>
 								</div>
 
 								<div class="flex flex-col mb-4 w-6/12">
-									<label for="LastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">Last Name</label>
+									<label for="LastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
 									<div class="flex">
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-user-tie"></i>
 										</span>
-										<input type="text" id="LastName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="name" value="{{ user.name }}" placeholder="{{ user.name }}">
+										<input type="text" id="LastName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="name" value="{{ user.name }}" placeholder="{{ user.name }}">
 									</div>
 								</div>
 
 								<div class="flex-col mb-4 w-6/12">
-									<label for="Email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">Email</label>
+									<label for="Email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
 									<div class="flex">	
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-at"></i>
 										</span>
-										<input type="email" id="Email" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="email" value="{{ user.email }}" placeholder="{{ user.email }}">
+										<input type="email" id="Email" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="email" value="{{ user.email }}" placeholder="{{ user.email }}">
 									</div>
 								</div>
 							</div>
@@ -185,39 +185,39 @@
 			<div class="grid grid-cols-2 gap-6">
 				<!-- Password information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-700">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 font-bold">Update Password</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">Update Password</h1>
 					<div class="border-t border-gray-300 dark:border-white w-full"></div>
 					<form method="POST" action="{{ url_for('user.change_password') }}">
 						<div class="flex flex-col place-items-center mt-10">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 							<div class="mb-4 w-6/12">
-								<label for="currentPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">Current Password</label>
+								<label for="currentPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
 								<div class="relative">
-									<input type="password" id="currentPassword" name="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="currentPassword" name="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonCurrentPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-										<div class="text-gray-500">
+										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewCurrentPassword" class="toggleView fa-solid fa-eye"></i>
 										</div>
 									</button>
 								</div>
 							</div>
 							<div class="mb-4 w-6/12">
-								<label for="newPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">New Password</label>
+								<label for="newPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
 								<div class="relative">
-									<input type="password" id="newPassword" name="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="newPassword" name="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonNewPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-										<div class="text-gray-500">
+										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewNewPassword" class="toggleView fa-solid fa-eye"></i>
 										</div>
 									</button>
 								</div>
 							</div>
 							<div class="mb-4 w-6/12">
-								<label for="RepeatNewPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">Repeat Password</label>
+								<label for="RepeatNewPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
 								<div class="relative">
-									<input type="password" id="RepeatNewPassword" name="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="RepeatNewPassword" name="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonRepeatNewPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-										<div class="text-gray-500">
+										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewRepeatNewPassword" class="toggleView fa-solid fa-eye"></i>
 										</div>
 									</button>
@@ -232,9 +232,9 @@
 
 				<!-- 2FA information -->
 				<div class="bg-white rounded-lg shadow-md dark:bg-gray-700">
-					<h1 class="flex justify-center p-4 text-2xl dark:text-gray-200 font-bold">Two Factor Authentication</h1>
+					<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">Two Factor Authentication</h1>
 					<div class="border-t border-gray-300 dark:border-white w-full"></div>
-					<p class="flex justify-center ml-4 mb-8 p-4 dark:text-gray-300 mt-10">When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's authenticator application.</p>
+					<p class="flex justify-center ml-4 mb-8 p-4 dark:text-white mt-10">When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's authenticator application.</p>
 					{% if user.OTPSecret == None %}
 						<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300 flex justify-center ml-12 mr-12" role="alert">
 							<span class="font-bold">You have not enabled two-factor authentication !</span>
@@ -256,14 +256,14 @@
 			</div>
 		</div>
 	</div>
-	 <!-- 2FA SETUP modal -->
+	 <!-- 2FA SET UP modal -->
 	<div id="Setup2FA" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 		<div class="relative w-full max-w-2xl max-h-full">
 			<!-- Modal content -->
 			<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 				<!-- Modal header -->
 				<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-					<h3 class="text-xl font-semibold text-gray-900 dark:text-gray-200">
+					<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
 						2FA SETUP
 					</h3>
 					<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="Setup2FA">
@@ -275,13 +275,13 @@
 				</div>
 				<!-- Modal body -->
 				<div class="flex flex-col place-items-center p-6 space-y-4">
-					<p class="dark:text-gray-200">Flash the QR code in your phone's authenticator application :</p>
+					<p class="dark:text-white">Flash the QR code in your phone's authenticator application :</p>
 					<div class="flex justify-center">
 						<img id="qrcode_render" alt="QR_CODE" height="250" width="250" class="border rounded-lg">
 					</div>
-					<p class="dark:text-gray-200">Or copy the url in your phone's authenticator application :</p>
+					<p class="dark:text-white">Or copy the url in your phone's authenticator application :</p>
 					<div id="otpLinkClick" class="flex w-8/12">
-						<input type="text" id="otp_url" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly="readonly">
+						<input type="text" id="otp_url" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly="readonly">
 						<button id="otpLinkBtn" data-tooltip-target="tooltip-copy" class="ml-2 inline-flex items-center px-3 py-2.5 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium text-sm text-center rounded-lg">
 							<i class="fa-solid fa-copy"></i>
 						</button>
@@ -295,14 +295,14 @@
 					<div class="flex justify-center items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 						<div class="flex-col space-y-4">
 							<label for="TestCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter the code below to verify your phone and complete the setup :</label>
-							<input type="text" name="TestCode" id="TestTOTPCodeInput" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Authentication code" required>
+							<input type="text" name="TestCode" id="TestTOTPCodeInput" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Authentication code" required>
 						</div> 
 					</div>
 					<!-- Modal footer -->
 					<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 						<div class="flex-col w-full">
 							<button type="submit" class="flex m-auto mr-0 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Finish</button>
-							<div id="ErrorTotp" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: None;">
+							<div id="ErrorTotp" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: None;">
 								<span id="ErrorTotpMSG" class="font-bold">Error !</span>
 							</div>
 						</div>
@@ -323,7 +323,7 @@
 					<span class="sr-only">Close modal</span>
 				</button>
 				<div class="p-6 text-center">
-					<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
 						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 					</svg>
 					<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure to want to disable 2FA ?</h3>
@@ -351,7 +351,7 @@
 					<span class="sr-only">Close modal</span>
 				</button>
 				<div class="p-6 text-center">
-					<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
 						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 					</svg>
 					<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure to want to remove your profile picture ?</h3>
