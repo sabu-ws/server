@@ -14,6 +14,15 @@ import shutil
 
 server_bp = Blueprint("server", __name__)
 
+# from app import scheduler, app
+# from functools import wraps
+
+# @scheduler.task('cron', id='do_job_1', second=30, misfire_grace_time=900)
+# def job2():
+#     app.logger.info('Job 2 executed')
+
+
+
 # ================= start socket io func
 
 

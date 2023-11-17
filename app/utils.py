@@ -1,9 +1,13 @@
-from datetime import datetime
-import os
-import subprocess
+from config import *
+
+from sqlalchemy import URL
+
 from pyroute2 import NDB, IPRoute
 from socket import AF_INET
 from dataclasses import dataclass
+from datetime import datetime
+import os
+import subprocess
 
 @dataclass
 class network:
@@ -39,3 +43,18 @@ def list_interfaces():
 
 def get_IP_Server(interfaces="enp0s3"):
     return tuple(ndb.interfaces[interfaces].ipaddr.summary()[0])[3]
+
+def database_allowed():
+    if str(DB_PROTOCOLE) in ["sqlite"]:
+        return URL.create(
+            DB_PROTOCOLE,
+            database=DB_NAME,
+        )
+    elif str(DB_PROTOCOLE) in ["postgresql","postgresql+psycopg2","postgresql+pg8000","mysql","mysql+mysqldb","mysql+pymysql","oracle","oracle+cx_oracle","mssql+pyodbc","mssql+pymssql"]:
+        return URL.create(
+            DB_PROTOCOLE,
+            username=DB_USERNAME,
+            password=str(DB_PASSWORD),
+            host=DB_HOST,
+            database=DB_NAME,
+        )

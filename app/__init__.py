@@ -1,4 +1,5 @@
 from config import *
+from app.utils import database_allowed
 
 from flask import Flask
 from flask_login import (
@@ -8,7 +9,7 @@ from flask_login import (
 	login_required,
 	logout_user,
 	current_user,
-)  # noqa: E501
+)
 from flask_socketio import (
 	SocketIO,
 	emit,
@@ -17,7 +18,8 @@ from flask_socketio import (
 	join_room,
 	rooms,
 	close_room,
-)  # noqa: E501
+)
+from flask_apscheduler import APScheduler
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import MetaData
 from flask_migrate import Migrate
@@ -35,12 +37,11 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(
 	random.choices(string.ascii_letters + string.digits, k=30)
 )
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_name
+app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed()
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
-
 
 # CSRF protection
 csrf = CSRFProtect()
@@ -50,72 +51,19 @@ csrf.init_app(app)
 # flask bcrypt
 bcrypt = Bcrypt(app)
 
-naming_convention = {
-	"ix": 'ix_%(column_0_label)s',
-	"uq": "uq_%(table_name)s_%(column_0_name)s",
-	"ck": "ck_%(table_name)s_%(column_0_name)s",
-	"fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-	"pk": "pk_%(table_name)s"
-}
 
 # sqlalchemy database
-
-db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
-# db.init_app(app)
-# migrate = Migrate(app, db,render_as_batch=True)
-
-from app.models import Users, Job, Devices
-from app.utils import get_IP_Server, getHostname
-if not os.path.exists(os.path.join("instance", db_name)):
-	db.init_app(app)
-	with app.app_context():
-		db.create_all()
-		set_job_admin = Job(name="Administrator")
-		if Job.query.filter_by(name="Administrator").first()==None:
-			db.session.add(set_job_admin)
-			db.session.commit()
-		try:
-			if Users.query.filter_by(username="admin").first()==None:
-				set_admin = Users(
-					uuid=uuid.uuid4().__str__(),
-					name="SABU",
-					firstname="Admin",
-					email="admin@sabu.fr",
-					username="admin",
-					role="Admin",
-					job=1,
-				)
-				set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
-				db.session.add(set_admin)
-				db.session.commit()
-		except:
-			pass
-		# try:
-		if Devices.query.filter_by(token="server").first()==None:
-			set_device_server = Devices(
-				ip=get_IP_Server(),
-				hostname=getHostname(),
-				description="This is the master server",
-				token="server",
-				state=1
-				)
-			db.session.add(set_device_server)
-			db.session.commit()
-		# except:
-			# pass
-
-else:
-	db.init_app(app)
+db = SQLAlchemy()
+db.init_app(app)
 
 migrate = Migrate(app, db,render_as_batch=True)
 
 # login manager
-from app.models import *
+from app.models import Users
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login.login"
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -125,4 +73,23 @@ def load_user(user_id):
 # socketio
 socketio = SocketIO(app)
 
+
+# APSchelduler
+from app.tasks import *
+
+# scheduler = APScheduler()
+# scheduler.api_enabled = False
+# scheduler.init_app(app)
+# scheduler.add_job(trigger="interval", id="job1", func=job1, seconds=10)
+# scheduler.add_job(trigger="interval", id="readCPU", func=readCPU, seconds=10)
+# scheduler.add_job(trigger="interval", id="readRAM", func=readRAM, seconds=10)
+# scheduler.start()
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.session.remove()
+
+
+# Import all views
 from app import views
