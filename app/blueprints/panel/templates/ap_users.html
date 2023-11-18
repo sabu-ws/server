@@ -151,27 +151,27 @@
 												<input type="text" name="uuid" style="display: none;" id="editUserUUID"/>
 												<div class="col-span-6 sm:col-span-3">
 													<label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-													<input id="editUserFirstname" type="text" name="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="NAME_PERSON">
+													<input id="editUserFirstname" type="text" name="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 												</div>
 												<div class="col-span-6 sm:col-span-3">
 													<label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-													<input id="editUserName" type="text" name="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="NAME_PERSON">
+													<input id="editUserName" type="text" name="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 												</div>
 												<div class="col-span-6 sm:col-span-3">
 													<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-													<input type="text" name="username" id="editUserUsername" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="USERNAME_PERSON">
+													<input type="text" name="username" id="editUserUsername" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 												</div>
 												<div class="col-span-6 sm:col-span-3">
 													<label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-													<input type="text" name="role" id="editUserRole" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly>
+													<input type="text" name="role" id="editUserRole" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" readonly>
 												</div>
 													<div class="col-span-6 sm:col-span-3">
 													<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-													<input type="email" name="email" id="editUserEmail" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="person@email.com">
+													<input type="email" name="email" id="editUserEmail" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 												</div>
 												<div class="col-span-6 sm:col-span-3">
 													<label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job</label>
-													<select name="job" id="editUserJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+													<select name="job" id="editUserJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 														<option selected>Choose a job</option>
 														{% for job in job_list %}
 														<option value="{{ job }}">{{ job }}</option>
@@ -181,9 +181,9 @@
 												<div class="col-span-6 sm:col-span-3">
 													<label for="EditPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
 													<div class="relative">
-														<input type="password" name="password" id="EditPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••">
+														<input type="password" name="password" id="EditPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••">
 														<button id="toggleButtonEditPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-															<div class="text-gray-500">
+															<div class="text-gray-700 text-white">
 															  <i id="toggleviewEditPassword" class="toggleView fa-solid fa-eye"></i>
 															</div>
 														</button>
@@ -192,9 +192,9 @@
 												<div class="col-span-6 sm:col-span-3">
 													<label for="EditRepeatPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
 													<div class="relative">
-														<input type="password" name="EditRepeatPassword" id="EditRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••">
+														<input type="password" name="EditRepeatPassword" id="EditRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••">
 														<button id="toggleButtonEditRepeatPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-															<div class="text-gray-500">
+															<div class="text-gray-700 dark:text-white">
 															  <i id="toggleviewEditRepeatPassword" class="toggleView fa-solid fa-eye"></i>
 															</div>
 														</button>
@@ -206,10 +206,10 @@
 										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 											<div class="flex-col w-full">
 												<div class="flex items-center">
-													<button type="submit" class="m-auto ml-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-													<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" style="display: none;">Disable 2FA</button>
+													<button type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+													<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center" style="display: none;">Disable 2FA</button>
 												</div>
-												<div id="editErrorFieldForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+												<div id="editErrorFieldForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
 													<span class="font-bold">Error !</span>
 												</div>
 											</div>
@@ -298,8 +298,8 @@
 											<!-- Modal footer -->
 											<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 												<div class="flex-col w-full">
-													<button id="submitAddUserForm" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
-													<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+													<button id="submitAddUserForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+													<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
 														<span id="spanErrorAddUserForm" class="font-bold">Error : </span>
 													</div>
 												</div>
@@ -332,7 +332,7 @@
 								</div>
 							</div>
 		
-							<!-- Corfirm dsable user -->
+							<!-- Corfirm disable user -->
 							<div id="confirmEnableModal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-md max-h-full">
 									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -378,8 +378,8 @@
 											<form id="AddJobForm">
 												<div class="col-span-6 sm:col-span-3">
 													<label for="addJob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Job</label>
-													<input type="text" name="addJob" id="addJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Developer">
-													<button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+													<input type="text" name="addJob" id="addJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Developer">
+													<button type="submit" class="mt-4 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 												</div>
 											</form>
 										</div>                
@@ -388,13 +388,13 @@
 											<form id="RemoveJobForm">
 												<div class="col-span-6 sm:col-span-3">
 													<label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remove Job</label>
-													<select id="job_remove" name="RemoveJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+													<select id="job_remove" name="RemoveJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 														<option selected>Choose a job</option>
 														{% for job in job_list %}
 															<option value="{{ job }}">{{ job }}</option>
 														{% endfor %}
 													</select>
-													<button type="submit" class="mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Remove</button>
+													<button type="submit" class="mt-4 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Remove</button>
 												</div>
 											</form>
 											<div id="ErrorJob" style="display: none;" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
