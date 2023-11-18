@@ -240,30 +240,30 @@
 												<div class="grid grid-cols-6 gap-6">
 													<div class="col-span-6 sm:col-span-3">
 														<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-														<input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
+														<input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="John" required>
 													</div>
 													<div class="col-span-6 sm:col-span-3">
 														<label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-														<input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+														<input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Doe" required>
 													</div>
 													<div class="col-span-6 sm:col-span-3">
 														<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-														<input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.d" required>
+														<input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.d" required>
 													</div>
 													<div class="col-span-6 sm:col-span-3">
 														<label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-														<select id="role" name="role" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+														<select id="role" name="role" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 															<option selected value="User">User</option>
 															<option value="Admin">Admin</option>
 														</select>
 													</div>
 													<div class="col-span-6 sm:col-span-3">
 														<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-														<input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@sabu.fr" required>
+														<input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.doe@sabu.fr" required>
 													</div>
 													<div class="col-span-6 sm:col-span-3">
 														<label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job</label>
-														<select name="job" id="job" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+														<select name="job" id="job" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 															<option selected>Choose a job</option>
 															{% for job in job_list %}
 															<option value="{{ job }}">{{ job }}</option>
@@ -273,9 +273,9 @@
 													<div class="col-span-6 sm:col-span-3">
 														<label for="AddPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
 														<div class="relative">
-															<input type="password" name="password" id="AddPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required>
+															<input type="password" name="password" id="AddPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
 															<button id="toggleButtonAddPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-																<div class="text-gray-500">
+																<div class="text-gray-700 dark:text-white">
 																  <i id="toggleviewAddPassword" class="toggleView fa-solid fa-eye"></i>
 																</div>
 															</button>
@@ -285,9 +285,9 @@
 													<div class="col-span-6 sm:col-span-3">
 														<label for="AddRepeatPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
 														<div class="relative">
-															<input type="password" name="AddRepeatPassword" id="AddRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required>
+															<input type="password" name="AddRepeatPassword" id="AddRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
 															<button id="toggleButtonAddRepeatPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-																<div class="text-gray-500">
+																<div class="text-gray-700 dark:text-white">
 																<i id="toggleviewAddRepeatPassword" class="toggleView fa-solid fa-eye"></i>
 																</div>
 															</button>
