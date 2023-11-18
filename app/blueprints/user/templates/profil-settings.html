@@ -129,7 +129,7 @@
 						<div class="flex justify-center">
 							<div class="flex-col w-6/12">
 								<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fileInput">Upload file</label>
-								<input name="filePP" accept="image/png, image/jpeg" class="block w-full text-sm text-gray-900 border border-gray-300 dark:border-white rounded-lg cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="fileInputHelp" id="fileInput" type="file">
+								<input name="filePP" accept="image/png, image/jpeg" class="block w-full text-sm text-gray-900 border border-gray-300 dark:border-white rounded-lg cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-800" aria-describedby="fileInputHelp" id="fileInput" type="file">
 								<p class="mt-1 text-sm text-gray-500 dark:text-white" id="fileInputHelp">PNG or JPG (MAX. 400x400px, Max. <100 KB).</p>
 							</div>
 						</div>
@@ -149,30 +149,30 @@
 								<div class="flex flex-col mb-4 w-6/12">
 									<label for="FirstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
 									<div class="flex">
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-user-tie"></i>
 										</span>
-										<input type="text" id="FirstName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="firstname" value="{{ user.firstname }}" placeholder="{{ user.firstname }}">
+										<input type="text" id="FirstName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="firstname" value="{{ user.firstname }}" placeholder="{{ user.firstname }}">
 									</div>
 								</div>
 
 								<div class="flex flex-col mb-4 w-6/12">
 									<label for="LastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
 									<div class="flex">
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-user-tie"></i>
 										</span>
-										<input type="text" id="LastName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="name" value="{{ user.name }}" placeholder="{{ user.name }}">
+										<input type="text" id="LastName" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="name" value="{{ user.name }}" placeholder="{{ user.name }}">
 									</div>
 								</div>
 
 								<div class="flex-col mb-4 w-6/12">
 									<label for="Email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
 									<div class="flex">	
-										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+										<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
 											<i class="fa-solid fa-at"></i>
 										</span>
-										<input type="email" id="Email" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="email" value="{{ user.email }}" placeholder="{{ user.email }}">
+										<input type="email" id="Email" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" name="email" value="{{ user.email }}" placeholder="{{ user.email }}">
 									</div>
 								</div>
 							</div>
@@ -193,7 +193,7 @@
 							<div class="mb-4 w-6/12">
 								<label for="currentPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
 								<div class="relative">
-									<input type="password" id="currentPassword" name="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="currentPassword" name="currentPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonCurrentPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
 										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewCurrentPassword" class="toggleView fa-solid fa-eye"></i>
@@ -204,7 +204,7 @@
 							<div class="mb-4 w-6/12">
 								<label for="newPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
 								<div class="relative">
-									<input type="password" id="newPassword" name="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="newPassword" name="newPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonNewPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
 										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewNewPassword" class="toggleView fa-solid fa-eye"></i>
@@ -215,7 +215,7 @@
 							<div class="mb-4 w-6/12">
 								<label for="RepeatNewPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
 								<div class="relative">
-									<input type="password" id="RepeatNewPassword" name="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
+									<input type="password" id="RepeatNewPassword" name="RepeatNewPassword" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue dark:shadow-sm-light" placeholder="••••••••" required>
 									<button id="toggleButtonRepeatNewPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
 										<div class="text-gray-900 dark:text-white">
 										  <i id="toggleButtonViewRepeatNewPassword" class="toggleView fa-solid fa-eye"></i>
