@@ -105,11 +105,11 @@
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>
 												{% if user.enable == 1 %}
-												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-green-600 hover:bg-green-800 h-6 w-8 font-medium text-white">
+												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-green-600 hover:bg-green-800 h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-check"></i>
 												</button>
 												{% else %}
-												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
+												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-xmark"></i>
 												</button>
 												{% endif %}
