@@ -3158,6 +3158,11 @@ input:checked + .toggle-bg {
   border-color: rgb(17 24 39 / var(--tw-border-opacity));
 }
 
+:is(.dark .dark\:border-gray-800) {
+  --tw-border-opacity: 1;
+  border-color: rgb(31 41 55 / var(--tw-border-opacity));
+}
+
 :is(.dark .dark\:bg-blue-600) {
   --tw-bg-opacity: 1;
   background-color: rgb(28 100 242 / var(--tw-bg-opacity));
