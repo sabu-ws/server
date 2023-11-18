@@ -422,4 +422,8 @@
 		var urlAddJob = "{{ url_for('panel.users.add_job') }}";
 		var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}";
 	</script>
+	<script>
+		$("#sidebar-users").addClass(["text-blue-800", "bg-white/60"]); 
+		$("#sidebar-users").removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]); 
+	</script>
 {% endblock %}

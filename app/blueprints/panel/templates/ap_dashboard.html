@@ -124,4 +124,8 @@
 <script type="text/javascript">
 	 var csrf_token = "{{ csrf_token() }}";
 </script>
+<script>
+	$("#sidebar-dashboard").addClass(["text-blue-800", "bg-white/60"]); 
+	$("#sidebar-dashboard").removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]); 
+</script>
 {% endblock %}
