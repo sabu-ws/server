@@ -1742,6 +1742,18 @@ input:checked + .toggle-bg {
   width: 100%;
 }
 
+.w-5\/12 {
+  width: 41.666667%;
+}
+
+.w-4\/12 {
+  width: 33.333333%;
+}
+
+.w-3\/12 {
+  width: 25%;
+}
+
 .min-w-0 {
   min-width: 0px;
 }

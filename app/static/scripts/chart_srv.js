@@ -22,7 +22,7 @@ let options_CPU = {
 		type: "gradient",
 		gradient: {
 			opacityFrom: 0.55,
-			opacityTo: 0,
+			opacityTo: 0.25,
 			shade: "#1C64F2",
 			gradientToColors: ["#1C64F2"],
 		},
@@ -64,7 +64,7 @@ let options_CPU = {
 		},
 	},
 	yaxis: {
-		max:100,
+		//max:100,
 		tickAmount: 5,
 		show: true,
 		labels: {
@@ -99,7 +99,7 @@ let options_RAM = {
 		type: "gradient",
 		gradient: {
 			opacityFrom: 0.55,
-			opacityTo: 0,
+			opacityTo: 0.25,
 			shade: "#ee1111",
 			gradientToColors: ["#ee1111"],
 		},
@@ -193,7 +193,7 @@ let options_NET = {
 		type: "gradient",
 		gradient: {
 			opacityFrom: 0.55,
-			opacityTo: 0,
+			opacityTo: 0.25,
 			shade: "#f5d32c",
 			gradientToColors: ["#f5d32c"],
 		},
