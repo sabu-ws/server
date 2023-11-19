@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_socketio import SocketIO, rooms, disconnect
 
 from app import logout_user, socketio, db
 from app.utils import getHostname, list_interfaces
 from app.models import Devices
+from app.tasks import CPU_TABLE, RAM_TABLE
 from config import *
 
 import subprocess
@@ -13,14 +14,6 @@ import os
 import shutil
 
 server_bp = Blueprint("server", __name__)
-
-# from app import scheduler, app
-# from functools import wraps
-
-# @scheduler.task('cron', id='do_job_1', second=30, misfire_grace_time=900)
-# def job2():
-#     app.logger.info('Job 2 executed')
-
 
 
 # ================= start socket io func
@@ -41,15 +34,37 @@ def startLogsServer():
 			modify_syslog = os.stat("/var/log/syslog")[9]
 
 
+@socketio.on("start_chart_cpu_rcv",namespace="/chart_CPU")
+def connect_chart_cpu():
+	while True:
+		socketio.emit("chart_cpu_rcv",CPU_TABLE,namespace="/chart_CPU")
+		socketio.sleep(60)
+
+@socketio.on("start_chart_ram_rcv",namespace="/chart_RAM")
+def connect_chart_cpu():
+	while True:
+		socketio.emit("chart_ram_rcv",RAM_TABLE,namespace="/chart_RAM")
+		socketio.sleep(60)
+
+@socketio.on("start_chart_disk_rcv",namespace="/chart_DISK")
+def connect_chart_cpu():
+	while True:
+		script = os.path.join(SCRIPT_PATH,"get_disk_space.sh")
+		get_total_disk = subprocess.Popen(["bash",script],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","").split(" ")
+		socketio.emit("chart_disk_rcv",get_total_disk,namespace="/chart_DISK")
+		socketio.sleep(300)
+
 # ================= end socket io func
 
 
 # ================ start router server
 
-
 @server_bp.route("/")
 def index():
-	return render_template("ap_srv_dashboard.html")
+	script = os.path.join(SCRIPT_PATH,"get_ram_space.sh")
+	get_total_ram = subprocess.Popen(["bash",script],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","").split(" ")[1]
+	formating = int(get_total_ram) / 1024 / 1024
+	return render_template("ap_srv_dashboard.html",total_ram=float(f"{formating:3.1f}"))
 
 
 @server_bp.route("/logs")

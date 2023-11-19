@@ -77,13 +77,13 @@ socketio = SocketIO(app)
 # APSchelduler
 from app.tasks import *
 
-# scheduler = APScheduler()
-# scheduler.api_enabled = False
-# scheduler.init_app(app)
+scheduler = APScheduler()
+scheduler.api_enabled = False
+scheduler.init_app(app)
 # scheduler.add_job(trigger="interval", id="job1", func=job1, seconds=10)
-# scheduler.add_job(trigger="interval", id="readCPU", func=readCPU, seconds=10)
-# scheduler.add_job(trigger="interval", id="readRAM", func=readRAM, seconds=10)
-# scheduler.start()
+scheduler.add_job(trigger="interval", id="readCPU", func=readCPU, seconds=60)
+scheduler.add_job(trigger="interval", id="readRAM", func=readRAM, seconds=60)
+scheduler.start()
 
 
 @app.teardown_appcontext
