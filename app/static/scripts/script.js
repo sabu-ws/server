@@ -10,6 +10,19 @@ $.ajaxSetup({
 	}
 });
 
+
+// ========= sidebar
+$(document).ready(function() {
+	var currentPath = window.location.pathname;
+	var panelIndex = currentPath.indexOf("/panel/");
+	if (panelIndex !== -1) {
+		var currentPage = currentPath.substring(panelIndex + 7).split('/')[0];
+		$('#sidebar-' + currentPage).addClass(["text-blue-800", "bg-white/60"]);
+		$('#sidebar-' + currentPage).removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]);
+	}
+});
+
+
 // =========== toggle buttont view password
 $(".toggleView").click(function(){
 	if($(this).closest("div").closest("button").prev().attr("type") == "password"){

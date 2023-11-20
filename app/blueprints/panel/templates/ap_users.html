@@ -13,7 +13,7 @@
 						<div class="overflow-x-auto rounded-lg">
 							<div class="flex items-center justify-between bg-white dark:bg-gray-700 p-4">
 								<label for="table-search" class="sr-only">Search</label>
-								<div class="flex">
+								<div class="flex w-3/12">
 									<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
 										<i class="fa-solid fa-magnifying-glass"></i>
 									</span>
@@ -421,9 +421,5 @@
 		var urlAble = "{{ url_for('panel.users.able_user') }}";
 		var urlAddJob = "{{ url_for('panel.users.add_job') }}";
 		var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}";
-	</script>
-	<script>
-		$("#sidebar-users").addClass(["text-blue-800", "bg-white/60"]); 
-		$("#sidebar-users").removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]); 
 	</script>
 {% endblock %}
