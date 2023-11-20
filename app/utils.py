@@ -46,7 +46,9 @@ def get_IP_Server(interfaces="enp0s3"):
     ip = ""
     for interface in interfaces:
         if tuple(ndb.interfaces[interface].ipaddr.summary()) != ():
-            return tuple(tuple(ndb.interfaces[interface].ipaddr.summary())[0])[3]
+            ip = tuple(tuple(ndb.interfaces[interface].ipaddr.summary())[0])[3]
+            break
+    return îp
 
 def database_allowed():
     if str(DB_PROTOCOLE) in ["sqlite"]:
