@@ -25,7 +25,6 @@ from app import (
     app,
 )
 
-from app.utils import logging
 from app.forms import LoginForm
 from app.models import Users, Job
 from config import *

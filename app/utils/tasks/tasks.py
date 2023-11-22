@@ -4,24 +4,12 @@ import subprocess
 import datetime
 import os
 
-
-
 CPU_TABLE = []
 RAM_TABLE = []
 NET_TABLE = []
 
-def job1():
-	global CPU_TABLE
-	global RAM_TABLE
 
-			# with scheduler.app.app_context():
-	file = open("/tmp/mama","a")
-	file.write(f"cpu : {str(CPU_TABLE)}\n")
-	file.write(f"ram : {str(RAM_TABLE)}\n")
-	file.close()
-
-
-def readCPU():
+def read_CPU():
 	global CPU_TABLE
 	build = {"x":"","y":0}
 	build["x"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -30,7 +18,7 @@ def readCPU():
 	build["y"] = result
 	CPU_TABLE.append(build)
 
-def readRAM():
+def read_RAM():
 	global RAM_TABLE
 	build = {"x":"","y":0}
 	build["x"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -40,9 +28,3 @@ def readRAM():
 	end_format = float(f"{formating:3.1f}")
 	build["y"] = end_format
 	RAM_TABLE.append(build)
-
-def readDISK():
-	return
-
-def readNET():
-	return

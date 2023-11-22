@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_socketio import SocketIO, rooms, disconnect
 
 from app import logout_user, socketio, db
-from app.utils import getHostname, list_interfaces
 from app.models import Devices
-from app.tasks import CPU_TABLE, RAM_TABLE
+from app.utils.tasks import CPU_TABLE, RAM_TABLE
+from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
 from config import *
 
 import subprocess
@@ -54,6 +54,17 @@ def connect_chart_cpu():
 		socketio.emit("chart_disk_rcv",get_total_disk,namespace="/chart_DISK")
 		socketio.sleep(300)
 
+@socketio.on("start_chart_net_rcv",namespace="/chart_NET")
+def connect_chart_net():
+	bytes_rcv_table = []
+	bytes_snd_table = []
+	while True:
+		bytes_rcv, bytes_snd = NET_get_network_speed()
+		bytes_rcv_table.append(bytes_rcv)
+		bytes_snd_table.append(bytes_snd)
+		socketio.emit("chart_net_rcv",[bytes_snd_table,bytes_rcv_table],namespace="/chart_NET")
+		socketio.sleep(5)
+
 # ================= end socket io func
 
 
@@ -75,7 +86,7 @@ def logs():
 @server_bp.route("/settings")
 def settings():
 	get_device = Devices.query.filter_by(token="server").first()
-	return render_template("ap_srv_settings.html", hostname=getHostname(),device=get_device, interfaces=list_interfaces())
+	return render_template("ap_srv_settings.html", hostname=SYS_get_hostname(),device=get_device, interfaces=NET_list_interfaces())
 
 
 @server_bp.route("/settings/hostname", methods=["POST"])

@@ -1,8 +1,8 @@
 from config import *
 from app import app, db
 from app.models import Users, Devices, Job
-from app.utils import get_IP_Server, getHostname
-from app.utils import database_allowed
+from app.utils.system import NET_get_ip_server, SYS_get_hostname
+from app.utils.db_mgmt import database_allowed
 
 from sqlalchemy_utils import database_exists
 from sqlalchemy_utils import create_database
@@ -45,8 +45,8 @@ def create_admin_job():
 def create_server_device():
 	if Devices.query.filter_by(token="server").first() == None:
 		set_device_server = Devices(
-			ip=get_IP_Server(),
-			hostname=getHostname(),
+			ip=NET_get_ip_server(),
+			hostname=SYS_get_hostname(),
 			description="This is the master server",
 			token="server",
 			state=1

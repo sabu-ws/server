@@ -1,5 +1,5 @@
 from config import *
-from app.utils import database_allowed
+from app.utils.db_mgmt import database_allowed
 
 from flask import Flask
 from flask_login import (
@@ -75,14 +75,14 @@ socketio = SocketIO(app)
 
 
 # APSchelduler
-from app.tasks import *
+from app.utils.tasks import read_CPU, read_RAM
 
 scheduler = APScheduler()
 scheduler.api_enabled = False
 scheduler.init_app(app)
 # scheduler.add_job(trigger="interval", id="job1", func=job1, seconds=10)
-scheduler.add_job(trigger="interval", id="readCPU", func=readCPU, seconds=60)
-scheduler.add_job(trigger="interval", id="readRAM", func=readRAM, seconds=60)
+scheduler.add_job(trigger="interval", id="readCPU", func=read_CPU, seconds=60)
+scheduler.add_job(trigger="interval", id="readRAM", func=read_RAM, seconds=60)
 scheduler.start()
 
 

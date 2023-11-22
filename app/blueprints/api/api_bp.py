@@ -17,7 +17,6 @@ from app import (
     bcrypt,
 )
 
-from app.utils import logging
 from app.models import Devices, Users
 from config import *
 

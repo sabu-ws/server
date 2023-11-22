@@ -15,7 +15,6 @@ from functools import wraps
 
 from app import login_required, current_user, db, logout_user
 
-from app.utils import logging
 from app.forms import AddUserForm
 from app.models import Users, Job
 from config import *
