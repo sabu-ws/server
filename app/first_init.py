@@ -28,7 +28,7 @@ def create_admin_user():
 			email="admin@sabu.fr",
 			username="admin",
 			role="Admin",
-			job=1,
+			job_id=1,
 		)
 		set_admin.set_password("P4$$w0rdF0r54Bu5t4t10N")
 		db.session.add(set_admin)
@@ -45,7 +45,6 @@ def create_admin_job():
 def create_server_device():
 	if Devices.query.filter_by(token="server").first() == None:
 		set_device_server = Devices(
-			ip=NET_get_ip_server(),
 			hostname=SYS_get_hostname(),
 			description="This is the master server",
 			token="server",

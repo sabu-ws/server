@@ -53,7 +53,7 @@ def index():
     get_job_name = [i[0] for i in get_job_name]
     get_job_name.remove("Administrator")
     for user in get_user_list:
-        user.job = Job.query.filter_by(id=user.job).first().name
+        user.job = Job.query.filter_by(id=user.job_id).first().name
     return render_template(
         "ap_users.html", userList=get_user_list, job_list=get_job_name
     )
@@ -182,7 +182,7 @@ def mod_user_query():
         guuid = request.form["uuid"]
         user = Users.query.filter_by(uuid=guuid).first()
         if user is not None:
-            user.job = Job.query.filter_by(id=user.job).first().name
+            user.job = Job.query.filter_by(id=user.job_id).first().name
             return jsonify(
                 {
                     "uuid": user.uuid,

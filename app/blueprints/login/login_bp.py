@@ -90,7 +90,7 @@ def login():
                             return redirect(url_for("login.first_con"))
                         else:
                             session["job"] = (
-                                Job.query.filter_by(id=user.job).first().name
+                                Job.query.filter_by(id=user.job_id).first().name
                             )
                             del session["totp"]
                             set_time = datetime.datetime.utcnow() + datetime.timedelta(

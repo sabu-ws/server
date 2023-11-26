@@ -345,3 +345,42 @@ $(document).ready(function(e){
 		})
 	}
 });
+
+
+$("#addEndpointForm").submit(function(e) {
+	e.preventDefault();
+	$.ajax({
+		type: "POST",
+		url: addEndpointUrl,
+		data: $("#addEndpointForm").serialize(),
+		success: function(data)
+		{
+			if(data == "ok"){
+				window.location.reload();
+			}else{
+				alertAddEndpointForm = document.getElementById("alertAddEndpointForm");
+				alertAddEndpointForm.style = "display: true;";
+				const ErrorMSG= "Error : ";
+				$("#spanErrorAddEndpointForm").text(ErrorMSG.concat(data));
+			}
+		}
+	});
+});
+
+$("#genTokenButton").click(function(){
+	$.ajax({
+		type: "GET",
+		url: genToken,
+		// data: $("#addEndpointForm").serialize(),
+		success: function(data){
+			$("#endpointToken").val(data)
+		}
+	});
+});
+
+$("#btnCopyTokenEP").click(function(){
+	$("#endpointToken").select();
+	document.execCommand('copy');
+	$("#copyInfoEP").html("Copied ✓")
+	window.getSelection().removeAllRanges();
+});

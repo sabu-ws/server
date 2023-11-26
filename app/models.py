@@ -1,78 +1,89 @@
 from app import db, UserMixin
 from app import bcrypt
-from sqlalchemy.sql import func
 from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
+from sqlalchemy import String
+from sqlalchemy import Integer
+from sqlalchemy import Column
+from sqlalchemy import Boolean
+from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 
 import uuid
 
 class Users(db.Model, UserMixin):
     __tablename__ = "Users"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    uuid = db.Column(db.String(255), unique=True, default=uuid.uuid4().__str__())
-    name = db.Column(db.String(255), nullable=True)
-    firstname = db.Column(db.String(255), nullable=True)
-    username = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), nullable=True)
-    job = db.Column(db.Integer, db.ForeignKey("Job.id"))
-    role = db.Column(db.String(64), nullable=False)
-    cookie = db.Column(db.String(255), unique=True, nullable=True)
-    OTPSecret = db.Column(db.String(255), unique=True, nullable=True)
-    codeEP = db.Column(db.String(255), unique=True, nullable=True)
-    picture = db.Column(db.String(1024), unique=True, nullable=True)
-    enable = db.Column(db.Integer, nullable=True, default=1)
-    firstCon = db.Column(db.Integer, default=0)
+    id = Column(Integer, primary_key=True, unique=True)
+    uuid = Column(String(255), unique=True, default=uuid.uuid4().__str__())
+    name = Column(String(255), nullable=True)
+    firstname = Column(String(255), nullable=True)
+    username = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=True)
+    job_id = Column(Integer, db.ForeignKey("Job.id"))
+    role = Column(String(64), nullable=False)
+    cookie = Column(String(255), unique=True, nullable=True)
+    OTPSecret = Column(String(255), unique=True, nullable=True)
+    codeEP = Column(String(255), unique=True, nullable=True)
+    picture = Column(String(1024), unique=True, nullable=True)
+    enable = Column(Integer, nullable=True, default=1)
+    firstCon = Column(Integer, default=0)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode("utf-8")
 
+    logusb = relationship("USBlog", backref="Users")
 
 class Job(db.Model):
     __tablename__ = "Job"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    name = db.Column(db.String(255), nullable=False, unique=True)
-
+    id = Column(Integer, primary_key=True, unique=True)
+    name = Column(String(255), nullable=False, unique=True)
+    user = relationship("Users",backref="Job")
 
 class USBlog(db.Model):
     __tablename__ = "USBlog"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    virus = db.Column(db.Integer, default=0)
-    date = db.Column(DateTime(timezone=True), server_default=func.now())
-    idUser = db.Column(db.Integer, db.ForeignKey("Users.id"))
-    idSlave = db.Column(db.Integer, db.ForeignKey("Devices.id"))
+    id = Column(Integer, primary_key=True, unique=True)
+    virus = Column(Integer, default=0)
+    date = Column(DateTime(timezone=True), server_default=func.now())
+    user_id = Column(Integer, db.ForeignKey("Users.id"))
+    device_id = Column(Integer, db.ForeignKey("Devices.id"))
 
 
 class Devices(db.Model):
     __tablename__ = "Devices"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    uuid = db.Column(db.String(255),unique=True, default=str(uuid.uuid4()))
-    ip = db.Column(db.String(64), nullable=False, unique=True)
-    hostname = db.Column(db.String(255), nullable=True)
-    description = db.Column(db.String(1024), nullable=True)
-    token = db.Column(db.String(255), nullable=False, unique=True)
-    state = db.Column(db.Integer, nullable=False, default=0)
+    id = Column(Integer, primary_key=True, unique=True)
+    uuid = Column(String(255),unique=True, default=str(uuid.uuid4()))
+    ip = Column(String(64), nullable=True, unique=True)
+    hostname = Column(String(255), nullable=True)
+    description = Column(String(1024), nullable=True)
+    token = Column(String(255), nullable=False, unique=True)
+    state = Column(Integer, nullable=False, default=0)
+    enable = Column(Integer, nullable=True, default=1)
+
+    log =  relationship("USBlog",backref="Devices")
+    metric =  relationship("Metrics",backref="Devices")
 
 
 class Metrics(db.Model):
     __tablename__ = "Metrics"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    name = db.Column(db.String(128), unique=False, nullable=False)
-    value = db.Column(db.Integer, unique=False, nullable=False)
-    idDevice = db.Column(db.Integer, db.ForeignKey("Devices.id"))
+    id = Column(Integer, primary_key=True, unique=True)
+    name = Column(String(128), unique=False, nullable=False)
+    value = Column(Integer, unique=False, nullable=False)
+    idDevice = Column(Integer, db.ForeignKey("Devices.id"))
 
 
 # class Alerts(db.Model):
 #    __tablename__ = "Alerts"
-#    id = db.Column(db.Integer,primary_key=True,unique=True)
-#    timestamp = db.Column(db.String(255))
-#    name = db.Column(db.String(255),nullable=False)
-#    description = db.Column(db.String(255),nullable=False)
-#    tag = db.Column(db.String(255),nullable=False)
-#    has_read = db.Column(db.Integer,nullable=False,default=0)
+#    id = Column(Integer,primary_key=True,unique=True)
+#    timestamp = Column(String(255))
+#    name = Column(String(255),nullable=False)
+#    description = Column(String(255),nullable=False)
+#    tag = Column(String(255),nullable=False)
+#    has_read = Column(Integer,nullable=False,default=0)
 
 
 class Setup(db.Model):
     __tablename__ = "Setup"
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    action = db.Column(db.String(255), nullable=False, unique=True)
-    state = db.Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True, unique=True)
+    action = Column(String(255), nullable=False, unique=True)
+    state = Column(Boolean, default=False)

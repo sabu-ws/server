@@ -27,6 +27,7 @@ from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+import logging
 import string
 import random
 import os
@@ -51,12 +52,17 @@ csrf.init_app(app)
 # flask bcrypt
 bcrypt = Bcrypt(app)
 
-
 # sqlalchemy database
 db = SQLAlchemy()
 db.init_app(app)
 
+
+from app.utils.db_mgmt.migrate import check_migration, upgrade_migration
 migrate = Migrate(app, db,render_as_batch=True)
+# with app.app_context():
+	# print(f"\n db: {check_migration()} \n")
+	# if not check_migration():
+		# upgrade_migration()
 
 # login manager
 from app.models import Users

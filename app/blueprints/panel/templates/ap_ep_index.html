@@ -87,58 +87,61 @@
 							
 							<!-- Add endpoint modal -->
 							<div id="addEndpointModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-								<div class="relative w-full max-w-2xl max-h-full">
-									<!-- Modal content -->
-									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-										<!-- Modal header -->
-										<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-											<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-												Add endpoint
-											</h3>
-											<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="addEndpointModal">
-												<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-												</svg>
-												<span class="sr-only">Close modal</span>
-											</button>
-										</div>
-										<!-- Modal body -->
-										<div class="ml-6 mr-6 mt-2 mb-2 space-y-6">
-											<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-												<div class="flex-col">
-													<h1 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Information :</h1>
-													<p class="text-gray-900 dark:text-white">To add an endpoint you must enter its name and generate a token. Then you will need to enter the token when installing the endpoint.</p>
-												</div>
-												<div class="flex-col">
-													<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endpoint Hostname</label>
-													<input id="endpointHostname" type="text" name="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="endpoint-1">
-												</div>
-												<div class="flex space-x-2">
-													<button class="p-2 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg">Generate Token <i class="fa-solid fa-arrows-spin"></i></button>
-													<div id="TEMP" class="flex w-9/12">
-														<input type="text" id="otp_url" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly="readonly">
-														<button id="TEMP" data-tooltip-target="tooltip-copy" class="ml-2 inline-flex items-center px-3 py-2.5 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium text-sm text-center rounded-lg">
-															<i class="fa-solid fa-copy"></i>
-														</button>
-														<div id="tooltip-copy" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:black">
-															<span id="copyInfoText">Copy ✗</span>
-															<div class="tooltip-arrow" data-popper-arrow></div>
+								<form id="addEndpointForm">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+									<div class="relative w-full max-w-2xl max-h-full">
+										<!-- Modal content -->
+										<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+											<!-- Modal header -->
+											<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+												<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+													Add endpoint
+												</h3>
+												<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="addEndpointModal">
+													<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+														<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+													</svg>
+													<span class="sr-only">Close modal</span>
+												</button>
+											</div>
+											<!-- Modal body -->
+											<div class="ml-6 mr-6 mt-2 mb-2 space-y-6">
+												<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+													<div class="flex-col">
+														<h1 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Information :</h1>
+														<p class="text-gray-900 dark:text-white">To add an endpoint you must enter its name and generate a token. Then you will need to enter the token when installing the endpoint.</p>
+													</div>
+													<div class="flex-col">
+														<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endpoint Hostname</label>
+														<input id="endpointHostname" type="text" name="endpointHostname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="endpoint-1">
+													</div>
+													<div class="flex space-x-2">
+														<button id="genTokenButton" type="button" class="p-2 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg">Generate Token <i class="fa-solid fa-arrows-spin"></i></button>
+														<div class="flex w-9/12">
+															<input name="endpointToken" type="text" id="endpointToken" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly="readonly">
+															<button id="btnCopyTokenEP" type="button" data-tooltip-target="copyTokenEP" class="ml-2 inline-flex items-center px-3 py-2.5 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium text-sm text-center rounded-lg">
+																<i class="fa-solid fa-copy"></i>
+															</button>
+															<div id="copyTokenEP" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:black">
+																<span id="copyInfoEP">Copy ✗</span>
+																<div class="tooltip-arrow" data-popper-arrow></div>
+															</div>
 														</div>
 													</div>
-												</div>
-											</p>
-										</div>
-										<!-- Modal footer -->
-										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-											<div class="flex-col w-full">
-												<button id="submitAddUEndpointForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
-												<div id="alertAddEndpointForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
-													<span id="spanErrorAddEndpointForm" class="font-bold">Error : </span>
+												</p>
+											</div>
+											<!-- Modal footer -->
+											<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+												<div class="flex-col w-full">
+													<button id="submitAddUEndpointForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+													<div id="alertAddEndpointForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
+														<span id="spanErrorAddEndpointForm" class="font-bold">Error : </span>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 		
 
@@ -174,5 +177,7 @@
 	</div>
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
+		var addEndpointUrl = "{{ url_for('panel.endpoints.add_endpoint') }}"
+		var genToken = "{{ url_for('panel.endpoints.gen_ep_token') }}"
 	</script>
 {% endblock %}

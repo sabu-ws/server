@@ -5,7 +5,7 @@ import subprocess
 import time
 
 def NET_get_ip_server():
-    interfaces = list_interfaces_bis()
+    interfaces = NET_list_interfaces()
     ip = ""
     for interface in interfaces:
         for snic in psutil.net_if_addrs()[interface]:
