@@ -16,7 +16,7 @@ endpoint_bp = Blueprint("endpoints", __name__)
 
 @endpoint_bp.route("/")
 def index():
-	devices=Devices.query.all()
+	devices=Devices.query.filter(Devices.token!="server").all()
 	return render_template("ap_ep_index.html",list_devices=devices)
 
 @endpoint_bp.route("/add_endpoint",methods=["POST"])
@@ -26,11 +26,12 @@ def add_endpoint():
 		if re.match(hostname_regex,request.form["endpointHostname"]):
 			if request.form["endpointToken"] != "" and "temp_token" in session:
 				if request.form["endpointToken"] == session["temp_token"]:
-					api_token = session["temp_token"]
+					api_token = session["temp_token_pass"]
 					del session["temp_token"]
+					del session["temp_token_pass"]
 					add_device = Devices(hostname=request.form["endpointHostname"],token=api_token)
 					db.session.add(add_device)
-					db.commit()
+					db.session.commit()
 					return "ok"
 				else:
 					logout_user()
@@ -48,7 +49,7 @@ def add_endpoint():
 def gen_ep_token():
 	set_time = datetime.datetime.utcnow() + datetime.timedelta(days=365)
 	random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-	session["temp_token"] = random_key
+	session["temp_token_pass"] = random_key
 	jwt_token = jwt.encode({
 			"exp": set_time,
 			"iss": "SABU",
@@ -56,6 +57,7 @@ def gen_ep_token():
 		random_key,
 		algorithm="HS256",
 	)
+	session["temp_token"] = jwt_token
 	return jwt_token
 
 @endpoint_bp.route("/dashboard")

@@ -48,16 +48,18 @@
 										</th>
 									</tr>
 								</thead>
-								<tbody id="TEMP">
+								<tbody>
+									{% if list_devices|length != 0 %}
+									{% for device in list_devices %}
 									<tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-										<td id="TEMP" class="px-6 py-4">
-											#1
-										</td>
-										<td id="TEMP" class="px-6 py-4">
-											ENDPOINT-1
+										<td id="uuid" class="px-6 py-4">
+											{{ device.uuid }}
 										</td>
 										<td class="px-6 py-4">
-											172.16.28.150
+											{{ device.hostname }}
+										</td>
+										<td class="px-6 py-4">
+											{% if device.ip != None %}{{ device.ip }}{% else %}Not IP{%endif%}
 										</td>
 										<td class="px-6 py-4">
 											<div class="flex items-center" id="TEMP">
@@ -79,11 +81,19 @@
 											</div>
 										</td>
 									</tr>
+									{% endfor %}
+									{% endif %}
 								</tbody>
 							</table>
+							{% if list_devices|length == 0 %}
+							<div id="" class="flex justify-center p-4 items-center dark:bg-gray-700">
+								<h1 class="dark:text-white font-semibold">No endpoint found!</h1>
+							</div>
+							{% else %}
 							<div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center dark:bg-gray-700">
 								<h1 class="dark:text-white font-semibold">No endpoint found!</h1>
 							</div>
+							{% endif %}
 							
 							<!-- Add endpoint modal -->
 							<div id="addEndpointModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
