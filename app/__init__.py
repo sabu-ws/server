@@ -38,7 +38,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(
 	random.choices(string.ascii_letters + string.digits, k=30)
 )
-app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed()
+app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed(app.root_path)
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
@@ -57,13 +57,7 @@ db = SQLAlchemy()
 db.init_app(app)
 
 
-from app.utils.db_mgmt.migrate import check_migration, upgrade_migration
 migrate = Migrate(app, db,render_as_batch=True)
-# with app.app_context():
-	# print(f"\n db: {check_migration()} \n")
-	# if not check_migration():
-		# upgrade_migration()
-
 # login manager
 from app.models import Users
 

@@ -60,6 +60,11 @@ def gen_ep_token():
 	session["temp_token"] = jwt_token
 	return jwt_token
 
+@endpoint_bp.route("/delete_endpoint")
+def delete_endpoint():
+	return ""
+
+
 @endpoint_bp.route("/dashboard")
 def dashboard():
 	return render_template("ap_ep_dashboard.html")

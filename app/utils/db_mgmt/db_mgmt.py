@@ -6,8 +6,11 @@ from flask import current_app
 
 import os
 
-def database_allowed():
+def database_allowed(root_path=None):
     if str(DB_PROTOCOLE) in ["sqlite"]:
+        # print(app.root_path)
+        if not os.path.exists(os.path.join(os.path.dirname(root_path),"instance")):
+            os.makedirs(os.path.join(os.path.dirname(root_path),"instance"))
         db_path = os.path.join(SERVER_PATH,"instance",DB_NAME)
         return URL.create(
             DB_PROTOCOLE,
