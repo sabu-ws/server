@@ -8,22 +8,19 @@ from app.utils.db_mgmt.migrate import stamp_migration, upgrade_migration
 from sqlalchemy_utils import database_exists
 from sqlalchemy_utils import create_database
 from sqlalchemy import create_engine
+from sqlalchemy import text
 from sqlalchemy import URL
 
 def database_init():
-	url_object = database_allowed(app.root_path)
-	engine = create_engine(url_object)
-	if not database_exists(engine.url):
-		engine.dispose()
-		with app.app_context():
-			db.create_all()
-			stamp_migration()
-			create_admin_job()
-			create_admin_user()
-			create_server_device()
-	else:
-		with app.app_context():
-			upgrade_migration()
+	with app.app_context():
+		pg_add_extension()
+		db.create_all()
+		db.session.commit()
+		stamp_migration()
+		create_admin_job()
+		create_admin_user()
+		create_server_device()
+		upgrade_migration()
 
 def create_admin_user():
 	if Users.query.filter_by(username="admin").first() == None:
@@ -58,3 +55,9 @@ def create_server_device():
 		db.session.add(set_device_server)
 		db.session.commit()
 	return None
+
+def pg_add_extension():
+	if "postgresql" == database_allowed()[:10]:
+		with db.engine.connect() as con:
+			con.execute(text("CREATE EXTENSION IF NOT EXISTS pgcrypto;"))
+			con.commit()

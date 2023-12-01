@@ -6,6 +6,8 @@ from sqlalchemy import String
 from sqlalchemy import Integer
 from sqlalchemy import Column
 from sqlalchemy import Boolean
+from sqlalchemy import text
+from sqlalchemy import UUID
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
@@ -14,7 +16,7 @@ import uuid
 class Users(db.Model, UserMixin):
     __tablename__ = "Users"
     id = Column(Integer, primary_key=True, unique=True)
-    uuid = Column(String(255), unique=True, default=uuid.uuid4().__str__())
+    uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
     name = Column(String(255), nullable=True)
     firstname = Column(String(255), nullable=True)
     username = Column(String(255), nullable=False)
@@ -52,7 +54,7 @@ class USBlog(db.Model):
 class Devices(db.Model):
     __tablename__ = "Devices"
     id = Column(Integer, primary_key=True, unique=True)
-    uuid = Column(String(255),unique=True, default=str(uuid.uuid4()))
+    uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
     ip = Column(String(64), nullable=True, unique=True)
     hostname = Column(String(255), nullable=True)
     description = Column(String(1024), nullable=True)

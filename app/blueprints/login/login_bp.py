@@ -42,10 +42,10 @@ def check_user():
     if "next" in request.args:
         return redirect(request.args["next"])
     if current_user.role == "Admin":
-        session["job"] = Job.query.filter_by(id=current_user.job).first().name
+        session["job"] = Job.query.filter_by(id=current_user.job_id).first().name
         return redirect(url_for("panel.dashboard.index", _method="GET"))
     elif current_user.role == "User":
-        session["job"] = Job.query.filter_by(id=current_user.job).first().name
+        session["job"] = Job.query.filter_by(id=current_user.job_id).first().name
         return redirect(url_for("browser.index", _method="GET"))
     else:
         abort(404)
@@ -136,7 +136,7 @@ def mfa():
                 totp = pyotp.TOTP(user.OTPSecret)
                 if totp.verify(data["totp"]):
                     del session["totp"]
-                    session["job"] = Job.query.filter_by(id=user.job).first().name
+                    session["job"] = Job.query.filter_by(id=user.job_id).first().name
                     set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
                     random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
                     jwt_token = jwt.encode(
@@ -178,7 +178,7 @@ def first_con():
                         user.firstCon = 1
                         user.set_password(data["newPasswordInput"])
                         db.session.commit()
-                        session["job"] = Job.query.filter_by(id=user.job).first().name
+                        session["job"] = Job.query.filter_by(id=user.job_id).first().name
                         set_time = datetime.datetime.utcnow() + datetime.timedelta(
                             hours=12
                         )

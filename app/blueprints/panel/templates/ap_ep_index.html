@@ -48,7 +48,7 @@
 										</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="table_endpoint">
 									{% if list_devices|length != 0 %}
 									{% for device in list_devices %}
 									<tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -62,12 +62,12 @@
 											{% if device.ip != None %}{{ device.ip }}{% else %}No IP{%endif%}
 										</td>
 										<td class="px-6 py-4">
-											<div class="flex items-center" id="TEMP">
-
-												<!-- <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Up -->
-
-												<div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div> Down
-
+											<div class="flex items-center">
+												{% if device.state == 1 %}
+												<div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
+												{% else %}
+												<div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
+												{% endif %}
 											</div>
 										</td>
 										<td class="px-4 py-4">
@@ -170,7 +170,7 @@
 												<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 											</svg>
 											<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to remove this endpoint ?</h3>
-											<button data-modal-hide="confirmRemoveModal" type="button" id="yesButtonDeleteUser" class="closeRemoveModal text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+											<button data-modal-hide="confirmRemoveModal" type="button" id="yesButtonDeleteEndpoint" class="closeRemoveModal text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
 												Yes
 											</button>
 											<button data-modal-hide="confirmRemoveModal" type="button" class="closeRemoveModal text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
@@ -188,6 +188,7 @@
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
 		var addEndpointUrl = "{{ url_for('panel.endpoints.add_endpoint') }}"
+		var delEndpointUrl = "{{ url_for('panel.endpoints.delete_endpoint') }}"
 		var genToken = "{{ url_for('panel.endpoints.gen_ep_token') }}"
 	</script>
 {% endblock %}

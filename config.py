@@ -1,4 +1,7 @@
 import os
+from dotenv import dotenv_values
+
+DOT_ENV = dotenv_values(".env")
 
 # SABU path
 ROOT_PATH = "/mnt/usb/"
@@ -18,8 +21,7 @@ MAX_CONTENT_LENGTH = 500 * 1024 * 1024
 
 
 # Database content
-DB_PROTOCOLE = "sqlite"
-DB_NAME = "database.db"
-DB_USERNAME = ""
-DB_PASSWORD = ""
-DB_HOST = ""
+DB_PROTOCOLE = DOT_ENV["DB_PROTO"]
+DB_NAME = DOT_ENV["POSTGRES_DB"]
+DB_USERNAME = DOT_ENV["POSTGRES_USER"]
+DB_PASSWORD = DOT_ENV["POSTGRES_PASSWORD"]

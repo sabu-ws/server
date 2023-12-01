@@ -1,6 +1,4 @@
 var temp_uuid;
-var getRowUserTable;
-var previous_url;
 
 $.ajaxSetup({
 	beforeSend: function(xhr, settings) {
@@ -21,6 +19,36 @@ $(document).ready(function() {
 		$('#sidebar-' + currentPage).removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]);
 	}
 });
+
+// ======== dark mode working
+$("#ToggleDarkMode").click(function(){
+	if(localStorage.theme === 'dark' ){
+		localStorage.theme = 'light';
+		document.documentElement.classList.remove('dark');
+		$("#ToggleDarkModeIcon").removeClass("fa-moon");
+		$("#ToggleDarkModeIcon").addClass("fa-sun");
+	}else{
+		document.documentElement.classList.add('dark');
+		$("#ToggleDarkModeIcon").removeClass("fa-sun");
+		$("#ToggleDarkModeIcon").addClass("fa-moon");
+		localStorage.theme = 'dark';
+	}
+});
+
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+	localStorage.theme = 'dark';
+	document.documentElement.classList.add('dark');
+	$("#ToggleDarkModeIcon").removeClass("fa-sun");
+	$("#ToggleDarkModeIcon").addClass("fa-moon");
+	$("#ToggleDarkMode").prop("checked",true);
+} else {
+	localStorage.theme = 'light';
+	document.documentElement.classList.remove('dark');
+	$("#ToggleDarkModeIcon").removeClass("fa-moon");
+	$("#ToggleDarkModeIcon").addClass("fa-sun");
+	$("#ToggleDarkMode").prop("checked",false);
+}
+// =============================================
 
 
 // =========== toggle buttont view password
@@ -279,35 +307,7 @@ $("#otpLinkBtn").click(function(){
 	window.getSelection().removeAllRanges();
 });
 
-// ======== dark mode working
-$("#ToggleDarkMode").click(function(){
-	if(localStorage.theme === 'dark' ){
-		localStorage.theme = 'light';
-		document.documentElement.classList.remove('dark');
-		$("#ToggleDarkModeIcon").removeClass("fa-moon");
-		$("#ToggleDarkModeIcon").addClass("fa-sun");
-	}else{
-		document.documentElement.classList.add('dark');
-		$("#ToggleDarkModeIcon").removeClass("fa-sun");
-		$("#ToggleDarkModeIcon").addClass("fa-moon");
-		localStorage.theme = 'dark';
-	}
-});
 
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-	localStorage.theme = 'dark';
-	document.documentElement.classList.add('dark');
-	$("#ToggleDarkModeIcon").removeClass("fa-sun");
-	$("#ToggleDarkModeIcon").addClass("fa-moon");
-	$("#ToggleDarkMode").prop("checked",true);
-} else {
-	localStorage.theme = 'light';
-	document.documentElement.classList.remove('dark');
-	$("#ToggleDarkModeIcon").removeClass("fa-moon");
-	$("#ToggleDarkModeIcon").addClass("fa-sun");
-	$("#ToggleDarkMode").prop("checked",false);
-}
-// =============================================
 
 // ======== Box info
 if($(".boxInfo").is(':visible')){
@@ -333,7 +333,6 @@ $("#inputHostname").on("keyup",function(){
 });
 
 
-
 // ================= Socketio all func
 $(document).ready(function(e){
 	if(document.location.pathname=="/panel/server/logs"){
@@ -344,43 +343,4 @@ $(document).ready(function(e){
 			$("#masterSetLogs").animate({ scrollTop: $("#masterSetLogs")[0].scrollHeight }, 1000);
 		})
 	}
-});
-
-
-$("#addEndpointForm").submit(function(e) {
-	e.preventDefault();
-	$.ajax({
-		type: "POST",
-		url: addEndpointUrl,
-		data: $("#addEndpointForm").serialize(),
-		success: function(data)
-		{
-			if(data == "ok"){
-				window.location.reload();
-			}else{
-				alertAddEndpointForm = document.getElementById("alertAddEndpointForm");
-				alertAddEndpointForm.style = "display: true;";
-				const ErrorMSG= "Error : ";
-				$("#spanErrorAddEndpointForm").text(ErrorMSG.concat(data));
-			}
-		}
-	});
-});
-
-$("#genTokenButton").click(function(){
-	$.ajax({
-		type: "GET",
-		url: genToken,
-		// data: $("#addEndpointForm").serialize(),
-		success: function(data){
-			$("#endpointToken").val(data)
-		}
-	});
-});
-
-$("#btnCopyTokenEP").click(function(){
-	$("#endpointToken").select();
-	document.execCommand('copy');
-	$("#copyInfoEP").html("Copied ✓")
-	window.getSelection().removeAllRanges();
 });

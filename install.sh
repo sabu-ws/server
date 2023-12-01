@@ -89,6 +89,12 @@ apt install nftables -y
 # DEPLOY RSYSLOG
 apt install rsyslog -y
 
+# DEPLOY DOCKER
+wget -O get_docker.sh https://get.docker.com
+chmod +x get_docker.sh
+sh get_docker.sh
+rm -f get_docker.sh
+docker compose -f /sabu/server/deploy/docker/docker-compose.yaml --env-file /sabu/server/.env up -d 
 
 # DEPLOY SABU
 mkdir -p /sabu/logs/server/

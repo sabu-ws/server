@@ -254,7 +254,11 @@
 	{% endif %}
 	{% endif %}
 	{% endwith %}
+	{% if url_for(request.endpoint).startswith("/panel/endpoints/")  %}
+	<script src="{{ url_for('static',filename='scripts/script_ep.js') }}"></script>
+	{% else %}
 	<script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+	{% endif %}
 	<!-- js alert -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
