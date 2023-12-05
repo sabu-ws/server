@@ -51,74 +51,121 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-6 gap-6 mb-6">
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-72">
-                    <div class="flex w-full">
-                        <div class="flex-col mt-8 ml-8">
-                            <h1 class="text-gray-500 font-semibold dark:text-gray-300">Welcome back,</h1>
-                            <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ current_user.firstname }} {{ current_user.name }}</h1>
-                            <div class="flex-col mt-8 font-semibold text-gray-700 dark:text-white">
-                                <div class="flex space-x-2">
-                                    <h1><i class="fa-solid fa-user-group"></i></h1>
-                                    <p>{{ current_user.role }}</p>
+
+            <!-- PAGE 1 DASHBOARD -->
+            <div id="dashboard1" class="">
+                <div class="grid grid-cols-6 gap-6 mb-6">
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-72">
+                        <div class="flex w-full">
+                            <div class="flex-col mt-8 ml-8">
+                                <h1 class="text-gray-500 font-semibold dark:text-gray-300">Welcome back,</h1>
+                                <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ current_user.firstname }} {{ current_user.name }}</h1>
+                                <div class="flex-col mt-8 font-semibold text-gray-700 dark:text-white">
+                                    <div class="flex space-x-2">
+                                        <h1><i class="fa-solid fa-user-group"></i></h1>
+                                        <p>{{ current_user.role }}</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <h1><i class="fa-solid fa-right-to-bracket"></i> Last login :</h1>
+                                        <p>??</p>
+                                    </div>
+                                    <div class="flex space-x-1">
+                                        <h1><i class="fa-solid fa-shield-halved"></i> 2FA :</h1>
+                                        <p>{% if current_user.OTPSecret %}
+                                            <p class="text-green-500 font-bold"> Enable</p>
+                                            {% else %}
+                                            <p class="text-red-600 font-bold"> Disable</p>
+                                            {% endif %}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="flex space-x-2">
-                                    <h1><i class="fa-solid fa-right-to-bracket"></i> Last login :</h1>
-                                    <p>??</p>
-                                </div>
-                                <div class="flex space-x-1">
-                                    <h1><i class="fa-solid fa-shield-halved"></i> 2FA :</h1>
-                                    <p>{% if current_user.OTPSecret %}
-                                        <p class="text-green-500 font-bold"> Enable</p>
-                                        {% else %}
-                                        <p class="text-red-600 font-bold"> Disable</p>
-                                        {% endif %}
-                                    </p>
+                                <div class="mt-10">
+                                    <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
+                                        <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="mt-10">
-                                <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
-                                    <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
-                                </a>
+                            <div class="m-auto mr-10">
+                                {% if current_user.picture == None %}
+                                    <span class="flex justify-center items-center w-24 h-24 xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white bg-gray-800 font-bold text-white sm:text-2xl xl:text-6xl">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
+                                {% else %}
+                                    <img src="{{ url_for('user.renderPP') }}" class="xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white">
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="m-auto mr-10">
-                            {% if current_user.picture == None %}
-                                <span class="flex justify-center items-center w-24 h-24 xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white bg-gray-800 font-bold text-white sm:text-2xl xl:text-6xl">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
-                            {% else %}
-                                <img src="{{ url_for('user.renderPP') }}" class="xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white">
-                            {% endif %}
+                    </div>
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2">
+                        <h1 class="flex items-center">TABS ENDPOINTS</h1>
+                    </div>
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-5 col-span-2">
+                        <div class="flex w-full">
+                            <div class="flex-col mt-8 ml-8">
+                                <h1 class="text-gray-500 font-semibold dark:text-gray-300">Server Information</h1>
+                                <div class="bg-gray-200 rounded-lg shadow-md p-4 space-y-4">
+                                    <h3><i class="fa-solid fa-code-branch"></i> Version 2.0</h3>
+                                    <h3><i class="fa-solid fa-star-of-life"></i> Health : <span class="text-green-600 font-bold">Healthy</span></h3>
+                                    <h3><i class="fa-solid fa-power-off"></i> Last Reboot : 21/09/2023</h3>
+                                    <h3><i class="fa-solid fa-network-wired"></i> IP Address : 192.168.10.100</h3>     
+                                    <h3><i class="fa-solid fa-code"></i> API : <span class="text-green-600 font-bold">Running</span></h3>        
+                                </div>
+                                <!-- <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">SABU</h1> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2">
-                    <h1 class="flex items-center">TABS ENDPOINTS</h1>
-                </div>
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-5 col-span-2">
-                    <h1 class="flex items-center">SERVER INFORMATION</h1>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-6 mb-6">
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
-                    <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
-                        <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
-                        <div id="column-chart"></div>
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
+                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
+                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
+                            <div id="column-chart"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
+                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
+                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Uptime Server</h1>
+                            <div id="area-chart"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
-                    <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
-                        <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Uptime Server</h1>
-                        <div id="area-chart"></div>
-                    </div>
+                <div class="flex justify-end">
+                    <button id="toggleButtonDashboard1" class="bg-lightblue hover:bg-darkblue rounded-xl text-white px-4 py-2"><i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
-            <div class="flex justify-end">
-                <button class="bg-lightblue hover:bg-darkblue rounded-xl text-white px-4 py-2"><i class="fa-solid fa-arrow-right"></i></button>
+
+            <!-- PAGE 2 DASHBOARD -->
+            <div id="dashboard2" class="hidden">
+                <div class="grid grid-cols-5 gap-6 mb-6">
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-3 h-96">
+                        <h1 class="flex items-center">SOON ...</h1>
+                    </div>
+                    <div class="col-start-4 col-span-2 grid grid-row-2 gap-6">
+                        <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
+                            <h1 class="flex items-center">NBR SCANS PAR JOURS</h1>
+                        </div>
+                        <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
+                            <h1 class="flex items-center">NBR VIRUS PAR JOURS</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start">
+                    <button id="toggleButtonDashboard2" class="bg-lightblue hover:bg-darkblue rounded-xl text-white px-4 py-2"><i class="fa-solid fa-arrow-left"></i></button>
+                </div>
             </div>
+
         </div>
      </div>
 <script type="text/javascript">
 	 var csrf_token = "{{ csrf_token() }}";
 </script>
 <script src="{{ url_for('static',filename='scripts/chart_dashboard.js') }}"></script>  
+<script>
+    // PAGE 1 DASHBOAR
+  $('#toggleButtonDashboard1').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+  });
+    // PAGE 2 DASHBOARD
+  $('#toggleButtonDashboard2').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+  });
+</script>
 {% endblock %}
