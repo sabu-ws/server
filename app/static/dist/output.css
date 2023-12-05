@@ -1344,6 +1344,10 @@ input:checked + .toggle-bg {
   grid-column-start: 4;
 }
 
+.col-start-5 {
+  grid-column-start: 5;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -1492,10 +1496,6 @@ input:checked + .toggle-bg {
 
 .mt-10 {
   margin-top: 2.5rem;
-}
-
-.mt-14 {
-  margin-top: 3.5rem;
 }
 
 .mt-16 {
@@ -1694,6 +1694,10 @@ input:checked + .toggle-bg {
   width: 0.875rem;
 }
 
+.w-3\/12 {
+  width: 25%;
+}
+
 .w-32 {
   width: 8rem;
 }
@@ -1740,18 +1744,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.w-5\/12 {
-  width: 41.666667%;
-}
-
-.w-4\/12 {
-  width: 33.333333%;
-}
-
-.w-3\/12 {
-  width: 25%;
 }
 
 .min-w-0 {
@@ -2037,6 +2029,10 @@ input:checked + .toggle-bg {
 
 .rounded-none {
   border-radius: 0px;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 
 .rounded-b {

@@ -9,7 +9,7 @@ let options_CPU = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -86,7 +86,7 @@ let options_RAM = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -177,7 +177,7 @@ let options_NET = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -257,7 +257,7 @@ const getChartOptions = {
 		width: "100%",
 		type: "donut",
 		toolbar: {
-			show: true,
+			show: false,
 			},
 	},
 	stroke: {
