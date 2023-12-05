@@ -22,7 +22,7 @@ from app import (
     db,
     socketio,
     emit,
-    app,
+    logger as log,
 )
 
 from app.forms import LoginForm
@@ -65,6 +65,8 @@ def check_token():
                     )
                     login_user(user)
         except jwt.ExpiredSignatureError:
+            pass
+        finally:
             pass
 
 
@@ -115,6 +117,7 @@ def login():
                             )
                             resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12))
                             login_user(user)
+                            log.info(f"User {user.username} has logged in")
                             return resp
                     else:
                         return render_template("login.html", con="ko")
@@ -149,8 +152,10 @@ def mfa():
                     resp = make_response(render_template("login_totp.html", con="ok"))
                     resp.set_cookie("sabu", jwt_token)
                     login_user(user)
+                    log.info(f"User {user.username} has logged in")
                     return resp
                 else:
+                    log.info(f"User {user.username} enter bad totp")
                     return render_template("login_totp.html", con="ko")
         else:
             return redirect(url_for("login.login"))
@@ -197,6 +202,7 @@ def first_con():
                         )
                         resp.set_cookie("sabu", jwt_token)
                         login_user(user)
+                        log.info(f"User {user.username} has logged in ")
                         return resp
                     else:
                         return render_template(
@@ -220,6 +226,8 @@ def first_con():
 @login_bp.route("/logout", methods=["GET"])
 @login_required
 def logout():
+    username = str(current_user.username)
+    log.info(f"User {username} has logged out ")
     logout_user()
     resp = make_response(redirect(url_for("login.login")))
     resp.delete_cookie("sabu")

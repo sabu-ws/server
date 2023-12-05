@@ -1,15 +1,17 @@
 from config import *
 
-from app import logout_user, db, socketio, app
+from app import logout_user, db, socketio, logger as log
 from app.models import Devices
+from app.utils.user_mgmt import force_logout_user
 
-from flask import Blueprint, render_template, request, session, flash
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import re
 import jwt
 import random
 import datetime
 import hashlib
 import uuid
+from requests import post
 
 endpoint_bp = Blueprint("endpoints", __name__)
 
@@ -36,18 +38,17 @@ def add_endpoint():
 					add_device = Devices(hostname=request.form["endpointHostname"],token=api_token)
 					db.session.add(add_device)
 					db.session.commit()
+					flash(f"Endpoint '{str(add_device.hostname)}' has been add","good")
+					log.info(f"New endpoint named '{str(add_device.hostname)}'")
 					return "ok"
 				else:
-					logout_user()
-					return "ok"
+					return force_logout_user()
 			else:
 				return "Please generate a token"
 		else:
 			return "Please enter a correct hostname for the endpoint"
 	else:
-		logout_user()
-		return "ok"
-
+		return force_logout_user()
 
 @endpoint_bp.route("/gen_ep_token")
 def gen_ep_token():
@@ -74,13 +75,13 @@ def delete_endpoint():
 				db.session.delete(ep_qry)
 				db.session.commit()
 				name_ep = ep_qry.hostname
-				flash(f"Endpoint {name_ep} has been delete","good")
+				flash(f"Endpoint '{name_ep}' has been delete","good")
 				return "ok"
 		else:
-			logout_user()
+			post(f"{str(request.root_url)}/logout")
 			return "ok"
 	else:
-		logout_user()
+		post(f"{str(request.root_url)}/logout")
 		return "ok"
 	return ""
 

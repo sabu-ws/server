@@ -11,19 +11,30 @@ from sqlalchemy import create_engine
 from sqlalchemy import text
 from sqlalchemy import URL
 
+log = app.logger
+
 def database_init():
+	log.info("Initialisation database")
 	with app.app_context():
 		pg_add_extension()
 		db.create_all()
 		db.session.commit()
-		stamp_migration()
+
+		# log.info("Load stamp migration in database")
+		# stamp_migration()
+
 		create_admin_job()
+
 		create_admin_user()
+
 		create_server_device()
-		upgrade_migration()
+
+		# log.info("Upgrade database if need")
+		# upgrade_migration()
 
 def create_admin_user():
 	if Users.query.filter_by(username="admin").first() == None:
+		log.info("Create admin user")
 		set_admin = Users(
 			name="SABU",
 			firstname="Admin",
@@ -39,6 +50,7 @@ def create_admin_user():
 
 def create_admin_job():
 	if Job.query.filter_by(name="Administrator").first() == None :
+		log.info("Create Administrator job")
 		set_job_admin = Job(name="Administrator")
 		db.session.add(set_job_admin)
 		db.session.commit()
@@ -46,6 +58,7 @@ def create_admin_job():
 
 def create_server_device():
 	if Devices.query.filter_by(token="server").first() == None:
+		log.info("Create server device")
 		set_device_server = Devices(
 			hostname=SYS_get_hostname(),
 			description="This is the master server",

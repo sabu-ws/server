@@ -14,16 +14,13 @@ from flask_socketio import (
 	SocketIO,
 	emit,
 	disconnect,
-	send,
-	join_room,
-	rooms,
-	close_room,
 )
 from flask_apscheduler import APScheduler
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import MetaData
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
+from flask_session import Session
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -34,6 +31,10 @@ import os
 import re
 import uuid
 
+log_format = "%(levelname)s [%(asctime)s] %(name)s  %(message)s"
+logging.basicConfig(format=log_format,level=logging.INFO,filename="/sabu/logs/server/sabu.log",filemode="a")
+logger = logging.getLogger("sabu.server")
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(
 	random.choices(string.ascii_letters + string.digits, k=30)
@@ -41,8 +42,12 @@ app.config["SECRET_KEY"] = "".join(
 app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed(app.root_path)
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
+app.config['SESSION_TYPE'] = 'filesystem'
 
+# Proxy fix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
+
+logger.info("Initialisation flask extensions")
 
 # CSRF protection
 csrf = CSRFProtect()
@@ -55,9 +60,9 @@ bcrypt = Bcrypt(app)
 # sqlalchemy database
 db = SQLAlchemy()
 db.init_app(app)
-
-
 migrate = Migrate(app, db,render_as_batch=True)
+
+
 # login manager
 from app.models import Users
 
@@ -74,8 +79,13 @@ def load_user(user_id):
 socketio = SocketIO(app)
 
 
+# Session manager
+session = Session(app)
+
 # APSchelduler
 from app.utils.tasks import read_CPU, read_RAM
+
+logging.getLogger('apscheduler').setLevel(logging.ERROR)
 
 scheduler = APScheduler()
 scheduler.api_enabled = False

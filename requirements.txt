@@ -3,6 +3,7 @@ APScheduler==3.10.4
 bcrypt==4.0.1
 bidict==0.22.1
 blinker==1.6.2
+cachelib==0.10.2
 certifi==2023.7.22
 cffi==1.16.0
 charset-normalizer==3.3.0
@@ -17,6 +18,7 @@ Flask-APScheduler==1.13.1
 Flask-Bcrypt==1.0.1
 Flask-Login==0.6.2
 Flask-Migrate==4.0.4
+Flask-Session==0.5.0
 Flask-SocketIO==5.3.3
 Flask-SQLAlchemy==3.0.5
 Flask-WTF==1.1.1

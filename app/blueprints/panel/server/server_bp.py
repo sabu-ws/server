@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_socketio import SocketIO, rooms, disconnect
 
-from app import logout_user, socketio, db
+from app import logout_user, socketio, db, logger as log
 from app.models import Devices
 from app.utils.tasks import CPU_TABLE, RAM_TABLE
 from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
+from app.utils.user_mgmt import force_logout_user
 from config import *
 
 import subprocess
@@ -14,7 +15,6 @@ import os
 import shutil
 
 server_bp = Blueprint("server", __name__)
-
 
 # ================= start socket io func
 
@@ -104,6 +104,7 @@ def settings_hostname():
 						get_device.hostname = hostname
 						db.session.commit()
 						flash("The hostname has been change","good")
+						log.info(f"The hostname has been change by {str(hostname)}")
 						return redirect(url_for("panel.server.settings"))
 					else:
 						flash("You enter bad charactere for the hostname!", "error")
@@ -111,13 +112,12 @@ def settings_hostname():
 				else:
 					flash("Please enter hostname between 5 and 64 charactère", "error")
 					return redirect(url_for("panel.server.settings"))
-			
 		else:
-			logout_user()
-			return redirect(url_for("login.logn"))
+			log.warning("Adversary detected")
+			return redirect(url_for("login.logout"))
 	else:
-		logout_user()
-		return redirect(url_for("login.logn"))
+		log.warning("Adversary detected")
+		return redirect(url_for("login.logout"))
 	return ""
 
 @server_bp.route("/settings/description",methods=["POST"])
@@ -135,11 +135,11 @@ def settings_description():
 					flash("The description must have maximum 1024 charactere !","error")
 					return redirect(url_for("panel.server.settings"))
 		else:
-			logout_user()
-			return redirect(url_for("login.logn"))
+			log.warning("Adversary detected")
+			return redirect(url_for("login.logout"))
 	else:
-		logout_user()
-		return redirect(url_for("login.logn"))
+		log.warning("Adversary detected")
+		return redirect(url_for("login.logout"))
 	return ""
 
 
@@ -205,13 +205,14 @@ def settings_certificates():
 			subprocess.Popen("sudo /usr/bin/systemctl restart nginx.service".split())
 			subprocess.Popen("sudo /usr/bin/systemctl restart sabu.service".split())
 			flash("The certificates and private key file has been change", "good")
+			log.info("The certificates and private key file has been change")
 			return redirect(url_for("panel.server.settings"))
 		else:
 			flash("Please select certificate and key files !", "error")
 			return redirect(url_for("panel.server.settings"))
 	else:
-		logout_user()
-		return ""
+		log.warning("Adversary detected")
+		return redirect(url_for('login.logout'))
 	return ""
 
 

@@ -15,7 +15,7 @@ import pyotp
 import io
 import os
 
-from app import login_required, logout_user, current_user, bcrypt, login_user, db
+from app import login_required, logout_user, current_user, bcrypt, login_user, db, logger as log
 
 from app.models import Users
 from app.forms import AddUserForm
@@ -49,6 +49,7 @@ def mod_info():
         user.email = form.email.data
         db.session.commit()
         flash("Your informations has been change!", "good")
+        log.info(f"User {str(user.name)} had change his personnal informations")
     else:
         flash(form.errors[list(form.errors.keys())[0]][0], "error")
     return redirect(url_for("user.index"))
@@ -70,6 +71,7 @@ def change_password():
                     user.set_password(repeat_new_password)
                     db.session.commit()
                     flash("Your password has been change", "good")
+                    log.info(f"User {str(user.name)} has change his password")
                 else:
                     flash("Bad paddings for new passwords", "error")
             else:
@@ -129,6 +131,7 @@ def totpcheck():
             user.OTPSecret = totpsec
             db.session.commit()
             flash("You have enable 2FA", "good")
+            log.info(f"User {str(user.name)} has add his totp")
             return "ok"
         else:
             return "Bad totp code"
@@ -142,6 +145,7 @@ def totpdisable():
         user.OTPSecret = None
         db.session.commit()
         flash("You have disable 2FA", "good")
+        log.info(f"User {str(user.name)} has delete his totp")
     return redirect(url_for("user.index"))
 
 
@@ -167,6 +171,7 @@ def sendPicture():
                     image.save(path)
                     user.picture = path
                     db.session.commit()
+                    log.info(f"User {user.name} has add his image profile")
                     flash("Your profile picture has been change", "good")
                 else:
                     flash("Your image must did 400x400", "error")
@@ -202,6 +207,7 @@ def removePP():
         user.picture = None
         db.session.commit()
         flash("Your profile picture has been remove", "good")
+        log.info(f"User {str(user.name)} has delete his image profile")
         return redirect(url_for("user.index"))
     logout_user()
     return redirect(url_for("user.index"))
