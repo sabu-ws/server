@@ -14,4 +14,5 @@ def index():
     hostname=SYS_get_hostname()
     uptime=SYS_get_uptime()
     version=SABU_VERSION
-    return render_template("ap_dashboard.html", list_devices=devices, hostname=hostname, uptime=uptime, server_ip=server_ip, version=version)
+    licence=SABU_LICENCE
+    return render_template("ap_dashboard.html", list_devices=devices, hostname=hostname, uptime=uptime, server_ip=server_ip, version=version, licence=licence)
