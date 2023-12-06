@@ -39,8 +39,6 @@ def SYS_get_hostname():
 
     hostname = socket.gethostname()
     return hostname
-
-
 def SYS_get_uptime():
 
     boot_time_timestamp = psutil.boot_time()
@@ -55,6 +53,10 @@ def SYS_get_uptime():
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
 
-    uptime = f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes"
-    return uptime
+    if int(days) >= 0:
+        uptime = f"{int(hours)} hours, {int(minutes)} minutes"
 
+    else:
+        uptime = f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes"
+    
+    return uptime
