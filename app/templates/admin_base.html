@@ -254,7 +254,7 @@
 	{% endif %}
 	{% endif %}
 	{% endwith %}
-	{% if url_for(request.endpoint).startswith("/panel/endpoints/")  %}
+	{% if url_for(request.endpoint, **request.view_args).startswith('/panel/endpoints/')  %}
 	<script src="{{ url_for('static',filename='scripts/script_ep.js') }}"></script>
 	{% else %}
 	<script src="{{ url_for('static',filename='scripts/script.js') }}"></script>

@@ -12,8 +12,19 @@ import datetime
 import hashlib
 import uuid
 from requests import post
+from functools import wraps
 
 endpoint_bp = Blueprint("endpoints", __name__)
+
+def _if_endpoint_exist(f):
+	@wraps(f)
+	def decorated_function(*args, **kwargs):
+		endpoint_name = str(request.view_args["name"]) 		 
+		if Devices.query.filter_by(hostname=endpoint_name).first()!=None:
+			return f(*args, **kwargs)
+		else:
+			return redirect(url_for(".index"))
+	return decorated_function
 
 # Use for send info to page
 @socketio.on("connect",namespace="/state_ep")
@@ -85,6 +96,10 @@ def delete_endpoint():
 		return "ok"
 	return ""
 
+@endpoint_bp.route("/<string:name>")
+@_if_endpoint_exist
+def index_endpoint(name):
+	return render_template("ap_ep_dashboard.html")
 
 @endpoint_bp.route("/dashboard")
 def dashboard():

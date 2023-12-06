@@ -11,6 +11,19 @@ from sqlalchemy import UUID
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
+from sqlalchemy.sql import expression
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.types import DateTime
+
+class utcnow(expression.FunctionElement):
+    type = DateTime()
+    inherit_cache = True
+
+@compiles(utcnow, 'postgresql')
+def pg_utcnow(element, compiler, **kw):
+    return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
+
+
 import uuid
 
 class Users(db.Model, UserMixin):
@@ -68,11 +81,14 @@ class Devices(db.Model):
     metric =  relationship("Metrics",backref="Devices")
 
 
+
+
 class Metrics(db.Model):
     __tablename__ = "Metrics"
     id = Column(Integer, primary_key=True, unique=True)
     name = Column(String(128), unique=False, nullable=False)
     value = Column(Integer, unique=False, nullable=False)
+    timestamp = Column(DateTime(timezone=True),server_default=utcnow())
     idDevice = Column(Integer, db.ForeignKey("Devices.id"))
 
 

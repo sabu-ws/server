@@ -73,7 +73,10 @@
 										<td class="px-4 py-4">
 											<div class="flex space-x-2">
 												<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
-													<i class="fa-solid fa-eye"></i>
+													<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+														<i class="fa-solid fa-eye"></i>
+
+													</a>
 												</button>
 												<button type="button" data-modal-show="confirmRemoveModal" title='Remove Endpoint' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-trash"></i>
@@ -187,8 +190,8 @@
 	</div>
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
-		var addEndpointUrl = "{{ url_for('panel.endpoints.add_endpoint') }}"
-		var delEndpointUrl = "{{ url_for('panel.endpoints.delete_endpoint') }}"
-		var genToken = "{{ url_for('panel.endpoints.gen_ep_token') }}"
+		var addEndpointUrl = "{{ url_for('.add_endpoint') }}"
+		var delEndpointUrl = "{{ url_for('.delete_endpoint') }}"
+		var genToken = "{{ url_for('.gen_ep_token') }}"
 	</script>
 {% endblock %}

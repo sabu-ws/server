@@ -9,6 +9,10 @@ $.ajaxSetup({
 });
 
 
+if($(".boxInfo").is(':visible')){
+	$(".boxInfo").delay(5000).fadeOut();
+}
+
 // ========= sidebar
 $(document).ready(function() {
 	var currentPath = window.location.pathname;

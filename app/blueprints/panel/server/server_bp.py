@@ -54,16 +54,28 @@ def connect_chart_cpu():
 		socketio.emit("chart_disk_rcv",get_total_disk,namespace="/chart_DISK")
 		socketio.sleep(300)
 
+on_ready_net_chart = True
 @socketio.on("start_chart_net_rcv",namespace="/chart_NET")
 def connect_chart_net():
+	global on_ready_net_chart
 	bytes_rcv_table = []
 	bytes_snd_table = []
-	while True:
+	while on_ready_net_chart:
 		bytes_rcv, bytes_snd = NET_get_network_speed()
 		bytes_rcv_table.append(bytes_rcv)
 		bytes_snd_table.append(bytes_snd)
 		socketio.emit("chart_net_rcv",[bytes_snd_table,bytes_rcv_table],namespace="/chart_NET")
 		socketio.sleep(5)
+
+@socketio.on("disconnect",namespace="/chart_NET")
+def disconnect_chart_net():
+	global on_ready_net_chart
+	on_ready_net_chart=False
+
+@socketio.on("connect",namespace="/chart_NET")
+def disconnect_chart_net():
+	global on_ready_net_chart
+	on_ready_net_chart=True
 
 # ================= end socket io func
 
