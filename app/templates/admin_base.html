@@ -40,20 +40,20 @@
                         </a>
                         </li>
                         <li>
-                        <div class="flex items-center">
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                            </svg>
-                            <a href="#" class="ms-1 text-sm font-medium text-gray-700 dark:text-white hover:text-lightblue dark:hover:text-lightblue md:ms-2">Server</a>
-                        </div>
+							<div class="flex items-center">
+								<svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+								</svg>
+								<span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"><p id="pathArg2"></p></span>
+							</div>
                         </li>
-                        <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                            </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ title }}</span>
-                        </div>
+                        <li id="showPathArg3" aria-current="page">
+							<div class="flex items-center">
+								<svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+								</svg>
+								<span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"><p id="pathArg3"></p></span>
+							</div>
                         </li>
                     </ol>
                     </nav>
@@ -273,5 +273,18 @@
 		
 		});
 	</script>
+	<!-- path in navbar  -->
+	<script>
+		var tabUrlPath = window.location.pathname.substring(1).split('/');
+		
+		document.getElementById('pathArg2').innerHTML = tabUrlPath[1].charAt(0).toUpperCase() + tabUrlPath[1].slice(1);
+			
+		if (tabUrlPath[2]) {
+			document.getElementById('pathArg3').innerHTML = tabUrlPath[2];
+		} else {
+			document.getElementById('showPathArg3').style.display = 'none';
+		}
+	</script>
+	
 </body>
 </html>
