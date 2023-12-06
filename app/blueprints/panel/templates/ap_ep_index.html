@@ -72,12 +72,11 @@
 										</td>
 										<td class="px-4 py-4">
 											<div class="flex space-x-2">
-												<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
-													<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+												<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+													<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
 														<i class="fa-solid fa-eye"></i>
-
-													</a>
-												</button>
+													</button>
+												</a>
 												<button type="button" data-modal-show="confirmRemoveModal" title='Remove Endpoint' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-trash"></i>
 												</button>
