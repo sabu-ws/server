@@ -1530,6 +1530,10 @@ input:checked + .toggle-bg {
   margin-top: 1.5rem;
 }
 
+.mr-8 {
+  margin-right: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -1852,6 +1856,17 @@ input:checked + .toggle-bg {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .cursor-default {
@@ -2328,6 +2343,18 @@ input:checked + .toggle-bg {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
+.bg-\[url\(\'\/sabu\/server\/static\/assets\/icons\/background\.jpg\'\)\] {
+  background-image: url('/sabu/server/static/assets/icons/background.jpg');
+}
+
+.bg-\[url\(\'\.\.\/static\/assets\/icons\/background\.jpg\'\)\] {
+  background-image: url('../static/assets/icons/background.jpg');
+}
+
+.bg-\[url\(\'\.\/static\/assets\/icons\/background\.jpg\'\)\] {
+  background-image: url('./static/assets/icons/background.jpg');
+}
+
 .from-lightblue {
   --tw-gradient-from: #004aad var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(0 74 173 / 0) var(--tw-gradient-to-position);
@@ -2344,6 +2371,14 @@ input:checked + .toggle-bg {
 
 .fill-gray-500 {
   fill: #6B7280;
+}
+
+.fill-white {
+  fill: #ffffff;
+}
+
+.fill-gray-700 {
+  fill: #374151;
 }
 
 .object-right-top {
@@ -2512,6 +2547,18 @@ input:checked + .toggle-bg {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .text-left {
@@ -3202,6 +3249,10 @@ input:checked + .toggle-bg {
   fill: #9CA3AF;
 }
 
+:is(.dark .dark\:fill-white) {
+  fill: #ffffff;
+}
+
 :is(.dark .dark\:text-blue-400) {
   --tw-text-opacity: 1;
   color: rgb(118 169 250 / var(--tw-text-opacity));
@@ -3537,6 +3588,10 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 1280px) {
+  .xl\:mt-10 {
+    margin-top: 2.5rem;
+  }
+
   .xl\:h-48 {
     height: 12rem;
   }
