@@ -55,6 +55,6 @@ def SYS_get_uptime():
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
 
-    uptime = f"{int(days)} jours, {int(hours)} heures, {int(minutes)} minutes"
+    uptime = f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes"
     return uptime
 
