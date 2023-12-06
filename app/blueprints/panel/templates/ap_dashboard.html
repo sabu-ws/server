@@ -57,20 +57,20 @@
                 <div class="grid grid-cols-6 gap-6 mb-6">
                     <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-72">
                         <div class="flex w-full">
-                            <div class="flex-col mt-8 ml-8">
+                            <div class="flex-col mt-8 ml-6">
                                 <h1 class="text-gray-500 font-semibold dark:text-gray-300">Welcome back,</h1>
                                 <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ current_user.firstname }} {{ current_user.name }}</h1>
                                 <div class="flex-col mt-8 font-semibold text-gray-700 dark:text-white">
                                     <div class="flex space-x-2">
-                                        <h1><i class="fa-solid fa-user-group"></i></h1>
+                                        <h1 class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 576 512"><path fill="#374151" d="M64 64C28.7 64 0 92.7 0 128v64c0 8.8 7.4 15.7 15.7 18.6C34.5 217.1 48 235 48 256s-13.5 38.9-32.3 45.4C7.4 304.3 0 311.2 0 320v64c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V320c0-8.8-7.4-15.7-15.7-18.6C541.5 294.9 528 277 528 256s13.5-38.9 32.3-45.4c8.3-2.9 15.7-9.8 15.7-18.6V128c0-35.3-28.7-64-64-64H64zm64 112l0 160c0 8.8 7.2 16 16 16H432c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H144c-8.8 0-16 7.2-16 16zM96 160c0-17.7 14.3-32 32-32H448c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32V160z"/></svg></h1>
                                         <p>{{ current_user.role }}</p>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <h1><i class="fa-solid fa-right-to-bracket"></i> Last login :</h1>
-                                        <p>??</p>
+                                        <h1 class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path fill="#374151" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"/></svg></h1>
+                                        <p>{{ session['job'] }}</p>
                                     </div>
                                     <div class="flex space-x-1">
-                                        <h1><i class="fa-solid fa-shield-halved"></i> 2FA :</h1>
+                                        <h1 class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path fill="#374151" d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/></svg> <p class="ml-2">2FA :</p></h1>
                                         <p>{% if current_user.OTPSecret %}
                                             <p class="text-green-500 font-bold"> Enable</p>
                                             {% else %}
@@ -80,9 +80,11 @@
                                     </div>
                                 </div>
                                 <div class="mt-10">
-                                    <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
-                                        <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
-                                    </a>
+                                    <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
+                                        <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
+                                            <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
+                                        </a>
+                                    </button>
                                 </div>
                             </div>
                             <div class="m-auto mr-10">
@@ -95,21 +97,21 @@
                         </div>
                     </div>
                     <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2">
-                        <h1 class="flex items-center">TABS ENDPOINTS</h1>
+                        <div class="flex w-full">
+                            <div class="flex-col mt-6 ml-6">
+                                <h1 class="text-gray-500 font-semibold dark:text-gray-300">Server Information</h1>
+                                <ul class="bg-red-200 rounded-lg shadow-md p-4 space-y-4">
+                                    <li><i class="fa-solid fa-code-branch"></i> Release Version : 1.3</li>
+                                    <li><i class="fa-solid fa-network-wired"></i> IP Address : 172.16.28.60</li>
+                                    <li><i class="fa-solid fa-gauge"></i> Uptime : 16h</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-5 col-span-2">
-                        <div class="flex w-full">
-                            <div class="flex-col mt-8 ml-8">
-                                <h1 class="text-gray-500 font-semibold dark:text-gray-300">Server Information</h1>
-                                <div class="bg-gray-200 rounded-lg shadow-md p-4 space-y-4">
-                                    <h3><i class="fa-solid fa-code-branch"></i> Version 2.0</h3>
-                                    <h3><i class="fa-solid fa-star-of-life"></i> Health : <span class="text-green-600 font-bold">Healthy</span></h3>
-                                    <h3><i class="fa-solid fa-power-off"></i> Last Reboot : 21/09/2023</h3>
-                                    <h3><i class="fa-solid fa-network-wired"></i> IP Address : 192.168.10.100</h3>     
-                                    <h3><i class="fa-solid fa-code"></i> API : <span class="text-green-600 font-bold">Running</span></h3>        
-                                </div>
-                                <!-- <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">SABU</h1> -->
-                            </div>
+                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">  
+                            <h1 class="text-gray-500 font-semibold dark:text-gray-300">Total Alerts per type</h1>
+                            <div id="totalAlerts-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -117,13 +119,68 @@
                     <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
                         <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
                             <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
-                            <div id="column-chart"></div>
+                            <div id="ScansViruses-chart"></div>
                         </div>
                     </div>
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
-                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Uptime Server</h1>
-                            <div id="area-chart"></div>
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
+                        <div class="mt-6 ml-6">
+                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">List of Endpoints</h1>
+                        </div>
+                        <div class="overflow-y-scroll max-h-48 rounded-lg m-4">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            IP
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_endpoint">
+                                    {% if list_devices|length != 0 %}
+                                    {% for device in list_devices %}
+                                    <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="px-6 py-4">
+                                            {{ device.hostname }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {% if device.ip != None %}{{ device.ip }}{% else %}No IP{%endif%}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center">
+                                                {% if device.state == 1 %}
+                                                <div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
+                                                {% else %}
+                                                <div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if list_devices|length == 0 %}
+                            <div id="" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                                <h1 class="dark:text-white font-semibold">No endpoint found!</h1>
+                            </div>
+                            {% else %}
+                            <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                                <h1 class="dark:text-white font-semibold">No endpoint found!</h1>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="ml-6 mt-6">
+                            <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
+                                <a href="{{ url_for('panel.endpoints.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
+                                    <h1 class="text-sm">See more</h1><i class="text-xs fa-solid fa-arrow-right"></i>
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
