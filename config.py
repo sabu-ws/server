@@ -3,6 +3,9 @@ from dotenv import dotenv_values
 
 DOT_ENV = dotenv_values(".env")
 
+# SABU version
+SABU_VERSION = "1.2.0"
+
 # SABU path
 ROOT_PATH = "/mnt/usb/"
 SERVER_PATH = "/sabu/server/"

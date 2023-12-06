@@ -13,4 +13,5 @@ def index():
     server_ip=NET_get_ip_server()
     hostname=SYS_get_hostname()
     uptime=SYS_get_uptime()
-    return render_template("ap_dashboard.html", list_devices=devices, hostname=hostname, uptime=uptime, server_ip=server_ip)
+    version=SABU_VERSION
+    return render_template("ap_dashboard.html", list_devices=devices, hostname=hostname, uptime=uptime, server_ip=server_ip, version=version)
