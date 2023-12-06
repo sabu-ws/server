@@ -3,17 +3,9 @@
 # STOP SABU SERVICE
 systemctl stop sabu.service >/dev/null
 
-# CHECK SABU IMAGES
-if [ -e /sabu/server/ProfilePicture/ ]
-then
-    cp -r /sabu/server/ProfilePicture /tmp/ >/dev/null
-
-else
-    echo "ERROR: Picture"
-fi
-
 # UPDATE SOURCES
 cd /sabu/server
+git stash
 git config --global --add safe.directory /sabu/server
 git pull
 
@@ -21,15 +13,6 @@ git pull
 source /sabu/sabu-venv/bin/activate >/dev/null
 pip3 install -r /sabu/server/requirements.txt >/dev/null
 flask db upgrade
-
-# CHECK SABU IMAGES
-if [ -e /tmp/ProfilePicture/ ]
-then
-    cp -r /tmp/ProfilePicture/ /sabu/server/ >/dev/null
-
-else
-    echo "ERROR: Picture"
-fi
 
 # UPDATE PERMISSIONS
 chmod -R 0750 /sabu/ >/dev/null
