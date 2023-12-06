@@ -9,7 +9,7 @@ let options_CPU = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -55,6 +55,10 @@ let options_CPU = {
 		categories: [],
 		labels: {
 			show: true,
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
 		},
 		axisBorder: {
 			show: true,
@@ -68,6 +72,10 @@ let options_CPU = {
 		tickAmount: 5,
 		show: true,
 		labels: {
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            },
 			formatter: function (value) {
 				return value + ' %';
 			}
@@ -86,7 +94,7 @@ let options_RAM = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -132,6 +140,10 @@ let options_RAM = {
 		categories: [],
 		labels: {
 			show: true,
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
 		},
 		axisBorder: {
 			show: true,
@@ -145,6 +157,10 @@ let options_RAM = {
 		tickAmount: 5,		
 		show: true,
 		labels: {
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            },
 			formatter: function (value) {
 				return value.toPrecision(3) + ' Go';
 			}
@@ -177,7 +193,7 @@ let options_NET = {
 			enabled: false,
 		},
 		toolbar: {
-			show: true,
+			show: false,
 		},
 	},
 	tooltip: {
@@ -219,6 +235,10 @@ let options_NET = {
 		categories: [],
 		labels: {
 			show: true,
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
 		},
 		axisBorder: {
 			show: true,
@@ -230,6 +250,10 @@ let options_NET = {
 	yaxis: {
 		show: true,
 		labels: {
+			style: {
+                fontFamily: "Inter, sans-serif",
+                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            },
 			formatter: function (value) {
 				decimals = 2
 			    if (!+value) return '0 Bytes'
@@ -257,7 +281,7 @@ const getChartOptions = {
 		width: "100%",
 		type: "donut",
 		toolbar: {
-			show: true,
+			show: false,
 			},
 	},
 	stroke: {
