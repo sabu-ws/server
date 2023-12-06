@@ -3,6 +3,8 @@ import psutil
 import socket 
 import subprocess
 import time
+import datetime
+
 
 def NET_get_ip_server():
     interfaces = NET_list_interfaces()
@@ -34,9 +36,25 @@ def NET_get_network_speed(interval=0.5):
     return tot_bytes_rcv,tot_bytes_snd
 
 def SYS_get_hostname():
-    return (
-        subprocess.Popen(["hostname"], stdout=subprocess.PIPE)
-        .communicate()[0]
-        .decode()
-        .replace("\n", "")
-    )
+
+    hostname = socket.gethostname()
+    return hostname
+
+
+def SYS_get_uptime():
+
+    boot_time_timestamp = psutil.boot_time()
+    dt_boot_time = datetime.datetime.fromtimestamp(boot_time_timestamp)
+
+    dt_now = datetime.datetime.now()
+    dt_diff = dt_now - dt_boot_time
+
+    total_seconds = dt_diff.total_seconds()
+
+    minutes, seconds = divmod(total_seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+
+    uptime = f"{int(days)} jours, {int(hours)} heures, {int(minutes)} minutes"
+    return uptime
+
