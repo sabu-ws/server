@@ -411,15 +411,19 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var csrf_token = "{{ csrf_token() }}";
-		var urlDelete = "{{ url_for('panel.users.del_user') }}";
-		var urlModifyQuery = "{{ url_for('panel.users.mod_user_query') }}";
-		var urlAdd = "{{ url_for('panel.users.add_user') }}";
-		var urlModify = "{{ url_for('panel.users.mod_user') }}";
-		var urlDisTotp = "{{ url_for('panel.users.mod_user_disable_otp') }}";
-		var urlAble = "{{ url_for('panel.users.able_user') }}";
-		var urlAddJob = "{{ url_for('panel.users.add_job') }}";
-		var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}";
-	</script>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	var csrf_token = "{{ csrf_token() }}";
+	var urlDelete = "{{ url_for('panel.users.del_user') }}";
+	var urlModifyQuery = "{{ url_for('panel.users.mod_user_query') }}";
+	var urlAdd = "{{ url_for('panel.users.add_user') }}";
+	var urlModify = "{{ url_for('panel.users.mod_user') }}";
+	var urlDisTotp = "{{ url_for('panel.users.mod_user_disable_otp') }}";
+	var urlAble = "{{ url_for('panel.users.able_user') }}";
+	var urlAddJob = "{{ url_for('panel.users.add_job') }}";
+	var urlRemoveJob = "{{ url_for('panel.users.remove_job') }}";
+</script>
+<script src="{{ url_for('static',filename='js/scripts/users.js') }}"></script>
 {% endblock %}

@@ -5,14 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SABU | Profile</title>
 	<link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/favicon.ico') }}">
-	<!-- import tailwind -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='dist/output.css') }}">
-	<!-- import fontawesome -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/output.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
-	<!-- script base -->
-	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }} "></script>
-	<script src="{{ url_for('static',filename='scripts/socket.io.min.js') }} "></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-800">
     <!-- NAV BAR -->
@@ -424,13 +418,15 @@
 	{% endif %}
 	{% endif %}
 	{% endwith %}
-	<!-- js view mdp -->
+	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/modules/jquery-3.7.1.min.js') }} "></script>
+	<script src="{{ url_for('static',filename='js/modules/socket.io.min.js') }} "></script>
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
 		var otp_url = "{{ url_for('user.totpmake') }}"
 		var qrcode_url = "{{ url_for('user.qrcoderender') }}"
 		var check_otp_url = "{{ url_for('user.totpcheck') }}"
 	</script>
-	<script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
 </body>
 </html>

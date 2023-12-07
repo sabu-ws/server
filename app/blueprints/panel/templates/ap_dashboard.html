@@ -224,18 +224,10 @@
 
         </div>
      </div>
+{% endblock %}
+{% block scripts %}
 <script type="text/javascript">
-	 var csrf_token = "{{ csrf_token() }}";
+    var csrf_token = "{{ csrf_token() }}";
 </script>
-<script src="{{ url_for('static',filename='scripts/chart_dashboard.js') }}"></script>  
-<script>
-    // PAGE 1 DASHBOAR
-  $('#toggleButtonDashboard1').on('click', function() {
-    $('#dashboard1, #dashboard2').toggleClass('hidden');
-  });
-    // PAGE 2 DASHBOARD
-  $('#toggleButtonDashboard2').on('click', function() {
-    $('#dashboard1, #dashboard2').toggleClass('hidden');
-  });
-</script>
+<script src="{{ url_for('static',filename='js/scripts/dashboard.js') }}"></script>
 {% endblock %}

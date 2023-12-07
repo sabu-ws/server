@@ -1,3 +1,14 @@
+// Manage Dashboard
+// PAGE 1
+$('#toggleButtonDashboard1').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+});
+// PAGE 2 
+$('#toggleButtonDashboard2').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+});
+
+// ========== CHARTS ==========
 // SCANS & VIRUSES / DAY
 window.addEventListener("load", function() {
     const options = {

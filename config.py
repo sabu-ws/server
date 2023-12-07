@@ -7,7 +7,7 @@ DOT_ENV = dotenv_values(".env")
 SABU_VERSION = "0.2.5"
 
 # SABU licence
-SABU_LICENCE = "0"
+SABU_LICENCE = "1"
 
 # SABU path
 ROOT_PATH = "/mnt/usb/"

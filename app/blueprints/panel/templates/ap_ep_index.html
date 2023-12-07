@@ -187,10 +187,12 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var csrf_token = "{{ csrf_token() }}";
-		var addEndpointUrl = "{{ url_for('.add_endpoint') }}"
-		var delEndpointUrl = "{{ url_for('.delete_endpoint') }}"
-		var genToken = "{{ url_for('.gen_ep_token') }}"
-	</script>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	var csrf_token = "{{ csrf_token() }}";
+	var addEndpointUrl = "{{ url_for('.add_endpoint') }}"
+	var delEndpointUrl = "{{ url_for('.delete_endpoint') }}"
+	var genToken = "{{ url_for('.gen_ep_token') }}"
+</script>
 {% endblock %}
