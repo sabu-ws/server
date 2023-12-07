@@ -163,7 +163,7 @@ def sendPicture():
             image = Image.open(file)
             px, py = image.size
             guuid = user.uuid
-            filename = guuid + "." + file.content_type.split("/")[1]
+            filename = str(guuid) + "." + file.content_type.split("/")[1]
             MAX_SIZE = 200 * 1024
             if len(file.read()) <= MAX_SIZE:
                 if px <= 500 and py <= 500:

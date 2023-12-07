@@ -18,6 +18,7 @@ def database_init():
 	with app.app_context():
 		pg_add_extension()
 		db.create_all()
+		pg_add_hypertable()
 		db.session.commit()
 
 		# log.info("Load stamp migration in database")
@@ -73,4 +74,9 @@ def pg_add_extension():
 	if "postgresql" == database_allowed()[:10]:
 		with db.engine.connect() as con:
 			con.execute(text("CREATE EXTENSION IF NOT EXISTS pgcrypto;"))
+			con.execute(text("CREATE EXTENSION IF NOT EXISTS timescaledb;"))
 			con.commit()
+
+def pg_add_hypertable():
+	with db.engine.connect() as con:
+		con.execute(text("SELECT create_hypertable('metrics', 'timestamp_ht');"))

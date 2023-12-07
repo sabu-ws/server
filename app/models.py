@@ -7,13 +7,16 @@ from sqlalchemy import Integer
 from sqlalchemy import Column
 from sqlalchemy import Boolean
 from sqlalchemy import text
+from sqlalchemy import Text
 from sqlalchemy import UUID
+from sqlalchemy import Index
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-
 from sqlalchemy.sql import expression
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.types import DateTime
+
+import uuid
 
 class utcnow(expression.FunctionElement):
     type = DateTime()
@@ -23,11 +26,8 @@ class utcnow(expression.FunctionElement):
 def pg_utcnow(element, compiler, **kw):
     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
-
-import uuid
-
 class Users(db.Model, UserMixin):
-    __tablename__ = "Users"
+    __tablename__ = "users"
     id = Column(Integer, primary_key=True, unique=True)
     uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
     name = Column(String(255), nullable=True)
@@ -35,7 +35,7 @@ class Users(db.Model, UserMixin):
     username = Column(String(255), nullable=False)
     password = Column(String(255), nullable=False)
     email = Column(String(255), nullable=True)
-    job_id = Column(Integer, db.ForeignKey("Job.id"))
+    job_id = Column(Integer, db.ForeignKey("job.id"))
     role = Column(String(64), nullable=False)
     cookie = Column(String(255), unique=True, nullable=True)
     OTPSecret = Column(String(255), unique=True, nullable=True)
@@ -49,25 +49,27 @@ class Users(db.Model, UserMixin):
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-    logusb = relationship("USBlog", backref="Users")
+        
+    logforusb = relationship("USBlog", backref="users")
 
 class Job(db.Model):
-    __tablename__ = "Job"
+    __tablename__ = "job"
     id = Column(Integer, primary_key=True, unique=True)
     name = Column(String(255), nullable=False, unique=True)
-    user = relationship("Users",backref="Job")
+
+    user = relationship("Users",backref="job")
 
 class USBlog(db.Model):
-    __tablename__ = "USBlog"
+    __tablename__ = "usblog"
     id = Column(Integer, primary_key=True, unique=True)
     virus = Column(Integer, default=0)
     date = Column(DateTime(timezone=True), server_default=func.now())
-    user_id = Column(Integer, db.ForeignKey("Users.id"))
-    device_id = Column(Integer, db.ForeignKey("Devices.id"))
+    user_id = Column(Integer, db.ForeignKey("users.id"))
+    device_id = Column(Integer, db.ForeignKey("devices.id"))
 
 
 class Devices(db.Model):
-    __tablename__ = "Devices"
+    __tablename__ = "devices"
     id = Column(Integer, primary_key=True, unique=True)
     uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
     ip = Column(String(64), nullable=True, unique=True)
@@ -77,19 +79,18 @@ class Devices(db.Model):
     state = Column(Integer, nullable=False, default=0)
     enable = Column(Integer, nullable=True, default=1)
 
-    log =  relationship("USBlog",backref="Devices")
-    metric =  relationship("Metrics",backref="Devices")
+    log =  relationship("USBlog",backref="devices")
+    metric =  relationship("Metrics",backref="devices")
 
 
 
 
 class Metrics(db.Model):
-    __tablename__ = "Metrics"
-    id = Column(Integer, primary_key=True, unique=True)
-    name = Column(String(128), unique=False, nullable=False)
+    __tablename__ = "metrics"
+    name = Column(Text(), unique=False, nullable=False)
     value = Column(Integer, unique=False, nullable=False)
-    timestamp = Column(DateTime(timezone=True),server_default=utcnow())
-    idDevice = Column(Integer, db.ForeignKey("Devices.id"))
+    timestamp_ht = Column(DateTime(timezone=True),nullable=False,primary_key=True)
+    idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
 
 # class Alerts(db.Model):
@@ -103,7 +104,7 @@ class Metrics(db.Model):
 
 
 class Setup(db.Model):
-    __tablename__ = "Setup"
+    __tablename__ = "setup"
     id = Column(Integer, primary_key=True, unique=True)
     action = Column(String(255), nullable=False, unique=True)
     state = Column(Boolean, default=False)
