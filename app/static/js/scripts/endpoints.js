@@ -40,14 +40,14 @@ $("#btnCopyTokenEP").click(function(){
 });
 
 // Delete Endpoint
-$('.buttonDeleteRow').click(function(e){
+$('.buttonDeleteRow').click(function(e){S
 	var $item = $(this).closest("tr")
 			.find("#uuid")
 			.text();
 	temp_uuid = $item.trim();
 });
 
-$("#yesButtonDeleteEndpoint").click(function(e){
+$("#yesButtonDeleteEndpoint").click(function(e){S
 	e.preventDefault()
 	$.ajax({
 		type: "POST",
