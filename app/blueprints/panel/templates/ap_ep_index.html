@@ -28,7 +28,7 @@
 								</div>
 							</div>
 							
-							<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
+							<table class="relative w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
 								<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
 									<tr>
 										<th scope="col" class="px-6 py-3">
@@ -66,18 +66,17 @@
 												{% if device.state == 1 %}
 												<div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
 												{% else %}
-												<div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
+												<div id="state_icon" class=" h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><div class="animate-ping absolute h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
 												{% endif %}
 											</div>
 										</td>
 										<td class="px-4 py-4">
 											<div class="flex space-x-2">
-												<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
-													<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+												<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+													<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
 														<i class="fa-solid fa-eye"></i>
-
-													</a>
-												</button>
+													</button>
+												</a>
 												<button type="button" data-modal-show="confirmRemoveModal" title='Remove Endpoint' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-trash"></i>
 												</button>
@@ -188,10 +187,13 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var csrf_token = "{{ csrf_token() }}";
-		var addEndpointUrl = "{{ url_for('.add_endpoint') }}"
-		var delEndpointUrl = "{{ url_for('.delete_endpoint') }}"
-		var genToken = "{{ url_for('.gen_ep_token') }}"
-	</script>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	var csrf_token = "{{ csrf_token() }}";
+	var addEndpointUrl = "{{ url_for('.add_endpoint') }}"
+	var delEndpointUrl = "{{ url_for('.delete_endpoint') }}"
+	var genToken = "{{ url_for('.gen_ep_token') }}"
+</script>
+<script src="{{ url_for('static',filename='js/scripts/endpoints.js') }}"></script>
 {% endblock %}

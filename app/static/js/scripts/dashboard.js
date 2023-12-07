@@ -1,3 +1,14 @@
+// Manage Dashboard
+// PAGE 1
+$('#toggleButtonDashboard1').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+});
+// PAGE 2 
+$('#toggleButtonDashboard2').on('click', function() {
+    $('#dashboard1, #dashboard2').toggleClass('hidden');
+});
+
+// ========== CHARTS ==========
 // SCANS & VIRUSES / DAY
 window.addEventListener("load", function() {
     const options = {
@@ -112,88 +123,100 @@ window.addEventListener("load", function() {
         },
         }
 
-        if(document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-        const chart = new ApexCharts(document.getElementById("column-chart"), options);
+        if(document.getElementById("ScansViruses-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("ScansViruses-chart"), options);
         chart.render();
         }
 });
 
-// Uptime Server
+// TOTAL ALERTS / TYPE
 window.addEventListener("load", function() {
-    let options = {
-    chart: {
-        height: "90%",
-        maxWidth: "100%",
-        type: "area",
-        fontFamily: "Inter, sans-serif",
-        dropShadow: {
-        enabled: false,
+    const getChartOptions = () => {
+        return {
+        series: [2, 4, 1],
+        colors: ["#f3ce16", "#f37a16", "#f31616"],
+        chart: {
+            height: "90%",
+            width: "100%",
+            type: "donut",
         },
-        toolbar: {
-        show: false,
+        stroke: {
+            colors: ["transparent"],
+            lineCap: "",
         },
-    },
-    tooltip: {
-        enabled: true,
-        x: {
-        show: false,
+        plotOptions: {
+            pie: {
+            donut: {
+                labels: {
+                show: true,
+                name: {
+                    show: true,
+                    fontFamily: "Inter, sans-serif",
+                    offsetY: 20,
+                },
+                total: {
+                    showAlways: true,
+                    show: true,
+                    label: "Alerts",
+                    fontFamily: "Inter, sans-serif",
+                    formatter: function (w) {
+                    const sum = w.globals.seriesTotals.reduce((a, b) => {
+                        return a + b
+                    }, 0)
+                    return `${sum}`
+                    },
+                },
+                value: {
+                    show: true,
+                    fontFamily: "Inter, sans-serif",
+                    offsetY: -20,
+                    formatter: function (value) {
+                    return value
+                    },
+                },
+                },
+                size: "80%",
+            },
+            },
         },
-    },
-    fill: {
-        type: "gradient",
-        gradient: {
-        opacityFrom: 0.55,
-        opacityTo: 0,
-        shade: "#0d8323",
-        gradientToColors: ["#0d8323"],
+        grid: {
+            padding: {
+            top: -2,
+            },
         },
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    stroke: {
-        width: 6,
-        curve: 'stepline',
-    },
-    grid: {
-        show: false,
-        strokeDashArray: 4,
-        padding: {
-        left: 2,
-        right: 2,
-        top: 0
+        labels: ["Level1", "Level2", "Level3"],
+        dataLabels: {
+            enabled: false,
         },
-    },
-    series: [
-        {
-        name: "Uptime",
-        data: [1, 1, 1, 0, 1, 1],
-        color: "#0d8323",
+        legend: {
+            position: "left",
+            fontFamily: "Inter, sans-serif",
         },
-    ],
-    xaxis: {
-        categories: ['5 min', '10 min', '15 min', '20 min', '25 min', '30 min', '35 min'],
-        labels: {
-        show: true,
-        style: {
-                fontFamily: "Inter, sans-serif",
-                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-            }
+        yaxis: {
+            labels: {
+            formatter: function (value) {
+                return value
+            },
+            },
         },
-        axisBorder: {
-        show: true,
+        xaxis: {
+            labels: {
+            formatter: function (value) {
+                return value
+            },
+            },
+            axisTicks: {
+            show: false,
+            },
+            axisBorder: {
+            show: false,
+            },
         },
-        axisTicks: {
-        show: true,
-        },
-    },
-    yaxis: {
-        show: false,
-    },
+        }
     }
 
-    if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("area-chart"), options);
-    chart.render();
+    if (document.getElementById("totalAlerts-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("totalAlerts-chart"), getChartOptions());
+        chart.render();
     }
 });

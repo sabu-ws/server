@@ -132,14 +132,16 @@
 			</div> 
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		var csrf_token = "{{ csrf_token() }}";
-	</script>
-	<script> 
-		document.getElementById("settings").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
-		document.getElementById("settings").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
-		document.getElementById("settings-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
-		document.getElementById("settings-svg").classList.add("text-blue-600", "dark:text-blue-500");
-	</script>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	var csrf_token = "{{ csrf_token() }}";
+</script>
+<script> 
+	document.getElementById("settings").classList.remove("border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300");
+	document.getElementById("settings").classList.add("text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500");
+	document.getElementById("settings-svg").classList.remove("text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300");
+	document.getElementById("settings-svg").classList.add("text-blue-600", "dark:text-blue-500");
+</script>
+<script src="{{ url_for('static',filename='js/scripts/server.js') }}"></script>
 {% endblock %}
