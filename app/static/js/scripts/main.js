@@ -81,8 +81,18 @@ var tabUrlPath = window.location.pathname.substring(1).split('/');
 		
 document.getElementById('pathArg2').innerHTML = tabUrlPath[1].charAt(0).toUpperCase() + tabUrlPath[1].slice(1);
     
-if (tabUrlPath[2]) {
+if (tabUrlPath[1] == "endpoints") {
     document.getElementById('pathArg3').innerHTML = tabUrlPath[2];
 } else {
     document.getElementById('showPathArg3').style.display = 'none';
 }
+
+// Subnavbar
+$(document).ready(function() {
+	var part1Title = $(document).attr('title').split(" ")[2];
+	var part2Title = $(document).attr('title').split(" ")[4];
+	$('#' + part1Title + '-' + part2Title).removeClass(["border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:hover:text-gray-300"]);
+	$('#' + part1Title + '-' + part2Title).addClass(["text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500"]);
+	$('#' + part2Title + '-svg').removeClass(["text-gray-400", "group-hover:text-gray-500", "dark:text-gray-500", "dark:group-hover:text-gray-300"]);
+	$('#' + part2Title + '-svg').addClass(["text-blue-600", "dark:text-blue-500"]);
+});
