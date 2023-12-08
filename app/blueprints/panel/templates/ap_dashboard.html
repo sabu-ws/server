@@ -55,7 +55,7 @@
             <!-- PAGE 1 DASHBOARD -->
             <div id="dashboard1" class="">
                 <div class="grid grid-cols-6 gap-6 mb-6">
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-72">
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-full">
                         <div class="flex w-full">
                             <div class="flex-col mt-8 ml-6">
                                 <h1 class="text-gray-500 font-semibold dark:text-gray-300">Welcome back,</h1>
@@ -79,7 +79,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="mt-10">
+                                <div class="mt-10 mb-4">
                                     <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
                                         <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
                                             <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2">
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2 h-full">
                         <div class="mt-6 ml-6">
                             <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Server Information</h1>
                         </div>
@@ -128,18 +128,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-6 mb-6">
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
+                <div class="grid grid-cols-2 gap-6 mb-6 h-80">
+                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-full">
                         <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
                             <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
                             <div id="ScansViruses-chart"></div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md h-80">
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md h-full">
                         <div class="mt-6 ml-6">
                             <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">List of Endpoints</h1>
                         </div>
-                        <div class="overflow-y-scroll relative max-h-48 rounded-lg m-4">
+                        <div class="overflow-y-scroll relative h-full max-h-48 rounded-lg m-4">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
                                     <tr>
@@ -180,11 +180,11 @@
                             </table>
                             {% if list_devices|length == 0 %}
                             <div id="" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
-                                <h1 class="dark:text-white font-semibold">No endpoint found!</h1>
+                                <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
                             </div>
                             {% else %}
                             <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
-                                <h1 class="dark:text-white font-semibold">No endpoint found!</h1>
+                                <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
                             </div>
                             {% endif %}
                         </div>
