@@ -103,6 +103,23 @@ apt install nftables -y
 # DEPLOY RSYSLOG
 apt install rsyslog -y
 
+# DEPLOY DOCKER
+# wget -O get_docker.sh https://get.docker.com
+# chmod +x get_docker.sh
+# sh get_docker.sh
+# rm -f get_docker.sh
+# docker compose -f /sabu/server/deploy/docker/docker-compose.yaml --env-file /sabu/server/.env up -d
+
+# DEPLOY TIMESCALE
+apt install gnupg postgresql-common apt-transport-https lsb-release wget -y
+echo "" | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescaledb.list
+wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo apt-key add -
+apt update
+apt install timescaledb-2-postgresql-15 -y
+timescaledb-tune --quiet --yes
+echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/15/main/postgresql.conf
+
 
 # DEPLOY SABU
 mkdir -p /sabu/logs/server/
