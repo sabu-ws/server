@@ -6,10 +6,7 @@
     <title>SABU | Login 2FA</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
-    <link rel="stylesheet" href="{{  url_for('static',filename='dist/output.css') }}"></script>
-    <script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
+    <link rel="stylesheet" href="{{  url_for('static',filename='css/output.css') }}">
 </head>
 <body>
     <!-- LOGIN SECTION -->
@@ -40,6 +37,9 @@
             </div>
         </div>
     </section>
+    <script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/modules/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
     <script type="text/javascript">
         var con = "{{ con }}"
         if(con == "ok"){
@@ -48,7 +48,6 @@
         }else if(con == "ko"){
             document.getElementById("failed").style = "display: True;"
         }
-
     </script>
 </body>
 </html>
