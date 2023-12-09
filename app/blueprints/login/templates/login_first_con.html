@@ -6,7 +6,11 @@
 	<title>SABU | Fisrt Connection</title>
 	<link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='assets/icons/favicon.ico') }}">
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
+<<<<<<< HEAD
 	<link rel="stylesheet" href="{{  url_for('static',filename='css/output.css') }}"></script>
+=======
+	<link rel="stylesheet" href="{{  url_for('static',filename='css/output.css') }}">
+>>>>>>> 45ef21bf26a38e4dcae3268bb8ca2b5e518ed547
 </head>
 <body>
 	<!-- LOGIN SECTION -->
@@ -57,8 +61,8 @@
 		</div>
 	</section>
 	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='scripts/jquery-3.7.1.min.js') }}"></script>
-	<script src="{{ url_for('static',filename='scripts/script.js') }} "></script>
+	<script src="{{ url_for('static',filename='js/modules/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
 	<script type="text/javascript">
 		var con = "{{ con }}"
 		if(con == "ok"){
