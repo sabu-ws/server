@@ -391,7 +391,7 @@
 													<select id="job_remove" name="RemoveJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 														<option selected>Choose a job</option>
 														{% for job in job_list %}
-															<option value="{{ job }}">{{ job }}</option>
+															<option value="{{ job.name }}">{{ job.name }}</option>
 														{% endfor %}
 													</select>
 													<button type="submit" class="mt-4 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Remove</button>

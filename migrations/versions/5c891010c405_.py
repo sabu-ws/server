@@ -1,16 +1,16 @@
 """empty message
 
-Revision ID: 78670b58851c
+Revision ID: 5c891010c405
 Revises: 
-Create Date: 2023-12-06 11:09:35.233909
+Create Date: 2023-12-09 08:00:24.533060
 
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
+
 
 # revision identifiers, used by Alembic.
-revision = '78670b58851c'
+revision = '5c891010c405'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,13 +22,6 @@ def upgrade():
         batch_op.create_unique_constraint(None, ['id'])
 
     with op.batch_alter_table('job', schema=None) as batch_op:
-        batch_op.create_unique_constraint(None, ['id'])
-
-    with op.batch_alter_table('metrics', schema=None) as batch_op:
-        batch_op.alter_column('timestamp',
-               existing_type=postgresql.TIMESTAMP(timezone=True),
-               nullable=False,
-               existing_server_default=sa.text("timezone('utc'::text, CURRENT_TIMESTAMP)"))
         batch_op.create_unique_constraint(None, ['id'])
 
     with op.batch_alter_table('setup', schema=None) as batch_op:
@@ -53,13 +46,6 @@ def downgrade():
 
     with op.batch_alter_table('setup', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='unique')
-
-    with op.batch_alter_table('metrics', schema=None) as batch_op:
-        batch_op.drop_constraint(None, type_='unique')
-        batch_op.alter_column('timestamp',
-               existing_type=postgresql.TIMESTAMP(timezone=True),
-               nullable=True,
-               existing_server_default=sa.text("timezone('utc'::text, CURRENT_TIMESTAMP)"))
 
     with op.batch_alter_table('job', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='unique')

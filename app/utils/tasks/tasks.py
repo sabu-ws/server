@@ -1,30 +1,27 @@
 from config import *
 
+from app import app
+from app import db
+from app.models import Metrics, Devices
+
 import subprocess
 import datetime
 import os
 
-CPU_TABLE = []
-RAM_TABLE = []
-NET_TABLE = []
-
-
 def read_CPU():
-	global CPU_TABLE
-	build = {"x":"","y":0}
-	build["x"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 	script = os.path.join(SCRIPT_PATH,"get_cpu_space.sh")
 	result = subprocess.Popen(["bash",script],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","")
-	build["y"] = result
-	CPU_TABLE.append(build)
+	with app.app_context():
+		get_device = Devices.query.filter_by(token="server").first()
+		add_metrics = Metrics(name="cpu",value=int(result),idDevice=get_device.id)
+		db.session.add(add_metrics)
+		db.session.commit()
 
 def read_RAM():
-	global RAM_TABLE
-	build = {"x":"","y":0}
-	build["x"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 	script = os.path.join(SCRIPT_PATH,"get_ram_space.sh")
 	result = subprocess.Popen(["bash",script],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","").split(" ")[0]
-	formating = int(result) / 1024 / 1024
-	end_format = float(f"{formating:3.1f}")
-	build["y"] = end_format
-	RAM_TABLE.append(build)
+	with app.app_context():
+		get_device = Devices.query.filter_by(token="server").first()
+		add_metrics = Metrics(name="ram",value=int(result),idDevice=get_device.id)
+		db.session.add(add_metrics)
+		db.session.commit()

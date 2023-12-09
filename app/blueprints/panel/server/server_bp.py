@@ -3,7 +3,6 @@ from flask_socketio import SocketIO, rooms, disconnect
 
 from app import logout_user, socketio, db, logger as log
 from app.models import Devices
-from app.utils.tasks import CPU_TABLE, RAM_TABLE
 from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
 from app.utils.user_mgmt import force_logout_user
 from config import *
@@ -36,15 +35,17 @@ def startLogsServer():
 
 @socketio.on("start_chart_cpu_rcv",namespace="/chart_CPU")
 def connect_chart_cpu():
-	while True:
-		socketio.emit("chart_cpu_rcv",CPU_TABLE,namespace="/chart_CPU")
-		socketio.sleep(60)
+	return ""
+	# while True:
+		# socketio.emit("chart_cpu_rcv",CPU_TABLE,namespace="/chart_CPU")
+		# socketio.sleep(60)
 
 @socketio.on("start_chart_ram_rcv",namespace="/chart_RAM")
 def connect_chart_cpu():
-	while True:
-		socketio.emit("chart_ram_rcv",RAM_TABLE,namespace="/chart_RAM")
-		socketio.sleep(60)
+	return ""
+	# while True:
+		# socketio.emit("chart_ram_rcv",RAM_TABLE,namespace="/chart_RAM")
+		# socketio.sleep(60)
 
 @socketio.on("start_chart_disk_rcv",namespace="/chart_DISK")
 def connect_chart_cpu():

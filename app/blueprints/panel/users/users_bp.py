@@ -51,10 +51,7 @@ def users_bp_before_request():
 @users_bp.route("/")
 def index():
 	get_user_list = Users.query.join(Job).all()
-	TEMP_list_serialize = []
-	get_job_name = db.session.query(Job.name).all()
-	get_job_name = [i[0] for i in get_job_name]
-	get_job_name.remove("Administrator")
+	get_job_name = Job.query.filter(Job.name!="Administrator").all()
 	return render_template(
 		"ap_users.html", userList=get_user_list, job_list=get_job_name
 	)

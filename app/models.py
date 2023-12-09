@@ -12,19 +12,21 @@ from sqlalchemy import UUID
 from sqlalchemy import Index
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import expression
-from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.types import DateTime
+
+# from sqlalchemy.sql import expression
+# from sqlalchemy.ext.compiler import compiles
+# from sqlalchemy.types import DateTime
 
 import uuid
+import datetime
 
-class utcnow(expression.FunctionElement):
-    type = DateTime()
-    inherit_cache = True
+# class utcnow(expression.FunctionElement):
+#     type = DateTime()
+#     inherit_cache = True
 
-@compiles(utcnow, 'postgresql')
-def pg_utcnow(element, compiler, **kw):
-    return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
+# @compiles(utcnow, 'postgresql')
+# def pg_utcnow(element, compiler, **kw):
+#     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
 class Users(db.Model, UserMixin):
     __tablename__ = "users"
@@ -89,7 +91,7 @@ class Metrics(db.Model):
     __tablename__ = "metrics"
     name = Column(Text(), unique=False, nullable=False)
     value = Column(Integer, unique=False, nullable=False)
-    timestamp_ht = Column(DateTime(timezone=True),nullable=False,primary_key=True)
+    timestamp_ht = Column(DateTime(timezone=True),nullable=False,primary_key=True,default=datetime.datetime.utcnow)
     idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
 
