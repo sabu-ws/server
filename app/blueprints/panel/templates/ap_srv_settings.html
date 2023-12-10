@@ -82,49 +82,52 @@
 						<div class="grid grid-cols-1">
 							<div class="bg-white rounded-lg shadow-md">
 								<h1 class="flex justify-center p-4 text-2xl underline underline-offset-3">Network</h1>
-								<div class="p-8">
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label for="interface" class="block mb-2">Interface :</label>
-											<select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-												{% if interfaces.length == 0 %}
-													<option>Interface not found</option>
-												{% else %}
-													{% for interface in interfaces %}
-														<option value="{{ interface }}">{{ interface }}</option>
-													{% endfor %}
-												{% endif %}
-											</select>
+								<form action="{{ url_for('panel.server.settings_networks') }}" method="POST">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+									<div class="p-8">
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label for="interface" class="block mb-2">Interface :</label>
+												<select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+													{% if interfaces.length == 0 %}
+														<option>Interface not found</option>
+													{% else %}
+														{% for interface in interfaces %}
+															<option value="{{ interface }}">{{ interface }}</option>
+														{% endfor %}
+													{% endif %}
+												</select>
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2">Gateway :</label>
+												<input type="text" name="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="GATEWAY" value="192.168.1.1">
+											</div>
 										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">Gateway :</label>
-											<input type="text" name="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="GATEWAY">
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label class="block mb-2">IP Address :</label>
+												<input type="text" name="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="IP ADDR" value="192.168.1.69">
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2">DNS 1 :</label>
+												<input type="text" name="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS1" value="8.8.8.8">
+											</div>
+										</div>
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label class="block mb-2">Netmask :</label>
+												<input type="text" name="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="NETMASK" value="255.255.255.0">
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2">DNS 2 (Not required) :</label>
+												<input type="text" name="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS 2">
+											</div>
+										</div>
+										<div class="flex justify-end mt-4">
+											<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 										</div>
 									</div>
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label class="block mb-2">IP Address :</label>
-											<input type="text" name="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="IP ADDR">
-										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">DNS 1 :</label>
-											<input type="text" name="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS1">
-										</div>
-									</div>
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label class="block mb-2">Netmask :</label>
-											<input type="text" name="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="NETMASK">
-										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">DNS 2 (Not required) :</label>
-											<input type="text" name="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS 2">
-										</div>
-									</div>
-									<div class="flex justify-end mt-4">
-										<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>

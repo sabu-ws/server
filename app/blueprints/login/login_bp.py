@@ -14,6 +14,7 @@ from flask import (
 )
 
 from app import (
+    app,
     login_user,
     logout_user,
     login_required,
@@ -22,7 +23,6 @@ from app import (
     db,
     socketio,
     emit,
-    logger as log,
 )
 
 from app.forms import LoginForm
@@ -37,6 +37,7 @@ import hashlib
 
 login_bp = Blueprint("login", __name__, template_folder="templates")
 
+log = app.logger
 
 def check_user():
     if "next" in request.args:
@@ -115,7 +116,7 @@ def login():
                             resp = make_response(
                                 render_template("login.html", con="ok")
                             )
-                            resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12))
+                            resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
                             login_user(user)
                             log.info(f"User {user.username} has logged in")
                             return resp
@@ -150,7 +151,7 @@ def mfa():
                     user.cookie = random_key
                     db.session.commit()
                     resp = make_response(render_template("login_totp.html", con="ok"))
-                    resp.set_cookie("sabu", jwt_token)
+                    resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
                     login_user(user)
                     log.info(f"User {user.username} has logged in")
                     return resp
@@ -200,7 +201,7 @@ def first_con():
                         resp = make_response(
                             render_template("login_first_con.html", con="ok")
                         )
-                        resp.set_cookie("sabu", jwt_token)
+                        resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
                         login_user(user)
                         log.info(f"User {user.username} has logged in ")
                         return resp
@@ -227,8 +228,12 @@ def first_con():
 @login_required
 def logout():
     username = str(current_user.username)
+    user = Users.query.filter_by(username=username).first()
+    user.cookie = None
+    db.session.commit()
     log.info(f"User {username} has logged out ")
     logout_user()
     resp = make_response(redirect(url_for("login.login")))
-    resp.delete_cookie("sabu")
+    if "sabu" in request.cookies:
+        resp.delete_cookie("sabu")
     return resp

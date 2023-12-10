@@ -24,6 +24,7 @@ from flask_session import Session
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+import datetime
 import logging
 import string
 import random
@@ -42,7 +43,9 @@ app.config["SECRET_KEY"] = "".join(
 app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed(app.root_path)
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SESSION_TYPE"] = 'filesystem'
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=12)
 
 # Proxy fix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
@@ -90,7 +93,6 @@ logging.getLogger('apscheduler').setLevel(logging.ERROR)
 scheduler = APScheduler()
 scheduler.api_enabled = False
 scheduler.init_app(app)
-# scheduler.add_job(trigger="interval", id="job1", func=job1, seconds=10)
 scheduler.add_job(trigger="interval", id="readCPU", func=read_CPU, seconds=60)
 scheduler.add_job(trigger="interval", id="readRAM", func=read_RAM, seconds=60)
 scheduler.start()

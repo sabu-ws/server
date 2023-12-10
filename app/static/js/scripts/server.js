@@ -53,7 +53,7 @@ let options_CPU = {
 			enabled: false,
 		},
 		toolbar: {
-			show: false,
+			show: true,
 		},
 	},
 	tooltip: {
@@ -138,7 +138,7 @@ let options_RAM = {
 			enabled: false,
 		},
 		toolbar: {
-			show: false,
+			show: true,
 		},
 	},
 	tooltip: {
@@ -420,7 +420,6 @@ socket_RAM.on("chart_ram_rcv",function(data){
 socket_NET = io.connect("/chart_NET")
 socket_NET.emit("start_chart_net_rcv")
 socket_NET.on("chart_net_rcv",function(data){
-	// console.log(data)
 	chart_NET.updateSeries([
 		{
 		 data: data[0],

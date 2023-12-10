@@ -1,22 +1,25 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
-from flask_socketio import SocketIO, rooms, disconnect
-
-from app import logout_user, socketio, db, logger as log
-from app.models import Devices
-from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
-from app.utils.user_mgmt import force_logout_user
 from config import *
 
+from app import logout_user, socketio, db, logger as log
+from app.models import Devices, Metrics
+from app.forms import ModifyIpForm
+from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
+from app.utils.user_mgmt import force_logout_user
+
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from flask_socketio import SocketIO, rooms, disconnect
+from sqlalchemy import desc
+
 import subprocess
+import datetime
 import OpenSSL
-import re
-import os
 import shutil
+import os
+import re
 
 server_bp = Blueprint("server", __name__)
 
 # ================= start socket io func
-
 
 @socketio.on("startLogsServer", namespace="/logServer")
 def startLogsServer():
@@ -35,17 +38,26 @@ def startLogsServer():
 
 @socketio.on("start_chart_cpu_rcv",namespace="/chart_CPU")
 def connect_chart_cpu():
-	return ""
-	# while True:
-		# socketio.emit("chart_cpu_rcv",CPU_TABLE,namespace="/chart_CPU")
-		# socketio.sleep(60)
+	table_cpu=[]
+	get_server_device = Devices.query.filter_by(token="server").first()
+	get_cpu_metrics = Metrics.query.filter_by(idDevice=int(get_server_device.id),name="cpu").order_by(desc(Metrics.timestamp_ht)).all()
+	for metric in get_cpu_metrics:
+		format_datetime = metric.timestamp_ht.strftime("%Y-%m-%d %H:%M:%S")
+		chart_metric = {"x":format_datetime,"y":metric.value}
+		table_cpu.append(chart_metric)
+	socketio.emit("chart_cpu_rcv",table_cpu,namespace="/chart_CPU")
+
 
 @socketio.on("start_chart_ram_rcv",namespace="/chart_RAM")
 def connect_chart_cpu():
-	return ""
-	# while True:
-		# socketio.emit("chart_ram_rcv",RAM_TABLE,namespace="/chart_RAM")
-		# socketio.sleep(60)
+	table_ram=[]
+	get_server_device = Devices.query.filter_by(token="server").first()
+	get_ram_metrics = Metrics.query.filter_by(idDevice=int(get_server_device.id),name="ram").order_by(desc(Metrics.timestamp_ht)).all()
+	for metric in get_ram_metrics:
+		format_datetime = metric.timestamp_ht.strftime("%Y-%m-%d %H:%M:%S")
+		chart_metric = {"x":format_datetime,"y":int(metric.value)/1024/1024}
+		table_ram.append(chart_metric)
+	socketio.emit("chart_ram_rcv",table_ram,namespace="/chart_RAM")
 
 @socketio.on("start_chart_disk_rcv",namespace="/chart_DISK")
 def connect_chart_cpu():
@@ -56,11 +68,13 @@ def connect_chart_cpu():
 		socketio.sleep(300)
 
 on_ready_net_chart = True
+bytes_rcv_table = []
+bytes_snd_table = []
 @socketio.on("start_chart_net_rcv",namespace="/chart_NET")
 def connect_chart_net():
 	global on_ready_net_chart
-	bytes_rcv_table = []
-	bytes_snd_table = []
+	global bytes_rcv_table
+	global bytes_snd_table
 	while on_ready_net_chart:
 		bytes_rcv, bytes_snd = NET_get_network_speed()
 		bytes_rcv_table.append(bytes_rcv)
@@ -88,6 +102,7 @@ def index():
 	script = os.path.join(SCRIPT_PATH,"get_ram_space.sh")
 	get_total_ram = subprocess.Popen(["bash",script],stdout=subprocess.PIPE).communicate()[0].decode().replace("\n","").split(" ")[1]
 	formating = int(get_total_ram) / 1024 / 1024
+
 	return render_template("ap_srv_dashboard.html",total_ram=float(f"{formating:3.1f}"))
 
 
@@ -155,6 +170,30 @@ def settings_description():
 		return redirect(url_for("login.logout"))
 	return ""
 
+@server_bp.route("/settings/networks",methods=["POST"])
+def settings_networks():
+	if "interface" in request.form and "ip" in request.form and "netmask" in request.form and "gateway" in request.form  and "dns1" in request.form and "dns2" in request.form:
+		if request.form['interface'] in NET_list_interfaces(): 
+			form = ModifyIpForm(data=request.form)
+			if ModifyIpForm.validate(form):
+				dns2 = "9.9.9.9"
+				if request.form["dns2"] != "":
+					dns2 = request.form["dns2"]
+				command = "/usr/bin/bash "+os.path.join(SCRIPT_PATH,"update_ip_address.sh")+f" -i {request.form['interface']} -a {request.form['ip']} -n {request.form['netmask']} -g {request.form['gateway']} -1 {request.form['dns1']} -2 {dns2}"
+				execute = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
+				flash("Sussesfull change network configuration","good")
+				return redirect(url_for("panel.server.settings"))
+			else:
+				keys = list(dict(form.errors.items()))
+				flash(str(dict(form.errors.items())[keys[0]][0]),"error")
+				return redirect(url_for("panel.server.settings"))
+		else:
+			log.warning("Adversary detected")
+			return redirect(url_for("login.logout"))
+	else:
+		log.warning("Adversary detected")
+		return redirect(url_for("login.logout"))	
+	return ""
 
 @server_bp.route("/settings/certificates", methods=["POST"])
 def settings_certificates():
@@ -228,6 +267,13 @@ def settings_certificates():
 		return redirect(url_for('login.logout'))
 	return ""
 
+@server_bp.route("/reboot")
+def reboot():
+	return ""
+
+@server_bp.route("/shutdown")
+def shutdown():
+	return ""
 
 @server_bp.route("/ssh")
 def ssh():
