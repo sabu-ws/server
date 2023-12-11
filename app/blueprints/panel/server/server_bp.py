@@ -179,7 +179,7 @@ def settings_networks():
 				dns2 = "9.9.9.9"
 				if request.form["dns2"] != "":
 					dns2 = request.form["dns2"]
-				command = "/usr/bin/bash "+os.path.join(SCRIPT_PATH,"update_ip_address.sh")+f" -i {request.form['interface']} -a {request.form['ip']} -n {request.form['netmask']} -g {request.form['gateway']} -1 {request.form['dns1']} -2 {dns2}"
+				command = "sudo /usr/bin/bash "+os.path.join(SCRIPT_PATH,"update_ip_address.sh")+f" -i {request.form['interface']} -a {request.form['ip']} -n {request.form['netmask']} -g {request.form['gateway']} -1 {request.form['dns1']} -2 {dns2}"
 				execute = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
 				flash("Sussesfull change network configuration","good")
 				return redirect(url_for("panel.server.settings"))
