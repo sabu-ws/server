@@ -4,11 +4,7 @@ from flask import (
     redirect,
     url_for,
     request,
-    flash,
-    g,
-    jsonify,
     abort,
-    send_file,
     session,
     make_response,
 )
@@ -21,8 +17,6 @@ from app import (
     current_user,
     bcrypt,
     db,
-    socketio,
-    emit,
 )
 
 from app.forms import LoginForm

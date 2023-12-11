@@ -1,17 +1,14 @@
 from config import *
 
-from app import logout_user, socketio, db, logger as log
+from app import socketio, db, logger as log
 from app.models import Devices, Metrics
 from app.forms import ModifyIpForm
 from app.utils.system import SYS_get_hostname, NET_list_interfaces, NET_get_network_speed
-from app.utils.user_mgmt import force_logout_user
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
-from flask_socketio import SocketIO, rooms, disconnect
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from sqlalchemy import desc
 
 import subprocess
-import datetime
 import OpenSSL
 import shutil
 import os

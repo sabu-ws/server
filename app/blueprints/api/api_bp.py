@@ -4,7 +4,6 @@ from app import (
 	socketio,
 	db,
 	login_user,
-	login_required,
 	current_user,
 	logout_user,
 	bcrypt,
@@ -12,8 +11,8 @@ from app import (
 )
 from app.models import Devices, Users
 
-from flask_socketio import emit, disconnect, join_room, rooms, close_room
-from flask import Blueprint, request, jsonify
+from flask_socketio import emit, join_room, rooms, close_room
+from flask import Blueprint, request
 from functools import wraps
 import pyotp
 import jwt
@@ -38,9 +37,9 @@ def check_headers(f):
 				except jwt.InvalidSignatureError:
 					print(f"Endpoint {str(get_device_token.hostname)} enter bad signature")
 			else:
-				log.info(f"Someone try to connect without good headers")
+				log.info("Someone try to connect without good headers")
 		else:
-			log.info(f"Someone try to connect without good headers")
+			log.info("Someone try to connect without good headers")
 	return decorated_function
 
 def check_room(f):

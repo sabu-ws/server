@@ -4,10 +4,8 @@ from app import app
 from app import db
 from app.models import Metrics, Devices
 
-from flask import has_app_context
 
 import subprocess
-import datetime
 import os
 
 log = app.logger

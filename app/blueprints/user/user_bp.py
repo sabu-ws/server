@@ -5,17 +5,15 @@ from flask import (
     url_for,
     request,
     flash,
-    jsonify,
     send_file,
 )
-from werkzeug.utils import secure_filename
 from PIL import Image
 import qrcode
 import pyotp
 import io
 import os
 
-from app import login_required, logout_user, current_user, bcrypt, login_user, db, logger as log
+from app import login_required, logout_user, current_user, bcrypt, db, logger as log
 
 from app.models import Users
 from app.forms import AddUserForm

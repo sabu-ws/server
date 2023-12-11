@@ -1,15 +1,10 @@
 from config import *
 from app import app, db
 from app.models import Users, Devices, Job
-from app.utils.system import NET_get_ip_server, SYS_get_hostname
+from app.utils.system import SYS_get_hostname
 from app.utils.db_mgmt import database_allowed
-from app.utils.db_mgmt.migrate import stamp_migration, upgrade_migration
 
-from sqlalchemy_utils import database_exists
-from sqlalchemy_utils import create_database
-from sqlalchemy import create_engine
 from sqlalchemy import text
-from sqlalchemy import URL
 
 log = app.logger
 

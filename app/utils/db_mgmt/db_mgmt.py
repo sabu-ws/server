@@ -2,7 +2,6 @@ from config import *
 
 
 from sqlalchemy import URL
-from flask import current_app
 
 import os
 

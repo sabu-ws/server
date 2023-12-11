@@ -6,15 +6,13 @@ from flask import (
 	flash,
 	jsonify,
 	send_file,
-	url_for,
-	current_app
+	url_for
 )
 import uuid
-from sqlalchemy import or_
 import re
 from functools import wraps
 
-from app import login_required, current_user, db, logout_user, logger as log
+from app import current_user, db, logger as log
 
 from app.forms import AddUserForm
 from app.models import Users, Job

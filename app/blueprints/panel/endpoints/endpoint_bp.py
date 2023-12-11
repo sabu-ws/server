@@ -1,13 +1,12 @@
 from config import *
 
-from app import logout_user, db, socketio, logger as log
+from app import db, socketio, logger as log
 from app.models import Devices
 from app.utils.user_mgmt import force_logout_user
 
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import re
 import jwt
-import random
 import datetime
 import hashlib
 import uuid
