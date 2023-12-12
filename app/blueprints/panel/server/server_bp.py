@@ -44,7 +44,7 @@ def connect_chart_cpu():
     get_server_device = Devices.query.filter_by(token="server").first()
     get_cpu_metrics = (
         Metrics.query.filter_by(idDevice=int(get_server_device.id), name="cpu")
-        .order_by(desc(Metrics.timestamp_ht))
+        .order_by(Metrics.timestamp_ht)
         .all()
     )
     for metric in get_cpu_metrics:
@@ -60,7 +60,7 @@ def connect_chart_cpu():
     get_server_device = Devices.query.filter_by(token="server").first()
     get_ram_metrics = (
         Metrics.query.filter_by(idDevice=int(get_server_device.id), name="ram")
-        .order_by(desc(Metrics.timestamp_ht))
+        .order_by(Metrics.timestamp_ht)
         .all()
     )
     for metric in get_ram_metrics:
