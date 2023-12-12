@@ -121,7 +121,7 @@ let options_CPU = {
                 cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
             },
 			formatter: function (value) {
-				return value + ' %';
+				return value.toPrecision(1) + ' %';
 			}
 		}
 	},
@@ -206,7 +206,7 @@ let options_RAM = {
                 cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
             },
 			formatter: function (value) {
-				return value.toPrecision(3) + ' Go';
+				return value.toPrecision(2) + ' Go';
 			}
 		}
 	},
@@ -237,7 +237,7 @@ let options_NET = {
 			enabled: false,
 		},
 		toolbar: {
-			show: false,
+			show: true,
 		},
 	},
 	tooltip: {
@@ -319,13 +319,13 @@ let options_NET = {
 // DISK
 const getChartOptions = {
 	series: [0],
-	colors: ["#00a40f", "#11c186"],
+	colors: ["#fa3d37", "#11c186"],
 	chart: {
 		height: "100%",
 		width: "100%",
 		type: "donut",
 		toolbar: {
-			show: false,
+			show: true,
 			},
 	},
 	stroke: {
@@ -342,7 +342,7 @@ const getChartOptions = {
 						showAlways: true
 					},
 				},
-				size: '50%',
+				size: '60%',
 			},
 			labels: {
 				show: true,
@@ -358,7 +358,7 @@ const getChartOptions = {
 		},
 	},
 	legend: {
-		position: "bottom",
+		position: "left",
 		fontFamily: "Inter, sans-serif",
 	},
 	yaxis: {
