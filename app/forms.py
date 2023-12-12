@@ -102,10 +102,11 @@ class AddUserForm(FlaskForm):
         ]
     )  # noqa: E501
 
+
 class ModifyIpForm(FlaskForm):
     interface = StringField()
     ip = StringField(validators=[IPAddress(message="Bad IP address")])
     netmask = StringField(validators=[IPAddress(message="Bad Netmask address")])
     gateway = StringField(validators=[IPAddress(message="Bad Gateway address")])
     dns1 = StringField(validators=[IPAddress(message="Bad DNS 1 address")])
-    dns2 = StringField(validators=[optional(),IPAddress(message="Bad DNS 2 address")])
+    dns2 = StringField(validators=[optional(), IPAddress(message="Bad DNS 2 address")])

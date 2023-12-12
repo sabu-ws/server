@@ -33,6 +33,7 @@ login_bp = Blueprint("login", __name__, template_folder="templates")
 
 log = app.logger
 
+
 def check_user():
     if "next" in request.args:
         return redirect(request.args["next"])
@@ -110,7 +111,14 @@ def login():
                             resp = make_response(
                                 render_template("login.html", con="ok")
                             )
-                            resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
+                            resp.set_cookie(
+                                "sabu",
+                                jwt_token,
+                                expires=datetime.datetime.now()
+                                + datetime.timedelta(hours=12),
+                                secure=True,
+                                httponly=True,
+                            )
                             login_user(user)
                             log.info(f"User {user.username} has logged in")
                             return resp
@@ -145,7 +153,13 @@ def mfa():
                     user.cookie = random_key
                     db.session.commit()
                     resp = make_response(render_template("login_totp.html", con="ok"))
-                    resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
+                    resp.set_cookie(
+                        "sabu",
+                        jwt_token,
+                        expires=datetime.datetime.now() + datetime.timedelta(hours=12),
+                        secure=True,
+                        httponly=True,
+                    )
                     login_user(user)
                     log.info(f"User {user.username} has logged in")
                     return resp
@@ -178,7 +192,9 @@ def first_con():
                         user.firstCon = 1
                         user.set_password(data["newPasswordInput"])
                         db.session.commit()
-                        session["job"] = Job.query.filter_by(id=user.job_id).first().name
+                        session["job"] = (
+                            Job.query.filter_by(id=user.job_id).first().name
+                        )
                         set_time = datetime.datetime.utcnow() + datetime.timedelta(
                             hours=12
                         )
@@ -195,7 +211,14 @@ def first_con():
                         resp = make_response(
                             render_template("login_first_con.html", con="ok")
                         )
-                        resp.set_cookie("sabu", jwt_token,expires=datetime.datetime.now() + datetime.timedelta(hours=12),secure=True, httponly=True)
+                        resp.set_cookie(
+                            "sabu",
+                            jwt_token,
+                            expires=datetime.datetime.now()
+                            + datetime.timedelta(hours=12),
+                            secure=True,
+                            httponly=True,
+                        )
                         login_user(user)
                         log.info(f"User {user.username} has logged in ")
                         return resp

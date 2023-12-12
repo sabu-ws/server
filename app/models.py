@@ -28,10 +28,16 @@ import datetime
 # def pg_utcnow(element, compiler, **kw):
 #     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
+
 class Users(db.Model, UserMixin):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, unique=True)
-    uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
+    uuid = Column(
+        UUID(as_uuid=True),
+        unique=True,
+        default=uuid.uuid4,
+        server_default=text("gen_random_uuid()"),
+    )
     name = Column(String(255), nullable=True)
     firstname = Column(String(255), nullable=True)
     username = Column(String(255), nullable=False)
@@ -51,15 +57,17 @@ class Users(db.Model, UserMixin):
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-        
+
     logforusb = relationship("USBlog", backref="users")
+
 
 class Job(db.Model):
     __tablename__ = "job"
     id = Column(Integer, primary_key=True, unique=True)
     name = Column(String(255), nullable=False, unique=True)
 
-    user = relationship("Users",backref="job")
+    user = relationship("Users", backref="job")
+
 
 class USBlog(db.Model):
     __tablename__ = "usblog"
@@ -73,7 +81,12 @@ class USBlog(db.Model):
 class Devices(db.Model):
     __tablename__ = "devices"
     id = Column(Integer, primary_key=True, unique=True)
-    uuid = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, server_default=text('gen_random_uuid()'))
+    uuid = Column(
+        UUID(as_uuid=True),
+        unique=True,
+        default=uuid.uuid4,
+        server_default=text("gen_random_uuid()"),
+    )
     ip = Column(String(64), nullable=True, unique=True)
     hostname = Column(String(255), nullable=True)
     description = Column(String(1024), nullable=True)
@@ -81,17 +94,20 @@ class Devices(db.Model):
     state = Column(Integer, nullable=False, default=0)
     enable = Column(Integer, nullable=True, default=1)
 
-    log =  relationship("USBlog",backref="devices")
-    metric =  relationship("Metrics",backref="devices")
-
-
+    log = relationship("USBlog", backref="devices")
+    metric = relationship("Metrics", backref="devices")
 
 
 class Metrics(db.Model):
     __tablename__ = "metrics"
     name = Column(Text(), unique=False, nullable=False)
     value = Column(Integer, unique=False, nullable=False)
-    timestamp_ht = Column(DateTime(timezone=True),nullable=False,primary_key=True,default=datetime.datetime.utcnow)
+    timestamp_ht = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        primary_key=True,
+        default=datetime.datetime.utcnow,
+    )
     idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
 

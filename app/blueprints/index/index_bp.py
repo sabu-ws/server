@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, url_for, request 
+from flask import Blueprint, redirect, url_for, request
 
-from app import current_user,logout_user,app
+from app import current_user, logout_user, app
 
 from config import *
 
@@ -8,6 +8,7 @@ from config import *
 index_bp = Blueprint("index", __name__, template_folder="templates")
 
 log = app.logger
+
 
 @app.before_request
 def before_index():
@@ -20,6 +21,7 @@ def before_index():
             logout_user()
             log.info(f"User {username} has logged out ")
             return redirect(url_for("login.login"))
+
 
 @index_bp.route("/", methods=["GET"])
 def index():

@@ -31,5 +31,4 @@ def error404(error):
     return render_template("error/404.html")
 
 
-
 database_init()
