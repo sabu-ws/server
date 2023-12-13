@@ -14,7 +14,6 @@ def database_init():
     with app.app_context():
         pg_add_extension()
         db.create_all()
-        pg_add_hypertable()
         db.session.commit()
 
         # log.info("Load stamp migration in database")
@@ -26,6 +25,8 @@ def database_init():
 
         create_server_device()
 
+        pg_add_hypertable()
+        
         # log.info("Upgrade database if need")
         # upgrade_migration()
 
@@ -82,6 +83,7 @@ def pg_add_hypertable():
     with db.engine.connect() as con:
         con.execute(
             text(
-                "SELECT create_hypertable('metrics', 'timestamp_ht',migrate_data => true, if_not_exists => true);"
+                "SELECT create_hypertable('metrics', by_range('timestamp_ht', INTERVAL '24 hours'),migrate_data => true, if_not_exists => true);"
             )
         )
+        con.commit()

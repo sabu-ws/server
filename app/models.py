@@ -106,7 +106,7 @@ class Metrics(db.Model):
         DateTime(timezone=True),
         nullable=False,
         primary_key=True,
-        default=datetime.datetime.utcnow,
+        default=datetime.datetime.now,
     )
     idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
