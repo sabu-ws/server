@@ -103,13 +103,6 @@ apt install nftables -y
 # DEPLOY RSYSLOG
 apt install rsyslog -y
 
-# DEPLOY DOCKER
-# wget -O get_docker.sh https://get.docker.com
-# chmod +x get_docker.sh
-# sh get_docker.sh
-# rm -f get_docker.sh
-# docker compose -f /sabu/server/deploy/docker/docker-compose.yaml --env-file /sabu/server/.env up -d
-
 # DEPLOY TIMESCALE
 apt install gnupg postgresql-common apt-transport-https lsb-release wget -y
 echo "" | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
