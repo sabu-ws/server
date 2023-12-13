@@ -105,7 +105,7 @@ apt install rsyslog -y
 
 # DEPLOY TIMESCALE
 apt install gnupg postgresql-common apt-transport-https lsb-release wget -y
-echo "" | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+sh /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh y
 echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescaledb.list
 wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo apt-key add -
 apt update
