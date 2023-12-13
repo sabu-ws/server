@@ -18,7 +18,7 @@ chown -R svc-sabu:svc-sabu /sabu/
 chmod -R 0750 /sabu/
 
 
-# CLONE REPO
+# CLONE REPO 
 apt install git -y
 cd /sabu/
 git clone https://github.com/sabu-ws/server.git -b dev
