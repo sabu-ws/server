@@ -106,9 +106,10 @@ apt install rsyslog -y
 # DEPLOY TIMESCALE
 apt install gnupg postgresql-common apt-transport-https lsb-release wget -y
 sh /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh y
-echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescaledb.list
-wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | sudo apt-key add -
+curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | sudo gpg --dearmor -o /etc/apt/keyrings/timescale.gpg
+echo "deb [signed-by=/etc/apt/keyrings/timescale.gpg] https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescale.list
 apt update
+
 apt install timescaledb-2-postgresql-15 -y
 timescaledb-tune --quiet --yes
 echo "shared_preload_libraries = 'timescaledb'" >> /etc/postgresql/15/main/postgresql.conf
