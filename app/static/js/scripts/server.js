@@ -5,12 +5,12 @@ $("#inputHostname").on("keyup",function(){
 		$("#CharHostname").addClass("text-green-500");
 		$("#subtmitHostname").removeAttr("disabled");
 		$("#subtmitHostname").removeClass("bg-gray-700");
-		$("#subtmitHostname").addClass(["bg-blue-700","hover:bg-blue-800"]);
+		$("#subtmitHostname").addClass(["bg-lightblue","hover:bg-darkblue/60", "dark:bg-darkblue", "dark:hover:bg-lightblue"]);
 	}else{
 		$("#CharHostname").removeClass("text-green-500");
 		$("#CharHostname").addClass("text-gray-500");
 		$("#subtmitHostname").prop("disabled",true);
-		$("#subtmitHostname").removeClass(["bg-blue-700","hover:bg-blue-800"]);
+		$("#subtmitHostname").removeClass(["bg-lightblue","hover:bg-darkblue/60", "dark:bg-darkblue", "dark:hover:bg-lightblue"]);
 		$("#subtmitHostname").addClass("bg-gray-700");
 	}
 });
