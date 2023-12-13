@@ -1,5 +1,5 @@
 from config import *
-from flask import Blueprint, render_template, send_file
+from flask import Blueprint, render_template, send_file, request, redirect, url_for
 
 from app import app
 
@@ -13,7 +13,7 @@ import os
 browser_bp = Blueprint("browser", __name__)
 
 log = app.logger
-ROOT_PATH = "/sabu/server"
+ROOT_PATH = "/tmp"
 
 
 def sizeof_fmt(num, suffix="B"):
@@ -25,7 +25,6 @@ def sizeof_fmt(num, suffix="B"):
 
 
 @browser_bp.route("/path/<path:MasterListDir>")
-@browser_bp.route("/path")
 @browser_bp.route("/path/")
 def index(MasterListDir=""):
     joining = os.path.join(ROOT_PATH, MasterListDir)
@@ -99,4 +98,22 @@ def download(MasterListDir=""):
 @browser_bp.route("/delete/<path:MasterListDir>")
 @browser_bp.route("/delete/")
 def delete(MasterListDir=""):
-    return ""
+	path=os.path.join(ROOT_PATH,MasterListDir)
+	master_path="/".join(path.split("/")[:-1])
+	last=MasterListDir.split("/")[-1]
+	to_return = request.referrer
+	os.chdir(master_path)
+	if os.path.exists(path):
+		if os.path.isdir(path):
+			for root, dirs, files in os.walk(last, topdown=False):
+				for name in files:
+					os.remove(os.path.join(root, name))
+				for name in dirs:
+					os.rmdir(os.path.join(root, name))
+			os.rmdir(last)
+			return redirect(to_return)
+		elif os.path.isfile(path):
+			os.remove(last) 
+			return redirect(to_return)
+	else:
+		return redirect(url_for("login.logout"))
