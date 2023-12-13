@@ -324,12 +324,14 @@ def settings_certificates():
 
 @server_bp.route("/reboot")
 def reboot():
-	return ""
+	subprocess.Popen("/usr/sbin/reboot -h now")
+	return redirect(url_for("panel.server.index"))
 
 
 @server_bp.route("/shutdown")
 def shutdown():
-	return ""
+	subprocess.Popen("/usr/sbin/shutdown -h now")
+	return redirect(url_for("panel.server.index"))
 
 
 @server_bp.route("/ssh")
