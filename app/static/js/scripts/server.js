@@ -335,20 +335,37 @@ const getChartOptions = {
 	plotOptions: {
 		pie: {
 			donut: {
-				labels:{
-					show:true,
-					total:{
-						show:true,
-						showAlways: true
-					},
-				},
-				size: '60%',
-			},
-			labels: {
+			  labels: {
 				show: true,
+				name: {
+				  show: true,
+				  fontFamily: "Inter, sans-serif",
+				  offsetY: 20,
+				},
+				total: {
+				  showAlways: true,
+				  show: true,
+				  label: "Total",
+				  fontFamily: "Inter, sans-serif",
+				  formatter: function (w) {
+					const sum = w.globals.seriesTotals.reduce((a, b) => {
+					  return a + b
+					}, 0)
+					return `${sum} GB`
+				  },
+				},
+				value: {
+				  show: true,
+				  fontFamily: "Inter, sans-serif",
+				  offsetY: -20,
+				  formatter: function (value) {
+					return value + "GB"
+				  },
+				},
+			  },
+			  size: "60%",
 			},
-			size: "100%",
-		},
+		  },
 	},
 	labels: ["Used", "Free"],
 	dataLabels: {
@@ -364,14 +381,14 @@ const getChartOptions = {
 	yaxis: {
 		labels: {
 			formatter: function (value) {
-				return value + " Go"
+				return value + " GB"
 			},
 		},
 	},
 	xaxis: {
 		labels: {
 			formatter: function (value) {
-				return value  + " Go"
+				return value  + " GB"
 			},
 		},
 		axisTicks: {
