@@ -67,8 +67,8 @@ let options_CPU = {
 		gradient: {
 			opacityFrom: 0.55,
 			opacityTo: 0.25,
-			shade: "#1C64F2",
-			gradientToColors: ["#1C64F2"],
+			shade: "#0699f3",
+			gradientToColors: ["#0699f3"],
 		},
 	},
 	dataLabels: {
@@ -90,11 +90,11 @@ let options_CPU = {
 		{
 			name: "CPU",
 			data: [],
-			color: "#1A56DB",
+			color: "#0699f3",
 		},
 	],
 	xaxis: {
-		range : 100,
+		range : 15,
 		tickAmount: 10,
 		categories: [],
 		labels: {
@@ -152,8 +152,8 @@ let options_RAM = {
 		gradient: {
 			opacityFrom: 0.55,
 			opacityTo: 0.25,
-			shade: "#ee1111",
-			gradientToColors: ["#ee1111"],
+			shade: "#f71056",
+			gradientToColors: ["#f71056"],
 		},
 	},
 	dataLabels: {
@@ -175,11 +175,11 @@ let options_RAM = {
 		{
 			name: "RAM",
 			data: [],
-			color: "#f90f0f",
+			color: "#f71056",
 		},
 	],
 	xaxis: {
-		range: 100,
+		range: 15,
 		tickAmount: 10,
 		categories: [],
 		labels: {
