@@ -18,6 +18,12 @@ chown -R svc-sabu:svc-sabu /sabu/
 chmod -R 0750 /sabu/
 
 
+# FAKE DISK
+mkdir -p /data/sdb1/{data, quanrantine}
+chown -R svc-sabu:svc-sabu /sabu/
+chmod -R 0750 /sabu/
+
+
 # CLONE REPO 
 apt install git -y
 cd /sabu/
