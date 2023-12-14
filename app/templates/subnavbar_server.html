@@ -30,16 +30,12 @@
                     </a>
                 </li>
                 <div class="m-auto mr-0">
-                    <a href="{{ url_for('panel.server.reboot') }}">
-                        <button data-modal-show="ConfirmReboot" data-modal-target="ConfirmReboot" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-500 hover:border-orange-500 dark:hover:text-orange-500 group dark:text-white">
+                    <button data-modal-show="ConfirmReboot" data-modal-target="ConfirmReboot" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-500 hover:border-orange-500 dark:hover:text-orange-500 group dark:text-white">
                             <div class="space-x-1"><i class="fa-solid fa-arrow-rotate-right"></i> Reboot</div>
-                        </button>
-                    </a>
-                    <a href="{{ url_for('panel.server.shutdown') }}">
-                        <button data-modal-show="ConfirmShutdown" data-modal-target="ConfirmShutdown" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-red-500    hover:border-red-500 dark:hover:text-red-500 group dark:text-white">
+                    </button>
+                    <button data-modal-show="ConfirmShutdown" data-modal-target="ConfirmShutdown" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-red-500    hover:border-red-500 dark:hover:text-red-500 group dark:text-white">
                             <div class="space-x-1"><i class="fa-solid fa-power-off"></i> Shutdown</div>
-                        </button>
-                    </a>
+                    </button>
                 </div>
             </ul>                                            
         </div>

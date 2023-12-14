@@ -12,6 +12,7 @@ from app.utils.system import (
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from sqlalchemy import desc
 
+import datetime
 import subprocess
 import OpenSSL
 import shutil
@@ -38,15 +39,19 @@ def startLogsServer():
 			modify_syslog = os.stat("/var/log/syslog")[9]
 
 
+from sqlalchemy import func
 @socketio.on("start_chart_cpu_rcv", namespace="/chart_CPU")
 def connect_chart_cpu():
 	table_cpu = []
 	get_server_device = Devices.query.filter_by(token="server").first()
+	delta_hours = datetime.datetime.now() - datetime.timedelta(hours=24)
+	log.info(delta_hours)
 	get_cpu_metrics = (
-		Metrics.query.filter_by(idDevice=int(get_server_device.id), name="cpu")
+		Metrics.query.filter(Metrics.idDevice==int(get_server_device.id), Metrics.name=="cpu",Metrics.timestamp_ht >= delta_hours)
 		.order_by(Metrics.timestamp_ht)
 		.all()
 	)
+	
 	for metric in get_cpu_metrics:
 		format_datetime = metric.timestamp_ht.strftime("%Y-%m-%d %H:%M:%S")
 		chart_metric = {"x": format_datetime, "y": metric.value}
@@ -98,8 +103,6 @@ def connect_chart_net():
 		.order_by(Metrics.timestamp_ht)
 		.all()
 	)
-	log.info(len(get_netin_metrics))
-	log.info(len(get_netout_metrics))
 	for metric_netin, metric_netout in zip(get_netin_metrics,get_netout_metrics):
 		format_datetime = metric_netin.timestamp_ht.strftime("%Y-%m-%d %H:%M:%S")
 		chart_netin = {"x": format_datetime, "y": metric_netin.value}
@@ -324,14 +327,16 @@ def settings_certificates():
 
 @server_bp.route("/reboot")
 def reboot():
-	subprocess.Popen("/usr/sbin/reboot -h now")
-	return redirect(url_for("panel.server.index"))
+	subprocess.Popen("sudo /usr/sbin/reboot -h now".split())
+	flash("The server will be reboot","info")
+	return "ok"
 
 
 @server_bp.route("/shutdown")
 def shutdown():
-	subprocess.Popen("/usr/sbin/shutdown -h now")
-	return redirect(url_for("panel.server.index"))
+	subprocess.Popen("sudo /usr/sbin/shutdown -h now".split())
+	flash("The server will be shutdown","info")
+	return "ok"
 
 
 @server_bp.route("/ssh")

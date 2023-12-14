@@ -27,6 +27,32 @@ $(document).ready(function(e){
 	}
 });
 
+$("#yesButtonReboot").click(function(e){
+	e.preventDefault()
+	$.ajax({
+		type: "GET",
+		url: "/panel/server/reboot",
+		success: function(data){
+			if(data == "ok"){
+				window.location.reload();
+			}
+		}
+	});
+});
+
+$("#yesButtonShutdown").click(function(e){
+	e.preventDefault()
+	$.ajax({
+		type: "GET",
+		url: "/panel/server/shutdown",
+		success: function(data){
+			if(data == "ok"){
+				window.location.reload();
+			}
+		}
+	});
+});
+
 // XtermJS
 Terminal.applyAddon(fit)
 
@@ -437,7 +463,6 @@ socket_RAM.on("chart_ram_rcv",function(data){
 socket_NET = io.connect("/chart_NET")
 socket_NET.emit("start_chart_net_rcv")
 socket_NET.on("chart_net_rcv",function(data){
-	console.log(data)
 	chart_NET.updateSeries([
 		{
 		 data: data[0],
