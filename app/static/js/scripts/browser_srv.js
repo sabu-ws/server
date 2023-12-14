@@ -43,3 +43,14 @@ $(".yesButtonDeleteObject").click(function(e){
 		}
 	});
 });
+
+// PATH URL BROWSER
+var urlPath = window.location.pathname.substring(1).split('/');
+var firstUrlPath = window.location.pathname.split("/").slice(0,5).join("/")
+$("#hrefpath").attr( "href", firstUrlPath );
+$("#nameFolder1").html(urlPath[3]);
+
+if (urlPath.length > 4) {
+	$("#nameFolder2").html(urlPath[4]);
+	$("#RemoveSVG").removeAttr('hidden');
+}

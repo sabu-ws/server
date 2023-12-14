@@ -1762,6 +1762,10 @@ input:checked + .toggle-bg {
   width: 100%;
 }
 
+.w-20 {
+  width: 5rem;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -1772,6 +1776,10 @@ input:checked + .toggle-bg {
 
 .max-w-md {
   max-width: 28rem;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .flex-1 {
@@ -2028,6 +2036,10 @@ input:checked + .toggle-bg {
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 
 .overflow-y-scroll {
