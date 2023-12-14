@@ -101,7 +101,6 @@ def delete(MasterListDir=""):
 	path=os.path.join(ROOT_PATH,MasterListDir)
 	master_path="/".join(path.split("/")[:-1])
 	last=MasterListDir.split("/")[-1]
-	to_return = request.referrer
 	os.chdir(master_path)
 	if os.path.exists(path):
 		if os.path.isdir(path):
@@ -111,9 +110,9 @@ def delete(MasterListDir=""):
 				for name in dirs:
 					os.rmdir(os.path.join(root, name))
 			os.rmdir(last)
-			return redirect(to_return)
+			return "ok"
 		elif os.path.isfile(path):
 			os.remove(last) 
-			return redirect(to_return)
+			return "ok"
 	else:
 		return redirect(url_for("login.logout"))

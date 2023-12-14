@@ -23,7 +23,7 @@
 							<h1 class="font-semibold text-lg text-gray-700 dark:text-white">loris.l</h1>
 						</div>
 						<div>
-							<button class="bg-lightblue hover:bg-darkblue px-3.5 py-2.5 rounded-xl">
+							<button id="returnButton" hidden class="bg-lightblue hover:bg-darkblue px-3.5 py-2.5 rounded-xl">
 								<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
 							</button>
 						</div>
@@ -72,59 +72,59 @@
 						<tbody>
 							{% for dir in items_dir %}
 							<tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 									<a href="{{ url_for('panel.browser.index') }}{{ cur_dir }}{{ dir[4] }}" class="location"></a>
 									<div class="flex items-center">
 										<div class="flex-shrink-0">
 											<svg class="fill-yellow-300" xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512"><path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/></svg>
 										</div>
-										<div class="ml-3">
+										<div class="object_name ml-3">
 											{{ dir[0] }}
 										</div>
 									</div>
 								</th>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									{{ dir[2] }}
 								</td>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									Folder
 								</td>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									{{ dir[3] }}
 								</td>
 								<td class="px-6 py-4">
 									<div class="space-x-2">
 										<a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a>
-										<button data-modal-show="DeleteFolder" data-modal-target="DeleteFolder"><a href="{{ url_for('panel.browser.delete') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-red-600 dark:text-red-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></a></button>
+										<button class="delete_object_name" data-modal-show="DeleteFolder" data-modal-target="DeleteFolder"><p class="font-medium text-red-600 dark:text-red-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
 									</div>
 								</td>
 							</tr>
 							{% endfor %}
 							{% for file in items_file %}
-							<tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+								<th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 									<div class="flex items-center">
 										<div class="flex-shrink-0">
 											<svg class="fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="20" width="16" viewBox="0 0 384 512"><path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"/></svg>
 										</div>
-										<div class="ml-3">
+										<div class="object_name ml-3">
 											{{ file[0] }}
 										</div>
 									</div>
 								</th>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									{{ file[2] }}
 								</td>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									File
 								</td>
-								<td class="px-6 py-4">
+								<td class="onclick_object px-6 py-4">
 									{{ file[3] }}
 								</td>
 								<td class="px-6 py-4">
 									<div class="space-x-2">
 										<a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a>
-										<button data-modal-show="DeleteFile" data-modal-target="DeleteFile"><a href="{{ url_for('panel.browser.delete') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-red-600 dark:text-red-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></a></button>
+										<button class="delete_object_name" data-modal-show="DeleteFile" data-modal-target="DeleteFile"><p class="font-medium text-red-600 dark:text-red-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
 									</div>
 								</td>
 							</tr>
@@ -151,7 +151,7 @@
 					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 				</svg>
 				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this file ?</h3>
-				<button data-modal-hide="DeleteFile" type="button" id="yesButtonDeleteFile" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+				<button data-modal-hide="DeleteFile" type="button" id="yesButtonDeleteFile" class="yesButtonDeleteObject text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
 					Yes
 				</button>
 				<button data-modal-hide="DeleteFile" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
@@ -173,8 +173,8 @@
 				<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
 					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 				</svg>
-				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this file ?</h3>
-				<button data-modal-hide="DeleteFolder" type="button" id="yesButtonDeleteFolder" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this folder ?</h3>
+				<button data-modal-hide="DeleteFolder" type="button" id="yesButtonDeleteFolder" class="yesButtonDeleteObject text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
 					Yes
 				</button>
 				<button data-modal-hide="DeleteFolder" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
