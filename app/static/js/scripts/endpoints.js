@@ -79,3 +79,15 @@ socket.on("state",function(data){
 		}
 	})
 })
+
+$("#table-search-endpoints").keyup(function() {
+	var value = $(this).val().toLowerCase();
+	$("#table_endpoint tr").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+	});
+	if($("#table_endpoint").find('tr').is(':visible')){
+		document.getElementById("noEndpointFound").style  = "display: none;";
+	}else{
+		document.getElementById("noEndpointFound").style  = "display: True;";
+	}
+});	

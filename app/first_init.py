@@ -1,12 +1,10 @@
 from config import *
-from app import app, db
+from app import app, db, logger as log
 from app.models import Users, Devices, Job
 from app.utils.system import SYS_get_hostname
 from app.utils.db_mgmt import database_allowed
 
 from sqlalchemy import text
-
-log = app.logger
 
 
 def database_init():

@@ -1,7 +1,7 @@
 from config import *
 from flask import Blueprint, render_template, send_file, request, redirect, url_for
 
-from app import app
+from app import app, logger as log
 
 from urllib.parse import unquote, quote
 from io import BytesIO
@@ -12,7 +12,6 @@ import os
 
 browser_bp = Blueprint("browser", __name__)
 
-log = app.logger
 ROOT_PATH = "/data/sdb1"
 
 
