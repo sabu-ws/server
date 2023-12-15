@@ -1,5 +1,12 @@
+# Python Flask/SABU
 /instance/
 /ProfilePicture/
 **/__pycache__/
 /venv/
+/flask_session/
+
+# Python Lint
 .ruff_cache/
+
+# dot env
+.env

@@ -1,43 +1,89 @@
-        <div class="grid grid-cols-1 gap-8">
-            <div class="bg-white rounded-lg shadow-md">
-                <div class="border-b border-gray-200">
-                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                        <li class="mr-2">
-                            <a id="dashboard" href="{{ url_for('panel.server.index') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group" aria-current="page">
-                                <svg id="dashboard-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                    <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
-                                </svg>Dashboard
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a id="logs" href="{{ url_for('panel.server.logs') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                                <svg id="logs-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-                                </svg>Logs
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a id="settings" href="{{ url_for('panel.server.settings') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                                <svg id="settings-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5 11.424V1a1 1 0 1 0-2 0v10.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.228 3.228 0 0 0 0-6.152ZM19.25 14.5A3.243 3.243 0 0 0 17 11.424V1a1 1 0 0 0-2 0v10.424a3.227 3.227 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.243 3.243 0 0 0 2.25-3.076Zm-6-9A3.243 3.243 0 0 0 11 2.424V1a1 1 0 0 0-2 0v1.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0V8.576A3.243 3.243 0 0 0 13.25 5.5Z"/>
-                                </svg>Settings
-                            </a>
-                        </li>
-                        <li class="mr-2">
-                            <a class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                                <i class="fa-solid fa-terminal"></i> 
-                                <h1 class="ml-2">Remote SSH</h1>
-                            </a>
-                        </li>
-                        <div class="m-auto mr-0">
-                            <button class="hover:rounded-lg hover:bg-red-400 hover:p-4 p-4">
-                                <i class="fa-solid fa-arrow-rotate-right"></i> Reboot
-                            </button>
-                            <button class="hover:rounded-lg hover:bg-red-400 hover:p-4 p-4">
-                                <i class="fa-solid fa-power-off"></i> Shutdown
-                            </button>
-                        </div>
-                    </ul>                                            
+<div class="grid grid-cols-1">
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md">
+        <div class="border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                <li class="mr-2">
+                    <a id="Server-Dashboard" href="{{ url_for('panel.server.index') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-600 dark:text-white dark:hover:text-gray-300 group" aria-current="page">
+                        <svg id="Dashboard-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                            <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
+                        </svg>Dashboard
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a id="Server-Logs" href="{{ url_for('panel.server.logs') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-600 dark:text-white dark:hover:text-gray-300 group">
+                        <svg id="Logs-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                        </svg>Logs
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a id="Server-Settings" href="{{ url_for('panel.server.settings') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-600 dark:text-white dark:hover:text-gray-300 group">
+                        <svg id="Settings-svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 11.424V1a1 1 0 1 0-2 0v10.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.228 3.228 0 0 0 0-6.152ZM19.25 14.5A3.243 3.243 0 0 0 17 11.424V1a1 1 0 0 0-2 0v10.424a3.227 3.227 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.243 3.243 0 0 0 2.25-3.076Zm-6-9A3.243 3.243 0 0 0 11 2.424V1a1 1 0 0 0-2 0v1.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0V8.576A3.243 3.243 0 0 0 13.25 5.5Z"/>
+                        </svg>Settings
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a id="Server-Remote" href="{{ url_for('panel.server.ssh') }}" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-600 dark:text-white dark:hover:text-gray-300 group">
+                        <i class="fa-solid fa-terminal"></i> 
+                        <h1 class="ml-2">Remote SSH</h1>
+                    </a>
+                </li>
+                <div class="m-auto mr-0">
+                    <button data-modal-show="ConfirmReboot" data-modal-target="ConfirmReboot" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-500 hover:border-orange-500 dark:hover:text-orange-500 group dark:text-white">
+                            <div class="space-x-1"><i class="fa-solid fa-arrow-rotate-right"></i> Reboot</div>
+                    </button>
+                    <button data-modal-show="ConfirmShutdown" data-modal-target="ConfirmShutdown" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-red-500    hover:border-red-500 dark:hover:text-red-500 group dark:text-white">
+                            <div class="space-x-1"><i class="fa-solid fa-power-off"></i> Shutdown</div>
+                    </button>
                 </div>
-            </div>
+            </ul>                                            
         </div>
+    </div>
+</div>
+<!-- Confirm Reboot -->
+<div id="ConfirmReboot" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+	<div class="relative w-full max-w-md max-h-full">
+		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+			<button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ConfirmReboot">
+				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+				</svg>
+				<span class="sr-only">Close modal</span>
+			</button>
+			<div class="p-6 text-center">
+				<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+				</svg>
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to reboot ?</h3>
+				<button data-modal-hide="ConfirmReboot" type="button" id="yesButtonReboot" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+					Yes
+				</button>
+				<button data-modal-hide="ConfirmReboot" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Confirm Shutdown -->
+<div id="ConfirmShutdown" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+	<div class="relative w-full max-w-md max-h-full">
+		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+			<button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ConfirmShutdown">
+				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+				</svg>
+				<span class="sr-only">Close modal</span>
+			</button>
+			<div class="p-6 text-center">
+				<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+				</svg>
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to shutdown ?</h3>
+				<button data-modal-hide="ConfirmShutdown" type="button" id="yesButtonShutdown" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+					Yes
+				</button>
+				<button data-modal-hide="ConfirmShutdown" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+			</div>
+		</div>
+	</div>
+</div>

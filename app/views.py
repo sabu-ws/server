@@ -1,4 +1,5 @@
 from app import app, CSRFError
+from app.first_init import database_init
 
 from flask import redirect, url_for, flash, render_template
 
@@ -28,3 +29,6 @@ def handle_csrf_error(e):
 @app.errorhandler(404)
 def error404(error):
     return render_template("error/404.html")
+
+
+database_init()

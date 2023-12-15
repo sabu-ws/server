@@ -2,11 +2,22 @@
 module.exports = {
   content: [
     "../templates/*.html",
+    "./js/scripts/*.js",
     "../**/templates/*.html",
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: { 
+      spacing: {
+        '128': '34rem',
+        '160': '40rem',
+        '165': '44rem',
+      }
+    },
+    colors: {
+      'lightblue': '#004aad',
+      'darkblue': '#002a85',
+    },
   },
   fontFamily: {
     'body': [
