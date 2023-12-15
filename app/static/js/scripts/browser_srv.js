@@ -1,5 +1,6 @@
 var temp_name_object = ""
 
+// Click button
 $(".onclick_object").click(function(){
 	var href = $(this).closest("tr").find(".location").closest("a").attr("href")
 	if(href) {
@@ -13,6 +14,7 @@ $(function(){
 	}
 });
 
+// Return Button
 $("#returnButton").click(function(){
 	var url = window.parent.location.href;
 	if(url.substr(url.length - 1) == "/"){
@@ -26,10 +28,12 @@ $("#returnButton").click(function(){
 	}
 });
 
+// Remove element 
 $(".delete_object_name").click(function(){
 	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
 });
 
+// Yes button
 $(".yesButtonDeleteObject").click(function(e){
 	var get_url=window.location.pathname.split("/").slice(4).join("/")
 	e.preventDefault()

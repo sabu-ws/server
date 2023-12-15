@@ -78,14 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Path in Navbar
 var tabUrlPath = window.location.pathname.substring(1).split('/');
-		
-document.getElementById('pathArg2').innerHTML = tabUrlPath[1].charAt(0).toUpperCase() + tabUrlPath[1].slice(1);
-    
-if (tabUrlPath[1] == "endpoints") {
-    document.getElementById('pathArg3').innerHTML = tabUrlPath[2];
-} else {
-    document.getElementById('showPathArg3').style.display = 'none';
-}
+$('#pathArg2').html(tabUrlPath[1].charAt(0).toUpperCase() + tabUrlPath[1].slice(1));
+
+if (tabUrlPath[1] == "endpoints" && tabUrlPath[2] != "") {
+	$("#pathArg3").html(tabUrlPath[2]);
+	$("#showPathArg3").removeAttr("hidden");
+} 
 
 // Subnavbar
 $(document).ready(function() {
