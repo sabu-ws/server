@@ -45,10 +45,8 @@ def connect_chart_cpu():
 	table_cpu = []
 	get_server_device = Devices.query.filter_by(token="server").first()
 	delta_hours = datetime.datetime.now() - datetime.timedelta(hours=24)
-	log.info(delta_hours)
 	get_cpu_metrics = (
 		Metrics.query.filter(Metrics.idDevice==int(get_server_device.id), Metrics.name=="cpu",Metrics.timestamp_ht >= delta_hours)
-		.order_by(Metrics.timestamp_ht)
 		.all()
 	)
 	
@@ -63,9 +61,9 @@ def connect_chart_cpu():
 def connect_chart_cpu():
 	table_ram = []
 	get_server_device = Devices.query.filter_by(token="server").first()
+	delta_hours = datetime.datetime.now() - datetime.timedelta(hours=24)
 	get_ram_metrics = (
-		Metrics.query.filter_by(idDevice=int(get_server_device.id), name="ram")
-		.order_by(Metrics.timestamp_ht)
+		Metrics.query.filter(Metrics.idDevice==int(get_server_device.id), Metrics.name=="ram",Metrics.timestamp_ht >= delta_hours)
 		.all()
 	)
 	for metric in get_ram_metrics:
@@ -93,14 +91,13 @@ def connect_chart_net():
 	table_netin = []
 	table_netou = []
 	get_server_device = Devices.query.filter_by(token="server").first()
+	delta_hours = datetime.datetime.now() - datetime.timedelta(hours=24)
 	get_netin_metrics = (
-		Metrics.query.filter_by(idDevice=int(get_server_device.id), name="netin")
-		.order_by(Metrics.timestamp_ht)
+		Metrics.query.filter(Metrics.idDevice==int(get_server_device.id), Metrics.name=="netin",Metrics.timestamp_ht >= delta_hours)
 		.all()
 	)
 	get_netout_metrics = (
-		Metrics.query.filter_by(idDevice=int(get_server_device.id), name="netout")
-		.order_by(Metrics.timestamp_ht)
+		Metrics.query.filter(Metrics.idDevice==int(get_server_device.id), Metrics.name=="netout",Metrics.timestamp_ht >= delta_hours)
 		.all()
 	)
 	for metric_netin, metric_netout in zip(get_netin_metrics,get_netout_metrics):
