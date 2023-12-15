@@ -147,7 +147,7 @@ let options_CPU = {
                 cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
             },
 			formatter: function (value) {
-				return value.toPrecision(1) + ' %';
+				return value.toPrecision(2) + ' %';
 			}
 		}
 	},
