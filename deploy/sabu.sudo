@@ -1,8 +1,0 @@
-# SABU SUDO
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart sabu.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/reboot
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/shutdown -h now
-
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/update_hostname.sh -n *
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/update_ip_address.sh *
