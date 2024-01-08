@@ -1,0 +1,23 @@
+# IP & Port
+Port 22
+ListenAddress 0.0.0.0
+
+# Logs
+SyslogFacility AUTH
+
+# Auth
+LoginGraceTime 2m
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 5
+MaxSessions 4
+
+UsePAM yes
+AllowUsers sabu
+
+# SFTP
+Subsystem sftp /dev/null
+
+# Others
+PrintMotd no
+X11Forwarding no
