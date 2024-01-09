@@ -79,11 +79,11 @@ def pg_add_extension():
 
 def pg_add_hypertable():
     with db.engine.connect() as con:
-        # con.execute(
-        #     text(   
-        #         "SELECT create_hypertable('metrics', by_range('timestamp_ht', INTERVAL '24 hours'),migrate_data => true, if_not_exists => true);"
-        #     )
-        # )
+        con.execute(
+           text(   
+               "SELECT create_hypertable('metrics', by_range('timestamp_ht', INTERVAL '24 hours'),migrate_data => true, if_not_exists => true);"
+           )
+        )
         con.execute(
             text(
                 "SELECT add_retention_policy('metrics', INTERVAL '7 days',if_not_exists => true);"
