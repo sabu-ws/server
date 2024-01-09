@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.4.1"
   },
   "dependencies": {
     "apexcharts": "^3.44.0",

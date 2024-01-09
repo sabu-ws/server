@@ -58,3 +58,8 @@ if (urlPath.length > 4) {
 	$("#nameFolder2").html(urlPath[4]);
 	$("#RemoveSVG").removeAttr('hidden');
 }
+
+// RELEASE BUTTON
+if (urlPath[3] == "quarantine") { // var urlpath = see (PATH URL BROWSER SECTION)
+	$("#releaseButton").removeAttr('hidden');
+}

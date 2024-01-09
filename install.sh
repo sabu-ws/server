@@ -19,7 +19,7 @@ chmod -R 0750 /sabu/
 
 
 # FAKE DISK
-mkdir -p /data/sdb1/{data, quarantine}
+mkdir -p /data/sdb1/{data,quarantine}
 chown -R svc-sabu:svc-sabu /sabu/
 chmod -R 0750 /sabu/
 
