@@ -27,7 +27,7 @@ chmod -R 0750 /sabu/
 # CLONE REPO 
 apt install git -y
 cd /sabu/
-git clone https://github.com/sabu-ws/server.git -b dev
+git clone https://github.com/sabu-ws/server.git
 
 
 # DISABLE IPV6
