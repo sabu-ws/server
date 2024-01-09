@@ -7,4 +7,4 @@ settings_bp = Blueprint("settings", __name__)
 
 @settings_bp.route("/")
 def index():
-    return render_template("ap_coming_soon.html")
+    return render_template("ap_settings.html")
