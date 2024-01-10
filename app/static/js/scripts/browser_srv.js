@@ -61,5 +61,5 @@ if (urlPath.length > 4) {
 
 // RELEASE BUTTON
 if (urlPath[3] == "quarantine") { // var urlpath = see (PATH URL BROWSER SECTION)
-	$("#releaseButton").removeAttr('hidden');
+	$(".releaseButton").removeAttr('hidden');
 }
