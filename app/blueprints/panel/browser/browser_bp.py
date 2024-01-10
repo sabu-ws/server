@@ -70,7 +70,7 @@ def index(MasterListDir=""):
 @browser_bp.route("/download/<path:MasterListDir>")
 @browser_bp.route("/download/")
 def download(MasterListDir=""):
-	path = os.path.join(ROOT_PATH+MasterListDir)
+	path = os.path.join(ROOT_PATH,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
 	last = MasterListDir.split("/")[-1]
 	os.chdir(master_path)

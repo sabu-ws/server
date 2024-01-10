@@ -63,3 +63,40 @@ if (urlPath.length > 4) {
 if (urlPath[3] == "quarantine") { // var urlpath = see (PATH URL BROWSER SECTION)
 	$(".releaseButton").removeAttr('hidden');
 }
+
+// SEARCH BUTTON
+$("#buttonSearch" ).on( "click", function() {
+	if ($("#buttonSearch").hasClass("rounded-l-xl")){
+		$("#searchBar" ).animate({width:'toggle'},350);
+		$("#buttonSearch").removeClass("rounded-l-xl");
+		  $("#buttonSearch").addClass("rounded-xl");
+		$("#searchBar").removeClass("rounded-r-lg");
+		  $("#searchBar").addClass("rounded-lg");
+	}else{
+		$("#searchBar" ).animate({width:'toggle'},350);
+		$("#buttonSearch").removeClass("rounded-xl");
+		$("#buttonSearch").addClass("rounded-l-xl");
+		$("#searchBar").removeClass("rounded-lg");
+		$("#searchBar").addClass("rounded-r-lg");
+	}
+});
+
+// SearchBar
+$("#searchBar").keyup(function() {
+	var value = $(this).val().toLowerCase();
+	$("#bodySearchBar tr").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+	});
+	if($("#bodySearchBar").find('tr').is(':visible')){
+		document.getElementById("noElementFound").style  = "display: none;";
+	}else{
+		document.getElementById("noElementFound").style  = "display: True;";
+	}
+});
+
+// Detect Element
+if($("#bodySearchBar").find('tr').is(':visible')){
+	document.getElementById("noElementFound").style  = "display: none;";
+}else{
+	document.getElementById("noElementFound").style  = "display: True;";
+}

@@ -1672,6 +1672,10 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.h-14 {
+  height: 3.5rem;
+}
+
 .max-h-165 {
   max-height: 44rem;
 }
@@ -1774,10 +1778,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.w-44 {
-  width: 11rem;
 }
 
 .min-w-0 {
@@ -2123,6 +2123,16 @@ input:checked + .toggle-bg {
   border-top-right-radius: 0.5rem;
 }
 
+.rounded-r-xl {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.rounded-l-xl {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -2161,10 +2171,6 @@ input:checked + .toggle-bg {
 
 .border-t {
   border-top-width: 1px;
-}
-
-.border-t-0 {
-  border-top-width: 0px;
 }
 
 .border-blue-600 {
@@ -2323,24 +2329,19 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.6);
 }
 
+.bg-yellow-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 202 21 / var(--tw-bg-opacity));
+}
+
 .bg-yellow-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
 }
 
-.bg-yellow-600 {
+.bg-gray-600 {
   --tw-bg-opacity: 1;
-  background-color: rgb(159 88 10 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(194 120 3 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 202 21 / var(--tw-bg-opacity));
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2711,6 +2712,11 @@ input:checked + .toggle-bg {
   color: rgb(14 159 110 / var(--tw-text-opacity));
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(5 122 85 / var(--tw-text-opacity));
+}
+
 .text-green-800 {
   --tw-text-opacity: 1;
   color: rgb(3 84 63 / var(--tw-text-opacity));
@@ -2739,11 +2745,6 @@ input:checked + .toggle-bg {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(5 122 85 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -2910,6 +2911,11 @@ input:checked + .toggle-bg {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-green-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(188 240 218 / var(--tw-bg-opacity));
@@ -2917,6 +2923,11 @@ input:checked + .toggle-bg {
 
 .hover\:bg-green-600\/70:hover {
   background-color: rgb(5 122 85 / 0.7);
+}
+
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 108 78 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-green-800:hover {
@@ -2957,29 +2968,9 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.6);
 }
 
-.hover\:bg-gray-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-yellow-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(194 120 3 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-yellow-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(159 88 10 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-yellow-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-green-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(4 108 78 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-opacity-60:hover {
@@ -3218,11 +3209,6 @@ input:checked + .toggle-bg {
   background-color: rgb(224 36 36 / var(--tw-bg-opacity));
 }
 
-:is(.dark .dark\:bg-white) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 :is(.dark .dark\:bg-opacity-80) {
   --tw-bg-opacity: 0.8;
 }
@@ -3432,16 +3418,6 @@ input:checked + .toggle-bg {
   border-color: transparent;
 }
 
-:is(.dark .dark\:focus\:bg-gray-700:focus) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-}
-
-:is(.dark .dark\:focus\:bg-gray-800:focus) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
 :is(.dark .dark\:focus\:text-lightblue:focus) {
   --tw-text-opacity: 1;
   color: rgb(0 74 173 / var(--tw-text-opacity));
@@ -3476,11 +3452,6 @@ input:checked + .toggle-bg {
 :is(.dark .dark\:focus\:ring-gray-600:focus) {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(75 85 99 / var(--tw-ring-opacity));
-}
-
-:is(.dark .dark\:focus\:ring-gray-800:focus) {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(31 41 55 / var(--tw-ring-opacity));
 }
 
 :is(.dark .dark\:focus\:ring-red-800:focus) {
