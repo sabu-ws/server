@@ -100,3 +100,10 @@ if($("#bodySearchBar").find('tr').is(':visible')){
 }else{
 	document.getElementById("noElementFound").style  = "display: True;";
 }
+
+if(urlPath.length==4){
+	if(urlPath[3]==""){
+		$(".donwload_object_name").attr("hidden","true");
+		$(".delete_object_name").attr("hidden","true");
+	}
+}

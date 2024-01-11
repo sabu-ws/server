@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, send_file, request, redirect, url_
 from app import app, logger as log
 
 from urllib.parse import unquote, quote
+from functools import wraps
 from io import BytesIO
 import datetime
 import zipfile
@@ -23,6 +24,15 @@ def sizeof_fmt(num, suffix="B"):
 		num /= 1024.0
 	return f"{num:.1f} Yi{suffix}"
 
+def check_url(f):
+	@wraps(f)
+	def func(*args, **kwargs):
+		url = request.path.split("/")
+		if len(url)==5:
+			if url[4].lower() in ["quarantine","data"]:
+				return redirect(url_for("panel.browser.index"))
+		return f(*args, **kwargs)
+	return func
 
 @browser_bp.route("/path/<path:MasterListDir>")
 @browser_bp.route("/path/")
@@ -69,6 +79,7 @@ def index(MasterListDir=""):
 
 @browser_bp.route("/download/<path:MasterListDir>")
 @browser_bp.route("/download/")
+@check_url
 def download(MasterListDir=""):
 	path = os.path.join(ROOT_PATH,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
@@ -99,6 +110,7 @@ def download(MasterListDir=""):
 
 @browser_bp.route("/delete/<path:MasterListDir>")
 @browser_bp.route("/delete/")
+@check_url
 def delete(MasterListDir=""):
 	path=os.path.join(ROOT_PATH,MasterListDir)
 	master_path="/".join(path.split("/")[:-1])
@@ -122,32 +134,32 @@ def delete(MasterListDir=""):
 
 @browser_bp.route("/release/<path:MasterListDir>")
 @browser_bp.route("/release/")
+@check_url
 def release(MasterListDir=""):
-	if request.path.split("/")[4] == "quarantine":
-		path=os.path.join(ROOT_PATH,MasterListDir)
-		master_path="/".join(path.split("/")[:-1])
-		last=MasterListDir.split("/")[-1]
-		os.chdir(master_path)
-		if os.path.exists(path):
-			if os.path.isdir(path):
-				# for root, dirs, files in os.walk(last, topdown=False):
-					# for name in files:
-						# os.remove(os.path.join(root, name))
-					# for name in dirs:
-						# os.rmdir(os.path.join(root, name))
-				# os.rmdir(last)
-				return "ok"
-			elif os.path.isfile(path):
-				quarantine_path = master_path
-				to_data_path_build = MasterListDir.split("/")
-				to_data_path_build[0] = "data"
-				to_data_path = os.path.join(ROOT_PATH,"/".join(to_data_path_build[:-1]))
-				# return str(to_data_path)
-				if not os.path.exists(to_data_path):
-					os.makedirs(to_data_path)
-				shutil.move(path,to_data_path)
-				# os.remove(last)
-				return "ok"
-		else:
-			return redirect(url_for("login.logout"))
-		return ""
+	path=os.path.join(ROOT_PATH,MasterListDir)
+	master_path="/".join(path.split("/")[:-1])
+	last=MasterListDir.split("/")[-1]
+	os.chdir(master_path)
+	if os.path.exists(path):
+		if os.path.isdir(path):
+			# for root, dirs, files in os.walk(last, topdown=False):
+				# for name in files:
+					# os.remove(os.path.join(root, name))
+				# for name in dirs:
+					# os.rmdir(os.path.join(root, name))
+			# os.rmdir(last)
+			return "ok"
+		elif os.path.isfile(path):
+			quarantine_path = master_path
+			to_data_path_build = MasterListDir.split("/")
+			to_data_path_build[0] = "data"
+			to_data_path = os.path.join(ROOT_PATH,"/".join(to_data_path_build[:-1]))
+			# return str(to_data_path)
+			if not os.path.exists(to_data_path):
+				os.makedirs(to_data_path)
+			shutil.move(path,to_data_path)
+			# os.remove(last)
+			return "ok"
+	else:
+		return redirect(url_for("login.logout"))
+	return ""
