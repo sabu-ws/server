@@ -174,7 +174,7 @@
 													<select name="job" id="editUserJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
 														<option selected>Choose a job</option>
 														{% for job in job_list %}
-														<option value="{{ job }}">{{ job }}</option>
+														<option value="{{ job.name }}">{{ job.name }}</option>
 														{% endfor %}
 													</select>
 												</div>
