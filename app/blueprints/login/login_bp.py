@@ -77,6 +77,7 @@ def init_connection(user):
     resp.set_cookie("sabu",jwt_token,expires=datetime.datetime.now()+ datetime.timedelta(hours=12),secure=True,httponly=True,)
     login_user(user)
     log.info(f"User {user.username} has logged in")
+    user_root_data_path = "/sabu/data"
     user_data_path = os.path.join(user_root_data_path,"Data",user.username)
     user_qurantine_path = os.path.join(user_root_data_path,"Quarantine",user.username)
     log.info(user_data_path)
