@@ -17,6 +17,7 @@ from app import (
     current_user,
     bcrypt,
     db,
+    logger as log,
 )
 
 from app.forms import LoginForm
@@ -28,10 +29,9 @@ import jwt
 import pyotp
 import uuid
 import hashlib
+import os
 
 login_bp = Blueprint("login", __name__, template_folder="templates")
-
-log = app.logger
 
 
 def check_user():
@@ -65,6 +65,29 @@ def check_token():
         finally:
             pass
 
+def init_connection(user):
+    session["job"] = Job.query.filter_by(id=user.job_id).first().name
+    del session["totp"]
+    set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
+    random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
+    jwt_token = jwt.encode({"username": user.username,"exp": set_time,"iss": "SABU",},random_key,algorithm="HS256",)
+    user.cookie = random_key
+    db.session.commit()
+    resp = make_response(render_template("login.html", con="ok"))
+    resp.set_cookie("sabu",jwt_token,expires=datetime.datetime.now()+ datetime.timedelta(hours=12),secure=True,httponly=True,)
+    login_user(user)
+    log.info(f"User {user.username} has logged in")
+    user_data_path = os.path.join(user_root_data_path,"Data",user.username)
+    user_qurantine_path = os.path.join(user_root_data_path,"Quarantine",user.username)
+    log.info(user_data_path)
+    if not os.path.exists(user_data_path):
+        os.mkdir(user_data_path)
+        log.info(f"Data user path create : {str(user_data_path)} ")
+    if not os.path.exists(user_qurantine_path):
+        os.mkdir(user_qurantine_path)
+        log.info(f"Data user path create : {str(user_qurantine_path)} ")
+
+    return resp
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
@@ -87,41 +110,7 @@ def login():
                         elif user.firstCon == 0:
                             return redirect(url_for("login.first_con"))
                         else:
-                            session["job"] = (
-                                Job.query.filter_by(id=user.job_id).first().name
-                            )
-                            del session["totp"]
-                            set_time = datetime.datetime.utcnow() + datetime.timedelta(
-                                hours=12
-                            )
-                            random_key = hashlib.sha256(
-                                str(uuid.uuid4()).encode()
-                            ).hexdigest()
-                            jwt_token = jwt.encode(
-                                {
-                                    "username": user.username,
-                                    "exp": set_time,
-                                    "iss": "SABU",
-                                },
-                                random_key,
-                                algorithm="HS256",
-                            )
-                            user.cookie = random_key
-                            db.session.commit()
-                            resp = make_response(
-                                render_template("login.html", con="ok")
-                            )
-                            resp.set_cookie(
-                                "sabu",
-                                jwt_token,
-                                expires=datetime.datetime.now()
-                                + datetime.timedelta(hours=12),
-                                secure=True,
-                                httponly=True,
-                            )
-                            login_user(user)
-                            log.info(f"User {user.username} has logged in")
-                            return resp
+                            return init_connection(user)
                     else:
                         return render_template("login.html", con="ko")
                 else:
@@ -141,28 +130,7 @@ def mfa():
                 user = Users.query.filter_by(username=session["user"]).first()
                 totp = pyotp.TOTP(user.OTPSecret)
                 if totp.verify(data["totp"]):
-                    del session["totp"]
-                    session["job"] = Job.query.filter_by(id=user.job_id).first().name
-                    set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
-                    random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-                    jwt_token = jwt.encode(
-                        {"username": user.username, "exp": set_time, "iss": "SABU"},
-                        random_key,
-                        algorithm="HS256",
-                    )
-                    user.cookie = random_key
-                    db.session.commit()
-                    resp = make_response(render_template("login_totp.html", con="ok"))
-                    resp.set_cookie(
-                        "sabu",
-                        jwt_token,
-                        expires=datetime.datetime.now() + datetime.timedelta(hours=12),
-                        secure=True,
-                        httponly=True,
-                    )
-                    login_user(user)
-                    log.info(f"User {user.username} has logged in")
-                    return resp
+                    return init_connection(user)
                 else:
                     log.info(f"User {user.username} enter bad totp")
                     return render_template("login_totp.html", con="ko")
@@ -192,36 +160,7 @@ def first_con():
                         user.firstCon = 1
                         user.set_password(data["newPasswordInput"])
                         db.session.commit()
-                        session["job"] = (
-                            Job.query.filter_by(id=user.job_id).first().name
-                        )
-                        set_time = datetime.datetime.utcnow() + datetime.timedelta(
-                            hours=12
-                        )
-                        random_key = hashlib.sha256(
-                            str(uuid.uuid4()).encode()
-                        ).hexdigest()
-                        jwt_token = jwt.encode(
-                            {"username": user.username, "exp": set_time, "iss": "SABU"},
-                            random_key,
-                            algorithm="HS256",
-                        )
-                        user.cookie = random_key
-                        db.session.commit()
-                        resp = make_response(
-                            render_template("login_first_con.html", con="ok")
-                        )
-                        resp.set_cookie(
-                            "sabu",
-                            jwt_token,
-                            expires=datetime.datetime.now()
-                            + datetime.timedelta(hours=12),
-                            secure=True,
-                            httponly=True,
-                        )
-                        login_user(user)
-                        log.info(f"User {user.username} has logged in ")
-                        return resp
+                        return init_connection(user)
                     else:
                         return render_template(
                             "login_first_con.html",

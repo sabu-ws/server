@@ -421,12 +421,13 @@
 	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
 	<script src="{{ url_for('static',filename='js/modules/jquery-3.7.1.min.js') }} "></script>
 	<script src="{{ url_for('static',filename='js/modules/socket.io.min.js') }} "></script>
+	<script src="{{ url_for('static',filename='js/scripts/profile.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
 	<script type="text/javascript">
 		var csrf_token = "{{ csrf_token() }}";
 		var otp_url = "{{ url_for('user.totpmake') }}"
 		var qrcode_url = "{{ url_for('user.qrcoderender') }}"
 		var check_otp_url = "{{ url_for('user.totpcheck') }}"
 	</script>
-	<script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
 </body>
 </html>

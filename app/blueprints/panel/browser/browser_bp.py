@@ -14,7 +14,7 @@ import os
 
 browser_bp = Blueprint("browser", __name__)
 
-ROOT_PATH = "/data/sdb1"
+ROOT_PATH = "/sabu/data"
 
 
 def sizeof_fmt(num, suffix="B"):

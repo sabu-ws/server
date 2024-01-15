@@ -9,7 +9,7 @@ from app.utils.system import (
 	NET_get_network_speed,
 )
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from sqlalchemy import desc
 
 import datetime
@@ -342,5 +342,8 @@ def ssh():
 	# https://docs.python.org/3/library/pty.html
 	return render_template("ap_srv_ssh.html")
 
+@server_bp.route("/test")
+def test():
+	return ""
 
 # ================ end router server

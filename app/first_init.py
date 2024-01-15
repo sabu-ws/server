@@ -5,7 +5,8 @@ from app.utils.system import SYS_get_hostname
 from app.utils.db_mgmt import database_allowed
 
 from sqlalchemy import text
-
+import os
+import subprocess
 
 def database_init():
     log.info("Initialisation database")
@@ -27,7 +28,7 @@ def database_init():
         
         # log.info("Upgrade database if need")
         # upgrade_migration()
-
+    check_data_folder()
 
 def create_admin_user():
     if Users.query.filter_by(username="admin").first() == None:
@@ -90,3 +91,14 @@ def pg_add_hypertable():
             )
         )
         con.commit()
+
+def check_data_folder():
+    quarantine_path = "/sabu/data/Quarantine"
+    data_path = "/sabu/data/Data"
+    if not os.path.exists(quarantine_path):
+        log.info("Creating to quarantine path")
+        os.makedirs(quarantine_path)
+    if not os.path.exists(data_path):
+        log.info("Creating to data path")
+        os.makedirs(data_path)
+    return ""
