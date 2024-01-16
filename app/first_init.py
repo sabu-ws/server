@@ -93,8 +93,8 @@ def pg_add_hypertable():
         con.commit()
 
 def check_data_folder():
-    quarantine_path = "/sabu/data/Quarantine"
-    data_path = "/sabu/data/Data"
+    quarantine_path = "/sabu/data/quarantine"
+    data_path = "/sabu/data/data"
     if not os.path.exists(quarantine_path):
         log.info("Creating to quarantine path")
         os.makedirs(quarantine_path)

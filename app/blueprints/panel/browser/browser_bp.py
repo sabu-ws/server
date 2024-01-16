@@ -154,11 +154,9 @@ def release(MasterListDir=""):
 			to_data_path_build = MasterListDir.split("/")
 			to_data_path_build[0] = "data"
 			to_data_path = os.path.join(ROOT_PATH,"/".join(to_data_path_build[:-1]))
-			# return str(to_data_path)
 			if not os.path.exists(to_data_path):
 				os.makedirs(to_data_path)
 			shutil.move(path,to_data_path)
-			# os.remove(last)
 			return "ok"
 	else:
 		return redirect(url_for("login.logout"))

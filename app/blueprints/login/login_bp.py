@@ -78,8 +78,8 @@ def init_connection(user):
     login_user(user)
     log.info(f"User {user.username} has logged in")
     user_root_data_path = "/sabu/data"
-    user_data_path = os.path.join(user_root_data_path,"Data",user.username)
-    user_qurantine_path = os.path.join(user_root_data_path,"Quarantine",user.username)
+    user_data_path = os.path.join(user_root_data_path,"data",user.username)
+    user_qurantine_path = os.path.join(user_root_data_path,"quarantine",user.username)
     log.info(user_data_path)
     if not os.path.exists(user_data_path):
         os.mkdir(user_data_path)
