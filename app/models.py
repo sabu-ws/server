@@ -125,4 +125,4 @@ class Setup(db.Model):
     __tablename__ = "setup"
     id = Column(Integer, primary_key=True, unique=True)
     action = Column(String(255), nullable=False, unique=True)
-    state = Column(Boolean, default=False)
+    value = Column(Boolean, default=False)
