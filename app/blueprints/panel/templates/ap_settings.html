@@ -46,21 +46,18 @@
                     <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-8">
-                                <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Maintenance settings</h1>
+                                <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Maintenance</h1>
                                 <p class="text-sm dark:text-white">You can configure the time between automatic maintenances. (A maintenance updates the software and restarts the complete SABU system).</p>
                             </div>
-                            <div class="m-auto mr-16">
-                                <div class="flex items-center mb-2">
-                                    <input checked id="everyDay" type="radio" value="" name="every-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="everyDay" class="ms-2 text-sm font-bold text-gray-900 dark:text-gray-300">Every Day</label>
-                                </div>
-                                <div class="flex items-center mb-2">
-                                    <input id="everyWeek" type="radio" value="" name="every-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="everyWeek" class="ms-2 text-sm font-bold text-gray-900 dark:text-gray-300">Every Week</label>
-                                </div>
+                            <div class="m-auto mr-16 flex space-x-2">
+                                <select id="countries" class="rounded-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
+                                    <option value="ED" selected>Every Day</option>
+                                    <option value="EW">Every Week</option>
+                                    <option value="EM">Every Month</option>
+                                </select>
+    
                                 <div class="flex items-center">
-                                    <input id="everyMonth" type="radio" value="" name="every-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="everyMonth" class="ms-2 text-sm font-bold text-gray-900 dark:text-gray-300">Every Month</label>
+                                    <input type="time" id="appt" name="appt" min="00:00" max="23:59" value="02:00" class="rounded-lg focus:border-darkblue dark:focus:border-darkblue dark:bg-gray-800 dark:text-white" required />
                                 </div>
                             </div>
                         </div>
@@ -74,8 +71,8 @@
                     <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue w-full">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-4">
-                                <h1 class="uppercase font-semibold">Whitelist / Blacklist USB</h1>
-                                <p class="text-sm">You can configure a whitelist or a blacklist for usb keys.</p>
+                                <h1 class="uppercase font-semibold dark:text-white">Whitelist / Blacklist USB</h1>
+                                <p class="text-sm dark:text-white">You can configure a whitelist or a blacklist for usb keys.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
                                 <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Whitelist</button>
@@ -86,8 +83,8 @@
                     <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue w-full">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-4">
-                                <h1 class="uppercase font-semibold">Flush Metrics</h1>
-                                <p class="text-sm">You can delete server metrics. Either only the alerts or the data.</p>
+                                <h1 class="uppercase font-semibold dark:text-white">Flush Metrics</h1>
+                                <p class="text-sm dark:text-white">You can delete server metrics. Either only the alerts or the data.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
                                 <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Alerts</button>
