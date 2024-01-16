@@ -128,7 +128,7 @@
 								<h1 class="dark:text-white font-semibold">No user found!</h1>
 							</div>
 							<!-- Edit user modal -->
-							<div id="editUserModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="editUserModal" tabindex="-1" aria-hidden="true" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-2xl max-h-full">
 									<!-- Modal content -->
 									<form id="editUserForm" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -219,97 +219,97 @@
 							</div>
 		
 							<!-- Add user modal -->
-								<div id="addUserModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-									<div class="relative w-full max-w-2xl max-h-full">
-										<!-- Modal content -->
-										<form id="addUserForm"  class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-											<!-- Modal header -->
-											<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-												<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-													Add user
-												</h3>
-											<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="addUserModal">
-												<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-												</svg>
-												<span class="sr-only">Close modal</span>
-											</button>
-											</div>
-											<!-- Modal body -->
-											<div class="p-6 space-y-6">
-												<div class="grid grid-cols-6 gap-6">
-													<div class="col-span-6 sm:col-span-3">
-														<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-														<input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="John" required>
+							<div id="addUserModal" tabindex="-1" aria-hidden="true" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+								<div class="relative w-full max-w-2xl max-h-full">
+									<!-- Modal content -->
+									<form id="addUserForm"  class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+										<!-- Modal header -->
+										<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+											<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+												Add user
+											</h3>
+										<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="addUserModal">
+											<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+												<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+											</svg>
+											<span class="sr-only">Close modal</span>
+										</button>
+										</div>
+										<!-- Modal body -->
+										<div class="p-6 space-y-6">
+											<div class="grid grid-cols-6 gap-6">
+												<div class="col-span-6 sm:col-span-3">
+													<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+													<input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="John" required>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+													<input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Doe" required>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+													<input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.d" required>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+													<select id="role" name="role" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
+														<option selected value="User">User</option>
+														<option value="Admin">Admin</option>
+													</select>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+													<input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.doe@sabu.fr" required>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job</label>
+													<select name="job" id="job" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
+														<option selected>Choose a job</option>
+														{% for job in job_list %}
+														<option value="{{ job.name }}">{{ job.name }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="AddPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+													<div class="relative">
+														<input type="password" name="password" id="AddPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
+														<button id="toggleButtonAddPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
+															<div class="text-gray-700 dark:text-white">
+																<i id="toggleviewAddPassword" class="toggleView fa-solid fa-eye"></i>
+															</div>
+														</button>
 													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-														<input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Doe" required>
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-														<input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.d" required>
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-														<select id="role" name="role" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
-															<option selected value="User">User</option>
-															<option value="Admin">Admin</option>
-														</select>
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-														<input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="john.doe@sabu.fr" required>
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job</label>
-														<select name="job" id="job" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue">
-															<option selected>Choose a job</option>
-															{% for job in job_list %}
-															<option value="{{ job.name }}">{{ job.name }}</option>
-															{% endfor %}
-														</select>
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="AddPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-														<div class="relative">
-															<input type="password" name="password" id="AddPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
-															<button id="toggleButtonAddPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-																<div class="text-gray-700 dark:text-white">
-																  <i id="toggleviewAddPassword" class="toggleView fa-solid fa-eye"></i>
-																</div>
-															</button>
-														</div>
-		
-													</div>
-													<div class="col-span-6 sm:col-span-3">
-														<label for="AddRepeatPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
-														<div class="relative">
-															<input type="password" name="AddRepeatPassword" id="AddRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
-															<button id="toggleButtonAddRepeatPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
-																<div class="text-gray-700 dark:text-white">
-																<i id="toggleviewAddRepeatPassword" class="toggleView fa-solid fa-eye"></i>
-																</div>
-															</button>
-														</div>
+	
+												</div>
+												<div class="col-span-6 sm:col-span-3">
+													<label for="AddRepeatPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
+													<div class="relative">
+														<input type="password" name="AddRepeatPassword" id="AddRepeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="••••••••" required>
+														<button id="toggleButtonAddRepeatPassword" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
+															<div class="text-gray-700 dark:text-white">
+															<i id="toggleviewAddRepeatPassword" class="toggleView fa-solid fa-eye"></i>
+															</div>
+														</button>
 													</div>
 												</div>
 											</div>
-											<!-- Modal footer -->
-											<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-												<div class="flex-col w-full">
-													<button id="submitAddUserForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
-													<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
-														<span id="spanErrorAddUserForm" class="font-bold">Error : </span>
-													</div>
+										</div>
+										<!-- Modal footer -->
+										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+											<div class="flex-col w-full">
+												<button id="submitAddUserForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+												<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
+													<span id="spanErrorAddUserForm" class="font-bold">Error : </span>
 												</div>
 											</div>
-										</form>
-									</div>
+										</div>
+									</form>
 								</div>
+							</div>
 		
 							<!-- Confirm remove modal -->
-							<div id="confirmRemoveModal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="confirmRemoveModal" data-modal-backdrop="static" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-md max-h-full">
 									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 										<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmRemoveModal">
@@ -333,7 +333,7 @@
 							</div>
 		
 							<!-- Corfirm disable user -->
-							<div id="confirmEnableModal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="confirmEnableModal" data-modal-backdrop="static" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-md max-h-full">
 									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 										<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmEnableModal">
@@ -357,7 +357,7 @@
 							</div>
 		
 							<!-- Manage job modal -->
-							<div id="manageJobModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="manageJobModal" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-2xl max-h-full">
 									<!-- Modal content -->
 									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">

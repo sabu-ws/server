@@ -98,7 +98,7 @@
 							{% endif %}
 							
 							<!-- Add endpoint modal -->
-							<div id="addEndpointModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="addEndpointModal" tabindex="-1" aria-hidden="true" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<form id="addEndpointForm">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 									<div class="relative w-full max-w-2xl max-h-full">
@@ -158,7 +158,7 @@
 		
 
 							<!-- Confirm remove modal -->
-							<div id="confirmRemoveModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+							<div id="confirmRemoveModal" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 								<div class="relative w-full max-w-md max-h-full">
 									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 										<button type="button" class="closeRemoveModal absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="confirmRemoveModal">
