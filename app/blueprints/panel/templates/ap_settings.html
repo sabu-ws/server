@@ -75,8 +75,9 @@
                                 <p class="text-sm dark:text-white">You can configure a whitelist or a blacklist for usb keys.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
-                                <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Whitelist</button>
-                                <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Blacklist</button>
+                                <!-- Disabled feature coming soon -->
+                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Whitelist</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Blacklist</button>
                             </div>
                         </div>
                     </div>
@@ -87,8 +88,9 @@
                                 <p class="text-sm dark:text-white">You can delete server metrics. Either only the alerts or the data.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
-                                <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Alerts</button>
-                                <button class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Data</button>
+                                <!-- Disabled feature coming soon -->
+                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Alerts</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Data</button>
                             </div>
                         </div>
                     </div>
@@ -387,9 +389,26 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-6">
-                        <form id="AddJobForm">
-                            <div class="col-span-6 sm:col-span-3">
-                                <h1>Coming Soon...</h1>
+                        <form>
+                            <div class="col-span-6 sm:col-span-3 space-y-2 overflow-y-scroll min-h-auto max-h-165">
+                                <div class="flex w-full bg-gray-100 dark:bg-gray-600 p-2 rounded-lg">
+                                    <h1 class="flex items-center ml-4 font-semibold dark:text-white">exe</h1>
+                                    <button class="m-auto mr-4 text-red-500 text-xl">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <div class="flex w-full bg-gray-100 dark:bg-gray-600 p-2 rounded-lg">
+                                    <h1 class="flex items-center ml-4 font-semibold dark:text-white">xlsx</h1>
+                                    <button class="m-auto mr-4 text-red-500 text-xl">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <div class="flex w-full bg-gray-100 dark:bg-gray-600 p-2 rounded-lg">
+                                    <h1 class="flex items-center ml-4 font-semibold dark:text-white">docx</h1>
+                                    <button class="m-auto mr-4 text-red-500 text-xl">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>                
