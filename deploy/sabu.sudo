@@ -32,3 +32,4 @@
 
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/update_hostname.sh -n *
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/update_ip_address.sh *
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/get_service_status.sh *
