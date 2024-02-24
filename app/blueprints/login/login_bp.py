@@ -55,7 +55,7 @@ def check_token():
             )
             user = Users.query.filter_by(username=data_prev["username"]).first()
             if user is not None:
-                if user.cookie != None:
+                if user.cookie is not None:
                     data = jwt.decode(
                         request.cookies["sabu"], user.cookie, algorithms=["HS256"]
                     )

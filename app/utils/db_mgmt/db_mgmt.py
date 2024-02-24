@@ -1,6 +1,4 @@
 from config import *
-
-
 from sqlalchemy import URL
 
 import os
