@@ -210,15 +210,11 @@ install_packages() {
     # REPO NODEJS
     show 2 "Add repositories: ${COLOURS[4]}nodesource timescale"
     color_red
-    # curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor --yes -o /etc/apt/keyrings/nodesource.gpg > /dev/null 2>&1
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --yes -o /etc/apt/keyrings/nodesource.gpg > /dev/null 2>&1
-    # echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list > /dev/null 2>&1
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list > /dev/null 2>&1
 
     # REPO TIMESCALE
-    # curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | sudo gpg --dearmor --yes -o /etc/apt/keyrings/timescale.gpg > /dev/null 2>&1
     curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor --yes -o /etc/apt/keyrings/timescale.gpg > /dev/null 2>&1
-    # echo "deb [signed-by=/etc/apt/keyrings/timescale.gpg] https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | sudo tee /etc/apt/sources.list.d/timescale.list > /dev/null 2>&1
     echo "deb [signed-by=/etc/apt/keyrings/timescale.gpg] https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescale.list > /dev/null 2>&1
 
     apt-get update > /dev/null 2>&1
@@ -228,15 +224,15 @@ install_packages() {
     # INSTALL
     show 2 "Install necessary packages: ${COLOURS[4]}${PACKAGES_PART_1} ${PACKAGES_PART_2}"
     color_red
-    apt-get install ${PACKAGES_PART_1} -y 1> /dev/null
-    apt-get install ${PACKAGES_PART_2} -y 1> /dev/null
+    apt-get install ${PACKAGES_PART_1} -y > /dev/null 2>&1
+    apt-get install ${PACKAGES_PART_2} -y > /dev/null 2>&1
     show 0 "Install necessary packages complete."
 
     # REMOVE & CLEAN
     show 2 "Remove and cleaning packages..."
     color_red
-    apt-get autoremove -y 1> /dev/null
-    apt-get clean 1> /dev/null
+    apt-get autoremove -y > /dev/null 2>&1
+    apt-get clean > /dev/null 2>&1
     show 0 "Remove and cleaning complete."
 }
 
