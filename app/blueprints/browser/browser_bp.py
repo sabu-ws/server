@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for, render_template
 
 from app import login_required, current_user, logout_user
 
@@ -15,4 +15,4 @@ def before_request_browser_bp():
 
 @browser_bp.route("/")
 def index():
-    return "comming soon"
+    return render_template("browser.html")

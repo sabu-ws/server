@@ -38,7 +38,7 @@ def database_init():
         # upgrade_migration()
 
 def create_admin_user():
-    if Users.query.filter_by(username="admin").first() == None:
+    if Users.query.filter_by(username="admin").first() is None:
         log.info("Create admin user")
         set_admin = Users(
             name="SABU",
@@ -55,7 +55,7 @@ def create_admin_user():
 
 
 def create_admin_job():
-    if Job.query.filter_by(name="Administrator").first() == None:
+    if Job.query.filter_by(name="Administrator").first() is None:
         log.info("Create Administrator job")
         set_job_admin = Job(name="Administrator")
         db.session.add(set_job_admin)
@@ -64,7 +64,7 @@ def create_admin_job():
 
 
 def create_server_device():
-    if Devices.query.filter_by(token="server").first() == None:
+    if Devices.query.filter_by(token="server").first() is None:
         log.info("Create server device")
         set_device_server = Devices(
             hostname=SYS_get_hostname(),

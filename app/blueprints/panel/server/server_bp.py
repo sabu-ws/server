@@ -155,7 +155,7 @@ def settings_hostname():
 		"hostname" in request.form or "description" in request.form
 	) and "uuid" in request.form:
 		get_device = Devices.query.filter_by(uuid=request.form["uuid"]).first()
-		if get_device != None:
+		if get_device is not None:
 			if request.form["hostname"] != "":
 				if 5 <= len(request.form["hostname"]) <= 64:
 					regex = r"^[a-zA-Z0-9-]{5,64}$"
@@ -187,7 +187,7 @@ def settings_hostname():
 def settings_description():
 	if "description" in request.form and "uuid" in request.form:
 		get_device = Devices.query.filter_by(uuid=request.form["uuid"]).first()
-		if get_device != None:
+		if get_device is not None:
 			if request.form["description"] != "":
 				if len(request.form["description"]) <= 1024:
 					get_device.description = request.form["description"]

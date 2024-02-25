@@ -20,7 +20,7 @@ def _if_endpoint_exist(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         endpoint_name = str(request.view_args["name"])
-        if Devices.query.filter_by(hostname=endpoint_name).first() != None:
+        if Devices.query.filter_by(hostname=endpoint_name).first() is not None:
             return f(*args, **kwargs)
         else:
             return redirect(url_for(".index"))
@@ -91,7 +91,7 @@ def delete_endpoint():
         guuid = request.form["uuid"]
         if guuid != "":
             ep_qry = Devices.query.filter_by(uuid=uuid.UUID(guuid)).first()
-            if ep_qry != None:
+            if ep_qry is not None:
                 db.session.delete(ep_qry)
                 db.session.commit()
                 name_ep = ep_qry.hostname

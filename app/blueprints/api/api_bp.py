@@ -173,7 +173,7 @@ def set_connect(data):
 def check_otp(data):
     user = Users.query.filter_by(username=data["username"]).first()
     hostname = str(request.headers["X-SABUHOSTNAME"])
-    if user == None:
+    if user is None:
         emit(
             "callback",
             {"error": "bad credentials"},

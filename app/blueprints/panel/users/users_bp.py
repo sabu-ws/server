@@ -73,11 +73,10 @@ def add_user():
             form = AddUserForm(data=data)
             if data["job"] != "Choose a job":
                 queryJob = Job.query.filter_by(name=data["job"]).first()
-                if queryJob != None and queryJob != "Administrator":
+                if queryJob is not None and queryJob != "Administrator":
                     if AddUserForm.validate(form):
                         if (
-                            Users.query.filter_by(username=data["username"]).first()
-                            == None
+                            Users.query.filter_by(username=data["username"]).first() is None
                         ):
                             guuid = str(uuid.uuid4())
                             useradd = Users(
