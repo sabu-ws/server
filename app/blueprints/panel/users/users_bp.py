@@ -297,18 +297,14 @@ def remove_job():
     if "RemoveJob" in request.form:
         job_name = request.form["RemoveJob"]
         if str(job_name) != "Choose a job":
-            query_job = Job.query.filter_by(name=job_name).first()
-            if query_job is not None:
-                if Users.query.filter_by(job=query_job.id).first() is None:
-                    job = Job.query.filter_by(name=job_name).first()
-                    db.session.delete(job)
-                    db.session.commit()
-                    flash(f"The job {job_name} has been deleted", "good")
-                    return "ok"
-                else:
-                    return "This job was link to a person"
+            if Users.query.filter(Users.job.has(name=job_name)).first() is None:
+                job = Job.query.filter_by(name=job_name).first()
+                db.session.delete(job)
+                db.session.commit()
+                flash(f"The job {job_name} has been deleted", "good")
+                return "ok"
             else:
-                return force_logout_user()
+                return "This job was link to a person"
         else:
             return "Please select a job to remove"
     else:

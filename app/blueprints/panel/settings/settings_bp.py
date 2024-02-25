@@ -51,9 +51,6 @@ def manage_service(data):
             out_svc_command = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
             log.warning(str(out_svc_command))
             emit("response")
-            # log.info(str(svc_name))
-            # log.info(str(svc_action))
-    
 
 
 @settings_bp.route("/")
