@@ -43,11 +43,17 @@ def show_extension(data):
 
 @socketio.on("service",namespace="/settings")
 def manage_service(data):
-    svc_action = data["action"].replace("\n","").strip()
-    svc_name = data["name"].replace("\n","").strip()
-    if svc_action.lower() in ["stop","start","restart"]:
-        log.info("ok")
-    return 
+    svc_action = data["action"].replace("\n","").strip().lower()
+    svc_name = data["name"].replace("\n","").strip().lower()
+    if svc_name in ["nginx","postgresql","rsyslog","nftables","clamav"]:
+        if svc_action in ["stop","start","restart"]:
+            command = f"sudo /usr/bin/systemctl {svc_action} {svc_name}.service"
+            out_svc_command = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
+            log.warning(str(out_svc_command))
+            emit("response")
+            # log.info(str(svc_name))
+            # log.info(str(svc_action))
+    
 
 
 @settings_bp.route("/")
@@ -56,7 +62,7 @@ def index():
     db_appc = Setup.query.filter_by(action="appc").first().value
     db_appt = Setup.query.filter_by(action="appt").first().value
 
-    services = ["sabu","nginx","postgresql","rsyslog","nftables","clamav"]
+    services = ["nginx","postgresql","rsyslog","nftables","clamav"]
     status_svc = []
     runtime_svc = []
     script_service_path = os.path.join(SCRIPT_PATH,"get_service_status.sh")
