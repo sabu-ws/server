@@ -24,11 +24,6 @@ def upgrade():
     with op.batch_alter_table('job', schema=None) as batch_op:
         batch_op.create_unique_constraint(None, ['id'])
 
-    with op.batch_alter_table('setup', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('value', sa.Boolean(), nullable=True))
-        batch_op.create_unique_constraint(None, ['id'])
-        batch_op.drop_column('state')
-
     with op.batch_alter_table('usblog', schema=None) as batch_op:
         batch_op.create_unique_constraint(None, ['id'])
 
@@ -45,11 +40,6 @@ def downgrade():
 
     with op.batch_alter_table('usblog', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='unique')
-
-    with op.batch_alter_table('setup', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('state', sa.BOOLEAN(), autoincrement=False, nullable=True))
-        batch_op.drop_constraint(None, type_='unique')
-        batch_op.drop_column('value')
 
     with op.batch_alter_table('job', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='unique')

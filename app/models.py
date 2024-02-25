@@ -13,20 +13,8 @@ from sqlalchemy import Index
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
-# from sqlalchemy.sql import expression
-# from sqlalchemy.ext.compiler import compiles
-# from sqlalchemy.types import DateTime
-
 import uuid
 import datetime
-
-# class utcnow(expression.FunctionElement):
-#     type = DateTime()
-#     inherit_cache = True
-
-# @compiles(utcnow, 'postgresql')
-# def pg_utcnow(element, compiler, **kw):
-#     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
 
 class Users(db.Model, UserMixin):
@@ -110,6 +98,12 @@ class Metrics(db.Model):
     )
     idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
+class Extensions(db.Model):
+    __tablename__ = "extensions_file"
+    id = Column(Integer, primary_key=True, unique=True)
+    extension = Column(String(8),nullable=False)
+    mimetype = Column(String(128),nullable=False)
+    valid = Column(Boolean,default=False)
 
 # class Alerts(db.Model):
 #    __tablename__ = "Alerts"
@@ -125,4 +119,4 @@ class Setup(db.Model):
     __tablename__ = "setup"
     id = Column(Integer, primary_key=True, unique=True)
     action = Column(String(255), nullable=False, unique=True)
-    value = Column(Boolean, default=False)
+    value = Column(String(255), nullable=True)

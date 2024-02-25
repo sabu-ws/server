@@ -1,12 +1,13 @@
 from config import *
 from app import app, db, logger as log
-from app.models import Users, Devices, Job
+from app.models import Users, Devices, Job, Extensions, Setup
 from app.utils.system import SYS_get_hostname
 from app.utils.db_mgmt import database_allowed
 
 from sqlalchemy import text
-import os
 import subprocess
+import csv
+import os
 
 def database_init():
     log.info("Initialisation database")
@@ -25,10 +26,16 @@ def database_init():
         create_server_device()
 
         pg_add_hypertable()
+
+        add_mimetype_extention()
+
+        setup_maintenance()
         
+        check_data_folder()
+    
+        end_intallation()
         # log.info("Upgrade database if need")
         # upgrade_migration()
-    check_data_folder()
 
 def create_admin_user():
     if Users.query.filter_by(username="admin").first() == None:
@@ -92,13 +99,51 @@ def pg_add_hypertable():
         )
         con.commit()
 
+def add_mimetype_extention():
+    if Extensions.query.count() == 0:
+        with open("mime.csv","r") as csvfile:
+            reader = csv.reader(csvfile,delimiter=",")
+            for ext_mime in reader:
+                extension_row = Extensions(
+                    extension=ext_mime[0],
+                    mimetype=ext_mime[1]
+                )
+                db.session.add(extension_row)
+                db.session.commit()
+    return 
+
+def setup_maintenance():
+    if Setup.query.filter_by(action="ret").first() == None:
+        ret = Setup(action="ret",value="30")
+        db.session.add(ret)
+        db.session.commit()
+    if Setup.query.filter_by(action="appc").first() == None:
+        appc = Setup(action="appc",value="ED")
+        db.session.add(appc)
+        db.session.commit()
+    if Setup.query.filter_by(action="appt").first() == None:
+        appt = Setup(action="appt",value="02:00")
+        db.session.add(appt)
+        db.session.commit()
+
 def check_data_folder():
     quarantine_path = "/sabu/data/quarantine"
     data_path = "/sabu/data/data"
+    scan_path = "/sabu/data/scan"
     if not os.path.exists(quarantine_path):
         log.info("Creating to quarantine path")
         os.makedirs(quarantine_path)
     if not os.path.exists(data_path):
         log.info("Creating to data path")
         os.makedirs(data_path)
+    if not os.path.exists(scan_path):
+        log.info("Creating to scan path")
+        os.makedirs(scan_path)
     return ""
+
+def end_intallation():
+    if Setup.query.filter_by(action="setup").first() == None:
+        set_setup = Setup(action="setup",value="1")
+        db.session.add(set_setup)
+        db.session.commit()
+        subprocess.Popen(["sudo","/usr/bin/systemctl","restart","sabu.service"])

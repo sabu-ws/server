@@ -17,7 +17,6 @@ from flask_socketio import (
 )
 from flask_apscheduler import APScheduler
 from flask_sqlalchemy import SQLAlchemy 
-from sqlalchemy import MetaData
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_session import Session
@@ -86,8 +85,8 @@ socketio = SocketIO(app)
 session = Session(app)
 
 # APSchelduler
-from app.utils.tasks import read_CPU, read_RAM, read_NET
-
+from app.utils.tasks import read_CPU, read_RAM, read_NET, retention_files, maitenance_server
+from app.models import Setup
 logging.getLogger('apscheduler').setLevel(logging.ERROR)
 
 scheduler = APScheduler()
@@ -96,6 +95,16 @@ scheduler.init_app(app)
 scheduler.add_job(trigger="interval", id="readCPU", func=read_CPU, seconds=60)
 scheduler.add_job(trigger="interval", id="readRAM", func=read_RAM, seconds=60)
 scheduler.add_job(trigger="interval", id="readNET", func=read_NET, seconds=60)
+scheduler.add_job(trigger="cron", id="retentionFiles", func=retention_files, day="*", month="*", hour=1, minute=0)
+
+# Maintenance server job
+with app.app_context():
+	query_maintenace = Setup.query.filter_by(action="ret").first()
+# if query_retention != None:
+	
+# scheduler.add_job(trigger="cron", id="retentionFiles", func=maitenance_server, day="*")
+
+
 scheduler.start()
 
 

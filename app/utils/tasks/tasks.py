@@ -2,13 +2,13 @@ from config import *
 
 from app import app
 from app import db
-from app.models import Metrics, Devices
+from app.models import Metrics, Devices, Setup
 from app.utils.system import NET_get_network_speed
+from app import logger as log
 
 import subprocess
 import os
 
-log = app.logger
 
 
 def read_CPU():
@@ -50,3 +50,15 @@ def read_NET():
 		db.session.add(add_metrics_netin)
 		db.session.add(add_metrics_netout)
 		db.session.commit()
+
+def retention_files():
+	with app.app_context():
+		query_retention = Setup.query.filter_by(action="ret").first()
+		if query_retention != None:
+			get_retention_value = query_retention.value
+			path_to_script_retention = os.path.join(SCRIPT_PATH,"delete_files_older.sh")
+			commande = f"sudo /usr/bin/bash {path_to_script_retention} -p /sabu/data/data -d {str(get_retention_value)} -r true".split()
+			exec_retention = subprocess.Popen(commande)
+
+def maitenance_server():
+	log.info("maintenance server")
