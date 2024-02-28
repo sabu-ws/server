@@ -10,7 +10,7 @@ git config --global --add safe.directory /sabu/server
 git pull
 
 # UPDATE VENV
-source /sabu/sabu-venv/bin/activate >/dev/null
+source /sabu/venv-sabu/bin/activate >/dev/null
 pip3 install -r /sabu/server/requirements.txt >/dev/null
 flask db upgrade
 
