@@ -15,7 +15,7 @@ from flask_socketio import (
 	emit,
 	disconnect,
 )
-from flask_apscheduler import APScheduler
+
 from flask_sqlalchemy import SQLAlchemy 
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -84,35 +84,7 @@ socketio = SocketIO(app)
 # Session manager
 session = Session(app)
 
-# APSchelduler
-from app.utils.tasks import read_CPU, read_RAM, read_NET, retention_files, maitenance_server
-from app.models import Setup
-logging.getLogger('apscheduler').setLevel(logging.ERROR)
 
-scheduler = APScheduler()
-scheduler.api_enabled = False
-scheduler.init_app(app)
-scheduler.add_job(trigger="interval", id="readCPU", func=read_CPU, seconds=60)
-scheduler.add_job(trigger="interval", id="readRAM", func=read_RAM, seconds=60)
-scheduler.add_job(trigger="interval", id="readNET", func=read_NET, seconds=60)
-scheduler.add_job(trigger="cron", id="retentionFiles", func=retention_files, day="*", month="*", hour=1, minute=0)
-
-# Maintenance server job
-with app.app_context():
-	query_maintenace_circle = Setup.query.filter_by(action="appc").first()
-	query_maintenace_time = Setup.query.filter_by(action="appt").first()
-	if query_maintenace_time != None and query_maintenace_circle != None:
-		hour = query_maintenace_time.value.split(":")[0]
-		minute = query_maintenace_time.value.split(":")[1]
-		if query_maintenace_circle.value == "ED":
-			scheduler.add_job(trigger="cron",id="maitenanceServerED",func=maitenance_server,day="*",hour=int(hour),minute=int(minute))
-		if query_maintenace_circle.value == "EW":
-			scheduler.add_job(trigger="cron",id="maitenanceServerEW",func=maitenance_server,day_of_week="1" ,hour=int(hour),minute=int(minute))
-		if query_maintenace_circle.value == "EM":
-			scheduler.add_job(trigger="cron",id="maitenanceServerEM",func=maitenance_server,day="1",month="*",hour=int(hour),minute=int(minute))
-
-
-scheduler.start()
 
 
 @app.teardown_appcontext
