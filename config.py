@@ -12,6 +12,7 @@ SABU_LICENCE = "0"
 # SABU path
 ROOT_PATH = "/mnt/usb/"
 SERVER_PATH = "/tmp/data"
+DATA_PATH = DOT_ENV["DATA_PATH"]
 # SCRIPT_PATH = os.path.join(SERVER_PATH, "scripts")
 SCRIPT_PATH = "/sabu/server/core/scripts/"
 CONFIG_PATH = os.path.join(SERVER_PATH, "config")
