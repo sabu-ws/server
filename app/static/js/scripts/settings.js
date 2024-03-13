@@ -63,3 +63,14 @@ $(".service_action").click(function(){
         window.location.reload();
     })
 });
+
+// ENTER KEYBOARD EXTENSION
+$(document).ready(function() {
+    var input = $("#input-extension");
+    input.on("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            $("#add-extension").click();
+        }
+    });
+});

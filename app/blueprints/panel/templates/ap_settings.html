@@ -29,10 +29,10 @@
                             </div>
                         </div>
                     </div>
-                    <form method="POST" action="{{ url_for('panel.settings.maintenance') }}">
+                    <form method="POST" action="{{ url_for('panel.settings.maintenance') }}" class="rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 border-l-4 border-darkblue p-4">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="space-y-6">
-                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue">
+                            <div class="flex rounded-xl shadow-md bg-white dark:bg-gray-700 h-28">
                                 <div class="flex items-center w-full">
                                     <div class="flex-col items-center ml-8">
                                         <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Retention</h1>
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue">
+                            <div class="flex rounded-xl shadow-md bg-white dark:bg-gray-700 h-28">
                                 <div class="flex items-center w-full">
                                     <div class="flex-col items-center ml-8">
                                         <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Maintenance</h1>
