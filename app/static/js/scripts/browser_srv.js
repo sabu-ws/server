@@ -33,6 +33,12 @@ $(".delete_object_name").click(function(){
 	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
 });
 
+
+// Release element 
+$(".release_object_name").click(function(){
+	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
+});
+
 // Yes button
 $(".yesButtonDeleteObject").click(function(e){
 	var get_url=window.location.pathname.split("/").slice(4).join("/")
@@ -40,6 +46,21 @@ $(".yesButtonDeleteObject").click(function(e){
 	$.ajax({
 		type: "GET",
 		url: "/panel/browser/delete/"+get_url+"/"+temp_name_object,
+		success: function(data){
+			if(data == "ok"){
+				window.location.reload();
+			}
+		}
+	});
+});
+
+
+$(".yesButtonReleaseObject").click(function(e){
+	var get_url=window.location.pathname.split("/").slice(4).join("/")
+	e.preventDefault()
+	$.ajax({
+		type: "GET",
+		url: "/panel/browser/release/"+get_url+"/"+temp_name_object,
 		success: function(data){
 			if(data == "ok"){
 				window.location.reload();
@@ -69,9 +90,9 @@ $("#buttonSearch" ).on( "click", function() {
 	if ($("#buttonSearch").hasClass("rounded-l-xl")){
 		$("#searchBar" ).animate({width:'toggle'},350);
 		$("#buttonSearch").removeClass("rounded-l-xl");
-		  $("#buttonSearch").addClass("rounded-xl");
+		$("#buttonSearch").addClass("rounded-xl");
 		$("#searchBar").removeClass("rounded-r-lg");
-		  $("#searchBar").addClass("rounded-lg");
+		$("#searchBar").addClass("rounded-lg");
 	}else{
 		$("#searchBar" ).animate({width:'toggle'},350);
 		$("#buttonSearch").removeClass("rounded-xl");
