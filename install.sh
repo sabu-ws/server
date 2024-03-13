@@ -364,7 +364,7 @@ deploy_timescale() {
 deploy_sabu() {
 
     # UPDATE CONFIG.PY
-    sed -i 's|^SERVER_PATH =.*|SERVER_PATH = "'"$DATA_MOUNTPOINT"'"|' /sabu/server/config.py
+    sed -i 's|^DATA_PATH=.*|DATA_PATH="'"$DATA_MOUNTPOINT"'"|' /sabu/server/.env
 
     # SABU SERVICE & DIR
     show 2 "SABU setup..."
