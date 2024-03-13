@@ -10,7 +10,7 @@
 				<p class="text-gray-700 dark:text-white pl-8 pb-8">This page allows you to configure some parameters of the SABU system.</p>
                 <div class="border-t border-gray-700 dark:border-white w-full"></div>
                 <div class="p-6 space-y-6">
-                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue">
+                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-8">
                                 <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">File extension</h1>
@@ -25,14 +25,14 @@
                                       </div>
                                     </button>
                                   </div>
-                                <button id="showExtensionid" data-modal-show="showExtension" data-modal-target="showExtension" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Show</button>
+                                <button id="showExtensionid" data-modal-show="showExtension" data-modal-target="showExtension" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Show</button>
                             </div>
                         </div>
                     </div>
                     <form method="POST" action="{{ url_for('panel.settings.maintenance') }}">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="space-y-6">
-                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue">
+                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue">
                                 <div class="flex items-center w-full">
                                     <div class="flex-col items-center ml-8">
                                         <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Retention</h1>
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue">
+                            <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue">
                                 <div class="flex items-center w-full">
                                     <div class="flex-col items-center ml-8">
                                         <h1 class="uppercase text-lg font-semibold pb-2 dark:text-white">Maintenance</h1>
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-end">
-                                <button type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Apply</button>
+                                <button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Apply</button>
                             </div>
                         </div>
                     </form>
@@ -74,7 +74,7 @@
 
                 <div class="border-b border-gray-200"></div>
                 <div class="flex p-6 space-x-6">
-                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue w-full">
+                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue w-full">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-4">
                                 <h1 class="uppercase font-semibold dark:text-white">Whitelist / Blacklist USB</h1>
@@ -82,12 +82,12 @@
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
                                 <!-- Disabled feature coming soon -->
-                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Whitelist</button>
-                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Blacklist</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Whitelist</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Blacklist</button>
                             </div>
                         </div>
                     </div>
-                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-lightblue w-full">
+                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue w-full">
                         <div class="flex items-center w-full">
                             <div class="flex-col items-center ml-4">
                                 <h1 class="uppercase font-semibold dark:text-white">Flush Metrics</h1>
@@ -95,8 +95,8 @@
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
                                 <!-- Disabled feature coming soon -->
-                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Alerts</button>
-                                <button disabled class="px-3 py-2 text-sm text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Data</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Alerts</button>
+                                <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm text-center">Flush Data</button>
                             </div>
                         </div>
                     </div>
