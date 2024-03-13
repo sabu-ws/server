@@ -20,7 +20,7 @@ $("#returnButton").click(function(){
 	if(url.substr(url.length - 1) == "/"){
 		url=url.slice(0,-1)
 	}
-	if(url.slice(url.lastIndexOf('/')) != '/browser/'){
+	if(url.slice(url.lastIndexOf('/')) != '/browser/path'){
 		var to = url.lastIndexOf('/');
 		to = to == -1 ? url.length : to + 1;
 		url = url.substring(0, to -1 );

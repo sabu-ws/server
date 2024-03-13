@@ -16,8 +16,8 @@ module.exports = {
       }
     },
     colors: {
-      'lightblue': '#004aad',
-      'darkblue': '#002a85',
+      'lightblue': '#22aae6',
+      'darkblue': '#0c7ec4',
     },
   },
   fontFamily: {

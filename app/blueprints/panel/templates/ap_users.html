@@ -101,7 +101,7 @@
 										<td class="px-4 py-4">
 											{% if user.username != "admin" %}
 											<div class="flex space-x-2">
-												<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
+												<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-darkblue hover:bg-lightblue h-6 w-8 font-medium text-white">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>
 												{% if user.enable == 1 %}
@@ -206,7 +206,7 @@
 										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 											<div class="flex-col w-full">
 												<div class="flex items-center">
-													<button type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+													<button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
 													<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center" style="display: none;">Disable 2FA</button>
 												</div>
 												<div id="editErrorFieldForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
@@ -298,7 +298,7 @@
 										<!-- Modal footer -->
 										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 											<div class="flex-col w-full">
-												<button id="submitAddUserForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+												<button id="submitAddUserForm" type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 												<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
 													<span id="spanErrorAddUserForm" class="font-bold">Error : </span>
 												</div>
@@ -379,7 +379,7 @@
 												<div class="col-span-6 sm:col-span-3">
 													<label for="addJob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Job</label>
 													<input type="text" name="addJob" id="addJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Developer">
-													<button type="submit" class="mt-4 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+													<button type="submit" class="mt-4 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 												</div>
 											</form>
 										</div>                

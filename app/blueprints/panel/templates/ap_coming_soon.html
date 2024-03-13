@@ -1,5 +1,7 @@
 {% extends 'admin_base.html' %}
 {% set title='Coming Soon' %}
 {% block contents %}
-<h1>Coming Soon</h1>
+<div class="h-screen flex items-center justify-center ml-64">
+    <img class="h-auto max-w-full" src="{{ url_for('static',filename='assets/img/construction.png') }}" alt="TRAVAUX">
+</div>
 {% endblock %}

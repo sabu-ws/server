@@ -61,3 +61,4 @@ zip,application/zip
 3gp,video/3gpp
 3gp,audio/3gpp
 7z,application/x-7z-compressed
+txt,text/plain

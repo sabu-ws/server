@@ -62,16 +62,13 @@ def index():
     services = ["nginx","postgresql","rsyslog","nftables","clamav"]
     status_svc = []
     runtime_svc = []
-    script_service_path = os.path.join(SCRIPT_PATH,"get_service_status.sh")
+    script_service_path = os.path.join(SCRIPT_PATH,"get_service_uptime.sh")
     for service in services:
         script_service_exec = subprocess.Popen([script_service_path,service],stdout=subprocess.PIPE).communicate()[0].decode()
-        status_service = script_service_exec.split("\n")[1].split(" ")[1]
-        if status_service == "active":
-            uptime_service = script_service_exec.split("\n")[2].split(" ")[1]
-            date_svc_timestamp = datetime.datetime.fromtimestamp(int(uptime_service))
-            convert_date = date_svc_timestamp.strftime("%d/%m/%Y, %Hh %Mmin %Ss")
+        if "ago" in script_service_exec:
+            uptime_service = script_service_exec.replace(" ago", "")
             status_svc.append(1)
-            runtime_svc.append(convert_date)
+            runtime_svc.append(uptime_service)
         else:
             status_svc.append(0)
             runtime_svc.append("-")

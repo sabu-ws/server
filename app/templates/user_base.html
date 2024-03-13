@@ -27,7 +27,7 @@
                     </svg>
                 </button>
                 <div class="flex-col">
-                    <img src="/static/assets/icons/logo_sabu-server.png" width="40%" height="10%">
+                    <img src="{{ url_for('static',filename='assets/icons/logo-blue-sabu_server.png') }}" width="40%" height="10%">
                     <nav class="flex" aria-label="Breadcrumb">
                         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                             <!-- <li class="inline-flex items-center">
@@ -73,11 +73,11 @@
             <div class="flex items-center justify-end">
                 <div class="flex items-center space-x-3 mr-10 text-xl text-gray-700 dark:text-white">
                     <div class="flex justify-center w-7">
-                        <button id="ToggleDarkMode" class="hover:text-lightblue"><i id="ToggleDarkModeIcon"
+                        <button id="ToggleDarkMode" class="hover:text-darkblue"><i id="ToggleDarkModeIcon"
                                 class="fa-solid fa-sun"></i></button>
                     </div>
                     <div class="flex justify-center w-7">
-                        <button class="hover:text-lightblue"><a href="https://github.com/sabu-ws/server/wiki"
+                        <button class="hover:text-darkblue"><a href="https://github.com/sabu-ws/server/wiki"
                                 target="_blank"><i class="fa-solid fa-circle-question"></i></a></button>
                     </div>
                     <div class="border border-gray-700 dark:border-white border-r-1 rounded-lg h-10">

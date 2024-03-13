@@ -8,9 +8,46 @@
 	<link rel="stylesheet" href="{{ url_for('static',filename='assets/fontawesome/css/all.css') }}">
 	<link rel="stylesheet" href="{{  url_for('static',filename='css/output.css') }}">
 </head>
-<body>
-	<!-- LOGIN SECTION -->
-	<section class="bg-gradient-to-b from-lightblue to-darkblue">
+<body class="bg-[#ccd8de]">
+	<!-- FIRST CO SECTION -->
+	<div class="h-screen flex justify-center items-center shadow-lg">
+        <div class="flex bg-darkblue rounded-xl">
+            <img src="{{  url_for('static',filename='assets/icons/shield-sabu.png') }}" alt="LOGO SABU">
+
+            <div class="flex items-center bg-white rounded-r-xl">
+                <form class="flex-col justify-center space-y-2 mx-8 w-80" action="{{ url_for('login.first_con') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div>
+						<div class="flex justify-center">
+							<img src="{{ url_for('static',filename='assets/icons/logo-blue-sabu_server.png') }}" width=70% height=20%>
+						</div>
+						<h1 class="text-2xl mt-2">Fisrt Connection</h1>
+						<p class="mb-4">Welcome ! This is your first connection so you need to change your password.</p>
+					</div>
+					<div class="flex-col space-y-8">
+						<div class="relative z-0">
+							<input type="password" name="newPasswordInput" id="newPasswordInput" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-darkblue peer" placeholder=" " required />
+							<label for="newPasswordInput" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-darkblue peer-focus:dark:text-darkblue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">New Password</label>
+						</div>
+						<div class="relative z-0">
+							<input type="password" name="repeatPasswordInput" id="repeatPasswordInput" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-darkblue peer" placeholder=" " required />
+							<label for="repeatPasswordInput" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-darkblue peer-focus:dark:text-darkblue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Repeat Password</label>
+						</div>
+						<div class="flex justify-center mt-42">
+							<button type="submit" class="bg-darkblue px-8 py-2 rounded-lg text-white hover:bg-lightblue">Login</button>
+						</div>
+						<!-- alert msg connection -->
+						<div id="successful" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-300 flex justify-center" style="display: none;" role="alert">
+							<span class="font-bold">Connection successful !</span>
+						</div>
+						<div id="failed" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-300 flex justify-center" style="display: none;" role="alert">
+							<span class="font-bold">Connection failed !</span>
+						</div>
+					</div>
+                </form>
+            </div>
+        </div>
+    </div>
 		<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 			<img class="mb-6" src="{{ url_for('static',filename='assets/icons/logo_sabu-server.png') }}" width="18%">
 			<div class="w-full bg-white dark:bg-gray-800 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
@@ -45,7 +82,6 @@
 						</div>
 						<button type="submit" class="bg-gray-100 dark:bg-gray-600 hover:bg-darkblue dark:hover:bg-darkblue focus:ring-2 focus:ring-lightblue dark:focus:ring-2 dark:focus:ring-white text-black dark:text-white hover:text-white text-center font-semibold rounded-lg text-sm px-5 py-2.5 w-full">Send</button>
 					</form>
-					<!-- alert msg connection -->
 					<div id="successful" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-green-600 dark:text-green-300 flex justify-center" style="display: none;" role="alert">
 						<span class="font-bold">Connection successful !</span>
 					</div>
@@ -55,7 +91,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<script src="{{ url_for('static',filename='node_modules/flowbite/dist/flowbite.min.js') }}"></script>
 	<script src="{{ url_for('static',filename='js/modules/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/scripts/main.js') }}"></script>
