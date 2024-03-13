@@ -154,8 +154,9 @@ def sendPicture():
     user = Users.query.filter_by(id=current_user.id).first()
     allowed_ext = ["image/png", "image/jpg", "image/jpeg"]
     if "filePP" in request.files:
-        if not os.path.exists("ProfilePicture"):
-            os.makedirs("ProfilePicture")
+        path_profile_picture = os.path.join(DATA_PATH,"ProfilePicture")
+        if not os.path.exists(path_profile_picture):
+            os.makedirs(path_profile_picture)
         file = request.files["filePP"]
         if file.content_type in allowed_ext:
             image = Image.open(file)
@@ -165,7 +166,7 @@ def sendPicture():
             MAX_SIZE = 200 * 1024
             if len(file.read()) <= MAX_SIZE:
                 if px <= 500 and py <= 500:
-                    path = os.path.join("ProfilePicture", filename)
+                    path = os.path.join(path_profile_picture, filename)
                     image.save(path)
                     user.picture = path
                     db.session.commit()

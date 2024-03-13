@@ -14,8 +14,6 @@ import os
 
 browser_bp = Blueprint("browser", __name__)
 
-ROOT_PATH = "/sabu/data"
-
 
 def sizeof_fmt(num, suffix="B"):
 	for unit in ["", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"]:
@@ -29,7 +27,7 @@ def check_url(f):
 	def func(*args, **kwargs):
 		url = request.path.split("/")
 		if len(url)==5:
-			if url[4].lower() in ["quarantine","data"]:
+			if url[4].lower() in ["quarantine","data","scan"]:
 				return redirect(url_for("panel.browser.index"))
 		return f(*args, **kwargs)
 	return func
@@ -37,7 +35,7 @@ def check_url(f):
 @browser_bp.route("/path/<path:MasterListDir>")
 @browser_bp.route("/path/")
 def index(MasterListDir=""):
-	joining = os.path.join(ROOT_PATH, MasterListDir)
+	joining = os.path.join(DATA_PATH, MasterListDir)
 	cur_dir = MasterListDir + "/" if MasterListDir != "" else ""
 	if not os.path.exists(joining):
 		abort(404)
@@ -81,7 +79,7 @@ def index(MasterListDir=""):
 @browser_bp.route("/download/")
 @check_url
 def download(MasterListDir=""):
-	path = os.path.join(ROOT_PATH,MasterListDir)
+	path = os.path.join(DATA_PATH,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
 	last = MasterListDir.split("/")[-1]
 	os.chdir(master_path)
@@ -112,7 +110,7 @@ def download(MasterListDir=""):
 @browser_bp.route("/delete/")
 @check_url
 def delete(MasterListDir=""):
-	path=os.path.join(ROOT_PATH,MasterListDir)
+	path=os.path.join(DATA_PATH,MasterListDir)
 	master_path="/".join(path.split("/")[:-1])
 	last=MasterListDir.split("/")[-1]
 	os.chdir(master_path)
@@ -136,8 +134,7 @@ def delete(MasterListDir=""):
 @browser_bp.route("/release/")
 @check_url
 def release(MasterListDir=""):
-	log.info("enter")
-	path=os.path.join(ROOT_PATH,MasterListDir)
+	path=os.path.join(DATA_PATH,MasterListDir)
 	master_path="/".join(path.split("/")[:-1])
 	last=MasterListDir.split("/")[-1]
 	os.chdir(master_path)

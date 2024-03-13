@@ -25,7 +25,6 @@ from app.models import Users, Job
 from config import *
 
 import datetime
-import jwt
 import pyotp
 import uuid
 import hashlib
@@ -46,54 +45,32 @@ def check_user():
     else:
         abort(404)
 
-
-def check_token():
-    if "sabu" in request.cookies:
-        try:
-            data_prev = jwt.decode(
-                request.cookies["sabu"], options={"verify_signature": False}
-            )
-            user = Users.query.filter_by(username=data_prev["username"]).first()
-            if user is not None:
-                if user.cookie is not None:
-                    data = jwt.decode(
-                        request.cookies["sabu"], user.cookie, algorithms=["HS256"]
-                    )
-                    login_user(user)
-        except jwt.ExpiredSignatureError:
-            pass
-        finally:
-            pass
-
 def init_connection(user):
     session["job"] = Job.query.filter_by(id=user.job_id).first().name
     del session["totp"]
-    set_time = datetime.datetime.utcnow() + datetime.timedelta(hours=12)
-    random_key = hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest()
-    jwt_token = jwt.encode({"username": user.username,"exp": set_time,"iss": "SABU",},random_key,algorithm="HS256",)
-    user.cookie = random_key
     db.session.commit()
     resp = make_response(render_template("login.html", con="ok"))
-    resp.set_cookie("sabu",jwt_token,expires=datetime.datetime.now()+ datetime.timedelta(hours=12),secure=True,httponly=True,)
     login_user(user)
     log.info(f"User {user.username} has logged in")
-    user_root_data_path = "/sabu/data"
-    user_data_path = os.path.join(user_root_data_path,"data",user.username)
-    user_qurantine_path = os.path.join(user_root_data_path,"quarantine",user.username)
-    log.info(user_data_path)
+    user_root_data_path = DATA_PATH
+    user_data_path = os.path.join(user_root_data_path,"data",str(user.uuid))
+    user_qurantine_path = os.path.join(user_root_data_path,"quarantine",str(user.uuid))
+    user_scan_path = os.path.join(user_root_data_path,"scan",str(user.uuid))
     if not os.path.exists(user_data_path):
         os.mkdir(user_data_path)
         log.info(f"Data user path create : {str(user_data_path)} ")
     if not os.path.exists(user_qurantine_path):
         os.mkdir(user_qurantine_path)
         log.info(f"Data user path create : {str(user_qurantine_path)} ")
+    if not os.path.exists(user_scan_path):
+        os.mkdir(user_scan_path)
+        log.info(f"Data user path create : {str(user_scan_path)} ")
 
     return resp
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
     session["totp"] = False
-    check_token()
     if current_user.is_authenticated is True:
         return check_user()
     if request.method == "POST":

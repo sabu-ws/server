@@ -132,9 +132,9 @@ def setup_maintenance():
         db.session.commit()
 
 def check_data_folder():
-    quarantine_path = "/sabu/data/quarantine"
-    data_path = "/sabu/data/data"
-    scan_path = "/sabu/data/scan"
+    quarantine_path = f"{DATA_PATH}/quarantine"
+    data_path = f"{DATA_PATH}/data"
+    scan_path = f"{DATA_PATH}/scan"
     if not os.path.exists(quarantine_path):
         log.info("Creating to quarantine path")
         os.makedirs(quarantine_path)
