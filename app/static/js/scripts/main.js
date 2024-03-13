@@ -13,8 +13,8 @@ $(document).ready(function() {
 	var panelIndex = currentPath.indexOf("/panel/");
 	if (panelIndex !== -1) {
 		var currentPage = currentPath.substring(panelIndex + 7).split('/')[0];
-		$('#sidebar-' + currentPage).addClass(["text-blue-800", "bg-white/60"]);
-		$('#sidebar-' + currentPage).removeClass(["text-white", "hover:text-blue-800", "hover:bg-white/60"]);
+		$('#sidebar-' + currentPage).addClass(["text-darkblue", "bg-white/60"]);
+		$('#sidebar-' + currentPage).removeClass(["text-white", "hover:text-darkblue", "hover:bg-white/60"]);
 	}
 });
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	var part1Title = $(document).attr('title').split(" ")[2];
 	var part2Title = $(document).attr('title').split(" ")[4];
 	$('#' + part1Title + '-' + part2Title).removeClass(["border-b-2", "border-transparent", "rounded-t-lg", "hover:text-gray-600", "hover:border-gray-300", "dark:text-white", "dark:hover:text-gray-300"]);
-	$('#' + part1Title + '-' + part2Title).addClass(["text-blue-600", "border-b-2", "border-blue-600", "rounded-t-lg", "active", "dark:text-blue-500", "dark:border-blue-500"]);
+	$('#' + part1Title + '-' + part2Title).addClass(["text-darkblue", "border-b-2", "border-darkblue", "rounded-t-lg", "active", "dark:text-darkblue", "dark:border-darkblue"]);
 	$('#' + part2Title + '-svg').removeClass(["text-gray-400", "group-hover:text-gray-500", "dark:text-white", "dark:group-hover:text-gray-300"]);
-	$('#' + part2Title + '-svg').addClass(["text-blue-600", "dark:text-blue-500"]);
+	$('#' + part2Title + '-svg').addClass(["text-darkblue", "dark:text-darkblue"]);
 });
