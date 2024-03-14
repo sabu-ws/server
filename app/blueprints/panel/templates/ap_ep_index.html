@@ -12,24 +12,24 @@
 					<div class="bg-gray-50 dark:bg-gray-600 rounded-b-lg shadow-md p-4">
 						<div class="overflow-x-auto rounded-lg">
 							<div class="flex items-center justify-between bg-white dark:bg-gray-700 p-4">
-								<label for="table-search-endpoints" class="sr-only">Search</label>
-								<div class="flex w-3/12">
-									<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
-										<i class="fa-solid fa-magnifying-glass"></i>
-									</span>
-									<input type="text" id="table-search-endpoints" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Search for endpoints">
-								</div>							
 								<div class="flex">
-									<button data-modal-show="addEndpointModal" data-modal-target="addEndpointModal" class="inline-flex items-center text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:text-lightblue focus:ring-2 focus:ring-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-gray-800 dark:text-white dark:border-white dark:hover:bg-white/60 dark:hover:text-gray-800 0 dark:focus:text-lightblue dark:focus:border-lightblue" type="button">
+									<button data-modal-show="addEndpointModal" data-modal-target="addEndpointModal" class="inline-flex items-center text-white bg-darkblue hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-darkblue dark:text-white dark:hover:bg-lightblue dark:hover:text-gray-800" type="button">
 										<div class="flex justify-center items-center space-x-3">
 											<i class="fa-solid fa-desktop"></i><h1>Add Endpoint</h1> 
 										</div>
 									</button>
 								</div>
+								<label for="table-search-endpoints" class="sr-only">Search</label>
+								<div class="flex w-3/12">
+									<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-darkblue border border-r-0 border-darkblue rounded-l-lg dark:bg-darkblue dark:text-gray-400 dark:border-darkblue">
+										<div class="text-white"><i class="fa-solid fa-magnifying-glass"></i></div>
+									</span>
+									<input type="text" id="table-search-endpoints" class="rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2 dark:bg-gray-600 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Search for endpoints">
+								</div>							
 							</div>
 							
 							<table class="relative w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
-								<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
+								<thead class="text-sm text-gray-700 bg-white border-b border-gray-200 dark:border-gray-800 dark:bg-gray-700 dark:text-white">
 									<tr>
 										<th scope="col" class="px-6 py-3">
 											ID
@@ -73,7 +73,7 @@
 										<td class="px-4 py-4">
 											<div class="flex space-x-2">
 												<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
-													<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-lightblue hover:bg-darkblue h-6 w-8 font-medium text-white">
+													<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded bg-darkblue hover:bg-lightblue h-6 w-8 font-medium text-white">
 														<i class="fa-solid fa-eye"></i>
 													</button>
 												</a>
@@ -88,11 +88,11 @@
 								</tbody>
 							</table>
 							{% if list_devices|length == 0 %}
-							<div id="" class="flex justify-center p-4 items-center dark:bg-gray-700">
+							<div id="" class="flex justify-center p-4 items-center bg-white dark:bg-gray-700 rounded-b-lg">
 								<h1 class="dark:text-white font-semibold">No endpoint found !</h1>
 							</div>
 							{% else %}
-							<div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center dark:bg-gray-700">
+							<div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-white dark:bg-gray-700 rounded-b-lg">
 								<h1 class="dark:text-white font-semibold">No endpoint found !</h1>
 							</div>
 							{% endif %}
@@ -128,10 +128,10 @@
 														<input id="endpointHostname" type="text" name="endpointHostname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="endpoint-1">
 													</div>
 													<div class="flex space-x-2">
-														<button id="genTokenButton" type="button" class="p-2 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg">Generate Token <i class="fa-solid fa-arrows-spin"></i></button>
+														<button id="genTokenButton" type="button" class="p-2 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue  font-medium rounded-lg">Generate Token <i class="fa-solid fa-arrows-spin"></i></button>
 														<div class="flex w-9/12">
 															<input name="endpointToken" type="text" id="endpointToken" class="shadow-sm bg-gray-50 border border-gray-300 dark:border-white text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly="readonly">
-															<button id="btnCopyTokenEP" type="button" data-tooltip-target="copyTokenEP" class="ml-2 inline-flex items-center px-3 py-2.5 text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium text-sm text-center rounded-lg">
+															<button id="btnCopyTokenEP" type="button" data-tooltip-target="copyTokenEP" class="ml-2 inline-flex items-center px-3 py-2.5 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium text-sm text-center rounded-lg">
 																<i class="fa-solid fa-copy"></i>
 															</button>
 															<div id="copyTokenEP" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:black">
@@ -145,7 +145,7 @@
 											<!-- Modal footer -->
 											<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 												<div class="flex-col w-full">
-													<button id="submitAddUEndpointForm" type="submit" class="text-white bg-lightblue dark:bg-darkblue hover:bg-darkblue/60 dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+													<button id="submitAddUEndpointForm" type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 													<div id="alertAddEndpointForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" style="display: none;">
 														<span id="spanErrorAddEndpointForm" class="font-bold">Error : </span>
 													</div>

@@ -11,30 +11,30 @@
 					<div class="border-t border-gray-700 dark:border-white w-full"></div>
 					<div class="bg-gray-50 dark:bg-gray-600 rounded-b-lg shadow-md p-4">
 						<div class="overflow-x-auto rounded-lg">
-							<div class="flex items-center justify-between bg-white dark:bg-gray-700 p-4">
-								<label for="table-search" class="sr-only">Search</label>
-								<div class="flex w-3/12">
-									<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-gray-200 border border-r-0 border-gray-300 dark:border-white rounded-l-md dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600">
-										<i class="fa-solid fa-magnifying-glass"></i>
-									</span>
-									<input type="text" id="table-search-users" class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2.5  dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Search for users">
-								</div>							
-								<div class="flex flex-col space-y-2">
-									<button data-modal-show="addUserModal" data-modal-target="addUserModal" class="inline-flex items-center text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:text-lightblue focus:ring-2 focus:ring-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-gray-800 dark:text-white dark:border-white dark:hover:bg-white/60 dark:hover:text-gray-800 0 dark:focus:text-lightblue dark:focus:border-lightblue" type="button">
+							<div class="flex items-center justify-between bg-white dark:bg-gray-700 p-4">						
+								<div class="flex space-x-2">
+									<button data-modal-show="addUserModal" data-modal-target="addUserModal" class="inline-flex items-center text-white bg-darkblue hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-darkblue dark:text-white dark:hover:bg-lightblue dark:hover:text-gray-800" type="button">
 										<div class="flex justify-center items-center space-x-3">
 											<i class="fa-solid fa-user-plus"></i><h1>Add User</h1> 
 										</div>
 									</button>
-									<button data-modal-target="manageJobModal" data-modal-toggle="manageJobModal" class="inline-flex items-center text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:text-lightblue focus:ring-2 focus:ring-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-gray-800 dark:text-white dark:border-white dark:hover:bg-white/60 dark:hover:text-gray-800 dark:focus:text-lightblue dark:focus:border-lightblue" type="button">
+									<button data-modal-target="manageJobModal" data-modal-toggle="manageJobModal" class="inline-flex items-center text-white bg-darkblue hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2 dark:bg-darkblue dark:text-white dark:hover:bg-lightblue dark:hover:text-gray-800" type="button">
 										<div class="flex justify-center items-center space-x-3">
 											<i class="fa-solid fa-briefcase"></i><h1>Manage Job</h1>
 										</div>
 									</button>
 								</div>
+								<label for="table-search" class="sr-only">Search</label>
+								<div class="flex w-3/12">
+									<span class="inline-flex items-center px-3 text-sm text-gray-900 dark:text-white bg-darkblue border border-r-0 border-darkblue rounded-l-lg dark:bg-darkblue dark:text-gray-400 dark:border-darkblue">
+										<div class="text-white"><i class="fa-solid fa-magnifying-glass"></i></div>
+									</span>
+									<input type="text" id="table-search-users" class="rounded-r-lg bg-gray-50 border border-gray-300 dark:border-white text-gray-900 focus:border-darkblue block min-w-0 w-full text-sm p-2 dark:bg-gray-600 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Search for users">
+								</div>	
 							</div>
 							
 							<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableUsersForm">
-								<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
+								<thead class="text-sm text-gray-700 bg-white border-b border-gray-200 dark:border-gray-800 dark:bg-gray-700 dark:text-white">
 									<tr>
 										<th scope="col" class="px-6 py-3">
 											Name
@@ -124,7 +124,7 @@
 									{% endfor %}
 								</tbody>
 							</table>
-							<div id="noUserFound" style="display: none;" class="flex justify-center p-4 items-center dark:bg-gray-700">
+							<div id="noUserFound" style="display: none;" class="flex justify-center p-4 items-center bg-white dark:bg-gray-700 rounded-b-lg">
 								<h1 class="dark:text-white font-semibold">No user found!</h1>
 							</div>
 							<!-- Edit user modal -->
@@ -206,8 +206,8 @@
 										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 											<div class="flex-col w-full">
 												<div class="flex items-center">
-													<button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
-													<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center" style="display: none;">Disable 2FA</button>
+													<button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+													<button type="button" id="Disable2FAButton" class="m-auto mr-1 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 font-medium rounded-lg text-sm px-5 py-2.5 text-center" style="display: none;">Disable 2FA</button>
 												</div>
 												<div id="editErrorFieldForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
 													<span class="font-bold">Error !</span>
@@ -298,7 +298,7 @@
 										<!-- Modal footer -->
 										<div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 											<div class="flex-col w-full">
-												<button id="submitAddUserForm" type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+												<button id="submitAddUserForm" type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 												<div id="alertAddUserForm" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-300 dark:bg-red-600 dark:text-red-300" role="alert" style="display: none;">
 													<span id="spanErrorAddUserForm" class="font-bold">Error : </span>
 												</div>
@@ -379,7 +379,7 @@
 												<div class="col-span-6 sm:col-span-3">
 													<label for="addJob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Job</label>
 													<input type="text" name="addJob" id="addJob" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue block w-full p-2.5 dark:bg-gray-600 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:border-darkblue" placeholder="Developer">
-													<button type="submit" class="mt-4 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
+													<button type="submit" class="mt-4 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
 												</div>
 											</form>
 										</div>                
@@ -394,7 +394,7 @@
 															<option value="{{ job.name }}">{{ job.name }}</option>
 														{% endfor %}
 													</select>
-													<button type="submit" class="mt-4 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 focus:text-red-800 focus:ring-2 focus:ring-red-800 dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Remove</button>
+													<button type="submit" class="mt-4 text-white bg-red-600 dark:bg-red-600 hover:bg-red-600/70 dark:hover:bg-red-600/70 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Remove</button>
 												</div>
 											</form>
 											<div id="ErrorJob" style="display: none;" class="flex justify-center p-4 mt-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
