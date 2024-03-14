@@ -1481,6 +1481,10 @@ input:checked + .toggle-bg {
   margin-left: 1.5rem;
 }
 
+.ml-64 {
+  margin-left: 16rem;
+}
+
 .ml-8 {
   margin-left: 2rem;
 }
@@ -1557,16 +1561,8 @@ input:checked + .toggle-bg {
   margin-top: 1.5rem;
 }
 
-.mt-7 {
-  margin-top: 1.75rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
-}
-
-.ml-64 {
-  margin-left: 16rem;
 }
 
 .block {
@@ -2017,10 +2013,6 @@ input:checked + .toggle-bg {
   justify-content: space-between;
 }
 
-.gap-4 {
-  gap: 1rem;
-}
-
 .gap-6 {
   gap: 1.5rem;
 }
@@ -2235,10 +2227,6 @@ input:checked + .toggle-bg {
   border-bottom-width: 2px;
 }
 
-.border-l {
-  border-left-width: 1px;
-}
-
 .border-l-4 {
   border-left-width: 4px;
 }
@@ -2299,11 +2287,6 @@ input:checked + .toggle-bg {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.border-lightblue {
-  --tw-border-opacity: 1;
-  border-color: rgb(34 170 230 / var(--tw-border-opacity));
-}
-
 .bg-\[\#ccd8de\] {
   --tw-bg-opacity: 1;
   background-color: rgb(204 216 222 / var(--tw-bg-opacity));
@@ -2317,11 +2300,6 @@ input:checked + .toggle-bg {
 .bg-blue-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(164 202 254 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(28 100 242 / var(--tw-bg-opacity));
 }
 
 .bg-blue-700 {
@@ -2454,10 +2432,6 @@ input:checked + .toggle-bg {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
-.bg-gradient-to-b {
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
 .from-lightblue {
   --tw-gradient-from: #22aae6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(34 170 230 / 0) var(--tw-gradient-to-position);
@@ -2490,14 +2464,6 @@ input:checked + .toggle-bg {
 
 .fill-yellow-300 {
   fill: #FACA15;
-}
-
-.fill-blue-600 {
-  fill: #1C64F2;
-}
-
-.fill-lightblue {
-  fill: #22aae6;
 }
 
 .object-right-top {
@@ -3013,11 +2979,6 @@ input:checked + .toggle-bg {
   background-color: rgb(195 221 253 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-blue-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(26 86 219 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-blue-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 66 159 / var(--tw-bg-opacity));
@@ -3161,11 +3122,6 @@ input:checked + .toggle-bg {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.hover\:text-blue-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(30 66 159 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -3744,10 +3700,6 @@ input:checked + .toggle-bg {
 
   .md\:h-screen {
     height: 100vh;
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
