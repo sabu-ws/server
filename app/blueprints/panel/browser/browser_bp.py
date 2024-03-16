@@ -2,6 +2,7 @@ from config import *
 from flask import Blueprint, render_template, send_file, request, redirect, url_for, abort
 
 from app import app, logger as log
+from app.models import Users
 
 from urllib.parse import unquote, quote
 from functools import wraps
@@ -54,6 +55,13 @@ def index(MasterListDir=""):
 			).split(".")[0]
 			size = sizeof_fmt(os.lstat(j).st_size)
 			iq = quote(i)
+			url = request.path.split("/")
+			if len(url)==5:
+				if url[4].lower() in ["quarantine","data","scan"]:
+					guuid = i
+					user = Users.query.filter_by(uuid=guuid).first()
+					get_username = user.username
+					i = get_username
 			# make [nom_fichier,date_de_creation,date_modifer,taille_fichier]
 			make = [i, creation_date, modification_date, size, iq]
 			items_dir.append(make)

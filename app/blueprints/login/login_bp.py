@@ -49,7 +49,6 @@ def init_connection(user):
     session["job"] = Job.query.filter_by(id=user.job_id).first().name
     del session["totp"]
     db.session.commit()
-    resp = make_response(render_template("login.html", con="ok"))
     login_user(user)
     log.info(f"User {user.username} has logged in")
     user_root_data_path = DATA_PATH
@@ -65,8 +64,6 @@ def init_connection(user):
     if not os.path.exists(user_scan_path):
         os.mkdir(user_scan_path)
         log.info(f"Data user path create : {str(user_scan_path)} ")
-
-    return resp
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
@@ -88,7 +85,8 @@ def login():
                         elif user.firstCon == 0:
                             return redirect(url_for("login.first_con"))
                         else:
-                            return init_connection(user)
+                            init_connection(user)
+                            return  render_template("login.html",con="ok")
                     else:
                         return render_template("login.html", con="ko")
                 else:
@@ -108,7 +106,8 @@ def mfa():
                 user = Users.query.filter_by(username=session["user"]).first()
                 totp = pyotp.TOTP(user.OTPSecret)
                 if totp.verify(data["totp"]):
-                    return init_connection(user)
+                    init_connection(user)
+                    return render_template("login_totp.html",con="ok")
                 else:
                     log.info(f"User {user.username} enter bad totp")
                     return render_template("login_totp.html", con="ko")
@@ -138,7 +137,8 @@ def first_con():
                         user.firstCon = 1
                         user.set_password(data["newPasswordInput"])
                         db.session.commit()
-                        return init_connection(user)
+                        init_connection(user)
+                        return render_template("login_first_con.html",con="ok")
                     else:
                         return render_template(
                             "login_first_con.html",
