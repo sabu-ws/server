@@ -42,16 +42,16 @@ $(".delete_object_name").click(function(){
 	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
 });
 
-// PATH URL BROWSER
-var urlPath = window.location.pathname.substring(1).split('/');
-var firstUrlPath = window.location.pathname.split("/").slice(0,5).join("/")
-$("#hrefpath").attr( "href", firstUrlPath );
-$("#nameFolder1").html(urlPath[3]);
-
-if (urlPath.length > 4) {
-	$("#nameFolder2").html(urlPath[4]);
-	$("#RemoveSVG").removeAttr('hidden');
-}
+// Radar / Scan Page
+$(document).ready(function() {
+    // Ajouter un écouteur d'événement au clic sur le bouton
+    $("#scanButton").click(function() {
+        // Enlever la classe 'hidden' de la première div
+        $("#scanPage").removeClass("hidden");
+        // Ajouter la classe 'hidden' à la deuxième div
+        $("#browserPage").addClass("hidden");
+    });
+});
 
 // SEARCH BUTTON
 $("#buttonSearch" ).on( "click", function() {

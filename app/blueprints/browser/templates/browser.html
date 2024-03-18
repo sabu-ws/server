@@ -1,7 +1,16 @@
 {% extends 'user_base.html' %}
 {% set title='Browser' %}
 {% block contents %}
-<div class="p-4">
+<div id="scanPage" class="flex justify-center items-center h-screen hidden">
+    <div class="bg-black rounded-full">
+        <div class="loader">
+            <span></span>
+        </div>
+    </div>
+    <h1 class="ml-8 text-4xl dark:text-white">Scan in progress...</h1>
+</div>
+
+<div id="browserPage" class="p-4">
     <div class="p-8 mt-16">
         <div class="grid grid-cols-4 gap-8">
             <!-- BROWSER -->
@@ -16,15 +25,11 @@
                                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                 </svg>
-                                <a id="hrefpath" href="{{ url_for('browser.index') }}"><h1 class="font-semibold text-lg text-gray-700 dark:text-white"><span id="nameFolder1"></span></h1></a>
-                                <svg id="RemoveSVG" hidden class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                </svg>
-                                <h1 class="font-semibold text-lg text-gray-700 dark:text-white"><span id="nameFolder2"></span></h1>
+                                <h1 class="font-semibold text-lg text-gray-700 dark:text-white"><span>{{ current_user.username }}</span></h1>
                             </div>
                             <div class="flex space-x-2 p-2">
                                 <button class="bg-darkblue hover:bg-lightblue px-3.5 py-2.5 rounded-xl">
-                                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 512 512"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
                                 </button>
                                 <button id="returnButton" hidden class="bg-darkblue hover:bg-lightblue px-3.5 py-2.5 rounded-xl">
                                     <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
@@ -41,6 +46,12 @@
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-gray-700 bg-white border-b dark:border-gray-700 dark:bg-gray-600 dark:text-white">
                                 <tr>
+                                    <th scope="col" class="p-4">
+                                        <!-- <div class="flex items-center">
+                                            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                        </div> -->
+                                    </th>
                                     <th scope="col" class="px-6 py-3">
                                         <div class="flex items-center">
                                             Name
@@ -81,6 +92,12 @@
                             <tbody id="bodySearchBar">
                                 {% for dir in items_dir %}
                                 <tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                    <td class="w-4 p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
                                     <th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <!-- link --><a href="{{ url_for('browser.index') }}{{ cur_dir }}{{ dir[4] }}" class="location"></a>
                                         <div class="flex items-center">
@@ -111,6 +128,12 @@
                                 {% endfor %}
                                 {% for file in items_file %}
                                 <tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="w-4 p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
                                     <th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0">
@@ -150,64 +173,113 @@
             <!-- MENU -->
             <div class="col-start-4">
                 <div class="flex bg-white dark:bg-gray-700 rounded-lg shadow-md h-170">
-                    <div class="flex-col">
+                    <div class="flex-col w-full h-full">
                         <h1 class="text-4xl font-bold text-gray-700 dark:text-white p-8">Menu</h1>
                         <div class="border-t border-gray-700 dark:border-white w-full"></div>
-
-                        <div class="p-4 space-y-4">
-
-                            <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                                <div class="flex space-x-1 items-center">
-                                    <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-circle-info"></i></p>
-                                    <h1 class="text-sm text-gray-500 dark:text-white">Information</h1>
-                                </div>
-                                <p class="mt-2 text-sm dark:text-white">In this file explorer, you have the possibility to recover the files that you have transferred from your USB key. Likewise, you can also send files from your computer to retrieve them later on your USB key when you navigate to an endpoint.</p>    
+                        <div class="p-4 space-y-4 flex-col justify-center">
+                            <div class="flex space-x-3">
+                                <label for="fileInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add file</span></label>
+                                <input type="file" id="fileInput" class="hidden">
+                                <label for="folderInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add folder</span></label>
+                                <input type="file" id="folderInput" class="hidden" accept=".zip">
                             </div>
-                            <div class="bg-red-100 dark:bg-red-300 rounded-lg p-4">
-                                <div class="flex space-x-1 items-center">
-                                    <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-triangle-exclamation"></i></p>
-                                    <h1 class="text-sm text-gray-500 dark:text-white">Warning</h1>
-                                </div>
-                                <p class="mt-2 text-sm dark:text-white">Please note that this space is not intended for permanent storage of files, but rather for transferring them between your USB drive and your computer. Therefore, files will be automatically deleted after a certain period of time according to the settings set by the administrator.</p>    
+                            <div class="flex justify-center bg-gray-100 dark:bg-gray-600 rounded-lg h-16">
+                                <p class="flex items-center font-semibold text-red-500">No file or folder loaded !</p>
+                                <p class="flex items-center font-semibold text-green-500 hidden">File or folder loaded !</p>
                             </div>
-                            <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                                <div class="flex space-x-1 items-center">
-                                    <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-chart-pie"></i></p>
-                                    <h1 class="text-sm text-gray-500 dark:text-white">Statistics</h1>
-                                </div>
-                                <div class="flex justify-center space-x-20 mt-2">
-                                    <div class="flex space-x-8">
-                                        <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
-                                            <h1 class="text-xs text-gray-400 dark:text-white mb-1">Number of files</h1>
-                                            <div class="flex justify-center space-x-1">
-                                                <h1 class="flex justify-center text-lg dark:text-white">8</h1>
-                                                <p class="text-lg dark:text-white"><i class="fa-solid fa-file"></i></p>
-                                            </div>
-                                        </div>
-                                        <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
-                                            <h1 class="text-xs text-gray-400 dark:text-white mb-1">Disk space used</h1>
-                                            <div class="flex justify-center space-x-1">
-                                                <h1 class="flex justify-center text-lg dark:text-white">500 Mo</h1>
-                                                <p class="text-lg dark:text-white"><i class="fa-solid fa-hard-drive"></i></p>
-                                            </div>
-
-                                        </div>
-                                        
+                            <button id="scanButton" class="w-full bg-red-500 hover:bg-red-500/70 p-2 rounded-lg text-white font-semibold">Scan</button>
+                            <div class="bg-gray-100 dark:bg-gray-600 rounded-lg h-72 p-2">
+                                <div class="bg-black rounded-lg h-full p-2">
+                                    <div class="flex">
+                                        <p class="text-sm text-white">Scan result ></p>
                                     </div>
+                                    <p class="text-white text-sm">~ No scan started</p>
+
                                 </div>
                             </div>
                             <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                                <div class="flex space-x-1 items-center">
-                                    <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-key"></i></p>
-                                    <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
-                                </div>
+                                <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
                                 <h1 class="flex justify-center text-4xl font-bold text-gray-700 dark:text-white p-4">456258</h1>
                             </div>
-
                         </div>
-                        
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- Info modal -->
+ <div id="infoModal" tabindex="-1" aria-hidden="true" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Information
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="infoModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="ml-6 mr-6 mt-2 mb-2 space-y-6">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    <div class="p-4 space-y-4">
+
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
+                            <div class="flex space-x-1 items-center">
+                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-circle-info"></i></p>
+                                <h1 class="text-sm text-gray-500 dark:text-white">Information</h1>
+                            </div>
+                            <p class="mt-2 text-sm dark:text-white">In this file explorer, you have the possibility to recover the files that you have transferred from your USB key. Likewise, you can also send files from your computer to retrieve them later on your USB key when you navigate to an endpoint.</p>    
+                        </div>
+                        <div class="bg-red-100 dark:bg-red-300 rounded-lg p-4">
+                            <div class="flex space-x-1 items-center">
+                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-triangle-exclamation"></i></p>
+                                <h1 class="text-sm text-gray-500 dark:text-white">Warning</h1>
+                            </div>
+                            <p class="mt-2 text-sm dark:text-white">Please note that this space is not intended for permanent storage of files, but rather for transferring them between your USB drive and your computer. Therefore, files will be automatically deleted after a certain period of time according to the settings set by the administrator.</p>    
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
+                            <div class="flex space-x-1 items-center">
+                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-chart-pie"></i></p>
+                                <h1 class="text-sm text-gray-500 dark:text-white">Statistics</h1>
+                            </div>
+                            <div class="flex justify-center space-x-20 mt-2">
+                                <div class="flex space-x-8">
+                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                                        <h1 class="text-xs text-gray-400 dark:text-white mb-1">Number of files</h1>
+                                        <div class="flex justify-center space-x-1">
+                                            <h1 class="flex justify-center text-lg dark:text-white">8</h1>
+                                            <p class="text-lg dark:text-white"><i class="fa-solid fa-file"></i></p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                                        <h1 class="text-xs text-gray-400 dark:text-white mb-1">Disk space used</h1>
+                                        <div class="flex justify-center space-x-1">
+                                            <h1 class="flex justify-center text-lg dark:text-white">500 Mo</h1>
+                                            <p class="text-lg dark:text-white"><i class="fa-solid fa-hard-drive"></i></p>
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
+                            <div class="flex space-x-1 items-center">
+                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-key"></i></p>
+                                <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
+                            </div>
+                            <h1 class="flex justify-center text-4xl font-bold text-gray-700 dark:text-white p-4">456258</h1>
+                        </div>
+                    </div>
+                </p>
             </div>
         </div>
     </div>
