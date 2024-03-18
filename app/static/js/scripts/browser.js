@@ -1,4 +1,13 @@
 // Browser Client
+var temp_name_object = ""
+
+$.ajaxSetup({
+	beforeSend: function(xhr, settings) {
+		if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+			xhr.setRequestHeader("X-CSRFToken", csrf_token);
+		}
+	}
+});
 
 // Click button
 $(".onclick_object").click(function(){
@@ -8,24 +17,29 @@ $(".onclick_object").click(function(){
 	}
 });
 
-$(function(){
-	if(window.location.pathname != "/browser/"){
-		$("#returnButton").removeAttr('hidden');
-	}
-});
-
 // Return Button
 $("#returnButton").click(function(){
 	var url = window.parent.location.href;
-	if(url.substr(url.length - 1) == "/"){
+	if(url.substr(url.length - 2) == "/"){
 		url=url.slice(0,-1)
 	}
-	if(url.slice(url.lastIndexOf('/')) != '/browser/path'){
+	if(url.slice(url.lastIndexOf('/')) != '/browser/path/'){
 		var to = url.lastIndexOf('/');
 		to = to == -1 ? url.length : to + 1;
 		url = url.substring(0, to -1 );
 		window.location=url;
 	}
+});
+
+$(function(){
+	if(window.location.pathname != "/browser/path/"){
+		$("#returnButton").removeAttr('hidden');
+	}
+});
+
+// Remove element 
+$(".delete_object_name").click(function(){
+	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
 });
 
 // PATH URL BROWSER
@@ -82,3 +96,19 @@ if(urlPath.length==4){
 		$(".delete_object_name").attr("hidden","true");
 	}
 }
+
+
+// Yes button
+$(".yesButtonDeleteObject").click(function(e){
+	var get_url=window.location.pathname.split("/").slice(4).join("/")
+	e.preventDefault()
+	$.ajax({
+		type: "GET",
+		url: "/browser/delete/"+get_url+"/"+temp_name_object,
+		success: function(data){
+			if(data == "ok"){
+				window.location.reload();
+			}
+		}
+	});
+});

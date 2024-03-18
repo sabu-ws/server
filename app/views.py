@@ -22,7 +22,7 @@ app.register_blueprint(user_bp, url_prefix="/user")
 @app.errorhandler(CSRFError)
 def handle_csrf_error(e):
     flash("Bad CSRF token", "error")
-    print("bad csrf")
+    log.info("bad csrf")
     return redirect(url_for("login.login"))
 
 
