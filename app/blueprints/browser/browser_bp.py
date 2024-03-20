@@ -128,3 +128,7 @@ def delete(MasterListDir=""):
 	else:
 		return redirect(url_for("login.logout"))
 	return ""
+
+@browser_bp.route("/scan")
+def scan():
+	return render_template("scan.html")
