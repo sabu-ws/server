@@ -42,17 +42,6 @@ $(".delete_object_name").click(function(){
 	temp_name_object=$(this).closest("tr").find(".object_name").text().trim()
 });
 
-// Radar / Scan Page
-$(document).ready(function() {
-    // Ajouter un écouteur d'événement au clic sur le bouton
-    $("#scanButton").click(function() {
-        // Enlever la classe 'hidden' de la première div
-        $("#scanPage").removeClass("hidden");
-        // Ajouter la classe 'hidden' à la deuxième div
-        $("#browserPage").addClass("hidden");
-    });
-});
-
 // SEARCH BUTTON
 $("#buttonSearch" ).on( "click", function() {
 	if ($("#buttonSearch").hasClass("rounded-l-xl")){
@@ -90,14 +79,6 @@ if($("#bodySearchBar").find('tr').is(':visible')){
 	document.getElementById("noElementFound").style  = "display: True;";
 }
 
-if(urlPath.length==4){
-	if(urlPath[3]==""){
-		$(".donwload_object_name").attr("hidden","true");
-		$(".delete_object_name").attr("hidden","true");
-	}
-}
-
-
 // Yes button
 $(".yesButtonDeleteObject").click(function(e){
 	var get_url=window.location.pathname.split("/").slice(4).join("/")
@@ -111,4 +92,86 @@ $(".yesButtonDeleteObject").click(function(e){
 			}
 		}
 	});
+});
+
+// Remove cache input at loading page
+$(document).ready(function() {
+	$("#fileInput").val('');
+	$("#folderInput").val('');
+});
+
+// Onchange detect file/folder
+$("#fileInput").on( "change", function() {
+	if ($("#fileInput")[0].files.length != 0 && $("#folderInput")[0].files.length != 0) {
+		$("#inputStateFF").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFile").addClass("hidden");
+		$("#inputStateFolder").addClass("hidden");
+	}
+	else if ($("#fileInput")[0].files.length != 0) {
+		$("#inputStateFile").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFolder").addClass("hidden");
+	} 
+	else if ($("#folderInput")[0].files.length != 0) {
+		$("#inputStateFolder").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFile").addClass("hidden");
+	}
+});
+$("#folderInput").on( "change", function() {
+	if ($("#fileInput")[0].files.length != 0 && $("#folderInput")[0].files.length != 0) {
+		$("#inputStateFF").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFile").addClass("hidden");
+		$("#inputStateFolder").addClass("hidden");
+	}
+	else if ($("#fileInput")[0].files.length != 0) {
+		$("#inputStateFile").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFolder").addClass("hidden");
+	} 
+	else if ($("#folderInput")[0].files.length != 0) {
+		$("#inputStateFolder").removeClass("hidden");
+		$("#inputStateDefault").addClass("hidden");
+		$("#inputStateFile").addClass("hidden");
+	}
+});
+
+// Listen for click on toggle checkbox
+$('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+}); 
+
+// Undo Blur for Endpoint Connexion Code
+$("#undoBlur").click(function() {
+	if ($("#codeEndpoint").hasClass("blur-md") == true) {
+		$("#codeEndpoint").removeClass("blur-md");
+	}
+	else {
+		$("#codeEndpoint").addClass("blur-md");
+	}
+});
+
+// View button for Endpoint Connexion Code
+$(".viewCode").click(function() {
+	if ($(".viewCode").hasClass("fa-eye")  == true) {
+		$(".viewCode").removeClass("fa-eye");
+		$(".viewCode").addClass("fa-eye-slash");
+		
+	}
+	else {
+		$(".viewCode").removeClass("fa-eye-slash");
+		$(".viewCode").addClass("fa-eye");
+
+	}
 });

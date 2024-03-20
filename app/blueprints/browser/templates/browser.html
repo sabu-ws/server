@@ -1,16 +1,7 @@
 {% extends 'user_base.html' %}
 {% set title='Browser' %}
 {% block contents %}
-<div id="scanPage" class="flex justify-center items-center h-screen hidden">
-    <div class="bg-black rounded-full">
-        <div class="loader">
-            <span></span>
-        </div>
-    </div>
-    <h1 class="ml-8 text-4xl dark:text-white">Scan in progress...</h1>
-</div>
-
-<div id="browserPage" class="p-4">
+<div class="p-4">
     <div class="p-8 mt-16">
         <div class="grid grid-cols-4 gap-8">
             <!-- BROWSER -->
@@ -47,10 +38,10 @@
                             <thead class="text-gray-700 bg-white border-b dark:border-gray-700 dark:bg-gray-600 dark:text-white">
                                 <tr>
                                     <th scope="col" class="p-4">
-                                        <!-- <div class="flex items-center">
-                                            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                        </div> -->
+                                        <div class="flex items-center">
+                                            <input id="select-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="select-all" class="sr-only">checkbox</label>
+                                        </div>
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         <div class="flex items-center">
@@ -94,8 +85,8 @@
                                 <tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                                     <td class="w-4 p-4">
                                         <div class="flex items-center">
-                                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                            <input id="checkbox-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-1" class="sr-only">checkbox</label>
                                         </div>
                                     </td>
                                     <th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -120,8 +111,8 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
-                                            <!-- link --><button title="Download Folder" class="donwload_object_name"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
-                                            <button class="delete_object_name" data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500  hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
+                                            <!-- link --><button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -130,8 +121,8 @@
                                 <tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     <td class="w-4 p-4">
                                         <div class="flex items-center">
-                                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                            <input id="checkbox-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-1" class="sr-only">checkbox</label>
                                         </div>
                                     </td>
                                     <th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -155,9 +146,8 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
-                                            <!-- link --><button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
-                                            <button class="delete_object_name" data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
-                                            <button title="Release File" data-modal-show="confirmRelease" data-modal-target="confirmRelease" class="releaseButton font-medium text-orange-400 dark:text-orange-400 hover:text-gray-500 hover:underline text-lg" hidden><i class="fa-solid fa-rotate-left"></i></a></button>
+                                            <!-- link --><button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -177,17 +167,21 @@
                         <h1 class="text-4xl font-bold text-gray-700 dark:text-white p-8">Menu</h1>
                         <div class="border-t border-gray-700 dark:border-white w-full"></div>
                         <div class="p-4 space-y-4 flex-col justify-center">
-                            <div class="flex space-x-3">
-                                <label for="fileInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add file</span></label>
-                                <input type="file" id="fileInput" class="hidden">
-                                <label for="folderInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add folder</span></label>
-                                <input type="file" id="folderInput" class="hidden" accept=".zip">
-                            </div>
-                            <div class="flex justify-center bg-gray-100 dark:bg-gray-600 rounded-lg h-16">
-                                <p class="flex items-center font-semibold text-red-500">No file or folder loaded !</p>
-                                <p class="flex items-center font-semibold text-green-500 hidden">File or folder loaded !</p>
-                            </div>
-                            <button id="scanButton" class="w-full bg-red-500 hover:bg-red-500/70 p-2 rounded-lg text-white font-semibold">Scan</button>
+                            <form method="POST" class="space-y-4">
+                                <div class="flex space-x-3">
+                                    <label for="fileInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add file</span></label>
+                                    <input type="file" id="fileInput" multiple="multiple" class="hidden">
+                                    <label for="folderInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add folder</span></label>
+                                    <input type="file" id="folderInput" class="hidden" webkitdirectory multiple>
+                                </div>
+                                <div class="flex justify-center bg-gray-100 dark:bg-gray-600 rounded-lg h-16">
+                                    <p id="inputStateDefault" class="flex items-center font-semibold text-red-500">No file or folder loaded !</p>
+                                    <p id="inputStateFile" class="flex items-center font-semibold text-green-500 hidden">File(s) loaded !</p>
+                                    <p id="inputStateFolder" class="flex items-center font-semibold text-green-500 hidden">Folder(s) loaded !</p>
+                                    <p id="inputStateFF" class="flex items-center font-semibold text-green-500 hidden">File(s) and Folder(s) loaded !</p>
+                                </div>
+                                <button class="w-full bg-red-500 hover:bg-red-500/70 p-2 rounded-lg text-white font-semibold">Scan</button>
+                            </form>
                             <div class="bg-gray-100 dark:bg-gray-600 rounded-lg h-72 p-2">
                                 <div class="bg-black rounded-lg h-full p-2">
                                     <div class="flex">
@@ -197,9 +191,15 @@
 
                                 </div>
                             </div>
-                            <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                                <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
-                                <h1 class="flex justify-center text-4xl font-bold text-gray-700 dark:text-white p-4">456258</h1>
+                            <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4 h-32">
+                                <div class="flex justify-between">
+                                    <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
+                                    <button id="undoBlur" class="text-gray-500 hidden"><i class="viewCode fa-solid fa-eye"></i></button>
+                                </div>
+                                <div class="flex justify-center items-center">
+                                    <form method="POST"><button class="bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold mt-4">Generate code</button></form>
+                                </div>
+                                <h1 id="codeEndpoint" class="flex justify-center text-lg lg:text-4xl font-bold text-gray-700 dark:text-white p-4 blur-md hidden">456258</h1>
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
             <!-- Modal header -->
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Information
+                    Help
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="infoModal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -227,59 +227,21 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="ml-6 mr-6 mt-2 mb-2 space-y-6">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    <div class="p-4 space-y-4">
-
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                            <div class="flex space-x-1 items-center">
-                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-circle-info"></i></p>
-                                <h1 class="text-sm text-gray-500 dark:text-white">Information</h1>
-                            </div>
-                            <p class="mt-2 text-sm dark:text-white">In this file explorer, you have the possibility to recover the files that you have transferred from your USB key. Likewise, you can also send files from your computer to retrieve them later on your USB key when you navigate to an endpoint.</p>    
-                        </div>
-                        <div class="bg-red-100 dark:bg-red-300 rounded-lg p-4">
-                            <div class="flex space-x-1 items-center">
-                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-triangle-exclamation"></i></p>
-                                <h1 class="text-sm text-gray-500 dark:text-white">Warning</h1>
-                            </div>
-                            <p class="mt-2 text-sm dark:text-white">Please note that this space is not intended for permanent storage of files, but rather for transferring them between your USB drive and your computer. Therefore, files will be automatically deleted after a certain period of time according to the settings set by the administrator.</p>    
-                        </div>
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                            <div class="flex space-x-1 items-center">
-                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-chart-pie"></i></p>
-                                <h1 class="text-sm text-gray-500 dark:text-white">Statistics</h1>
-                            </div>
-                            <div class="flex justify-center space-x-20 mt-2">
-                                <div class="flex space-x-8">
-                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
-                                        <h1 class="text-xs text-gray-400 dark:text-white mb-1">Number of files</h1>
-                                        <div class="flex justify-center space-x-1">
-                                            <h1 class="flex justify-center text-lg dark:text-white">8</h1>
-                                            <p class="text-lg dark:text-white"><i class="fa-solid fa-file"></i></p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
-                                        <h1 class="text-xs text-gray-400 dark:text-white mb-1">Disk space used</h1>
-                                        <div class="flex justify-center space-x-1">
-                                            <h1 class="flex justify-center text-lg dark:text-white">500 Mo</h1>
-                                            <p class="text-lg dark:text-white"><i class="fa-solid fa-hard-drive"></i></p>
-                                        </div>
-
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
-                            <div class="flex space-x-1 items-center">
-                                <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-key"></i></p>
-                                <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
-                            </div>
-                            <h1 class="flex justify-center text-4xl font-bold text-gray-700 dark:text-white p-4">456258</h1>
-                        </div>
+            <div class="ml-6 mr-6 p-4 space-y-4">
+                <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4">
+                    <div class="flex space-x-1 items-center">
+                        <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-circle-info"></i></p>
+                        <h1 class="text-sm text-gray-500 dark:text-white">Information</h1>
                     </div>
-                </p>
+                    <p class="mt-2 text-sm dark:text-white">In this file explorer, you have the possibility to recover the files that you have transferred from your USB key. Likewise, you can also send files from your computer to retrieve them later on your USB key when you navigate to an endpoint.</p>    
+                </div>
+                <div class="bg-red-100 dark:bg-red-300 rounded-lg p-4">
+                    <div class="flex space-x-1 items-center">
+                        <p class="text-gray-700 dark:text-white"><i class="fa-solid fa-triangle-exclamation"></i></p>
+                        <h1 class="text-sm text-gray-500 dark:text-white">Warning</h1>
+                    </div>
+                    <p class="mt-2 text-sm dark:text-white">Please note that this space is not intended for permanent storage of files, but rather for transferring them between your USB drive and your computer. Therefore, files will be automatically deleted after a certain period of time according to the settings set by the administrator.</p>    
+                </div>
             </div>
         </div>
     </div>

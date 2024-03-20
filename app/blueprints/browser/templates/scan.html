@@ -1,0 +1,16 @@
+{% extends 'user_base.html' %}
+{% set title='Scan' %}
+{% block contents %}
+<div id="scanPage" class="flex justify-center items-center h-screen">
+    <div class="bg-black rounded-full">
+        <div class="loader">
+            <span></span>
+        </div>
+    </div>
+    <h1 class="ml-8 text-4xl dark:text-white">Scan in progress...</h1>
+</div>
+{% endblock %}
+{% block scripts %}
+<script> var csrf_token = "{{ csrf_token() }}";</script>
+<script src="{{ url_for('static',filename='js/scripts/browser.js') }}"></script>
+{% endblock %}
