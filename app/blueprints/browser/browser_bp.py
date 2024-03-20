@@ -1,8 +1,10 @@
 from config import *
-from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file
+from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request
+from werkzeug.utils import secure_filename
 
 from app import login_required, current_user, logout_user, logger as log
 from app.models import Users
+from app.utils import scan
 
 from urllib.parse import quote
 from io import BytesIO
@@ -111,7 +113,6 @@ def delete(MasterListDir=""):
 	path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
 	last = MasterListDir.split("/")[-1]
-	log.info(master_path)
 	os.chdir(master_path)
 	if os.path.exists(path):
 		if os.path.isdir(path):
@@ -128,3 +129,31 @@ def delete(MasterListDir=""):
 	else:
 		return redirect(url_for("login.logout"))
 	return ""
+
+@browser_bp.route("/scan",methods=["POST"])
+def scan():
+	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
+	path = os.path.join(DATA_PATH,"scan",str(user_uuid))
+	req = request.files
+	# File saving
+	req_file = req.getlist("files[]")
+	for i in req_file:
+		file_name = i.filename
+		file = i
+		file_length = len(i.read())
+		if file and file_name != "" and file_length != 0:
+			filename = secure_filename(file.filename)
+			file.save(os.path.join(path, filename))
+	# Folder saving
+	req_folder = req.getlist("folder[]")
+	for file in req_folder:
+		split_in_folder = file.filename.split("/")
+		if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
+			flash("bad upload folder")
+			return redirect(url_for("browser.path"))
+		folder_creation = "/".join(i for i in split_in_folder[:-1])
+		if not os.path.exists(os.path.join(path,folder_creation)):
+			os.makedirs(os.path.join(path,folder_creation))
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(path,folder_creation,filename))
+	return render_template("scan.html")

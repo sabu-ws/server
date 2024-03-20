@@ -1,5 +1,6 @@
 from app import app, CSRFError
 from app.first_init import database_init
+from app import logger as log
 
 from flask import redirect, url_for, flash, render_template
 
