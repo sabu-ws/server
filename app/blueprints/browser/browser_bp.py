@@ -1,5 +1,5 @@
 from config import *
-from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request
+from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash
 from werkzeug.utils import secure_filename
 
 from app import login_required, current_user, logout_user, logger as log
@@ -136,24 +136,25 @@ def scan():
 	path = os.path.join(DATA_PATH,"scan",str(user_uuid))
 	req = request.files
 	# File saving
-	req_file = req.getlist("files[]")
+	req_file = req.getlist("fileInput")
 	for i in req_file:
 		file_name = i.filename
 		file = i
 		file_length = len(i.read())
-		if file and file_name != "" and file_length != 0:
+		if file_name != "" or file_length != 0:
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(path, filename))
 	# Folder saving
-	req_folder = req.getlist("folder[]")
+	req_folder = req.getlist("folderInput")
 	for file in req_folder:
-		split_in_folder = file.filename.split("/")
-		if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
-			flash("bad upload folder")
-			return redirect(url_for("browser.path"))
-		folder_creation = "/".join(i for i in split_in_folder[:-1])
-		if not os.path.exists(os.path.join(path,folder_creation)):
-			os.makedirs(os.path.join(path,folder_creation))
-		filename = secure_filename(file.filename)
-		file.save(os.path.join(path,folder_creation,filename))
+		if file.filename != "" or len(file.read()) != 0:
+			split_in_folder = file.filename.split("/")
+			if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
+				flash("bad upload folder")
+				return redirect(url_for("browser.path"))
+			folder_creation = "/".join(i for i in split_in_folder[:-1])
+			if not os.path.exists(os.path.join(path,folder_creation)):
+				os.makedirs(os.path.join(path,folder_creation))
+			filename = secure_filename(file.filename)
+			file.save(os.path.join(path,folder_creation,filename))
 	return render_template("scan.html")

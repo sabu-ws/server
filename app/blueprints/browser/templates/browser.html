@@ -167,12 +167,13 @@
                         <h1 class="text-4xl font-bold text-gray-700 dark:text-white p-8">Menu</h1>
                         <div class="border-t border-gray-700 dark:border-white w-full"></div>
                         <div class="p-4 space-y-4 flex-col justify-center">
-                            <form method="POST" class="space-y-4">
+                            <form method="POST" action="{{ url_for('browser.scan') }}" class="space-y-4" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> 
                                 <div class="flex space-x-3">
                                     <label for="fileInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add file</span></label>
-                                    <input type="file" id="fileInput" multiple="multiple" class="hidden">
+                                    <input type="file" id="fileInput" name="fileInput" multiple class="hidden">
                                     <label for="folderInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add folder</span></label>
-                                    <input type="file" id="folderInput" class="hidden" webkitdirectory multiple>
+                                    <input type="file" id="folderInput" name="folderInput" class="hidden" webkitdirectory directory>
                                 </div>
                                 <div class="flex justify-center bg-gray-100 dark:bg-gray-600 rounded-lg h-16">
                                     <p id="inputStateDefault" class="flex items-center font-semibold text-red-500">No file or folder loaded !</p>
