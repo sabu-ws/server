@@ -19,7 +19,7 @@ else
     DNS_1=$(awk 'NR==1 {print}' $DNS_FILE | awk '{print $2}')
     DNS_2=$(awk 'NR==2 {print}' $DNS_FILE | awk '{print $2}')
 
-    INTERFACE_NETWORK=$(ipcalc $INTERFACE_ADDRESS/$INTERFACE_NETMASK | grep "Network" | cut -d' ' -f4)
+    INTERFACE_NETWORK=$(ipcalc $INTERFACE_ADDRESS/$INTERFACE_NETMASK | grep "Network" | awk '{print $2}')
 
     # ECHO
     echo -e "${INTERFACE_ADDRESS}\n${INTERFACE_NETMASK}\n${INTERFACE_GATEWAY}\n${INTERFACE_NETWORK}\n${DNS_1}\n${DNS_2}"
@@ -48,7 +48,7 @@ else
 
     ## OUTPUT RULES
     # Allow SSH
-    nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS tcp sport 22 ip daddr $network accept
+    nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS tcp sport 22 ip daddr $INTERFACE_NETWORK accept
     # Allow HTTPS
     nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS tcp sport 443 ip daddr 0.0.0.0/0 accept
     # Drop ALL
