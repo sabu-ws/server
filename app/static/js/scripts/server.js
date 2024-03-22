@@ -178,8 +178,8 @@ let options_RAM = {
 		gradient: {
 			opacityFrom: 0.55,
 			opacityTo: 0.25,
-			shade: "#f71056",
-			gradientToColors: ["#f71056"],
+			shade: "#9565fc",
+			gradientToColors: ["#9565fc"],
 		},
 	},
 	dataLabels: {
@@ -201,7 +201,7 @@ let options_RAM = {
 		{
 			name: "RAM",
 			data: [],
-			color: "#f71056",
+			color: "#9565fc",
 		},
 	],
 	xaxis: {
@@ -435,7 +435,7 @@ chart_RAM.render();
 const chart_NET = new ApexCharts(document.getElementById("chart-network"), options_NET);
 chart_NET.render();
 
-const chart_DISK = new ApexCharts(document.getElementById("chart-disk"), getChartOptions);
+const chart_DISK = new ApexCharts(document.getElementById("chart-disk-old"), getChartOptions);
 chart_DISK.render();
 
 socket_CPU = io.connect("/chart_CPU")
@@ -479,3 +479,58 @@ socket_DISK.emit("start_chart_disk_rcv")
 socket_DISK.on("chart_disk_rcv",function(data){
 	chart_DISK.updateSeries([parseFloat(data[0]),parseFloat(data[1])])
 })
+
+
+var options = {
+	colors: ["#ed3e3e", "#189e2e"],
+	series: [{
+	name: 'Used',
+	data: [2.2, 55]
+  }, {
+	name: 'Free',
+	data: [16, 32]
+  
+  }],
+	chart: {
+	type: 'bar',
+	height: 250,
+	stacked: true,
+	stackType: '100%'
+  },
+  plotOptions: {
+	bar: {
+	  horizontal: true,
+	},
+  },
+  stroke: {
+	width: 1,
+	colors: ['#fff']
+  },
+  xaxis: {
+	categories: ["System", "Data"],
+	labels: {
+		show: false
+	  },
+	  tickAmount: 1,
+  },
+
+  tooltip: {
+	y: {
+	  formatter: function (val) {
+		return val + "GB"
+	  }
+	}
+  },
+  fill: {
+	opacity: 1
+  
+  },
+  legend: {
+	position: 'bottom',
+	horizontalAlign: 'left',
+	offsetX: 40
+  }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart-disk"), options);
+  chart.render();
