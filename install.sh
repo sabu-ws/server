@@ -220,6 +220,13 @@ install_packages() {
     apt-get update > /dev/null 2>&1
     show 0 "Repositories added successfully."
 
+    # REPO REDIS
+    show 2 "Install redis server"
+    curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+    apt-get update > /dev/null 2>&1
+    apt-get install redis -y > /dev/null 2>&1
+    show 0 "Redis installation successfully"
 
     # INSTALL
     show 2 "Install necessary packages: ${COLOURS[4]}${PACKAGES_PART_1} ${PACKAGES_PART_2}"
@@ -360,6 +367,13 @@ deploy_timescale() {
     show 0 "Timescale setup complete"
 }
 
+# DEPLOY REDIS
+deploy_redis() {
+    show 2 "Redis setup..."
+    redis-cli -h $REDIS_HOST -p $REDIS_PORT config set requirepass $REDIS_PASSWORD
+    show 0 "Redis setup complete"
+}
+
 # DEPLOY SABU
 deploy_sabu() {
 
@@ -423,6 +437,9 @@ deploy_postgresql
 
 # DEPLOY TIMESCALE
 deploy_timescale
+
+# DEPLOY REDIS
+deploy_redis
 
 # DEPLOY SABU
 deploy_sabu
