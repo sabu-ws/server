@@ -1,20 +1,32 @@
 from config import *
-from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash
+from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash, session
 from werkzeug.utils import secure_filename
 
-from app import login_required, current_user, logout_user, logger as log
-from app.models import Users
-from app.utils import scan
+from app import login_required, current_user, logout_user, logger as log, db, cache, redis_client
+from app.models import Users, Extensions
+from app.utils import scan,user_mgmt
 
 from urllib.parse import quote
+from functools import wraps
 from io import BytesIO
 import datetime
+import random
 import time
 import os
 import zipfile
 
 browser_bp = Blueprint("browser", __name__, template_folder="templates")
 
+def check_scan(f):
+	@wraps(f)
+	def func(*args, **kwargs):
+		if "scan" in session:
+			if session["scan"] == True:
+				return redirect(url_for("browser.scan_route"))
+		else:
+			session["scan"] = False
+		return f(*args, **kwargs)
+	return func
 
 @browser_bp.before_request
 @login_required
@@ -30,13 +42,24 @@ def sizeof_fmt(num, suffix="B"):
 		num /= 1024.0
 	return f"{num:.1f} Yi{suffix}"
 
+@browser_bp.route("/")
+def index_browser():
+	return redirect(url_for("browser.index"))
 
 @browser_bp.route("/path/<path:MasterListDir>")
 @browser_bp.route("/path/")
+@check_scan
 def index(MasterListDir=""):
-	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
+	user = Users.query.filter_by(id=current_user.id).first()
+	key_user = f"codeEP_{str(user.uuid)}"
+	code_ep = cache.get(key_user)
+	user_uuid = user.uuid
 	joining = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
 	cur_dir = MasterListDir + "/" if MasterListDir != "" else ""
+	cur_dir = MasterListDir
+	# if cur_dir != "":
+		# cur_dir="/"+cur_dir
+	log.info(cur_dir)
 	if not os.path.exists(joining):
 		abort(404)
 	if os.path.isdir(joining):
@@ -71,22 +94,27 @@ def index(MasterListDir=""):
 			make = [i, creation_date, modification_date, size, iq]
 			items_file.append(make)
 	return render_template(
-		"browser.html", items_file=items_file, items_dir=items_dir, cur_dir=cur_dir
+		"browser.html", items_file=items_file, items_dir=items_dir, cur_dir=cur_dir, code=code_ep
 	)
 
 
 @browser_bp.route("/download/<path:MasterListDir>")
 @browser_bp.route("/download/")
+@check_scan
 def download(MasterListDir=""):
 	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
 	path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
 	last = MasterListDir.split("/")[-1]
+	name_in_file = last
+	if name_in_file == "":
+		name_in_file="root"
+	log.info(str(last))
 	os.chdir(master_path)
 	if os.path.exists(path):
 		if os.path.isdir(path):
 			timestr = time.strftime("%Y%m%d-%H%M%S")
-			fileName = f"{last}_{timestr}.zip".format(timestr)
+			fileName = f"{name_in_file}_{timestr}.zip".format(timestr)
 			memory_file = BytesIO()
 			with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 				for root, dirs, files in os.walk(last):
@@ -108,6 +136,7 @@ def download(MasterListDir=""):
 
 @browser_bp.route("/delete/<path:MasterListDir>")
 @browser_bp.route("/delete/")
+@check_scan
 def delete(MasterListDir=""):
 	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
 	path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
@@ -121,6 +150,7 @@ def delete(MasterListDir=""):
 					os.remove(os.path.join(root, name))
 				for name in dirs:
 					os.rmdir(os.path.join(root, name))
+			log.info(str(last))
 			os.rmdir(last)
 			return "ok"
 		elif os.path.isfile(path):
@@ -130,31 +160,64 @@ def delete(MasterListDir=""):
 		return redirect(url_for("login.logout"))
 	return ""
 
-@browser_bp.route("/scan",methods=["POST"])
-def scan():
-	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
-	path = os.path.join(DATA_PATH,"scan",str(user_uuid))
-	req = request.files
-	# File saving
-	req_file = req.getlist("fileInput")
-	for i in req_file:
-		file_name = i.filename
-		file = i
-		file_length = len(i.read())
-		if file_name != "" or file_length != 0:
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(path, filename))
-	# Folder saving
-	req_folder = req.getlist("folderInput")
-	for file in req_folder:
-		if file.filename != "" or len(file.read()) != 0:
-			split_in_folder = file.filename.split("/")
-			if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
-				flash("bad upload folder")
-				return redirect(url_for("browser.path"))
-			folder_creation = "/".join(i for i in split_in_folder[:-1])
-			if not os.path.exists(os.path.join(path,folder_creation)):
-				os.makedirs(os.path.join(path,folder_creation))
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(path,folder_creation,filename))
+@browser_bp.route("/scan",methods=["POST","GET"])
+def scan_route():
+	if request.method == "POST" and session["scan"] == False:
+		if request.files.getlist("fileInput")[0].filename == "" and request.files.getlist("folderInput")[0].filename == "":
+			flash("Please upload file or folder")
+			return redirect(url_for("browser.index"))
+		session["scan"] = True
+		user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
+		path = os.path.join(DATA_PATH,"scan",str(user_uuid))
+		req = request.files
+		# query extension
+		query_extension = Extensions.query.filter_by(valid=True).all()
+		valid_extension = [ext.mimetype for ext in query_extension]
+
+		# File saving
+		req_file = request.files.getlist("fileInput")
+		for file in req_file:
+			file_reader = file.read()
+			file_name = file.filename
+			file_length = len(file_reader)
+			log.info(file)
+			if file_name != "" or file_length != 0:
+				filename = secure_filename(file_name)
+				file_path = os.path.join(path, filename)
+				if scan.control(file_reader,valid_extension):
+					open(file_path,"wb").write(file_reader)
+
+		# Folder saving
+		req_folder = req.getlist("folderInput")
+		for file in req_folder:
+			file_reader = file.read()
+			if file.filename != "" or len(file_reader) != 0:
+				file_name = file.filename
+				file_mime = file.mimetype
+				file_length = len(file_reader)
+				split_in_folder = file.filename.split("/")
+				if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
+					flash("bad upload folder")
+					return redirect(url_for("browser.path"))
+				folder_creation = "/".join(i for i in split_in_folder[:-1])
+				if not os.path.exists(os.path.join(path,folder_creation)):
+					os.makedirs(os.path.join(path,folder_creation))
+				filename = secure_filename(file_name)
+				if scan.control(file_reader,valid_extension):
+					file_path = os.path.join(path,folder_creation,filename)
+					open(file_path,"wb").write(file_reader)
 	return render_template("scan.html")
+
+@browser_bp.route("/code",methods=["POST"])
+@check_scan
+def code():
+	user = Users.query.filter_by(id=current_user.id).first()
+	key_user = f"codeEP_{str(user.uuid)}"
+	if cache.get(key_user)==None:
+		cache.set(key_user,user_mgmt.get_code(),timeout=1800)
+	return redirect(request.referrer)
+
+@browser_bp.route("/temp_scan_off")
+def temp():
+	session["scan"] = False 
+	return redirect(url_for("browser.index"))

@@ -81,7 +81,7 @@ if($("#bodySearchBar").find('tr').is(':visible')){
 
 // Yes button
 $(".yesButtonDeleteObject").click(function(e){
-	var get_url=window.location.pathname.split("/").slice(4).join("/")
+	var get_url=window.location.pathname.split("/").slice(3).join("/")
 	e.preventDefault()
 	$.ajax({
 		type: "GET",

@@ -162,12 +162,7 @@ def first_con():
 @login_required
 def logout():
     username = str(current_user.username)
-    user = Users.query.filter_by(username=username).first()
-    user.cookie = None
-    db.session.commit()
     log.info(f"User {username} has logged out ")
     logout_user()
-    resp = make_response(redirect(url_for("login.login")))
-    if "sabu" in request.cookies:
-        resp.delete_cookie("sabu")
-    return resp
+    session.clear()
+    return redirect(url_for("login.login"))

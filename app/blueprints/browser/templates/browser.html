@@ -19,11 +19,13 @@
                                 <h1 class="font-semibold text-lg text-gray-700 dark:text-white"><span>{{ current_user.username }}</span></h1>
                             </div>
                             <div class="flex space-x-2 p-2">
-                                <button class="bg-darkblue hover:bg-lightblue px-3.5 py-2.5 rounded-xl">
-                                    <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 512 512"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
-                                </button>
                                 <button id="returnButton" hidden class="bg-darkblue hover:bg-lightblue px-3.5 py-2.5 rounded-xl">
                                     <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                                </button>
+                                <button id="donwload_current" class="bg-darkblue hover:bg-lightblue px-3.5 py-2.5 rounded-xl">
+                                    <a href="{{ url_for('browser.download') }}{{ cur_dir }}">
+                                        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 512 512"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+                                    </a>
                                 </button>
                                 <div class="flex">
                                     <button id="buttonSearch" class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-700 dark:hover:bg-gray-800 px-3.5 py-2.5 rounded-xl">
@@ -90,7 +92,7 @@
                                         </div>
                                     </td>
                                     <th scope="row" class="onclick_object px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <!-- link --><a href="{{ url_for('browser.index') }}{{ cur_dir }}{{ dir[4] }}" class="location"></a>
+                                        <a href="{{ url_for('browser.index') }}{{ cur_dir }}/{{ dir[4] }}" class="location"></a>
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0">
                                                 <svg class="fill-yellow-300" xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512"><path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/></svg>
@@ -111,8 +113,12 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
-                                            <!-- link --><button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
-                                            <button data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
+                                            {% if cur_dir == '' %}
+                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            {% else %}
+                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            {% endif %}
+                                            <button data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder" class="delete_object_name"><p class=" font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -146,8 +152,12 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
-                                            <!-- link --><button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
-                                            <button data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
+                                            {% if cur_dir == "" %}
+                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            {% else %}
+                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            {% endif %}
+                                            <button data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File" class="delete_object_name"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -167,11 +177,11 @@
                         <h1 class="text-4xl font-bold text-gray-700 dark:text-white p-8">Menu</h1>
                         <div class="border-t border-gray-700 dark:border-white w-full"></div>
                         <div class="p-4 space-y-4 flex-col justify-center">
-                            <form method="POST" action="{{ url_for('browser.scan') }}" class="space-y-4" enctype="multipart/form-data">
+                            <form method="POST" action="{{ url_for('browser.scan_route') }}" class="space-y-4" enctype="multipart/form-data">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> 
                                 <div class="flex space-x-3">
                                     <label for="fileInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add file</span></label>
-                                    <input type="file" id="fileInput" name="fileInput" multiple class="hidden">
+                                    <input type="file" id="fileInput" name="fileInput" class="hidden">
                                     <label for="folderInput" class="w-full bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold cursor-pointer"><span class="flex items-center justify-center">Add folder</span></label>
                                     <input type="file" id="folderInput" name="folderInput" class="hidden" webkitdirectory directory>
                                 </div>
@@ -195,12 +205,20 @@
                             <div class="bg-gray-100 dark:bg-gray-600 rounded-lg p-4 h-32">
                                 <div class="flex justify-between">
                                     <h1 class="text-sm text-gray-500 dark:text-white">Endpoint Connexion Code</h1>
-                                    <button id="undoBlur" class="text-gray-500 hidden"><i class="viewCode fa-solid fa-eye"></i></button>
+                                    {% if code %}
+                                        <button id="undoBlur" class="text-gray-500"><i class="viewCode fa-solid fa-eye"></i></button>
+                                    {% endif %}
                                 </div>
+                                {% if code %}
+                                <h1 id="codeEndpoint" class="flex justify-center text-lg lg:text-4xl font-bold text-gray-700 dark:text-white p-4 blur-md">{{ code }}</h1>
+                                {% else %}
                                 <div class="flex justify-center items-center">
-                                    <form method="POST"><button class="bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold mt-4">Generate code</button></form>
+                                    <form method="POST" action="{{ url_for('browser.code') }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" >
+                                        <button class="bg-darkblue hover:bg-lightblue p-2 rounded-lg text-white font-semibold mt-4">Generate code</button>
+                                    </form>
                                 </div>
-                                <h1 id="codeEndpoint" class="flex justify-center text-lg lg:text-4xl font-bold text-gray-700 dark:text-white p-4 blur-md hidden">456258</h1>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -33,9 +33,7 @@ class Users(db.Model, UserMixin):
     email = Column(String(255), nullable=True)
     job_id = Column(Integer, db.ForeignKey("job.id"))
     role = Column(String(64), nullable=False)
-    cookie = Column(String(255), unique=True, nullable=True)
     OTPSecret = Column(String(255), unique=True, nullable=True)
-    codeEP = Column(String(255), unique=True, nullable=True)
     picture = Column(String(1024), unique=True, nullable=True)
     enable = Column(Integer, nullable=True, default=1)
     firstCon = Column(Integer, default=0)
@@ -55,7 +53,6 @@ class Job(db.Model):
     name = Column(String(255), nullable=False, unique=True)
 
     user = relationship("Users", backref="job")
-
 
 class USBlog(db.Model):
     __tablename__ = "usblog"

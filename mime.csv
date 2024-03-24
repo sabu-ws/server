@@ -68,7 +68,7 @@ lisp,text/x-lisp
 lnk,application/x-ms-shortcut
 m3u8,text/plain
 m3u,text/plain
-=Makefile,text/x-makefile
+Makefile,text/x-makefile
 md,text/markdown
 mht,application/x-mimearchive
 mp3,audio/mpeg

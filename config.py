@@ -10,10 +10,9 @@ SABU_VERSION = "2.1.0"
 SABU_LICENCE = "0"
 
 # SABU path
-ROOT_PATH = "/mnt/usb/"
-SERVER_PATH = "/tmp/data"
+ROOT_PATH = "/sabu/"
+SERVER_PATH = "/sabu/server"
 DATA_PATH = DOT_ENV["DATA_PATH"]
-# SCRIPT_PATH = os.path.join(SERVER_PATH, "scripts")
 SCRIPT_PATH = "/sabu/server/core/scripts/"
 CONFIG_PATH = os.path.join(SERVER_PATH, "config")
 LOG_PATH = os.path.join(SERVER_PATH, "logs")
@@ -32,3 +31,12 @@ DB_HOST = DOT_ENV["POSTGRES_HOST"]
 DB_NAME = DOT_ENV["POSTGRES_DB"]
 DB_USERNAME = DOT_ENV["POSTGRES_USER"]
 DB_PASSWORD = DOT_ENV["POSTGRES_PASSWORD"]
+
+# Redis content
+REDIS_HOST = DOT_ENV["REDIS_HOST"]
+REDIS_PORT = DOT_ENV["REDIS_PORT"]
+REDIS_PASSWORD = DOT_ENV["REDIS_PASSWORD"]
+REDIS_DB = DOT_ENV["REDIS_DB"]
+
+# Scoring verification
+scoring = 0.9

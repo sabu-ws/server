@@ -20,6 +20,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_session import Session
+from flask_caching import Cache
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -27,6 +28,7 @@ import datetime
 import logging
 import string
 import random
+import redis
 import os
 import re
 import uuid
@@ -42,9 +44,23 @@ app.config["SECRET_KEY"] = "".join(
 app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed()
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
-app.config["SESSION_TYPE"] = 'filesystem'
+
+# Session configure with redis
+app.config["SESSION_TYPE"] = 'redis'
+app.config["SESSION_KEY_PREFIX"] = "SABU_session_"
 app.config["SESSION_COOKIE_SECURE"] = True
+redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB), password=REDIS_PASSWORD)
+app.config["SESSION_REDIS"] = redis_client
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=12)
+
+# Cache config
+app.config["CACHE_TYPE"] = "RedisCache"
+app.config["CACHE_KEY_PREFIX"] = "SABU_cache_"
+app.config["CACHE_DEFAULT_TIMEOUT"] = 300
+app.config["CACHE_REDIS_HOST"] = REDIS_HOST
+app.config["CACHE_REDIS_PORT"] = REDIS_PORT
+app.config["CACHE_REDIS_PASSWORD"] = REDIS_PASSWORD
+app.config["CACHE_REDIS_DB"] = int(REDIS_DB)
 
 # Proxy fix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
@@ -58,6 +74,9 @@ csrf.init_app(app)
 
 # flask bcrypt
 bcrypt = Bcrypt(app)
+
+# flask caching
+cache = Cache(app)
 
 # sqlalchemy database
 db = SQLAlchemy()
