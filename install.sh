@@ -18,8 +18,8 @@
 
 # VARS
 DATA_MOUNTPOINT="/tmp/"
-PACKAGES_PART_1="dirmngr apt-transport-https lsb-release ca-certificates gnupg nodejs nginx openssl python3 python3-pip python3-venv postgresql nftables rsyslog gnupg postgresql-common apt-transport-https lsb-release wget"
-PACKAGES_PART_2="timescaledb-2-postgresql-15"
+PACKAGES_PART_1="dirmngr apt-transport-https lsb-release ca-certificates gnupg nodejs nginx openssl python3 python3-pip python3-venv postgresql nftables rsyslog gnupg postgresql-common apt-transport-https lsb-release wget ipcalc"
+PACKAGES_PART_2="timescaledb-2-postgresql-15 redis"
 
 # DEFINE COLORS
 readonly COLOUR_RESET='\e[0m'
@@ -208,7 +208,7 @@ install_packages() {
     apt-get install gpg curl git sudo -y > /dev/null 2>&1
 
     # REPO NODEJS
-    show 2 "Add repositories: ${COLOURS[4]}nodesource timescale"
+    show 2 "Add repositories: ${COLOURS[4]}${PACKAGES_PART_2}"
     color_red
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --yes -o /etc/apt/keyrings/nodesource.gpg > /dev/null 2>&1
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list > /dev/null 2>&1
@@ -217,16 +217,12 @@ install_packages() {
     curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor --yes -o /etc/apt/keyrings/timescale.gpg > /dev/null 2>&1
     echo "deb [signed-by=/etc/apt/keyrings/timescale.gpg] https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescale.list > /dev/null 2>&1
 
-    apt-get update > /dev/null 2>&1
-    show 0 "Repositories added successfully."
-
     # REPO REDIS
-    show 2 "Install redis server"
     curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+
     apt-get update > /dev/null 2>&1
-    apt-get install redis -y > /dev/null 2>&1
-    show 0 "Redis installation successfully"
+    show 0 "Repositories added successfully."
 
     # INSTALL
     show 2 "Install necessary packages: ${COLOURS[4]}${PACKAGES_PART_1} ${PACKAGES_PART_2}"
@@ -368,7 +364,8 @@ deploy_timescale() {
 }
 
 # DEPLOY REDIS
-deploy_redis() {
+deploy_redis() {*
+
     show 2 "Redis setup..."
     redis-cli -h $REDIS_HOST -p $REDIS_PORT config set requirepass $REDIS_PASSWORD
     show 0 "Redis setup complete"
@@ -398,6 +395,9 @@ end_install() {
     chown -R svc-sabu:svc-sabu /sabu/
     chmod -R 0750 /sabu/
     show 0 "End install complete"
+
+    # APPLY FILETRING
+    sh /sabu/server/core/scripts/filtering_dev.sh
 
     # REBOOT
     show 2 "Waiting reboot..."
