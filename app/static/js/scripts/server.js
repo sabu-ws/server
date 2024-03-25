@@ -1,3 +1,6 @@
+if (typeof total_ram === 'undefined') {
+	total_ram = 0
+}
 // Check Hostname Length
 $("#inputHostname").on("keyup",function(){
 	if($(this).val().length > 4 && $(this).val().length < 65 ){
@@ -23,6 +26,21 @@ $(document).ready(function(e){
 		socket.on("receiveLogs",function(data){
 			$("#setLogs").html(data.replace(/\n/g, "<br />"));
 			$("#masterSetLogs").animate({ scrollTop: $("#masterSetLogs")[0].scrollHeight }, 1000);
+		})
+	}
+	
+	if(document.location.pathname=="/panel/server/settings"){
+		// ========== SETTING SERVER ==========
+		var iface = $("#interface").val()
+		socket = io.connect("/netiface")
+		socket.emit("info_netiface",netiface=iface)
+		socket.on("rcv_netiface",function(data){
+			console.log(data)
+			$("#ip").attr("placeholder",data[0])
+			$("#netmask").attr("placeholder",data[1])
+			$("#gateway").attr("placeholder",data[2])
+			$("#dns1").attr("placeholder",data[3])
+			$("#dns2").attr("placeholder",data[4])
 		})
 	}
 });
@@ -54,7 +72,7 @@ $("#yesButtonShutdown").click(function(e){
 });
 
 // XtermJS
-Terminal.applyAddon(fit)
+// Terminal.applyAddon(fit)
 
 // const term = new Terminal({
 //    cursorBlink: 5,
@@ -67,6 +85,8 @@ Terminal.applyAddon(fit)
 
 
 // ========== CHARTS ==========
+
+
 
 // CPU
 let options_CPU = {
@@ -343,145 +363,7 @@ let options_NET = {
 
 
 // DISK
-const getChartOptions = {
-	series: [0],
-	colors: ["#fa3d37", "#11c186"],
-	chart: {
-		height: "100%",
-		width: "100%",
-		type: "donut",
-		toolbar: {
-			show: true,
-			},
-	},
-	stroke: {
-		colors: ["white"],
-		lineCap: "",
-	},
-	plotOptions: {
-		pie: {
-			donut: {
-			  labels: {
-				show: true,
-				name: {
-				  show: true,
-				  fontFamily: "Inter, sans-serif",
-				  offsetY: 20,
-				},
-				total: {
-				  showAlways: true,
-				  show: true,
-				  label: "Total",
-				  fontFamily: "Inter, sans-serif",
-				  formatter: function (w) {
-					const sum = w.globals.seriesTotals.reduce((a, b) => {
-					  return a + b
-					}, 0)
-					return `${sum} GB`
-				  },
-				},
-				value: {
-				  show: true,
-				  fontFamily: "Inter, sans-serif",
-				  offsetY: -20,
-				  formatter: function (value) {
-					return value + "GB"
-				  },
-				},
-			  },
-			  size: "60%",
-			},
-		  },
-	},
-	labels: ["Used", "Free"],
-	dataLabels: {
-		enabled: true,
-		style: {
-			fontFamily: "Inter, sans-serif",
-		},
-	},
-	legend: {
-		position: "left",
-		fontFamily: "Inter, sans-serif",
-	},
-	yaxis: {
-		labels: {
-			formatter: function (value) {
-				return value + " GB"
-			},
-		},
-	},
-	xaxis: {
-		labels: {
-			formatter: function (value) {
-				return value  + " GB"
-			},
-		},
-		axisTicks: {
-			show: false,
-		},
-		axisBorder: {
-			show: false,
-		},
-	},
-}
-
-const chart_CPU = new ApexCharts(document.getElementById("chart-cpu"), options_CPU);
-chart_CPU.render();
-
-chart_RAM = new ApexCharts(document.getElementById("chart-ram"), options_RAM);
-chart_RAM.render();
-
-const chart_NET = new ApexCharts(document.getElementById("chart-network"), options_NET);
-chart_NET.render();
-
-const chart_DISK = new ApexCharts(document.getElementById("chart-disk-old"), getChartOptions);
-chart_DISK.render();
-
-socket_CPU = io.connect("/chart_CPU")
-socket_CPU.emit("start_chart_cpu_rcv")
-socket_CPU.on("chart_cpu_rcv",function(data){
-	chart_CPU.updateSeries([
-		{
-		 data: data,
-		}
-	])
-})
-
-
-
-socket_RAM = io.connect("/chart_RAM")
-socket_RAM.emit("start_chart_ram_rcv")
-socket_RAM.on("chart_ram_rcv",function(data){
-	chart_RAM.updateSeries([
-		{
-		 data: data,
-		}
-	])
-})
-
-socket_NET = io.connect("/chart_NET")
-socket_NET.emit("start_chart_net_rcv")
-socket_NET.on("chart_net_rcv",function(data){
-	chart_NET.updateSeries([
-		{
-		 data: data[0],
-		},
-		{
-		 data: data[1],
-		}
-	])
-})
-
-
-socket_DISK = io.connect("/chart_DISK")
-socket_DISK.emit("start_chart_disk_rcv")
-socket_DISK.on("chart_disk_rcv",function(data){
-	chart_DISK.updateSeries([parseFloat(data[0]),parseFloat(data[1])])
-})
-
-
-var options = {
+var options_DISK = {
 	colors: ["#ed3e3e", "#189e2e"],
 	series: [{
 	name: 'Used',
@@ -530,7 +412,77 @@ var options = {
 	horizontalAlign: 'left',
 	offsetX: 40
   }
-  };
+};
 
-  var chart = new ApexCharts(document.querySelector("#chart-disk"), options);
-  chart.render();
+
+
+
+if (document.getElementById("chart-cpu")){
+	const chart_CPU = new ApexCharts(document.getElementById("chart-cpu"), options_CPU);
+	chart_CPU.render();
+	socket_CPU = io.connect("/chart_CPU")
+	socket_CPU.emit("start_chart_cpu_rcv")
+	socket_CPU.on("chart_cpu_rcv",function(data){
+		chart_CPU.updateSeries([
+			{
+			 data: data,
+			}
+		])
+	})
+}
+
+if (document.getElementById("chart-ram")){
+	chart_RAM = new ApexCharts(document.getElementById("chart-ram"), options_RAM);
+	chart_RAM.render();
+	socket_RAM = io.connect("/chart_RAM")
+	socket_RAM.emit("start_chart_ram_rcv")
+	socket_RAM.on("chart_ram_rcv",function(data){
+		chart_RAM.updateSeries([
+			{
+			 data: data,
+			}
+		])
+	})
+}
+
+if (document.getElementById("chart-network")){
+	const chart_NET = new ApexCharts(document.getElementById("chart-network"), options_NET);
+	chart_NET.render();
+	socket_NET = io.connect("/chart_NET")
+	socket_NET.emit("start_chart_net_rcv")
+	socket_NET.on("chart_net_rcv",function(data){
+		chart_NET.updateSeries([
+			{
+			 data: data[0],
+			},
+			{
+			 data: data[1],
+			}
+		])
+	})
+}
+
+if (document.getElementById("chart-disk")){
+	var chart = new ApexCharts(document.getElementById("chart-disk"), options_DISK);
+	chart.render();
+	socket_DISK = io.connect("/chart_DISK")
+	socket_DISK.emit("start_chart_disk_rcv")
+	socket_DISK.on("chart_disk_rcv",function(data){
+		chart_DISK.updateSeries([parseFloat(data[0]),parseFloat(data[1])])
+	})
+}
+
+// ========== SETTING SERVER ==========
+$("#interface").change(function(){
+	var iface = $("#interface").val()
+	socket = io.connect("/netiface")
+	socket.emit("info_netiface",netiface=iface)
+	socket.on("rcv_netiface",function(data){
+		console.log(data)
+		$("#ip").attr("placeholder",data[0])
+		$("#netmask").attr("placeholder",data[1])
+		$("#gateway").attr("placeholder",data[2])
+		$("#dns1").attr("placeholder",data[3])
+		$("#dns2").attr("placeholder",data[4])
+	})
+})

@@ -39,7 +39,6 @@ def startLogsServer():
 			modify_syslog = os.stat("/var/log/syslog")[9]
 
 
-from sqlalchemy import func
 @socketio.on("start_chart_cpu_rcv", namespace="/chart_CPU")
 def connect_chart_cpu():
 	table_cpu = []
@@ -109,6 +108,13 @@ def connect_chart_net():
 	table_netall = [table_netin,table_netou]
 	socketio.emit("chart_net_rcv", table_netall, namespace="/chart_NET")
 
+@socketio.on("info_netiface",namespace="/netiface")
+def netiface(iface=""):
+	script_path = os.path.join(SCRIPT_PATH,"get_ip_address.sh")
+	command = f"sudo /usr/bin/bash {script_path} {iface}".split()
+	process = subprocess.Popen(command,stdout=subprocess.PIPE).communicate()[0].decode()
+	splitting_result = process.split("\n")
+	socketio.emit("rcv_netiface",data=splitting_result,namespace="/netiface")
 
 # ================= end socket io func
 
@@ -341,9 +347,5 @@ def ssh():
 	# https://github.com/Fisherworks/flask-remote-terminal/blob/master/app.py
 	# https://docs.python.org/3/library/pty.html
 	return render_template("ap_srv_ssh.html")
-
-@server_bp.route("/test")
-def test():
-	return ""
 
 # ================ end router server

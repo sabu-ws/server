@@ -368,6 +368,7 @@ deploy_redis() {*
 
     show 2 "Redis setup..."
     redis-cli -h $REDIS_HOST -p $REDIS_PORT config set requirepass $REDIS_PASSWORD
+    systemctl enable redis-server.service > /dev/null 2>&1
     show 0 "Redis setup complete"
 }
 

@@ -96,33 +96,33 @@
 													{% else %}
 														{% for interface in interfaces %}
 															<option value="{{ interface }}">{{ interface }}</option>
-														{% endfor %}
+															{% endfor %}
 													{% endif %}
 												</select>
 											</div>
 											<div class="mb-4 w-full">
 												<label class="block mb-2 dark:text-white">Gateway :</label>
-												<input type="text" name="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="METTRE ACTUELLE">
+												<input type="text" name="gateway" id="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Gateway">
 											</div>
 										</div>
 										<div class="flex justify-center space-x-12">
 											<div class="mb-4 w-full">
 												<label class="block mb-2 dark:text-white">IP Address :</label>
-												<input type="text" name="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="METTRE ACTUELLE">
+												<input type="text" name="ip" id="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="IP">
 											</div>
 											<div class="mb-4 w-full">
 												<label class="block mb-2 dark:text-white">DNS 1 :</label>
-												<input type="text" name="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="METTRE ACTUELLE">
+												<input type="text" name="dns1" id="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="DNS 1">
 											</div>
 										</div>
 										<div class="flex justify-center space-x-12">
 											<div class="mb-4 w-full">
 												<label class="block mb-2 dark:text-white">Netmask :</label>
-												<input type="text" name="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="METTRE ACTUELLE">
+												<input type="text" name="netmask" id="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Netmask">
 											</div>
 											<div class="mb-4 w-full">
-												<label class="block mb-2 dark:text-white">DNS 2 (Not required) :</label>
-												<input type="text" name="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="METTRE ACTUELLE">
+												<label class="block mb-2 dark:text-white">DNS 2 (Optional) :</label>
+												<input type="text" name="dns2" id="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="DNS 2">
 											</div>
 										</div>
 										<div class="flex justify-end mt-4">
