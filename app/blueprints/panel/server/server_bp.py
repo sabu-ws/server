@@ -82,8 +82,8 @@ def connect_chart_cpu():
 		.replace("\n", " ")
 		.split(" ")
 	)
-	log.info(get_total_disk)
-	socketio.emit("chart_disk_rcv", get_total_disk, namespace="/chart_DISK")
+	switch_value = [round((int(val)/1048576),1) for val in get_total_disk]
+	socketio.emit("chart_disk_rcv", switch_value, namespace="/chart_DISK")
 
 
 @socketio.on("start_chart_net_rcv", namespace="/chart_NET")
