@@ -18,7 +18,7 @@
 
 # VARS
 DATA_MOUNTPOINT="/tmp/"
-PACKAGES_PART_1="dirmngr apt-transport-https lsb-release ca-certificates gnupg nodejs nginx openssl python3 python3-pip python3-venv postgresql nftables rsyslog gnupg postgresql-common apt-transport-https lsb-release wget ipcalc"
+PACKAGES_PART_1="dirmngr apt-transport-https lsb-release ca-certificates gnupg nodejs nginx openssl python3 python3-pip python3-venv postgresql nftables rsyslog gnupg postgresql-common apt-transport-https lsb-release wget ipcalc clamav"
 PACKAGES_PART_2="timescaledb-2-postgresql-15 redis"
 
 # DEFINE COLORS
