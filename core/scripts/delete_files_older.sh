@@ -1,4 +1,3 @@
-# SABU-SERVER
 #!/bin/bash
 
 remove="false"

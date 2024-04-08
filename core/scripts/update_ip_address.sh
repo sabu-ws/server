@@ -1,4 +1,3 @@
-# SABU-SERVER
 #!/bin/bash
 
 INTERFACE_FILE="/etc/network/interfaces"
