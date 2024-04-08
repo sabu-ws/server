@@ -24,6 +24,7 @@ from flask_caching import Cache
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+from celery import Celery
 import datetime
 import logging
 import string
@@ -32,6 +33,7 @@ import redis
 import os
 import re
 import uuid
+
 
 log_format = "%(levelname)s [%(asctime)s] %(name)s  %(message)s"
 logging.basicConfig(format=log_format,level=logging.INFO,filename="/sabu/logs/server/sabu.log",filemode="a")
@@ -49,7 +51,8 @@ app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 app.config["SESSION_TYPE"] = 'redis'
 app.config["SESSION_KEY_PREFIX"] = "SABU_session_"
 app.config["SESSION_COOKIE_SECURE"] = True
-redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB), password=REDIS_PASSWORD)
+# redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB_CACHE), password=REDIS_PASSWORD)
+redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB_CACHE))
 app.config["SESSION_REDIS"] = redis_client
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=12)
 
@@ -59,8 +62,14 @@ app.config["CACHE_KEY_PREFIX"] = "SABU_cache_"
 app.config["CACHE_DEFAULT_TIMEOUT"] = 300
 app.config["CACHE_REDIS_HOST"] = REDIS_HOST
 app.config["CACHE_REDIS_PORT"] = REDIS_PORT
-app.config["CACHE_REDIS_PASSWORD"] = REDIS_PASSWORD
-app.config["CACHE_REDIS_DB"] = int(REDIS_DB)
+# app.config["CACHE_REDIS_PASSWORD"] = REDIS_PASSWORD
+app.config["CACHE_REDIS_DB"] = int(REDIS_DB_CACHE)
+
+# Celery config
+redis_client_scanner_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{int(REDIS_PORT)}/{int(REDIS_DB_CELERY)}"
+app.config["broker_url"] = redis_client_scanner_url
+app.config["result_backend"] = redis_client_scanner_url
+app.config["broker_transport"] = 'redis'
 
 # Proxy fix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
@@ -103,13 +112,18 @@ socketio = SocketIO(app)
 # Session manager
 session = Session(app)
 
-
-
-
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
 
+# Celery
+scanner = Celery(app.import_name)
+scanner.conf.update(app.config)
+class ContextTask(scanner.Task):
+	def __call__(self, *args, **kwargs):
+		with app.app_context():
+			return self.run(*args, **kwargs)
+scanner.Task = ContextTask
 
 # Import all views
 from app import views

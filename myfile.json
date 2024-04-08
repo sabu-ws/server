@@ -1,0 +1,21 @@
+{
+ "celery@vm-sabu-server-01": [
+  {
+   "id": "666559e2-bc2c-4774-b54a-df851b27afd5",
+   "name": "app.utils.scan.scan.hello",
+   "args": [],
+   "kwargs": {},
+   "type": "app.utils.scan.scan.hello",
+   "hostname": "celery@vm-sabu-server-01",
+   "time_start": null,
+   "acknowledged": false,
+   "delivery_info": {
+    "exchange": "",
+    "routing_key": "celery",
+    "priority": 0,
+    "redelivered": false
+   },
+   "worker_pid": null
+  }
+ ]
+}

@@ -1,12 +1,13 @@
 from config import *
-from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash, session
+from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash, session, jsonify
 from werkzeug.utils import secure_filename
 
-from app import login_required, current_user, logout_user, logger as log, db, cache, redis_client
+from app import login_required, current_user, logout_user, logger as log, db, cache, scanner
 from app.models import Users, Extensions
-from app.utils import scan,user_mgmt
+from app.utils import scan,user_mgmt,tasks
 
 from urllib.parse import quote
+from celery import group
 from functools import wraps
 from io import BytesIO
 import datetime
@@ -57,9 +58,6 @@ def index(MasterListDir=""):
 	joining = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
 	cur_dir = MasterListDir + "/" if MasterListDir != "" else ""
 	cur_dir = MasterListDir
-	# if cur_dir != "":
-		# cur_dir="/"+cur_dir
-	log.info(cur_dir)
 	if not os.path.exists(joining):
 		abort(404)
 	if os.path.isdir(joining):
@@ -109,7 +107,6 @@ def download(MasterListDir=""):
 	name_in_file = last
 	if name_in_file == "":
 		name_in_file="root"
-	log.info(str(last))
 	os.chdir(master_path)
 	if os.path.exists(path):
 		if os.path.isdir(path):
@@ -150,7 +147,6 @@ def delete(MasterListDir=""):
 					os.remove(os.path.join(root, name))
 				for name in dirs:
 					os.rmdir(os.path.join(root, name))
-			log.info(str(last))
 			os.rmdir(last)
 			return "ok"
 		elif os.path.isfile(path):
@@ -180,7 +176,6 @@ def scan_route():
 			file_reader = file.read()
 			file_name = file.filename
 			file_length = len(file_reader)
-			log.info(file)
 			if file_name != "" or file_length != 0:
 				filename = secure_filename(file_name)
 				file_path = os.path.join(path, filename)
@@ -198,6 +193,7 @@ def scan_route():
 				split_in_folder = file.filename.split("/")
 				if len(split_in_folder) > 15 or "" in split_in_folder or ".." in split_in_folder or "%" in split_in_folder:
 					flash("bad upload folder")
+					session["scan"] = False
 					return redirect(url_for("browser.path"))
 				folder_creation = "/".join(i for i in split_in_folder[:-1])
 				if not os.path.exists(os.path.join(path,folder_creation)):
@@ -206,7 +202,27 @@ def scan_route():
 				if scan.control(file_reader,valid_extension):
 					file_path = os.path.join(path,folder_creation,filename)
 					open(file_path,"wb").write(file_reader)
-	return render_template("scan.html")
+		# Start scan
+		group_tasks = group([
+		scan.hello.s(),
+		scan.hello2.s()
+		])
+		res = group_tasks.apply_async()
+		res.save()
+		session["scan_id"] = res.id
+	elif request.method == "GET" and session["scan"] == False:
+		return redirect(url_for("browser.index"))
+	return render_template("scan.html",scan_id=str(session["scan_id"]))
+
+@browser_bp.route("/scan/id/<string:id>")
+def scan_id(id=""):
+	id = str(id)
+	res = scanner.GroupResult.restore(id)
+	if res.ready():
+		flash("Scan ended")
+		session["scan"] = False 
+	log.info(res.ready())
+	return {"state":res.ready()}
 
 @browser_bp.route("/code",methods=["POST"])
 @check_scan

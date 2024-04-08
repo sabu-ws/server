@@ -10,7 +10,6 @@ import subprocess
 import os
 
 
-
 def read_CPU():
 	with app.app_context():
 		script = os.path.join(SCRIPT_PATH, "get_cpu_space.sh")
@@ -57,7 +56,7 @@ def retention_files():
 		if query_retention != None:
 			get_retention_value = query_retention.value
 			path_to_script_retention = os.path.join(SCRIPT_PATH,"delete_files_older.sh")
-			commande = f"sudo /usr/bin/bash {path_to_script_retention} -p /sabu/data/data -d {str(get_retention_value)} -r true".split()
+			commande = f"sudo /usr/bin/bash {path_to_script_retention} -p {DATA_PATH} -d {str(get_retention_value)} -r true".split()
 			exec_retention = subprocess.Popen(commande)
 
 def maitenance_server():

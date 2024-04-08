@@ -11,6 +11,9 @@
 </div>
 {% endblock %}
 {% block scripts %}
-<script> var csrf_token = "{{ csrf_token() }}";</script>
-<script src="{{ url_for('static',filename='js/scripts/browser.js') }}"></script>
+<script> 
+var csrf_token = "{{ csrf_token() }}";
+var scan_id = "{{ scan_id }}";
+</script>
+<script src="{{ url_for('static',filename='js/scripts/scan.js') }}"></script>
 {% endblock %}
