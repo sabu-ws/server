@@ -131,6 +131,7 @@ check_requirements() {
     if [ -d "$DATA_MOUNTPOINT" ]
     then
         show 2 "Folder exist"
+        chown -R svc-sabu:svc-sabu $DATA_MOUNTPOINT > /dev/null 2>&1
     else
         show 1 "Folder not exist, cancel installation."
     fi
@@ -218,8 +219,8 @@ install_packages() {
     echo "deb [signed-by=/etc/apt/keyrings/timescale.gpg] https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescale.list > /dev/null 2>&1
 
     # REPO REDIS
-    curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+    curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg > /dev/null 2>&1
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list > /dev/null 2>&1
 
     apt-get update > /dev/null 2>&1
     show 0 "Repositories added successfully."
