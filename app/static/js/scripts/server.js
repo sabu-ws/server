@@ -171,6 +171,9 @@ let options_CPU = {
 			}
 		}
 	},
+	noData: {
+		text: 'Loading...'
+	}
 }
 
 // RAM
@@ -256,6 +259,9 @@ let options_RAM = {
 			}
 		}
 	},
+	noData: {
+		text: 'Loading...'
+	}
 }
 
 
@@ -359,6 +365,9 @@ let options_NET = {
 			}
 		}
 	},
+	noData: {
+		text: 'Loading...'
+	}
 }
 
 
@@ -367,10 +376,10 @@ var options_DISK = {
 	colors: ["#ed3e3e", "#189e2e"],
 	series: [{
 	name: 'Used',
-	data: [2.2, 55]
+	data: []
   }, {
 	name: 'Free',
-	data: [16, 32]
+	data: []
   
   }],
 	chart: {
@@ -411,6 +420,9 @@ var options_DISK = {
 	position: 'bottom',
 	horizontalAlign: 'left',
 	offsetX: 40
+  },
+  noData: {
+    text: 'Loading...'
   }
 };
 
@@ -463,12 +475,21 @@ if (document.getElementById("chart-network")){
 }
 
 if (document.getElementById("chart-disk")){
-	var chart = new ApexCharts(document.getElementById("chart-disk"), options_DISK);
-	chart.render();
+	var chart_DISK = new ApexCharts(document.getElementById("chart-disk"), options_DISK);
+	chart_DISK.render();
 	socket_DISK = io.connect("/chart_DISK")
 	socket_DISK.emit("start_chart_disk_rcv")
-	socket_DISK.on("chart_disk_rcv",function(data){
-		chart_DISK.updateSeries([parseFloat(data[0]),parseFloat(data[1])])
+	socket_DISK.on("chart_disk_rcv", function(data){
+		chart_DISK.updateSeries(
+			[{
+				name: 'Used',
+				data: [data[0], data[2]]
+			  }, {
+				name: 'Free',
+				data: [data[1], data[3]]
+			  
+			  }],
+			)
 	})
 }
 

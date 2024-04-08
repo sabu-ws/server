@@ -79,9 +79,10 @@ def connect_chart_cpu():
 		subprocess.Popen(["bash", script], stdout=subprocess.PIPE)
 		.communicate()[0]
 		.decode()
-		.replace("\n", "")
+		.replace("\n", " ")
 		.split(" ")
 	)
+	log.info(get_total_disk)
 	socketio.emit("chart_disk_rcv", get_total_disk, namespace="/chart_DISK")
 
 
