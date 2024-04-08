@@ -382,10 +382,18 @@ deploy_sabu() {
     # SABU SERVICE & DIR
     show 2 "SABU setup..."
     mkdir -p /sabu/logs/{server,endpoints}
+    
     cp /sabu/server/deploy/sabu.service /etc/systemd/system/sabu.service > /dev/null 2>&1
+    cp /sabu/server/deploy/celery.service /etc/systemd/system/celery.service > /dev/null 2>&1
+    
     systemctl daemon-reload > /dev/null 2>&1
+    
     systemctl start sabu.service > /dev/null 2>&1
     systemctl enable sabu.service > /dev/null 2>&1
+
+    systemctl start celery.service > /dev/null 2>&1
+    systemctl enable celery.service > /dev/null 2>&1
+    
     show 0 "SABU setup complete"
 }
 
