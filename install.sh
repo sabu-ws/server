@@ -131,7 +131,6 @@ check_requirements() {
     if [ -d "$DATA_MOUNTPOINT" ]
     then
         show 2 "Folder exist"
-        chown -R svc-sabu:svc-sabu $DATA_MOUNTPOINT > /dev/null 2>&1
     else
         show 1 "Folder not exist, cancel installation."
     fi
@@ -413,6 +412,8 @@ end_install() {
     show 2 "End install..."
     chown -R svc-sabu:svc-sabu /sabu/
     chmod -R 0750 /sabu/
+    chown -R svc-sabu:svc-sabu $DATA_MOUNTPOINT > /dev/null 2>&1
+    chmod -R 0750 $DATA_MOUNTPOINT > /dev/null 2>&1
     show 0 "End install complete"
 
     # APPLY FILETRING
