@@ -373,6 +373,15 @@ deploy_redis() {
     show 0 "Redis setup complete"
 }
 
+# DEPLOY NFTABLES
+deploy_nftables() {
+
+    show 2 "Nftables setup..."
+    systemctl start nftables.service > /dev/null 2>&1
+    systemctl enable nftables.service > /dev/null 2>&1
+    show 0 "Nftables setup complete"
+}
+
 # DEPLOY SABU
 deploy_sabu() {
 
@@ -407,7 +416,8 @@ end_install() {
     show 0 "End install complete"
 
     # APPLY FILETRING
-    sh /sabu/server/core/scripts/filtering_dev.sh
+    INT=$(ip -br a | tail -n 1 | awk '{print $1}')
+    sh /sabu/server/core/scripts/filtering_dev.sh $INT
 
     # REBOOT
     show 2 "Waiting reboot..."
