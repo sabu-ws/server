@@ -139,18 +139,18 @@ $("#folderInput").on( "change", function() {
 });
 
 // Listen for click on toggle checkbox
-$('#select-all').click(function(event) {   
-    if(this.checked) {
-        // Iterate each checkbox
-        $(':checkbox').each(function() {
-            this.checked = true;                        
-        });
-    } else {
-        $(':checkbox').each(function() {
-            this.checked = false;                       
-        });
-    }
-}); 
+// $('#select-all').click(function(event) {   
+//     if(this.checked) {
+//         // Iterate each checkbox
+//         $(':checkbox').each(function() {
+//             this.checked = true;                        
+//         });
+//     } else {
+//         $(':checkbox').each(function() {
+//             this.checked = false;                       
+//         });
+//     }
+// }); 
 
 // Undo Blur for Endpoint Connexion Code
 $("#undoBlur").click(function() {
