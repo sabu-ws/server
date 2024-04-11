@@ -90,15 +90,7 @@
 										<div class="flex justify-center space-x-12">
 											<div class="mb-4 w-full">
 												<label for="interface" class="block mb-2 dark:text-white">Interface :</label>
-												<select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-													{% if interfaces.length == 0 %}
-														<option>Interface not found</option>
-													{% else %}
-														{% for interface in interfaces %}
-															<option value="{{ interface }}">{{ interface }}</option>
-															{% endfor %}
-													{% endif %}
-												</select>
+												<input type="text" name="interface" id="interface" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Interface" value="{{ interfaces[0] }}" readonly>
 											</div>
 											<div class="mb-4 w-full">
 												<label class="block mb-2 dark:text-white">Gateway :</label>
