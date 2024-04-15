@@ -53,7 +53,7 @@ def read_NET():
 def retention_files():
 	with app.app_context():
 		query_retention = Setup.query.filter_by(action="ret").first()
-		if query_retention != None:
+		if query_retention is not None:
 			get_retention_value = query_retention.value
 			path_to_script_retention = os.path.join(SCRIPT_PATH,"delete_files_older.sh")
 			commande = f"sudo /usr/bin/bash {path_to_script_retention} -p {DATA_PATH} -d {str(get_retention_value)} -r true".split()
