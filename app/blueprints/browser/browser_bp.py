@@ -56,7 +56,6 @@ def index(MasterListDir=""):
 	code_ep = cache.get(key_user)
 	user_uuid = user.uuid
 	joining = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
-	cur_dir = MasterListDir + "/" if MasterListDir != "" else ""
 	cur_dir = MasterListDir
 	if not os.path.exists(joining):
 		abort(404)

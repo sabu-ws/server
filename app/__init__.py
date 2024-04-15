@@ -22,6 +22,7 @@ from flask_bcrypt import Bcrypt
 from flask_session import Session
 from flask_caching import Cache
 from flask_wtf.csrf import CSRFProtect, CSRFError
+from app.utils.api.api_session import ApiWS
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from celery import Celery
@@ -124,6 +125,9 @@ class ContextTask(scanner.Task):
 		with app.app_context():
 			return self.run(*args, **kwargs)
 scanner.Task = ContextTask
+
+# API ws session
+apiws = ApiWS(app,redis_client,key_prefix="SABU_api_")
 
 # Import all views
 from app import views

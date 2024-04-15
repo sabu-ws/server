@@ -3,21 +3,24 @@ from config import *
 from app import (
     socketio,
     db,
+    cache,
     login_user,
     current_user,
     logout_user,
     bcrypt,
     logger as log,
+    apiws
 )
 from app.models import Devices, Users
 
 from flask_socketio import emit, join_room, rooms, close_room
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from functools import wraps
 import pyotp
 import jwt
 
 api_bp = Blueprint("api", __name__, template_folder="templates")
+
 
 
 # ==================== controller api
@@ -72,6 +75,7 @@ def check_room(f):
 @check_headers
 def join(*args, **kwargs):
     join_room(request.headers["X-SABUHOSTNAME"], namespace="/api/v2", sid=request.sid)
+    log.info(str(request.sid))
     device = Devices.query.filter_by(hostname=request.headers["X-SABUHOSTNAME"]).first()
     socketio.emit(
         "state", {"state": "up", "uuid": str(device.uuid)}, namespace="/state_ep"
@@ -124,12 +128,13 @@ def ping(*args, **kwargs):
 @socketio.on("set_connection", namespace="/api/v2")
 @check_room
 def set_connect(data):
-    if "username" in data and "password" in data:
-        user = Users.query.filter_by(username=data["username"]).first()
+    log.info(str(request.sid))
+    if "username" in data and "code" in data:
+        user = Users.query.filter(Users.username==data["username"] and Users.role=="User").first()
         if user is None:
             emit(
                 "callback",
-                {"error": "user not found"},
+                {"error": "bad credentials"},
                 namespace="/api/v2",
                 to=request.headers["X-SABUHOSTNAME"],
             )
@@ -137,125 +142,74 @@ def set_connect(data):
             username = str(data["username"])
             log.info(f"Endpoint {hostname} enter bad username : {username}")
         else:
-            if bcrypt.check_password_hash(user.password, data["password"]):
-                if user.OTPSecret is None:
-                    login_user(user)
+            key_user = f"codeEP_{str(user.uuid)}"
+            data_code_user = cache.get(key_user)
+            if data_code_user!=None:
+                if data_code_user == data["code"]:
                     emit(
                         "callback",
-                        {"message": "user connected", "user": user.username},
+                        {"message": "user connected"},
                         namespace="/api/v2",
                         to=request.headers["X-SABUHOSTNAME"],
                     )
+                    login_user(user)
+                    session["username"] = user.username
                     hostname = str(request.headers["X-SABUHOSTNAME"])
                     username = str(data["username"])
                     log.info(f"Endpoint {hostname} connect a username : {username}")
                 else:
                     emit(
                         "callback",
-                        {"error": "need otp"},
+                        {"error": "bad credentials"},
                         namespace="/api/v2",
                         to=request.headers["X-SABUHOSTNAME"],
                     )
+                    hostname = str(request.headers["X-SABUHOSTNAME"])
+                    username = str(data["username"])
+                    log.info(f"Endpoint {hostname} enter bad code : {username}")
             else:
-                emit(
-                    "callback",
-                    {"error": "user not found"},
-                    namespace="/api/v2",
-                    to=request.headers["X-SABUHOSTNAME"],
-                )
-                hostname = str(request.headers["X-SABUHOSTNAME"])
-                username = str(data["username"])
-                log.info(f"Endpoint {hostname} enter bad password : {username}")
-
-
-@socketio.on("check_otp", namespace="/api/v2")
-@check_room
-def check_otp(data):
-    user = Users.query.filter_by(username=data["username"]).first()
-    hostname = str(request.headers["X-SABUHOSTNAME"])
-    if user is None:
-        emit(
-            "callback",
-            {"error": "bad credentials"},
-            namespace="/api/v2",
-            to=request.headers["X-SABUHOSTNAME"],
-        )
-        username = str(data["username"])
-        log.info(f"Endpoint {hostname} enter bad username : {username}")
-    else:
-        if bcrypt.check_password_hash(user.password, data["password"]):
-            if user.OTPSecret is None:
                 emit(
                     "callback",
                     {"error": "bad credentials"},
                     namespace="/api/v2",
                     to=request.headers["X-SABUHOSTNAME"],
                 )
+                hostname = str(request.headers["X-SABUHOSTNAME"])
                 username = str(data["username"])
-                log.info(f"Endpoint {hostname} get no totp for a user : {username}")
-            else:
-                totp = pyotp.TOTP(user.OTPSecret)
-                if totp.verify(data["totp"]):
-                    login_user(user)
-                    emit(
-                        "callback",
-                        {"message": "user connected", "user": user.username},
-                        namespace="/api/v2",
-                        to=request.headers["X-SABUHOSTNAME"],
-                    )
-                    username = str(data["username"])
-                    log.info(f"Endpoint {hostname} connect a username : {username}")
-                else:
-                    emit(
-                        "callback",
-                        {"error": "bad otp"},
-                        namespace="/api/v2",
-                        to=request.headers["X-SABUHOSTNAME"],
-                    )
-                    username = str(data["username"])
-                    log.info(f"Endpoint {hostname} enter bad totp : {username}")
-        else:
-            emit(
-                "callback",
-                {"error": "bad credentials"},
-                namespace="/api/v2",
-                to=request.headers["X-SABUHOSTNAME"],
-            )
-            username = str(data["username"])
-            log.info(f"Endpoint {hostname} enter bad password : {username}")
-
-
-@socketio.on("show_connection", namespace="/api/v2")
-@check_room
-def show_con():
-    msg = "user disconnected"
-    if current_user.is_authenticated:
-        msg = "user connected"
-    emit(
-        "callback",
-        {"message": msg},
-        namespace="/api/v2",
-        to=request.headers["X-SABUHOSTNAME"],
-    )
+                log.info(f"Endpoint {hostname} enter bad username : {username}")
 
 
 @socketio.on("set_disconnection", namespace="/api/v2")
 @check_room
 def dis_con():
+    hostname = str(request.headers["X-SABUHOSTNAME"])
+    username = str(current_user.username)
+    emit(
+        "callback",
+        {"message": "user disconnected"},
+        namespace="/api/v2",
+        to=request.headers["X-SABUHOSTNAME"],
+    )
+    log.info(f"Endpoint {hostname} disconnect a username : {username}")
+    logout_user()
+    log.info(f"Endpoint {hostname} try to disconnect a username ")
+
+@socketio.on("status_user", namespace="/api/v2")
+@check_room
+def status_user():
+    msg = "disconnected"
+    info = {}
     if current_user.is_authenticated:
-        hostname = str(request.headers["X-SABUHOSTNAME"])
-        username = str(current_user.username)
-        emit(
-            "callback",
-            {"message": "user disconnected"},
-            namespace="/api/v2",
-            to=request.headers["X-SABUHOSTNAME"],
-        )
-        log.info(f"Endpoint {hostname} disconnect a username : {username}")
-        logout_user()
-
-
-@api_bp.route("/emit")
-def emitsomething():
-    emit("ping", "pong", namespace="/api/v2", broadcast=True)
-    return request.remote_addr
+        msg = "connected"
+        info = {
+            "username": current_user.username,
+            "name": current_user.name,
+            "firstname":current_user.firstname,
+            "job":current_user.job.name
+        }
+    emit(
+        "callback",
+        {"message": msg,"info": info},
+        namespace="/api/v2",
+        to=request.headers["X-SABUHOSTNAME"],
+    )
