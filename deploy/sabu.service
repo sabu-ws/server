@@ -1,5 +1,5 @@
 [Unit]
-Description=SABU-SERVER
+Description=SABU-Server
 After=network.target
 StartLimitInterval=200
 StartLimitBurst=5
