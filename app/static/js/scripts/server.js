@@ -270,14 +270,14 @@ let options_RAM = {
 let options_NET = {
 	series: [
 		{
-			name: "Upload",
-			data: [],
-			color: "#f5d32c",
-		},
-		{
 			name: "Download",
 			data: [],
 			color: "#f9760f",
+		},
+		{
+			name: "Upload",
+			data: [],
+			color: "#f5d32c",
 		},
 	],
 	chart: {
@@ -356,7 +356,7 @@ let options_NET = {
 
 			    const k = 1024
 			    const dm = decimals < 0 ? 0 : decimals
-			    const sizes = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+			    const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
 			    const i = Math.floor(Math.log(value) / Math.log(k))
 

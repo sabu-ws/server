@@ -22,7 +22,7 @@ else
     INTERFACE_NETWORK=$(ipcalc $INTERFACE_ADDRESS/$INTERFACE_NETMASK | grep "Network" | cut -d' ' -f4)
 
     # ECHO
-    echo -e "${INTERFACE_ADDRESS}\n${INTERFACE_NETMASK}\n${INTERFACE_GATEWAY}\n${INTERFACE_NETWORK}\n${DNS_1}\n${DNS_2}"
+    # echo -e "${INTERFACE_ADDRESS}\n${INTERFACE_NETMASK}\n${INTERFACE_GATEWAY}\n${INTERFACE_NETWORK}\n${DNS_1}\n${DNS_2}"
 
     # FLUSH TABLE
     nft flush ruleset
