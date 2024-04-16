@@ -1,10 +1,10 @@
 # SABU SUDO
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart sabu.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl postgresql nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl rsyslog nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl nftables nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl clamav nginx.service
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart postgresql.service
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart rsyslog.service
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart nftables.service
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart clamav.service
 
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start sabu.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start nginx.service
