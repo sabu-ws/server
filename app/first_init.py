@@ -118,15 +118,15 @@ def add_mimetype_extention():
     return 
 
 def setup_maintenance():
-    if Setup.query.filter_by(action="ret").first() == None:
+    if Setup.query.filter_by(action="ret").first() is None:
         ret = Setup(action="ret",value="30")
         db.session.add(ret)
         db.session.commit()
-    if Setup.query.filter_by(action="appc").first() == None:
+    if Setup.query.filter_by(action="appc").first() is None:
         appc = Setup(action="appc",value="ED")
         db.session.add(appc)
         db.session.commit()
-    if Setup.query.filter_by(action="appt").first() == None:
+    if Setup.query.filter_by(action="appt").first() is None:
         appt = Setup(action="appt",value="02:00")
         db.session.add(appt)
         db.session.commit()
@@ -163,7 +163,7 @@ def set_maintenance():
     with app.app_context():
         query_maintenace_circle = Setup.query.filter_by(action="appc").first()
         query_maintenace_time = Setup.query.filter_by(action="appt").first()
-        if query_maintenace_time != None and query_maintenace_circle != None:
+        if query_maintenace_time is not None and query_maintenace_circle is not None:
             hour = query_maintenace_time.value.split(":")[0]
             minute = query_maintenace_time.value.split(":")[1]
             if query_maintenace_circle.value == "ED":
@@ -177,7 +177,7 @@ def set_maintenance():
     scheduler.start()
 
 def end_intallation():
-    if Setup.query.filter_by(action="setup").first() == None:
+    if Setup.query.filter_by(action="setup").first() is None:
         set_setup = Setup(action="setup",value="1")
         db.session.add(set_setup)
         db.session.commit()

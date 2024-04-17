@@ -228,11 +228,11 @@ def scan_id(id=""):
 def code():
 	user = Users.query.filter_by(id=current_user.id).first()
 	key_user = f"codeEP_{str(user.uuid)}"
-	if cache.get(key_user)==None:
+	if cache.get(key_user) is None:
 		cache.set(key_user,user_mgmt.get_code(),timeout=1800)
 	return redirect(request.referrer)
 
 @browser_bp.route("/temp_scan_off")
 def temp():
-	session["scan"] = False 
+	session["scan"] is False 
 	return redirect(url_for("browser.index"))

@@ -134,7 +134,7 @@ def discconnect():
         else:
             key_user = f"codeEP_{str(user.uuid)}"
             data_code_user = cache.get(key_user)
-            if data_code_user!=None:
+            if data_code_user is not None:
                 if data_code_user == data["code"]:
                     emit(
                         "callback",
