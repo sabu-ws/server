@@ -1,4 +1,5 @@
 from flask import session
+from redis.commands.json.path import Path
 import logging
 import json
 
@@ -17,6 +18,11 @@ class ApiWS:
         log.info(concat)
         log.info(str(type(session)))
         self.redis.set(concat,"session",ex=timeout)
+
+    def connection(self,key,user):
+        concat = self.key_prefix+key
+        self.redis.json().set(concat,Path.root_path(),)
+        pass
 
     def is_load(self):
         pass

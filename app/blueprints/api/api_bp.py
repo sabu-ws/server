@@ -9,12 +9,13 @@ from app import (
     logout_user,
     bcrypt,
     logger as log,
-    apiws
+    apiws,
+    csrf
 )
 from app.models import Devices, Users
 
 from flask_socketio import emit, join_room, rooms, close_room
-from flask import Blueprint, request, session
+from flask import Blueprint, request, session, jsonify
 from functools import wraps
 import pyotp
 import jwt
@@ -43,7 +44,7 @@ def check_headers(f):
                         f"Endpoint {str(get_device_token.hostname)} has expire signature"
                     )
                 except jwt.InvalidSignatureError:
-                    print(
+                    log.info(
                         f"Endpoint {str(get_device_token.hostname)} enter bad signature"
                     )
             else:
@@ -117,17 +118,6 @@ def discconnect():
 
 
 # =============================== Start API ===============================
-
-
-@socketio.on("ping", namespace="/api/v2")
-@check_room
-def ping(*args, **kwargs):
-    emit("ping", "pong", namespace="/api/v2", sid=request.sid)
-
-
-@socketio.on("set_connection", namespace="/api/v2")
-@check_room
-def set_connect(data):
     log.info(str(request.sid))
     if "username" in data and "code" in data:
         user = Users.query.filter(Users.username==data["username"] and Users.role=="User").first()
@@ -178,24 +168,7 @@ def set_connect(data):
                 username = str(data["username"])
                 log.info(f"Endpoint {hostname} enter bad username : {username}")
 
-
-@socketio.on("set_disconnection", namespace="/api/v2")
-@check_room
-def dis_con():
-    hostname = str(request.headers["X-SABUHOSTNAME"])
-    username = str(current_user.username)
-    emit(
-        "callback",
-        {"message": "user disconnected"},
-        namespace="/api/v2",
-        to=request.headers["X-SABUHOSTNAME"],
-    )
-    log.info(f"Endpoint {hostname} disconnect a username : {username}")
-    logout_user()
-    log.info(f"Endpoint {hostname} try to disconnect a username ")
-
-@socketio.on("status_user", namespace="/api/v2")
-@check_room
+@api_bp.route("/status_user")
 def status_user():
     msg = "disconnected"
     info = {}
@@ -207,9 +180,51 @@ def status_user():
             "firstname":current_user.firstname,
             "job":current_user.job.name
         }
-    emit(
-        "callback",
-        {"message": msg,"info": info},
-        namespace="/api/v2",
-        to=request.headers["X-SABUHOSTNAME"],
-    )
+    data = {"message": msg,"info": info}
+    return jsonify(data) 
+
+@api_bp.route("/set_connection",methods=["POST","GET"])
+@check_headers
+@csrf.exempt
+def set_connection():
+    get_hostname = request.headers["X-SABUHOSTNAME"]
+    get_device = Devices.query.filter_by(
+        hostname=get_hostname
+    ).first()
+    data = request.form
+    if get_device.state == 1:
+        if "username" in data and "code" in data:
+            user = Users.query.filter(Users.username==data["username"] and Users.role=="User").first()
+            if user is None:
+                hostname = str(get_hostname)
+                username = str(data["username"])
+                log.info(f"Endpoint {hostname} enter bad username : {username}")
+                return jsonify({"error": "bad credentials"})
+            else:
+                key_user = f"codeEP_{str(user.uuid)}"
+                data_code_user = cache.get(key_user)
+                if data_code_user!=None:
+                    if data_code_user == data["code"]:
+                        login_user(user)
+                        session["username"] = user.username
+                        hostname = str(get_hostname)
+                        username = str(data["username"])
+                        log.info(f"Endpoint {hostname} connect a username : {username}")
+                        return jsonify({"message": "user connected"})
+                    else:
+                        hostname = str(get_hostname)
+                        username = str(data["username"])
+                        log.info(f"Endpoint {hostname} enter bad code : {username}")
+                        return jsonify({"error": "bad credentials"})
+                else:
+                    hostname = str(get_hostname)
+                    username = str(data["username"])
+                    log.info(f"Endpoint {hostname} enter bad username : {username}")
+                    return jsonify({"error": "bad credentials"})
+
+@api_bp.route("/set_deconnection",methods=["POST","GET"])
+@check_headers
+@csrf.exempt
+def set_deconnection():
+    logout_user()
+    return jsonify({"message": "user deconnected"})

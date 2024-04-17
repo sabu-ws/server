@@ -23,7 +23,7 @@ NB_REVERSE_PROXY = 1
 
 
 # Upload content
-MAX_CONTENT_LENGTH = 500 * 1024 * 1024
+MAX_CONTENT_LENGTH = 5 * 1024 * 1024 * 1024
 
 
 # Database content
