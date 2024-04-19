@@ -16,10 +16,13 @@ from app import (
 from app.models import Devices, Users
 
 from flask_socketio import emit, join_room, rooms, close_room
-from flask import Blueprint, request, session, jsonify
+from flask import Blueprint, request, session, jsonify, send_file
 from functools import wraps
-import pyotp
 import jwt
+import uuid
+import time
+from io import BytesIO
+import zipfile
 
 api_bp = Blueprint("api", __name__, template_folder="templates")
 
@@ -183,10 +186,10 @@ def set_deconnection():
 
 
 @api_bp.route("/get_files/path/<path:MasterListDir>",methods=["GET"])
-@api_bp.route("/get_files/path/")
+@api_bp.route("/get_files/path/",methods=["GET"])
 @check_headers
 @csrf.exempt
-def get_files(MasterListDir=""):
+def get_files_path(MasterListDir=""):
 	if current_user.is_authenticated:
 		user = Users.query.filter_by(id=current_user.id).first()
 		user_uuid = user.uuid
@@ -200,3 +203,81 @@ def get_files(MasterListDir=""):
 			items_dir = list_items[1]
 			items_file = list_items[2]
 			return jsonify({"message":"path find","info":{"items_file":items_file, "items_dir":items_dir, "cur_dir":cur_dir}})
+
+@api_bp.route("/get_files/delete/<path:MasterListDir>",methods=["DELETE"])
+@check_headers
+@csrf.exempt
+def get_files_delete(MasterListDir=""):
+	if current_user.is_authenticated:
+		user = Users.query.filter_by(id=current_user.id).first()
+		user_uuid = user.uuid
+		path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
+		master_path = "/".join(path.split("/")[:-1])
+		last = MasterListDir.split("/")[-1]
+		os.chdir(master_path)
+		if os.path.exists(path):
+			if os.path.isdir(path):
+				for root, dirs, files in os.walk(last, topdown=False):
+					for name in files:
+						os.remove(os.path.join(root, name))
+					for name in dirs:
+						os.rmdir(os.path.join(root, name))
+				os.rmdir(last)
+				message = f"User {str(user.username)} as deleted folder "
+				log.info(message)
+				return jsonify({"message":"folder deleted"})
+			elif os.path.isfile(path):
+				message = f"User {str(user.username)} as deleted file "
+				log.info(message)
+				os.remove(last) 
+				return jsonify({"message":"file deleted"})
+
+
+@api_bp.route("/get_files/download/<path:MasterListDir>",methods=["GET"])
+@check_headers
+@csrf.exempt
+def get_files_download(MasterListDir=""):
+	if current_user.is_authenticated:
+		user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
+		gen_name_path = str(uuid.uuid4())
+		path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
+		master_path = "/".join(path.split("/")[:-1])
+		last = MasterListDir.split("/")[-1]
+		name_in_file = last
+		if last == "":
+			last = "."
+		if name_in_file == "":
+			name_in_file="root"
+		os.chdir(master_path)
+		if os.path.exists(path):
+			if os.path.isdir(path):
+				timestr = time.strftime("%Y%m%d-%H%M%S")
+				fileName = f"{gen_name_path}_{timestr}.zip".format(timestr)
+				memory_file = BytesIO()
+				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
+					for root, dirs, files in os.walk(last):
+						for file in files:
+							zipf.write(os.path.join(root, file))
+				memory_file.seek(0)
+				return send_file(
+					memory_file,
+					as_attachment=True,
+					mimetype="application/zip",
+					download_name=fileName,
+				)
+			elif os.path.isfile(path):
+				timestr = time.strftime("%Y%m%d-%H%M%S")
+				fileName = f"{gen_name_path}_{timestr}.zip".format(timestr)
+				memory_file = BytesIO()
+				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
+					zipf.write(path)
+				memory_file.seek(0)
+				return send_file(
+					memory_file,
+					as_attachment=True,
+					mimetype="application/zip",
+					download_name=fileName,
+				)
+		else:
+			return redirect(url_for("login.logout"))
+		return ""

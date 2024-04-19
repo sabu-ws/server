@@ -102,8 +102,6 @@ def download(MasterListDir=""):
 	user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
 	path = os.path.join(DATA_PATH,"data",str(user_uuid) ,MasterListDir)
 	master_path = "/".join(path.split("/")[:-1])
-	log.info(str(master_path))
-	log.info(str(path))
 	last = MasterListDir.split("/")[-1]
 	name_in_file = last
 	if last == "":
