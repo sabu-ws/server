@@ -190,7 +190,7 @@ check_requirements() {
         done
 
     else
-        show 0 "User sabu-svc check"
+        show 0 "User svc-sabu check"
     fi
 }
 
