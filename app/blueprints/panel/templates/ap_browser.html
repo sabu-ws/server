@@ -88,7 +88,7 @@
 								</td>
 								<td class="px-6 py-4">
 									<div class="space-x-2">
-										<button title="Download Folder" class="donwload_object_name"><a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+										<button title="Download Folder" class="donwload_object_name"><a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ dir[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
 										<button class="delete_object_name" data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
 									</div>
 								</td>
@@ -117,7 +117,7 @@
 								</td>
 								<td class="px-6 py-4">
 									<div class="space-x-2">
-										<button title="Download File"><a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+										<button title="Download File"><a href="{{ url_for('panel.browser.download') }}{{ cur_dir }}{{ file[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
 										<button class="delete_object_name" data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
 										<button title="Release File" data-modal-show="confirmRelease" data-modal-target="confirmRelease" class="release_object_name releaseButton font-medium text-orange-400 dark:text-orange-400 hover:text-gray-500 hover:underline text-lg" hidden><i class="fa-solid fa-rotate-left"></i></a></button>
 									</div>
