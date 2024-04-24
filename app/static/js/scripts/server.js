@@ -492,18 +492,3 @@ if (document.getElementById("chart-disk")){
 			)
 	})
 }
-
-// ========== SETTING SERVER ==========
-$("#interface").change(function(){
-	var iface = $("#interface").val()
-	socket = io.connect("/netiface")
-	socket.emit("info_netiface",netiface=iface)
-	socket.on("rcv_netiface",function(data){
-		console.log(data)
-		$("#ip").attr("placeholder",data[0])
-		$("#netmask").attr("placeholder",data[1])
-		$("#gateway").attr("placeholder",data[2])
-		$("#dns1").attr("placeholder",data[3])
-		$("#dns2").attr("placeholder",data[4])
-	})
-})
