@@ -1,6 +1,5 @@
 from config import *
-
-from app import socketio, db, logger as log
+from app import socketio, db, logger as log, emit
 from app.models import Devices, Metrics
 from app.forms import ModifyIpForm
 from app.utils.system import (
@@ -121,7 +120,7 @@ def netiface(iface=""):
 def manage_service(data):
 	svc_action = data["action"].replace("\n","").strip().lower()
 	svc_name = data["name"].replace("\n","").strip().lower()
-	if svc_name in ["nginx","postgresql","rsyslog","nftables","clamav"]:
+	if svc_name in ["nginx","postgresql","rsyslog","nftables","clamav-freshclam"]:
 		if svc_action in ["stop","start","restart"]:
 			command = f"sudo /usr/bin/systemctl {svc_action} {svc_name}.service"
 			out_svc_command = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
@@ -361,7 +360,7 @@ def ssh():
 
 @server_bp.route("/services")
 def services():
-	services = ["nginx","postgresql","rsyslog","nftables","clamav"]
+	services = ["nginx","postgresql","rsyslog","nftables","clamav-freshclam"]
 	status_svc = []
 	runtime_svc = []
 	script_service_path = os.path.join(SCRIPT_PATH,"get_service_uptime.sh")
