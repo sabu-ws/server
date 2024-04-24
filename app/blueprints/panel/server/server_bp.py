@@ -117,6 +117,16 @@ def netiface(iface=""):
 	splitting_result = process.split("\n")
 	socketio.emit("rcv_netiface",data=splitting_result,namespace="/netiface")
 
+@socketio.on("service",namespace="/settings")
+def manage_service(data):
+	svc_action = data["action"].replace("\n","").strip().lower()
+	svc_name = data["name"].replace("\n","").strip().lower()
+	if svc_name in ["nginx","postgresql","rsyslog","nftables","clamav"]:
+		if svc_action in ["stop","start","restart"]:
+			command = f"sudo /usr/bin/systemctl {svc_action} {svc_name}.service"
+			out_svc_command = subprocess.Popen(command.split(),stdout=subprocess.PIPE).communicate()[0].decode()
+			log.warning(str(out_svc_command))
+			emit("response")
 # ================= end socket io func
 
 
@@ -351,6 +361,19 @@ def ssh():
 
 @server_bp.route("/services")
 def services():
-	return render_template("ap_srv_services.html")
+	services = ["nginx","postgresql","rsyslog","nftables","clamav"]
+	status_svc = []
+	runtime_svc = []
+	script_service_path = os.path.join(SCRIPT_PATH,"get_service_uptime.sh")
+	for service in services:
+		script_service_exec = subprocess.Popen([script_service_path,service],stdout=subprocess.PIPE).communicate()[0].decode()
+		if "ago" in script_service_exec:
+			uptime_service = script_service_exec.replace(" ago", "")
+			status_svc.append(1)
+			runtime_svc.append(uptime_service)
+		else:
+			status_svc.append(0)
+			runtime_svc.append("-")
+	return render_template("ap_srv_services.html",services=zip(services,status_svc,runtime_svc))
 
 # ================ end router server

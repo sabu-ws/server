@@ -54,15 +54,7 @@ $('#ext_table').on('click', '.delExt', function() {
     });
 });
 
-$(".service_action").click(function(){
-    var action_svc=$(this).find(".action_svc").text()
-    var svc_name=$(this).closest("tr").find(".service_name").text()
-    var socket = io.connect("/settings")
-    socket.emit("service",{name:svc_name,action:action_svc})
-    socket.on("response",function(){
-        window.location.reload();
-    })
-});
+
 
 // ENTER KEYBOARD EXTENSION
 $(document).ready(function() {
