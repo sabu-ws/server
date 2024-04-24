@@ -29,6 +29,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue w-full">
+                        <div class="flex items-center w-full">
+                            <div class="flex-col items-center ml-4">
+                                <h1 class="uppercase font-semibold dark:text-white">Whitelist / Blacklist USB</h1>
+                                <p class="text-sm dark:text-white">You can configure a whitelist or a blacklist for usb keys.</p>
+                            </div>
+                            <div class="m-auto mr-16 space-y-2 space-x-1">
+                                <!-- Disabled feature coming soon -->
+                                <button disabled class="px-5 py-2.5 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Whitelist</button>
+                                <button disabled class="px-5 py-2.5 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Blacklist</button>
+                            </div>
+                        </div>
+                    </div>
                     <form method="POST" action="{{ url_for('panel.settings.maintenance') }}" class="rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 border-l-4 border-darkblue p-4">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="space-y-6">
@@ -71,8 +84,7 @@
                         </div>
                     </form>
                 </div>
-
-                <div class="border-b border-gray-200"></div>
+                <!-- <div class="border-b border-gray-200"></div>
                 <div class="flex p-6 space-x-6">
                     <div class="flex rounded-xl shadow-md bg-gray-50 dark:bg-gray-600 h-28 border-l-4 border-darkblue w-full">
                         <div class="flex items-center w-full">
@@ -81,7 +93,6 @@
                                 <p class="text-sm dark:text-white">You can configure a whitelist or a blacklist for usb keys.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
-                                <!-- Disabled feature coming soon -->
                                 <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Whitelist</button>
                                 <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Blacklist</button>
                             </div>
@@ -94,13 +105,12 @@
                                 <p class="text-sm dark:text-white">You can delete server metrics. Either only the alerts or the data.</p>
                             </div>
                             <div class="m-auto mr-4 space-y-2 space-x-1">
-                                <!-- Disabled feature coming soon -->
                                 <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Flush Alerts</button>
                                 <button disabled class="px-3 py-2 text-sm text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue font-medium rounded-lg text-sm text-center">Flush Data</button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 		</div>
