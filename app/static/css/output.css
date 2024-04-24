@@ -3094,6 +3094,10 @@ input:checked + .toggle-bg {
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-lightblue\/60:hover {
+  background-color: rgb(34 170 230 / 0.6);
+}
+
 .hover\:bg-opacity-60:hover {
   --tw-bg-opacity: 0.6;
 }
