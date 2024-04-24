@@ -1366,6 +1366,26 @@ input:checked + .toggle-bg {
   grid-column-start: 5;
 }
 
+.col-start-1 {
+  grid-column-start: 1;
+}
+
+.col-start-2 {
+  grid-column-start: 2;
+}
+
+.row-span-2 {
+  grid-row: span 2 / span 2;
+}
+
+.row-start-1 {
+  grid-row-start: 1;
+}
+
+.row-start-2 {
+  grid-row-start: 2;
+}
+
 .m-4 {
   margin: 1rem;
 }
@@ -1565,6 +1585,10 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
 }
 
+.mr-8 {
+  margin-right: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -1721,6 +1745,22 @@ input:checked + .toggle-bg {
   height: 40rem;
 }
 
+.h-3\/4 {
+  height: 75%;
+}
+
+.h-2\/3 {
+  height: 66.666667%;
+}
+
+.h-4\/5 {
+  height: 80%;
+}
+
+.h-128 {
+  height: 34rem;
+}
+
 .max-h-165 {
   max-height: 44rem;
 }
@@ -1739,6 +1779,22 @@ input:checked + .toggle-bg {
 
 .max-h-160 {
   max-height: 40rem;
+}
+
+.max-h-72 {
+  max-height: 18rem;
+}
+
+.max-h-80 {
+  max-height: 20rem;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.max-h-128 {
+  max-height: 34rem;
 }
 
 .w-1\/2 {
@@ -1995,12 +2051,24 @@ input:checked + .toggle-bg {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.place-items-end {
+  place-items: end;
 }
 
 .place-items-center {
@@ -2107,6 +2175,18 @@ input:checked + .toggle-bg {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -3759,8 +3839,24 @@ input:checked + .toggle-bg {
     height: 12rem;
   }
 
+  .xl\:h-64 {
+    height: 16rem;
+  }
+
+  .xl\:h-72 {
+    height: 18rem;
+  }
+
   .xl\:w-48 {
     width: 12rem;
+  }
+
+  .xl\:w-64 {
+    width: 16rem;
+  }
+
+  .xl\:w-72 {
+    width: 18rem;
   }
 
   .xl\:p-0 {

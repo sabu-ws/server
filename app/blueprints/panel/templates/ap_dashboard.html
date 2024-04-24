@@ -4,8 +4,7 @@
 	 <!-- DASHBOARD -->
      <div class="p-4 sm:ml-64">
         <div class="p-8 mt-16">
-            <div class="grid grid-cols-4 gap-6 mb-6">
-                <!-- NBR ENDPOINTS -->
+            <div class="grid grid-cols-3 gap-6 mb-6"> <!-- grid 4 si alert enable -->
                 <div class="flex bg-white dark:bg-gray-700 rounded-2xl shadow-md h-20">
                     <div class="flex items-center w-full">
                         <div class="flex-col ml-4">
@@ -39,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
+                <!-- <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
                     <div class="flex items-center w-full">
                         <div class="flex-col ml-4">
                             <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300">Number of alerts</h1>
@@ -49,180 +48,91 @@
                             <h1 class="bg-gradient-to-t from-lightblue to-darkblue px-4 py-4 rounded-2xl"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 448 512"><path fill="#ffffff" d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg></h1>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
-            <!-- PAGE 1 DASHBOARD -->
-            <div id="dashboard1" class="">
-                <div class="grid grid-cols-6 gap-6 mb-6">
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-2 h-full">
-                        <div class="flex w-full">
-                            <div class="flex-col mt-8 ml-6">
-                                <h1 class="text-gray-500 font-semibold dark:text-gray-300">Welcome back,</h1>
-                                <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ current_user.firstname }} {{ current_user.name }}</h1>
-                                <div class="flex-col mt-8 font-semibold text-gray-700 dark:text-white">
-                                    <div class="flex space-x-2">
-                                        <h1 class="flex items-center justify-center"><svg class="fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 576 512"><path d="M64 64C28.7 64 0 92.7 0 128v64c0 8.8 7.4 15.7 15.7 18.6C34.5 217.1 48 235 48 256s-13.5 38.9-32.3 45.4C7.4 304.3 0 311.2 0 320v64c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V320c0-8.8-7.4-15.7-15.7-18.6C541.5 294.9 528 277 528 256s13.5-38.9 32.3-45.4c8.3-2.9 15.7-9.8 15.7-18.6V128c0-35.3-28.7-64-64-64H64zm64 112l0 160c0 8.8 7.2 16 16 16H432c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H144c-8.8 0-16 7.2-16 16zM96 160c0-17.7 14.3-32 32-32H448c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32V160z"/></svg></h1>
-                                        <p>{{ current_user.role }}</p>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <h1 class="flex items-center justify-center"><svg class="fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"/></svg></h1>
-                                        <p>{{ session['job'] }}</p>
-                                    </div>
-                                    <div class="flex space-x-1">
-                                        <h1 class="flex items-center justify-center"><svg class="fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/></svg> <p class="ml-2">2FA :</p></h1>
-                                        <p>{% if current_user.OTPSecret %}
-                                            <span class="text-green-500 font-bold"> Enable</span>
-                                            {% else %}
-                                            <span class="text-red-600 font-bold"> Disable</span>
-                                            {% endif %}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-10 mb-4">
-                                    <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
-                                        <a href="{{ url_for('user.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
-                                            <h1 class="text-sm">Edit profile</h1><i class="text-xs fa-solid fa-arrow-right"></i>
-                                        </a>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="m-auto mr-10">
-                                {% if current_user.picture == None %}
-                                    <span class="flex justify-center items-center w-24 h-24 xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white bg-gray-800 font-bold text-white sm:text-2xl xl:text-6xl">{{ current_user.firstname[0].upper() }}{{ current_user.name[0].upper() }}</span>
-                                {% else %}
-                                    <img src="{{ url_for('user.renderPP') }}" class="w-24 h-24 xl:w-48 xl:h-48 rounded-full shadow-lg border-2 border-white">
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-3 col-span-2 h-full">
-                        <div class="mt-6 ml-6">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Server Information</h1>
-                        </div>
-                        <div class="flex w-full">
-                            <div class="flex items-center ml-8">
-                                <ul class="font-semibold text-gray-700 dark:text-white space-y-2">
-                                    <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg><span class="font-bold mr-1">Hostname :</span>{{ hostname }}</li>
-                                    <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg><span class="font-bold mr-1">IP Address :</span>{{ server_ip }}</li>
-                                    <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg><span class="font-bold mr-1">Uptime :</span>{{ uptime }}</li>
-                                    <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 448 512"><path d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg><span class="font-bold mr-1">Current Version :</span>{{ version }}</li>
-                                    <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg><span class="font-bold mr-1">Licence :</span>
-                                        {% if licence == "1" %}
-                                        <span class="text-green-600 font-bold">Activated</span>
-                                        {% else %}
-                                        <span class="text-red-600 font-bold">Not Activated</span>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="flex justify-end m-auto mr-4">
-                                <img src="{{ url_for('static',filename='assets/icons/logo_server.svg') }}" class="flex items-center w-24 h-24 xl:w-48 xl:h-48">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-start-5 col-span-2">
-                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">  
-                            <h1 class="text-gray-500 font-semibold dark:text-gray-300">Total Alerts per type</h1>
-                            <div id="totalAlerts-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-6 mb-6 h-80">
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md h-full">
-                        <div class="w-full bg-white dark:bg-gray-700 rounded-2xl shadow p-4 md:p-6">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
-                            <div id="ScansViruses-chart"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md h-full">
-                        <div class="mt-6 ml-6">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">List of Endpoints</h1>
-                        </div>
-                        <div class="overflow-y-scroll relative h-full max-h-48 rounded-lg m-4">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg" id="tableEndpointsForm">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-white">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Name
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            IP
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table_endpoint">
-                                    {% if list_devices|length != 0 %}
-                                    {% for device in list_devices %}
-                                    <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <td class="px-6 py-4">
-                                            {{ device.hostname }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {% if device.ip != None %}{{ device.ip }}{% else %}No IP{%endif%}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center">
-                                                {% if device.state == 1 %}
-                                                <div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
-                                                {% else %}
-                                                <div id="state_icon" class=" h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><div class="animate-ping absolute h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
-                                                {% endif %}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
+            <div class="grid grid-cols-2 gap-6 grid-rows-2">
+                <div class="col-start-1 row-start-1 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
+                    <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Informations</h1>
+                    <div class="flex items-center">
+                        <div class=" ml-8">
+                            <ul class="font-semibold text-gray-700 dark:text-white space-y-5">
+                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg><span class="font-bold mr-1">Hostname :</span>{{ hostname }}</li>
+                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg><span class="font-bold mr-1">IP Address :</span>{{ server_ip }}</li>
+                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg><span class="font-bold mr-1">Uptime :</span>{{ uptime }}</li>
+                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 448 512"><path d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg><span class="font-bold mr-1">Current Version :</span>{{ version }}</li>
+                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg><span class="font-bold mr-1">Licence :</span>
+                                    {% if licence == "1" %}
+                                    <span class="text-green-600 font-bold">Activated</span>
+                                    {% else %}
+                                    <span class="text-red-600 font-bold">Not Activated</span>
                                     {% endif %}
-                                </tbody>
-                            </table>
-                            {% if list_devices|length == 0 %}
-                            <div id="" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
-                                <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
-                            </div>
-                            {% else %}
-                            <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
-                                <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
-                            </div>
-                            {% endif %}
+                                </li>
+                            </ul>
                         </div>
-                        <div class="ml-6 mt-6">
-                            <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
-                                <a href="{{ url_for('panel.endpoints.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
-                                    <h1 class="text-sm">See more</h1><i class="text-xs fa-solid fa-arrow-right"></i>
-                                </a>
-                            </button>
+                        <div class="m-auto mr-2">
+                            <img src="{{ url_for('static',filename='assets/icons/shield-sabu-without-border.png') }}" width="70%">
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end">
-                    <button disabled title="Button disabled" id="toggleButtonDashboard1" class="bg-gray-500 rounded-xl text-white px-4 py-2"><i class="fa-solid fa-arrow-right"></i></button>
-                <!-- class="bg-lightblue hover:bg-darkblue rounded-xl text-white px-4 py-2" -->
+                <div class="col-start-1 row-start-2 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
+                    <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
+                    <div id="ScansViruses-chart" class="h-64"></div>
+                </div>
+                <div class="col-start-2 row-start-1 row-span-2 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
+                    <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">List of Endpoints</h1>
+                    <div class="overflow-y-scroll relative h-128 max-h-128 rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="tableEndpointsForm">
+                            <thead class="text-gray-700 bg-white border-b dark:border-gray-700 dark:bg-gray-600 dark:text-white">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_endpoint">
+                                {% if list_devices|length != 0 %}
+                                {% for device in list_devices %}
+                                <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">
+                                        {{ device.hostname }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            {% if device.state == 1 %}
+                                            <div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
+                                            {% else %}
+                                            <div id="state_icon" class=" h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><div class="animate-ping absolute h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><span id="state_text">Down</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if list_devices|length == 0 %}
+                        <div id="" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                            <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
+                        </div>
+                        {% else %}
+                        <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                            <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="flex place-items-end mt-6">
+                        <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
+                            <a href="{{ url_for('panel.endpoints.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
+                                <h1 class="text-sm">See more</h1><i class="text-xs fa-solid fa-arrow-right"></i>
+                            </a>
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <!-- PAGE 2 DASHBOARD -->
-            <div id="dashboard2" class="hidden">
-                <div class="grid grid-cols-5 gap-6 mb-6">
-                    <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md col-span-3 h-96">
-                        <h1 class="flex items-center">SOON ...</h1>
-                    </div>
-                    <div class="col-start-4 col-span-2 grid grid-row-2 gap-6">
-                        <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
-                            <h1 class="flex items-center">NBR SCANS PAR JOURS</h1>
-                        </div>
-                        <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
-                            <h1 class="flex items-center">NBR VIRUS PAR JOURS</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-start">
-                    <button id="toggleButtonDashboard2" class="bg-lightblue hover:bg-darkblue rounded-xl text-white px-4 py-2"><i class="fa-solid fa-arrow-left"></i></button>
-                </div>
-            </div>
-
         </div>
      </div>
 {% endblock %}
