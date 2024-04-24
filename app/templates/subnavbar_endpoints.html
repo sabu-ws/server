@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1">
-    <div class="bg-white rounded-lg shadow-md">
+    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md">
         <div class="border-b border-gray-200">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="mr-2">
@@ -30,14 +30,60 @@
                     </a>
                 </li>
                 <div class="m-auto mr-0">
-                    <button class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-500 hover:border-orange-500 dark:hover:text-orange-500 group dark:text-white">
-                        <div class="space-x-1"><i class="fa-solid fa-arrow-rotate-right"></i> Reboot</div>
+                    <button data-modal-show="ConfirmRebootEndpoint" data-modal-target="ConfirmRebootEndpoint" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-500 hover:border-orange-500 dark:hover:text-orange-500 group dark:text-white">
+                            <div class="space-x-1"><i class="fa-solid fa-arrow-rotate-right"></i> Reboot</div>
                     </button>
-                    <button class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-red-500    hover:border-red-500 dark:hover:text-red-500 group dark:text-white">
-                        <div class="space-x-1"><i class="fa-solid fa-power-off"></i> Shutdown</div>
+                    <button data-modal-show="ConfirmShutdownEndpoint" data-modal-target="ConfirmShutdownEndpoint" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-red-500    hover:border-red-500 dark:hover:text-red-500 group dark:text-white">
+                            <div class="space-x-1"><i class="fa-solid fa-power-off"></i> Shutdown</div>
                     </button>
                 </div>
             </ul>                                            
         </div>
     </div>
+</div>
+<!-- Confirm Reboot -->
+<div id="ConfirmRebootEndpoint" data-modal-backdrop="static" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+	<div class="relative w-full max-w-md max-h-full">
+		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+			<button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ConfirmRebootEndpoint">
+				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+				</svg>
+				<span class="sr-only">Close modal</span>
+			</button>
+			<div class="p-6 text-center">
+				<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+				</svg>
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to reboot ?</h3>
+				<button data-modal-hide="ConfirmReboot" type="button" id="yesButtonReboot" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+					Yes
+				</button>
+				<button data-modal-hide="ConfirmReboot" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Confirm Shutdown -->
+<div id="ConfirmShutdownEndpoint" data-modal-backdrop="static" tabindex="-1" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+	<div class="relative w-full max-w-md max-h-full">
+		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+			<button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ConfirmShutdownEndpoint">
+				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+				</svg>
+				<span class="sr-only">Close modal</span>
+			</button>
+			<div class="p-6 text-center">
+				<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+				</svg>
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to shutdown ?</h3>
+				<button data-modal-hide="ConfirmShutdown" type="button" id="yesButtonShutdown" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+					Yes
+				</button>
+				<button data-modal-hide="ConfirmShutdown" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No</button>
+			</div>
+		</div>
+	</div>
 </div>
