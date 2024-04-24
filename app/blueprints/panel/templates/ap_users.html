@@ -49,7 +49,7 @@
 											2FA
 										</th>
 										<th scope="col" class="px-6 py-3">
-											Actions
+											
 										</th>
 									</tr>
 								</thead>
@@ -100,21 +100,21 @@
 										</td>
 										<td class="px-4 py-4">
 											{% if user.username != "admin" %}
-											<div class="flex space-x-2">
-												<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded bg-darkblue hover:bg-lightblue h-6 w-8 font-medium text-white">
-													<i class="fa-solid fa-pen-to-square"></i>
-												</button>
+											<div class="flex space-x-3">
 												{% if user.enable == 1 %}
-												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded bg-green-600 hover:bg-green-800 h-6 w-8 font-medium text-white">
-													<i class="fa-solid fa-check"></i>
+												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Disable User' class="buttonAbleUser buttonDisableUser flex justify-center items-center rounded text-lg font-medium text-green-600 hover:text-green-800">
+													<i class="fa-solid fa-circle-check"></i>
 												</button>
 												{% else %}
-												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
-													<i class="fa-solid fa-xmark"></i>
+												<button type="button" data-modal-show="confirmEnableModal" data-modal-target="confirmEnableModal" title='Enable User' class="buttonAbleUser buttonEnableUser flex justify-center items-center rounded text-lg font-medium text-red-600 hover:text-red-800">
+													<i class="fa-solid fa-circle-xmark"></i>
 												</button>
 												{% endif %}
-												<button type="button" data-modal-show="confirmRemoveModal" title='Remove User' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded bg-red-600 hover:bg-red-800 h-6 w-8 font-medium text-white">
-													<i class="fa-solid fa-trash"></i>
+												<button type="button" data-modal-show="editUserModal" title='Edit User' data-modal-target="editUserModal" class="buttonModifyRow flex justify-center items-center rounded  text-lg font-medium text-darkblue hover:text-lightblue">
+													<i class="fa-solid fa-user-pen"></i>
+												</button>
+												<button type="button" data-modal-show="confirmRemoveModal" title='Remove User' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded text-lg font-medium text-red-600 hover:text-red-800">
+													<i class="fa-solid fa-trash-can"></i>
 												</button>
 											</div>
 											{% endif %}
