@@ -1717,6 +1717,10 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.h-160 {
+  height: 40rem;
+}
+
 .max-h-165 {
   max-height: 44rem;
 }
@@ -1731,6 +1735,10 @@ input:checked + .toggle-bg {
 
 .max-h-full {
   max-height: 100%;
+}
+
+.max-h-160 {
+  max-height: 40rem;
 }
 
 .w-1\/2 {
