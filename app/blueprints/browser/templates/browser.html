@@ -90,9 +90,9 @@
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
                                             {% if cur_dir == '' %}
-                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ dir[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
                                             {% else %}
-                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ dir[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button title="Download Folder"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ dir[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
                                             {% endif %}
                                             <button data-modal-show="DeleteFolder" data-modal-target="DeleteFolder" title="Delete Folder" class="delete_object_name"><p class=" font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
@@ -123,9 +123,9 @@
                                     <td class="px-6 py-4">
                                         <div class="space-x-2">
                                             {% if cur_dir == "" %}
-                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ file[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
                                             {% else %}
-                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ file[4] }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
+                                            <button title="Download File"><a href="{{ url_for('browser.download') }}{{ cur_dir }}/{{ file[4] }}" class="font-medium text-darkblue dark:text-darkblue hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-cloud-arrow-down"></i></a></button>
                                             {% endif %}
                                             <button data-modal-show="DeleteFile" data-modal-target="DeleteFile" title="Delete File" class="delete_object_name"><p class="font-medium text-red-600 dark:text-red-500 hover:text-gray-500 hover:underline dark:hover:text-white text-lg"><i class="fa-solid fa-trash-can"></i></p></button>
                                         </div>
