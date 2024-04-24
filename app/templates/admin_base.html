@@ -53,14 +53,15 @@
             </div>
             <div class="flex items-center justify-end">
                 <div class="flex items-center space-x-3 mr-10 text-xl text-gray-700 dark:text-white">
-                        <div class="flex justify-center w-7">
+						<!-- If alerts 9< : write 9+ (ALERTS FEATURE DISABLED TEMPORARILY) -->
+                        <!-- <div class="flex justify-center w-7">
 							<button class="relative hover:text-darkblue">
 								<a href="#">
 									<i class="fa-solid fa-bell"></i>
-									<div id="numberAlerts" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-1.5 -end-2">3</div><!-- If alerts 9< : write 9+ -->
+									<div id="numberAlerts" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-1.5 -end-2">3</div>
 								</a>
 							</button>
-						</div>
+						</div> -->
 						<div class="flex justify-center w-7">
 							<button id="ToggleDarkMode" class="hover:text-darkblue"><i id="ToggleDarkModeIcon" class="fa-solid fa-sun"></i></button>
 						</div>
@@ -123,16 +124,6 @@
 					</a>
 				</li>
 				<li>
-					<a id="sidebar-logs" href="{{ url_for('panel.logs.index') }}" class="flex items-center space-x-4 text-white hover:text-darkblue text-l font-semibold hover:bg-white/60 px-4 py-2.5 rounded-lg mr-4 ml-4">
-						<div class="bg-white px-2.5 py-2.5 rounded-lg text-blue-800 text-xs">
-							<div class="flex items-center justify-center">
-								<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 384 512"><path fill="#0c7ec4" d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
-							</div>                        
-						</div>
-						<h1>Logs</h1>
-					</a>
-				</li>
-				<li>
 					<a id="sidebar-browser" href="{{ url_for('panel.browser.index') }}" class="flex items-center space-x-4 text-white hover:text-darkblue text-l font-semibold hover:bg-white/60 px-4 py-2.5 rounded-lg mr-4 ml-4">
 						<div class="bg-white px-2.5 py-2.5 rounded-lg text-blue-800 text-xs">
 							<div class="flex items-center justify-center">
@@ -180,6 +171,16 @@
 							</div>                        
 						</div>
 						<h1>Settings</h1>
+					</a>
+				</li>
+				<li>
+					<a id="sidebar-logs" href="{{ url_for('panel.logs.index') }}" class="flex items-center space-x-4 text-white hover:text-darkblue text-l font-semibold hover:bg-white/60 px-4 py-2.5 rounded-lg mr-4 ml-4">
+						<div class="bg-white px-2.5 py-2.5 rounded-lg text-blue-800 text-xs">
+							<div class="flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 384 512"><path fill="#0c7ec4" d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+							</div>                        
+						</div>
+						<h1>Logs</h1>
 					</a>
 				</li>
 			</ul>
