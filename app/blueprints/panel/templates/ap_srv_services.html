@@ -1,0 +1,97 @@
+{% extends 'admin_base.html' %}
+{% set title='Server - Services' %}
+{% block contents %}
+	 <!-- MANAGE SERVER -->
+	 <div class="p-4 sm:ml-64">
+		  <div class="p-8 mt-16">
+			<div class="grid grid-cols-1">
+				<div class="bg-gray-50 dark:bg-gray-700 rounded-lg shadow-md">
+					<!-- NAV HEADER -->
+					{% include 'subnavbar_server.html' %}
+					
+					<div class="p-4">
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md">
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <thead class="text-sm text-gray-700 border-b bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Service
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Status
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Uptime
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for service,status,runtime in services %}
+                                            <tr class="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                                <th scope="row" class="service_name px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{ service }}
+                                                </th>
+                                                <td class="px-6 py-4">
+                                                    {% if status == 1 %}
+                                                    <div class="flex items-center"><div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><h1>Running</h1></div>
+                                                    {%else%}
+                                                    <div class="flex items-center"><div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><div class="animate-ping absolute h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div><h1>Inactive</h1></div>
+                                                    {%endif%}
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    {{ runtime }}
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <button type="button" id="dropdownRightButton{{ service }}" data-dropdown-toggle="dropdownRight{{ service }}" data-dropdown-placement="right" class="flex justify-center items-center rounded bg-gray-500 hover:bg-gray-600 h-8 w-24 font-medium text-white">
+                                                        <div class="flex items-center space-x-2"><i class="fa-solid fa-bars"></i><h1>Actions</h1></div>
+                                                    </button>
+                                                    <!-- Dropdown Right -->
+                                                    <div id="dropdownRight{{ service }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow p-2 dark:bg-gray-700">
+                                                        <ul class="space-y-2" aria-labelledby="dropdownRightButton{{ service }}">
+                                                        <!-- <li>
+                                                            <button type="button" data-modal-show="confirmUpdate" title='Update Service' data-modal-target="confirmUpdate" class="service_action flex justify-center items-center rounded bg-yellow-300 hover:bg-yellow-400 h-8 w-24 font-medium text-white">
+                                                                <div class="flex items-center space-x-2"><i class="fa-solid fa-arrow-up-from-bracket"></i><h1 class="action_svc">Update</h1></div>
+                                                            </button>
+                                                        </li> -->
+                                                        <li>
+                                                            <button type="button" data-modal-show="confirmStop" title='Reboot Service' data-modal-target="confirmStop" class="service_action flex justify-center items-center rounded bg-orange-500 hover:bg-orange-600 h-8 w-24 font-medium text-white">
+                                                                <div class="flex items-center space-x-2"><i class="fa-solid fa-arrows-rotate"></i><h1 class="action_svc">Restart</h1></div>
+                                                            </button>
+                                                        </li>
+                                                        {% if status == 1 %}
+                                                        <li>
+                                                            <button type="button" data-modal-show="confirmStop" title='Stop Service' data-modal-target="confirmStop" class="service_action flex justify-center items-center rounded bg-red-600 hover:bg-red-700 h-8 w-24 font-medium text-white">
+                                                                <div class="flex items-center space-x-2"><i class="fa-regular fa-circle-stop"></i><h1 class="action_svc">Stop</h1></div>
+                                                            </button>
+                                                        </li>
+                                                        {% else %}
+                                                        <li>
+                                                            <button type="button" data-modal-show="confirmStop" title='Start Service' data-modal-target="confirmStop" class="service_action flex justify-center items-center rounded bg-green-600 hover:bg-green-700 h-8 w-24 font-medium text-white">
+                                                                <div class="flex items-center space-x-2"><i class="fa-solid fa-power-off"></i><h1 class="action_svc">Start</h1></div>
+                                                            </button>
+                                                        </li>
+                                                        {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/scripts/server.js') }}"></script>
+{% endblock %}

@@ -349,4 +349,8 @@ def ssh():
 	# https://docs.python.org/3/library/pty.html
 	return render_template("ap_srv_ssh.html")
 
+@server_bp.route("/services")
+def services():
+	return render_template("ap_srv_services.html")
+
 # ================ end router server
