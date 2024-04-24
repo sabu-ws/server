@@ -1,7 +1,7 @@
 # from celery import shared_task
 from app import scanner 
-from celery import group
 import time
+import subprocess
 
 @scanner.task
 def hello():

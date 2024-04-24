@@ -233,6 +233,15 @@ def del_user():
         if search is not None:
             db.session.delete(search)
             db.session.commit()
+            data = os.path.join(DATA_PATH,"data",guuid)
+            quarantine = os.path.join(DATA_PATH,"quarantine",guuid)
+            scan = os.path.join(DATA_PATH,"scan",guuid)
+            if os.path.exists(data):
+                os.rmdirs(data)
+            if os.path.exists(quarantine):
+                os.rmdirs(quarantine)
+            if os.path.exists(scan):
+                os.rmdirs(scan)
             flash(f"The user {search.username} has been deleted", "good")
             log.info(
                 f"The user {search.username} has been deleted by {str(current_user.username)}"
