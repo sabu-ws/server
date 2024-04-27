@@ -9,52 +9,60 @@
                <!-- NAV HEADER -->
                {% include 'subnavbar_endpoints.html' %}
                
-               <div class="p-4">
-                  <!-- DASHBOARD -->
-                  <div class="grid grid-cols-2 gap-6">
-                     <!-- CPU -->
-                     <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                        <div class="flex justify-between">
-                           <div>
-                              <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">CPU</h5>
-                           </div>
-                        </div>
-                        <div class="max-h-64" id="chart-cpu"></div>
-                     </div>
-       
-                     <!-- RAM -->
-                     <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                        <div class="flex justify-between">
-                           <div>
-                              <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">RAM</h5>
-                           </div>
-                        </div>
-                        <div class="max-h-64" id="chart-ram"></div>
-                     </div>
-
-                     <!-- NETWORK -->
-                     <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                        <div class="flex justify-between">
-                           <div>
-                              <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">NETWORK</h5>
-                           </div>
-                        </div>
-                        <div class="max-h-64" id="chart-network"></div>
-                     </div>
- 
-                     <!-- DISK -->
-                     <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                        <div class="flex justify-between items-start w-full">
-                           <div class="flex-col items-center">
-                              <div class="flex items-center mb-1">
-                                 <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">DISK</h5>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="max-h-64" class="py-6" id="chart-disk"></div>
-                     </div>
-                  </div>
-               </div>
+               <div class="p-6">
+                <!-- DASHBOARD -->
+                <div class="grid grid-cols-2 gap-6">
+                   <!-- CPU -->
+                   <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+                      <div class="flex justify-between">
+                         <div>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">CPU</h5>
+                         </div>
+                      </div>
+                      <div>
+                        <div class="h-64" id="chart-cpu"></div>
+                       </div>
+                   </div>
+     
+                   <!-- RAM -->
+                   <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+                      <div class="flex justify-between">
+                         <div>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">RAM</h5>
+                         </div>
+                      </div>
+                      <div>
+                        <div class="h-64" id="chart-ram"></div>
+                      </div>
+                   </div>
+  
+                   <!-- NETWORK -->
+                   <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+                      <div class="flex justify-between">
+                         <div>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">NETWORK</h5>
+                         </div>
+                      </div>
+                      <div> 	
+                        <div class="h-64" id="chart-network"></div>
+                       </div>
+                   </div>
+  
+                   <!-- DISK -->
+                   <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+                      <div class="flex justify-between items-start w-full">
+                         <div class="flex-col items-center">
+                            <div class="flex items-center mb-1">
+                               <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">DISK</h5>
+                            </div>
+                         </div>
+                      </div>
+                      <div>
+                        <div class="h-64" class="py-6" id="chart-disk"></div>
+                       </div>
+                   </div>
+                </div>
+             </div>
             </div>
          </div>
       </div>
@@ -63,328 +71,7 @@
 {% block scripts %}
 <script type="text/javascript">
   var csrf_token = "{{ csrf_token() }}";
+  var total_ram = {{ total_ram }}
 </script>
 <script src="{{ url_for('static',filename='js/scripts/endpoints.js') }}"></script>
-<!-- A deplacer et modifier comme pour ceux du serveur -->
-<script>
- // CPU
- window.addEventListener("load", function() {
-   let options = {
-     chart: {
-       height: "100%",
-       maxWidth: "100%",
-       type: "area",
-       fontFamily: "Inter, sans-serif",
-       dropShadow: {
-         enabled: false,
-       },
-       toolbar: {
-         show: true,
-       },
-     },
-     tooltip: {
-       enabled: true,
-       x: {
-         show: false,
-       },
-     },
-     fill: {
-       type: "gradient",
-       gradient: {
-         opacityFrom: 0.55,
-         opacityTo: 0,
-         shade: "#1C64F2",
-         gradientToColors: ["#1C64F2"],
-       },
-     },
-     dataLabels: {
-       enabled: false,
-     },
-     stroke: {
-       width: 6,
-     },
-     grid: {
-       show: false,
-       strokeDashArray: 4,
-       padding: {
-         left: 5,
-         right: 2,
-         top: 0
-       },
-     },
-     series: [
-       {
-         name: "CPU",
-         data: [50, 20, 70, 35, 20, 45],
-         color: "#1A56DB",
-       },
-     ],
-     xaxis: {
-       categories: ['30 min', '25 min', '20 min', '15 min', '10 min', '5 min'],
-       labels: {
-         show: true,
-       },
-       axisBorder: {
-         show: true,
-       },
-       axisTicks: {
-         show: true,
-       },
-     },
-     yaxis: {
-       show: true,
-       labels: {
-         formatter: function (value) {
-           return value + ' %';
-         }
-       }
-     },
-   }
-
-   if (document.getElementById("chart-cpu") && typeof ApexCharts !== 'undefined') {
-     const chart = new ApexCharts(document.getElementById("chart-cpu"), options);
-     chart.render();
-   }
- });
-</script>
-<script>
- // RAM
- window.addEventListener("load", function() {
-   let options = {
-     chart: {
-       height: "100%",
-       maxWidth: "100%",
-       type: "area",
-       fontFamily: "Inter, sans-serif",
-       dropShadow: {
-         enabled: false,
-       },
-       toolbar: {
-         show: true,
-       },
-     },
-     tooltip: {
-       enabled: true,
-       x: {
-         show: false,
-       },
-     },
-     fill: {
-       type: "gradient",
-       gradient: {
-         opacityFrom: 0.55,
-         opacityTo: 0,
-         shade: "#ee1111",
-         gradientToColors: ["#ee1111"],
-       },
-     },
-     dataLabels: {
-       enabled: false,
-     },
-     stroke: {
-       width: 6,
-     },
-     grid: {
-       show: false,
-       strokeDashArray: 4,
-       padding: {
-         left: 5,
-         right: 2,
-         top: 0
-       },
-     },
-     series: [
-       {
-         name: "RAM",
-         data: [3, 6, 5, 7, 4, 5],
-         color: "#f90f0f",
-       },
-     ],
-     xaxis: {
-       categories: ['30 min', '25 min', '20 min', '15 min', '10 min', '5 min'],
-       labels: {
-         show: true,
-       },
-       axisBorder: {
-         show: true,
-       },
-       axisTicks: {
-         show: true,
-       },
-     },
-     yaxis: {
-       show: true,
-       labels: {
-         formatter: function (value) {
-           return value + ' Go';
-         }
-       }
-     },
-   }
-
-   if (document.getElementById("chart-ram") && typeof ApexCharts !== 'undefined') {
-     const chart = new ApexCharts(document.getElementById("chart-ram"), options);
-     chart.render();
-   }
- });
-</script>
-<script>
- // NETWORK
- window.addEventListener("load", function() {
-   let options = {
-     series: [
-       {
-         name: "Upload",
-         data: [1500, 1418, 1456, 1526, 1356, 1256],
-         color: "#f5d32c",
-       },
-       {
-         name: "Download",
-         data: [643, 413, 765, 412, 1423, 1731],
-         color: "#f9760f",
-       },
-     ],
-     chart: {
-       height: "100%",
-       maxWidth: "100%",
-       type: "area",
-       fontFamily: "Inter, sans-serif",
-       dropShadow: {
-         enabled: false,
-       },
-       toolbar: {
-         show: true,
-       },
-     },
-     tooltip: {
-       enabled: true,
-       x: {
-         show: false,
-       },
-     },
-     legend: {
-       show: false
-     },
-     fill: {
-       type: "gradient",
-       gradient: {
-         opacityFrom: 0.55,
-         opacityTo: 0,
-         shade: "#f5d32c",
-         gradientToColors: ["#f5d32c"],
-       },
-     },
-     dataLabels: {
-       enabled: false,
-     },
-     stroke: {
-       width: 6,
-     },
-     grid: {
-       show: false,
-       strokeDashArray: 4,
-       padding: {
-         left: 5,
-         right: 2,
-         top: 0
-       },
-     },
-     xaxis: {
-       categories: ['30 min', '25 min', '20 min', '15 min', '10 min', '5 min'],
-       labels: {
-         show: true,
-       },
-       axisBorder: {
-         show: true,
-       },
-       axisTicks: {
-         show: true,
-       },
-     },
-     yaxis: {
-       show: true,
-       labels: {
-         formatter: function (value) {
-           return value + ' Mbits/s';
-         }
-       }
-     },
-   }
-
-   if (document.getElementById("chart-network") && typeof ApexCharts !== 'undefined') {
-     const chart = new ApexCharts(document.getElementById("chart-network"), options);
-     chart.render();
-   }
- });
-</script>
-<script>
- // DISK
- window.addEventListener("load", function() {
-   const getChartOptions = () => {
-       return {
-         series: [60, 40],
-         colors: ["#00a40f", "#11c186"],
-         chart: {
-           height: "100%",
-           width: "100%",
-           type: "pie",
-           toolbar: {
-             show: true,
-             },
-         },
-         stroke: {
-           colors: ["white"],
-           lineCap: "",
-         },
-         plotOptions: {
-           pie: {
-             labels: {
-               show: true,
-             },
-             size: "100%",
-             dataLabels: {
-               offset: -25
-             }
-           },
-         },
-         labels: ["Used", "Free"],
-         dataLabels: {
-           enabled: true,
-           style: {
-             fontFamily: "Inter, sans-serif",
-           },
-         },
-         legend: {
-           position: "bottom",
-           fontFamily: "Inter, sans-serif",
-         },
-         yaxis: {
-           labels: {
-             formatter: function (value) {
-               return value + " Go"
-             },
-           },
-         },
-         xaxis: {
-           labels: {
-             formatter: function (value) {
-               return value  + " Go"
-             },
-           },
-           axisTicks: {
-             show: false,
-           },
-           axisBorder: {
-             show: false,
-           },
-         },
-       }
-     }
-
-     if (document.getElementById("chart-disk") && typeof ApexCharts !== 'undefined') {
-       const chart = new ApexCharts(document.getElementById("chart-disk"), getChartOptions());
-       chart.render();
-     }
- });
-</script>
 {% endblock %}

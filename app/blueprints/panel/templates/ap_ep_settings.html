@@ -5,54 +5,56 @@
 	<div class="p-4 sm:ml-64">
 		<div class="p-8 mt-16">
 			<div class="grid grid-cols-1">
-				<div class="bg-gray-50 rounded-lg shadow-md">
+				<div class="bg-gray-50 dark:bg-gray-700 rounded-lg shadow-md">
 					<!-- NAV HEADER -->
 					{% include 'subnavbar_endpoints.html' %}
 
 					<div class="p-4">
 						<!-- SETTINGS -->
 						<div class="grid grid-cols-2 gap-6 mb-6">
-							<div class="bg-white rounded-lg shadow-md">
-								<form action="" method="POST">
-									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-									<h1 class="flex justify-center p-4 text-2xl font-medium underline underline-offset-3">General Information</h1>
-									<div class="p-8">
-										<h2 class="mb-2 text-lg font-semibold text-black">Hostname :</h2>
+							<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+								<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">General Information</h1>
+								<div class="border-t border-gray-300 dark:border-white w-full"></div>
+								<div class="p-8">
+									<form action="" method="POST">
+										<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+										<h2 class="mb-2 text-lg font-semibold text-black dark:text-white">Hostname :</h2>
 										<ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
 											<li class="flex items-center mb-2">
-												<svg id="CharHostname" class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+												<svg id="CharHostname" class="w-3.5 h-3.5 mr-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 													<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
 												</svg>
 												Must be between 5 and 64 characters
 											</li>
 										</ul>
 										<div class="flex justify-end">
-											<input id="inputHostname" type="text" name="hostname" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="hostname">
-											<button id="subtmitHostname" disabled type="submit" class="ml-4 text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+											<input id="inputHostname" type="text" name="hostname" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="{{ hostname }}">
+											<button id="subtmitHostname" disabled type="submit" class="ml-4 text-white bg-gray-700 focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
 										</div>
-                                        <div class="mt-8">
-											<h2 class="mb-2 text-lg font-semibold text-black">Location :</h2>
+										<div class="mt-8">
+											<h2 class="mb-2 text-lg font-semibold text-black dark:text-white">Location :</h2>
 											<div class="flex justify-end">
-												<input id="inputLocation" type="text" name="location" class="resize-none hover:resize-y w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="Room 1">
-												<button id="subtmitLocation" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+												<input id="inputLocation" type="text" name="location" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Room 1">
+												<button id="subtmitLocation" class="ml-4 h-10 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
 											</div>
 										</div>
-                                        <div class="mt-8">
-											<h2 class="mb-2 text-lg font-semibold text-black">Description :</h2>
+										<div class="mt-8">
+											<h2 class="mb-2 text-lg font-semibold text-black dark:text-white">Description :</h2>
 											<div class="flex justify-end">
-												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full  border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="..."></textarea>
-												<button id="subtmitDescription" class="ml-4 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+												<textarea id="inputDescription" type="text" name="description" class="resize-none hover:resize-y w-full h-32 border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="..."></textarea>
+												<button type="submit" id="subtmitDescription" class="ml-4 h-10 text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
 											</div>
 										</div>
-									</div>
-								</form>
+									</form>
+								</div>
 							</div>
-							<div class="bg-white rounded-lg shadow-md">
+							<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
 								<form action="" method="POST" enctype="multipart/form-data">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-									<h1 class="flex justify-center mt-4 text-2xl underline underline-offset-3">SSL Certificate</h1>
+									<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">SSL Certificate</h1>
+									<div class="border-t border-gray-300 dark:border-white w-full"></div>
 									<div class="p-8">
-										<p class="flex justify-center mb-6 font-semibold">You can define a trusted SSL certificate for the panel :</p>
+										<p class="flex justify-center mb-6 font-semibold dark:text-white">You can define a trusted SSL certificate for the panel :</p>
 										<div class="flex flex-col space-y-4 place-items-center"> 
 											<div class="flex-col w-10/12">
 												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="fileCrtInput">Upload crt file</label>
@@ -63,7 +65,7 @@
 												<input name="fileKEY" accept=".key" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="fileKeyInput" type="file">
 												<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">Passphrase key file (Optional):</label>
 												<div class="relative">
-													<input type="password" name="phassphraseKeyFile" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="••••••••">
+													<input type="password" name="phassphraseKeyFile" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="••••••••">
 													<button id="toggleButton" type="button" class="absolute inset-y-0 right-0 px-3 py-2 bg-transparent">
 														<div class="text-gray-500">
 														  <i class="toggleView fa-solid fa-eye"></i>
@@ -73,7 +75,7 @@
 											</div>
 										</div>
 										<div class="flex justify-end mt-10">
-											<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
+											<button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Upload</button>
 										</div>
 									</div>
 								</form>
@@ -81,46 +83,47 @@
 							
 						</div>
 						<div class="grid grid-cols-1">
-							<div class="bg-white rounded-lg shadow-md">
-								<h1 class="flex justify-center p-4 text-2xl underline underline-offset-3">Network</h1>
-								<div class="p-8">
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label for="interface" class="block mb-2">Interface :</label>
-											<select id="interface" name="interface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-												<option selected value="eth0">eth0</option>
-												<option value="eth1">eth1</option>
-											</select>
+							<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+								<h1 class="flex justify-center p-4 text-2xl dark:text-white font-bold">Network</h1>
+								<div class="border-t border-gray-300 dark:border-white w-full"></div>
+								<form action="" method="POST">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+									<div class="p-8">
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label for="interface" class="block mb-2 dark:text-white">Interface :</label>
+												<input type="text" name="interface" id="interface" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Interface" readonly>
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2 dark:text-white">Gateway :</label>
+												<input type="text" name="gateway" id="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Gateway">
+											</div>
 										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">Gateway :</label>
-											<input type="text" name="gateway" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="GATEWAY">
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label class="block mb-2 dark:text-white">IP Address :</label>
+												<input type="text" name="ip" id="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="IP">
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2 dark:text-white">DNS 1 :</label>
+												<input type="text" name="dns1" id="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="DNS 1">
+											</div>
+										</div>
+										<div class="flex justify-center space-x-12">
+											<div class="mb-4 w-full">
+												<label class="block mb-2 dark:text-white">Netmask :</label>
+												<input type="text" name="netmask" id="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="Netmask">
+											</div>
+											<div class="mb-4 w-full">
+												<label class="block mb-2 dark:text-white">DNS 2 (Optional) :</label>
+												<input type="text" name="dns2" id="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 focus:border-darkblue dark:focus:border-darkblue dark:shadow-sm-light dark:text-white rounded-lg px-3 py-2" placeholder="DNS 2">
+											</div>
+										</div>
+										<div class="flex justify-end mt-4">
+											<button type="submit" class="text-white bg-darkblue dark:bg-darkblue hover:bg-lightblue dark:hover:bg-lightblue focus:text-darkblue focus:ring-2 focus:ring-lightblue dark:focus:text-white dark:focus:ring-2 dark:focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
 										</div>
 									</div>
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label class="block mb-2">IP Address :</label>
-											<input type="text" name="ip" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="IP ADDR">
-										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">DNS 1 :</label>
-											<input type="text" name="dns1" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS1">
-										</div>
-									</div>
-									<div class="flex justify-center space-x-12">
-										<div class="mb-4 w-full">
-											<label class="block mb-2">Netmask :</label>
-											<input type="text" name="netmask" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="NETMASK">
-										</div>
-										<div class="mb-4 w-full">
-											<label class="block mb-2">DNS 2 (Not required) :</label>
-											<input type="text" name="dns2" class="w-full border border-gray-300 dark:bg-gray-600 dark:border-gray-600 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white dark:focus:border-transparent dark:text-white rounded px-3 py-2" placeholder="DNS 2">
-										</div>
-									</div>
-									<div class="flex justify-end mt-4">
-										<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>
