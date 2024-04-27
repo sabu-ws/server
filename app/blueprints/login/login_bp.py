@@ -51,19 +51,20 @@ def init_connection(user):
     db.session.commit()
     login_user(user)
     log.info(f"User {user.username} has logged in")
-    user_root_data_path = DATA_PATH
-    user_data_path = os.path.join(user_root_data_path,"data",str(user.uuid))
-    user_qurantine_path = os.path.join(user_root_data_path,"quarantine",str(user.uuid))
-    user_scan_path = os.path.join(user_root_data_path,"scan",str(user.uuid))
-    if not os.path.exists(user_data_path):
-        os.mkdir(user_data_path)
-        log.info(f"Data user path create : {str(user_data_path)} ")
-    if not os.path.exists(user_qurantine_path):
-        os.mkdir(user_qurantine_path)
-        log.info(f"Data user path create : {str(user_qurantine_path)} ")
-    if not os.path.exists(user_scan_path):
-        os.mkdir(user_scan_path)
-        log.info(f"Data user path create : {str(user_scan_path)} ")
+    if user.role == "User":
+        user_root_data_path = DATA_PATH
+        user_data_path = os.path.join(user_root_data_path,"data",str(user.uuid))
+        user_qurantine_path = os.path.join(user_root_data_path,"quarantine",str(user.uuid))
+        user_scan_path = os.path.join(user_root_data_path,"scan",str(user.uuid))
+        if not os.path.exists(user_data_path):
+            os.mkdir(user_data_path)
+            log.info(f"Data user path create : {str(user_data_path)} ")
+        if not os.path.exists(user_qurantine_path):
+            os.mkdir(user_qurantine_path)
+            log.info(f"Data user path create : {str(user_qurantine_path)} ")
+        if not os.path.exists(user_scan_path):
+            os.mkdir(user_scan_path)
+            log.info(f"Data user path create : {str(user_scan_path)} ")
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():

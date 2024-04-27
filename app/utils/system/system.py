@@ -4,6 +4,7 @@ import socket
 
 import time
 import datetime
+from app import logger as log
 
 
 def NET_get_ip_server():
@@ -58,11 +59,8 @@ def SYS_get_uptime():
     minutes, seconds = divmod(total_seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-
     if int(days) >= 0:
-        uptime = f"{int(hours)} hours, {int(minutes)} minutes"
-
-    else:
         uptime = f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes"
-
+    else:
+        uptime = f"{int(hours)} hours, {int(minutes)} minutes"
     return uptime
