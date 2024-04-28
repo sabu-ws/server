@@ -279,7 +279,7 @@ config_system() {
 
     # SSH CONFIGURATION
     show 2 "SSH setup..."
-    # cp /sabu/server/deploy/sshd_config /etc/ssh/sshd_config > /dev/null 2>&1
+    cp /sabu/server/deploy/sshd_config /etc/ssh/sshd_config > /dev/null 2>&1
     systemctl enable ssh > /dev/null 2>&1
     systemctl restart ssh > /dev/null 2>&1
     show 0 "SSH setup Complete"
