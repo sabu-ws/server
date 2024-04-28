@@ -29,4 +29,4 @@ clamscan --recursive=yes --log=$LOG_NAME --move=$QUARANTINE_PATH $SCAN_PATH
 SCAN_STATUS=$?
 
 # RESULT
-echo "${LOG_NAME};${SCAN_STATUS}"
+echo -n "${LOG_NAME};${SCAN_STATUS}"

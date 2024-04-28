@@ -7,7 +7,6 @@ from app.models import Users, Extensions
 from app.utils import scan,user_mgmt,tasks
 
 from urllib.parse import quote
-from celery import group
 from functools import wraps
 from io import BytesIO
 import datetime
@@ -204,13 +203,9 @@ def scan_route():
 					file_path = os.path.join(path,folder_creation,filename)
 					open(file_path,"wb").write(file_reader)
 		# Start scan
-		group_tasks = group([
-		scan.hello.s(),
-		scan.hello2.s()
-		])
-		res = group_tasks.apply_async()
-		res.save()
-		session["scan_id"] = res.id
+
+		scan_id = scan.start_scan()
+		session["scan_id"] = scan_id
 	elif request.method == "GET" and session["scan"] == False:
 		return redirect(url_for("browser.index"))
 	return render_template("scan.html",scan_id=str(session["scan_id"]))
@@ -219,7 +214,9 @@ def scan_route():
 def scan_id(id=""):
 	id = str(id)
 	res = scanner.GroupResult.restore(id)
+	log.info(str(res.get()))
 	if res.ready():
+		scan.end_scan(id)
 		flash("Scan ended")
 		session["scan"] = False 
 	log.info(res.ready())
@@ -236,5 +233,5 @@ def code():
 
 @browser_bp.route("/temp_scan_off")
 def temp():
-	session["scan"] is False 
+	session["scan"] = False 
 	return redirect(url_for("browser.index"))

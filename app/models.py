@@ -55,13 +55,12 @@ class Job(db.Model):
     user = relationship("Users", backref="job")
 
 class USBlog(db.Model):
-    __tablename__ = "usblog"
+    __tablename__ = "USBlog"
     id = Column(Integer, primary_key=True, unique=True)
     virus = Column(Integer, default=0)
     date = Column(DateTime(timezone=True), server_default=func.now())
+    scan_id = Column(String(64),nullable=False)
     user_id = Column(Integer, db.ForeignKey("users.id"))
-    device_id = Column(Integer, db.ForeignKey("devices.id"))
-
 
 class Devices(db.Model):
     __tablename__ = "devices"
@@ -79,7 +78,6 @@ class Devices(db.Model):
     state = Column(Integer, nullable=False, default=0)
     enable = Column(Integer, nullable=True, default=1)
 
-    log = relationship("USBlog", backref="devices")
     metric = relationship("Metrics", backref="devices")
 
 
