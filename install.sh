@@ -145,9 +145,9 @@ check_requirements() {
         do
 
         show 4 "A user named ${COLOURS[4]}sabu ${COLOUR_RESET}was found. This user was deleted and recreate. (${COLOURS[0]}yes${COLOUR_RESET}/${COLOURS[3]}no${COLOUR_RESET})"
-        read -p "- " choice
+        read -p "- " choice1
 
-        case $choice in 
+        case $choice1 in 
             yes ) 
                 show 2 "User sabu was recreated after."
                 deluser sabu > /dev/null 2>&1
@@ -173,9 +173,9 @@ check_requirements() {
         do
 
         show 4 "A user named ${COLOURS[4]}svc-sabu ${COLOUR_RESET}was found. This user was deleted and recreate. (${COLOURS[0]}yes${COLOUR_RESET}/${COLOURS[3]}no${COLOUR_RESET})"
-        read -p "- " choice
+        read -p "- " choice2
 
-        case $choice in 
+        case $choice2 in 
             yes ) 
                 show 2 "User svc-sabu was recreated after."
                 deluser svc-sabu > /dev/null 2>&1
