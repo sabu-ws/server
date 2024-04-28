@@ -1,5 +1,5 @@
 from config import *
-from app import scanner 
+from app.celery import scanner 
 import time
 import subprocess
 import os

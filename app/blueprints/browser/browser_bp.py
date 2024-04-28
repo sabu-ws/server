@@ -2,9 +2,11 @@ from config import *
 from flask import Blueprint, redirect, url_for, render_template, abort, session, send_file, request, flash, session, jsonify
 from werkzeug.utils import secure_filename
 
-from app import login_required, current_user, logout_user, logger as log, db, cache, scanner
+from app import login_required, current_user, logout_user, logger as log, db, cache
+from app.celery import scanner
 from app.models import Users, Extensions
-from app.utils import scan,user_mgmt,tasks
+from app.utils import user_mgmt,tasks
+from app.utils.scan import function,control
 
 from urllib.parse import quote
 from functools import wraps
@@ -179,7 +181,7 @@ def scan_route():
 			if file_name != "" or file_length != 0:
 				filename = secure_filename(file_name)
 				file_path = os.path.join(path, filename)
-				if scan.control(file_reader,valid_extension):
+				if control.control(file_reader,valid_extension):
 					open(file_path,"wb").write(file_reader)
 
 		# Folder saving
@@ -199,12 +201,11 @@ def scan_route():
 				if not os.path.exists(os.path.join(path,folder_creation)):
 					os.makedirs(os.path.join(path,folder_creation))
 				filename = secure_filename(file_name)
-				if scan.control(file_reader,valid_extension):
+				if control.control(file_reader,valid_extension):
 					file_path = os.path.join(path,folder_creation,filename)
 					open(file_path,"wb").write(file_reader)
 		# Start scan
-
-		scan_id = scan.start_scan()
+		scan_id = function.start_scan()
 		session["scan_id"] = scan_id
 	elif request.method == "GET" and session["scan"] == False:
 		return redirect(url_for("browser.index"))
@@ -214,12 +215,12 @@ def scan_route():
 def scan_id(id=""):
 	id = str(id)
 	res = scanner.GroupResult.restore(id)
-	log.info(str(res.get()))
+	# log.info(str(res.get()))
+	# log.info(res.ready())
 	if res.ready():
-		scan.end_scan(id)
+		function.end_scan(id)
 		flash("Scan ended")
 		session["scan"] = False 
-	log.info(res.ready())
 	return {"state":res.ready()}
 
 @browser_bp.route("/code",methods=["POST"])

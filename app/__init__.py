@@ -25,7 +25,6 @@ from flask_wtf.csrf import CSRFProtect, CSRFError
 from app.utils.api.api_session import ApiWS
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from celery import Celery
 import datetime
 import logging
 import string
@@ -69,6 +68,7 @@ app.config["CACHE_REDIS_DB"] = int(REDIS_DB_CACHE)
 # Celery config
 redis_client_scanner_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{int(REDIS_PORT)}/{int(REDIS_DB_CELERY)}"
 app.config["broker_url"] = redis_client_scanner_url
+app.config["broker_connection_retry_on_startup"] = True
 app.config["result_backend"] = redis_client_scanner_url
 app.config["broker_transport"] = 'redis'
 
@@ -116,15 +116,6 @@ session = Session(app)
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
-
-# Celery
-scanner = Celery(app.import_name)
-scanner.conf.update(app.config)
-class ContextTask(scanner.Task):
-	def __call__(self, *args, **kwargs):
-		with app.app_context():
-			return self.run(*args, **kwargs)
-scanner.Task = ContextTask
 
 # API ws session
 apiws = ApiWS(app,redis_client,key_prefix="SABU_api_")

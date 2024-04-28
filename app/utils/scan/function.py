@@ -1,9 +1,12 @@
-from app import logger as log, current_user, scanner, db
+from config import *
+from app import logger as log, current_user, db
 from app.models import Users,USBlog
+from app.celery import scanner
 
 from celery import group
 from app.utils.scan import scan
 import os
+import shutil
 import uuid
 
 def start_scan():
@@ -19,6 +22,9 @@ def start_scan():
     return uuid_taks_id
 
 def end_scan(uuid_scan):
+    cuuid = current_user.uuid
+    data_path = os.path.join(DATA_PATH,"data",str(cuuid))
+    scan_path = os.path.join(DATA_PATH,"scan",str(cuuid))
     resultat_task = scanner.GroupResult.restore(uuid_scan)
     element_res_task = resultat_task.get()
     default_virus = 0
@@ -31,4 +37,10 @@ def end_scan(uuid_scan):
         contruct_usblog = USBlog(virus=default_virus,scan_id=uuid_scan,user_id=user.id)
         db.session.add(contruct_usblog)
         db.session.commit()
+    for item in os.listdir(scan_path):
+        grouping = os.path.join(scan_path,item)
+        try:
+            shutil.move(grouping,data_path)
+        except:
+            pass
     return True
