@@ -145,9 +145,9 @@ check_requirements() {
         do
 
         show 4 "A user named ${COLOURS[4]}sabu ${COLOUR_RESET}was found. This user was deleted and recreate. (${COLOURS[0]}yes${COLOUR_RESET}/${COLOURS[3]}no${COLOUR_RESET})"
-        read -p "- " choice
+        read -p "- " choice1
 
-        case $choice in 
+        case $choice1 in 
             yes ) 
                 show 2 "User sabu was recreated after."
                 deluser sabu > /dev/null 2>&1
@@ -173,9 +173,9 @@ check_requirements() {
         do
 
         show 4 "A user named ${COLOURS[4]}svc-sabu ${COLOUR_RESET}was found. This user was deleted and recreate. (${COLOURS[0]}yes${COLOUR_RESET}/${COLOURS[3]}no${COLOUR_RESET})"
-        read -p "- " choice
+        read -p "- " choice2
 
-        case $choice in 
+        case $choice2 in 
             yes ) 
                 show 2 "User svc-sabu was recreated after."
                 deluser svc-sabu > /dev/null 2>&1
@@ -279,7 +279,7 @@ config_system() {
 
     # SSH CONFIGURATION
     show 2 "SSH setup..."
-    # cp /sabu/server/deploy/sshd_config /etc/ssh/sshd_config > /dev/null 2>&1
+    cp /sabu/server/deploy/sshd_config /etc/ssh/sshd_config > /dev/null 2>&1
     systemctl enable ssh > /dev/null 2>&1
     systemctl restart ssh > /dev/null 2>&1
     show 0 "SSH setup Complete"
