@@ -2374,11 +2374,6 @@ input:checked + .toggle-bg {
   background-color: rgb(5 122 85 / var(--tw-bg-opacity));
 }
 
-.bg-lightblue {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 170 230 / var(--tw-bg-opacity));
-}
-
 .bg-orange-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(255 90 31 / var(--tw-bg-opacity));
@@ -2995,10 +2990,6 @@ input:checked + .toggle-bg {
 .hover\:bg-darkblue:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(12 126 196 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-darkblue\/60:hover {
-  background-color: rgb(12 126 196 / 0.6);
 }
 
 .hover\:bg-gray-100:hover {
@@ -3667,11 +3658,6 @@ input:checked + .toggle-bg {
     font-size: 1.5rem;
     line-height: 2rem;
   }
-
-  .md\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -3687,11 +3673,6 @@ input:checked + .toggle-bg {
   .lg\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }
 
