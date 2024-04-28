@@ -52,38 +52,68 @@
             </div>
 
             <div class="grid grid-cols-2 gap-6 grid-rows-2">
-                <div class="col-start-1 row-start-1 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
+                <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
                     <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Informations</h1>
-                    <div class="flex items-center">
-                        <div class=" ml-8">
-                            <ul class="font-semibold text-gray-700 dark:text-white space-y-5">
-                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg><span class="font-bold mr-1">Hostname :</span>{{ hostname }}</li>
-                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg><span class="font-bold mr-1">IP Address :</span>{{ server_ip }}</li>
-                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg><span class="font-bold mr-1">Uptime :</span>{{ uptime }}</li>
-                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 448 512"><path d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg><span class="font-bold mr-1">Current Version :</span>{{ version }}</li>
-                                <li class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg><span class="font-bold mr-1">Licence :</span>
-                                    {% if licence == "1" %}
-                                    <span class="text-green-600 font-bold">Activated</span>
-                                    {% else %}
-                                    <span class="text-red-600 font-bold">Not Activated</span>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="m-auto mr-2">
-                            <img src="{{ url_for('static',filename='assets/icons/shield-sabu-without-border.png') }}" width="70%">
-                        </div>
+                    <div class="overflow-x-auto rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <tbody>
+                                <tr class="bg-white dark:bg-gray-700 border-b dark:border-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg><span class="font-bold">Hostname</span></h1>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ hostname }}
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-700 border-b dark:border-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg><span class="font-bold">IP Address</span></h1>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ server_ip }}
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-700 border-b dark:border-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg><span class="font-bold">Uptime</span></h1>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ uptime }}
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-700 border-b dark:border-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 448 512"><path d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg><span class="font-bold">Current Version</span></h1>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ version }}
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-700 border-b dark:border-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <h1 class="flex items-center"><svg class="mr-2 fill-gray-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 512 512"><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg><span class="font-bold">Licence</span></h1>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {% if licence == "1" %}
+                                        <span class="text-green-600 font-bold">Activated</span>
+                                        {% else %}
+                                        <span class="text-red-600 font-bold">Not Activated</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-start-1 row-start-2 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
                     <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">Scans and Viruses per day</h1>
                     <div id="ScansViruses-chart" class="h-64"></div>
                 </div>
-                <div class="col-start-2 row-start-1 row-span-2 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4">
+                <div class="col-start-2 row-start-1 row-span-2 bg-white dark:bg-gray-700 rounded-2xl shadow-md p-4 flex flex-col">
                     <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300 mb-2">List of Endpoints</h1>
                     <div class="overflow-y-scroll h-128 max-h-128 rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="tableEndpointsForm">
-                            <thead class="text-gray-700 bg-white border-b dark:border-gray-700 dark:bg-gray-600 dark:text-white">
+                            <thead class="text-gray-700 bg-white border-b dark:border-gray-800 dark:bg-gray-700 dark:text-white">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         Name
@@ -122,9 +152,9 @@
                         <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
                             <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
                         </div>
-                        {% endif %}
+                        {% endif %}  
                     </div>
-                    <div class="flex place-items-end mt-6">
+                    <div class="mt-auto">
                         <button class="transition ease-in-out delay-75 hover:scale-110 duration-300">
                             <a href="{{ url_for('panel.endpoints.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-gray-900">
                                 <h1 class="text-sm">See more</h1><i class="text-xs fa-solid fa-arrow-right"></i>
