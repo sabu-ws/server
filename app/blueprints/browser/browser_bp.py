@@ -52,6 +52,7 @@ def index_browser():
 @browser_bp.route("/path/")
 @check_scan
 def index(MasterListDir=""):
+	session["scan_resultat"] = []
 	user = Users.query.filter_by(id=current_user.id).first()
 	key_user = f"codeEP_{str(user.uuid)}"
 	code_ep = cache.get(key_user)
@@ -91,6 +92,8 @@ def index(MasterListDir=""):
 			# make [nom_fichier,date_de_creation,date_modifer,taille_fichier]
 			make = [i, creation_date, modification_date, size, iq]
 			items_file.append(make)
+
+	function.parse_result()		
 	return render_template(
 		"browser.html", items_file=items_file, items_dir=items_dir, cur_dir=cur_dir, code=code_ep
 	)
@@ -161,6 +164,7 @@ def delete(MasterListDir=""):
 @browser_bp.route("/scan",methods=["POST","GET"])
 def scan_route():
 	if request.method == "POST" and session["scan"] == False:
+		session["scan_resultat"] = []
 		if request.files.getlist("fileInput")[0].filename == "" and request.files.getlist("folderInput")[0].filename == "":
 			flash("Please upload file or folder")
 			return redirect(url_for("browser.index"))
@@ -183,6 +187,8 @@ def scan_route():
 				file_path = os.path.join(path, filename)
 				if control.control(file_reader,valid_extension):
 					open(file_path,"wb").write(file_reader)
+				else:
+					session["scan_resultat"].append(f"The file '{filename}' has no authorized extension and can't be scan")
 
 		# Folder saving
 		req_folder = req.getlist("folderInput")
@@ -204,6 +210,8 @@ def scan_route():
 				if control.control(file_reader,valid_extension):
 					file_path = os.path.join(path,folder_creation,filename)
 					open(file_path,"wb").write(file_reader)
+				else:
+					session["scan_resultat"].append(f"The file '{filename}' has no authorized extension and can't be scan")
 		# Start scan
 		scan_id = function.start_scan()
 		session["scan_id"] = scan_id
