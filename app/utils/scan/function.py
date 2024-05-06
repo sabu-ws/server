@@ -17,10 +17,11 @@ def start_scan():
     os.makedirs(scan_log_path)
     group_tasks = group([
 		scan.clamav.s(cuuid,uuid_taks_id),
+		scan.yara.s(cuuid,uuid_taks_id),
     ])
     res = group_tasks.apply_async(task_id=uuid_taks_id)
     res.save()
-    return uuid_taks_id
+    return str(uuid_taks_id)
 
 def end_scan(uuid_scan):
     cuuid = current_user.uuid

@@ -6,7 +6,7 @@ After=network.target
 User=svc-sabu
 Group=svc-sabu
 WorkingDirectory=/sabu/server/
-ExecStart=/sabu/venv-sabu/bin/celery -A app.celery.scanner worker --loglevel=info
+ExecStart=/sabu/venv-sabu/bin/celery -A app.celery.scanner worker --concurrency=2 --loglevel=info
 StandardOutput=append:/sabu/logs/server/celery_output.log
 StandardError=append:/sabu/logs/server/celery_error.log
 
