@@ -56,7 +56,7 @@ def parse_result():
         if last_log_query != None:
             if last_log_query.virus == 0:
                 if "scan_resultat" in session:
-                    session["scan_resultat"].append(("No virus found."))
+                    session["scan_resultat"].append("No virus found.")
             if last_log_query.virus > 0:
                 if "scan_resultat" in session:
                    session["scan_resultat"].append(f"Found {str(last_log_query.virus)} virus !")
@@ -65,6 +65,9 @@ def parse_result():
                     if "clamav" in item:
                         clamav_log_path = os.path.join(scan_log_path,item)
                         clamav_res = parse_clamav(clamav_log_path)
+                    if "yara" in item:
+                        yara_log_path = os.path.join(scan_log_path,item)
+                        yara_res = parse_yara(yara_log_path)
 
 def parse_clamav(log_file):
     file = open(log_file,"r")
@@ -75,3 +78,12 @@ def parse_clamav(log_file):
             typed = seperate_file_malware[1].split()[0].strip()
             if "scan_resultat" in session:
                 session["scan_resultat"].append(f"The file '{filename}' is detected as malware : {typed} ")
+
+def parse_yara(log_file):
+    file = open(log_file,"r")
+    for line in file.readlines():
+        seperate_file_malware = line.split(" ",1)
+        filename = seperate_file_malware[1].strip().split("/")[-1]
+        typed = seperate_file_malware[0]
+        if "scan_resultat" in session:
+            session["scan_resultat"].append(f"The file '{filename}' is detected as malware : {typed} ")
