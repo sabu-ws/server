@@ -51,7 +51,7 @@ def parse_result():
     last_scan_id = session.get("scan_id")
     cid = current_user.id
     user = Users.query.filter_by(id=cid).first()
-    last_log_query = USBlog.query.filter_by(user_id=cid).order_by(USBlog.date.desc()).first()
+    last_log_query = USBlog.query.filter_by(user_id=cid).order_by(USBlog.date_ht.desc()).first()
     if last_scan_id != None:
         if last_log_query != None:
             if last_log_query.virus == 0:
