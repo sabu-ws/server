@@ -119,12 +119,13 @@ def dashboard():
 
 @endpoint_bp.route("/logs")
 def logs():
-	return render_template("ap_ep_logs.html")
+    return render_template("ap_ep_logs.html")
 
 
 @endpoint_bp.route("/settings")
 def settings():
     return render_template("ap_ep_settings.html")
+
 
 @endpoint_bp.route("/ssh")
 def ssh():

@@ -13,11 +13,15 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/")
 def index():
-    # get Endpoint device 
+    # get Endpoint device
     devices = Devices.query.filter(Devices.token != "server").all()
-    number_endpoint_on = Devices.query.filter(Devices.token != "server").filter(Devices.state==1).count()
+    number_endpoint_on = (
+        Devices.query.filter(Devices.token != "server")
+        .filter(Devices.state == 1)
+        .count()
+    )
     number_endpoint_tot = len(devices)
-    
+
     # Server information
     server_ip = NET_get_ip_server()
     hostname = SYS_get_hostname()
@@ -27,10 +31,12 @@ def index():
 
     # Scan information
     with db.engine.connect() as con:
-        #result of this var is : [datetime, nb virus detected, nb all virus in this day] 
-        scan_per_day = con.execute(text(   
-               "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC;"
-           )).all()
+        # result of this var is : [datetime, nb virus detected, nb all virus in this day]
+        scan_per_day = con.execute(
+            text(
+                "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC;"
+            )
+        ).all()
     all_scan_7day = sum([i[2] for i in scan_per_day])
     all_virus_7day = sum([i[1] for i in scan_per_day])
 

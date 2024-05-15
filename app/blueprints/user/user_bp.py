@@ -154,7 +154,7 @@ def sendPicture():
     user = Users.query.filter_by(id=current_user.id).first()
     allowed_ext = ["image/png", "image/jpg", "image/jpeg"]
     if "filePP" in request.files:
-        path_profile_picture = os.path.join(DATA_PATH,"ProfilePicture")
+        path_profile_picture = os.path.join(DATA_PATH, "ProfilePicture")
         if not os.path.exists(path_profile_picture):
             os.makedirs(path_profile_picture)
         file = request.files["filePP"]

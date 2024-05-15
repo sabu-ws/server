@@ -76,7 +76,8 @@ def add_user():
                 if queryJob is not None and queryJob != "Administrator":
                     if AddUserForm.validate(form):
                         if (
-                            Users.query.filter_by(username=data["username"]).first() is None
+                            Users.query.filter_by(username=data["username"]).first()
+                            is None
                         ):
                             guuid = str(uuid.uuid4())
                             useradd = Users(
@@ -234,9 +235,9 @@ def del_user():
             db.session.delete(search)
             db.session.commit()
             if user.role == "User":
-                data = os.path.join(DATA_PATH,"data",guuid)
-                quarantine = os.path.join(DATA_PATH,"quarantine",guuid)
-                scan = os.path.join(DATA_PATH,"scan",guuid)
+                data = os.path.join(DATA_PATH, "data", guuid)
+                quarantine = os.path.join(DATA_PATH, "quarantine", guuid)
+                scan = os.path.join(DATA_PATH, "scan", guuid)
                 if os.path.exists(data):
                     os.rmdirs(data)
                 if os.path.exists(quarantine):
