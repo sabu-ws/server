@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/bash 
 #
 #           SABU Server Installer Script v2.0.0
 #
@@ -31,10 +31,6 @@ readonly COLOURS=(
     '\e[33m'       # Yellow
     '\e[36m'       # Blue Cyan
 )
-
-readonly GREEN_LINE=" ${COLOURS[0]}─────────────────────────────────────────────────────$COLOUR_RESET"
-readonly GREEN_BULLET=" ${COLOURS[0]}-$COLOUR_RESET"
-
 
 show() {
 
@@ -464,6 +460,9 @@ deploy_redis
 
 # DEPLOY SABU
 deploy_sabu
+
+# DEPLOY NFTABLES
+deploy_nftables
 
 # END INSTALL
 end_install

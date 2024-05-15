@@ -54,6 +54,7 @@ class Job(db.Model):
 
     user = relationship("Users", backref="job")
 
+
 class USBlog(db.Model):
     __tablename__ = "usblog"
     # id = Column(Integer, primary_key=True, unique=True)
@@ -64,8 +65,9 @@ class USBlog(db.Model):
         primary_key=True,
         default=datetime.datetime.now,
     )
-    scan_id = Column(String(64),nullable=False)
+    scan_id = Column(String(64), nullable=False)
     user_id = Column(Integer, db.ForeignKey("users.id"))
+
 
 class Devices(db.Model):
     __tablename__ = "devices"
@@ -98,12 +100,14 @@ class Metrics(db.Model):
     )
     idDevice = Column(Integer, db.ForeignKey("devices.id"))
 
+
 class Extensions(db.Model):
     __tablename__ = "extensions_file"
     id = Column(Integer, primary_key=True, unique=True)
-    extension = Column(String(8),nullable=False)
-    mimetype = Column(String(128),nullable=False)
-    valid = Column(Boolean,default=False)
+    extension = Column(String(8), nullable=False)
+    mimetype = Column(String(128), nullable=False)
+    valid = Column(Boolean, default=False)
+
 
 # class Alerts(db.Model):
 #    __tablename__ = "Alerts"

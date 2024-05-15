@@ -20,13 +20,6 @@
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop nftables.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop clamav-freshclam.service
 
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status nginx.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status sabu.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status postgresql.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status rsyslog.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status nftables.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl status clamav-freshclam.service
-
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/reboot
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/shutdown -h now
 
@@ -35,3 +28,4 @@
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/get_service_status.sh *
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/delete_files_older.sh *
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/get_ip_address.sh *
+%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/bash /sabu/server/core/scripts/maintenance.sh

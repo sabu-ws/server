@@ -42,6 +42,7 @@ def NET_get_network_speed(interval=0.5):
 
     return tot_bytes_rcv, tot_bytes_snd
 
+
 def SYS_get_hostname():
     hostname = socket.gethostname()
     return hostname

@@ -44,7 +44,10 @@ else
     nft add rule inet filter input iif $INTERFACE_NAME ip saddr $INTERFACE_NETWORK ip daddr $INTERFACE_ADDRESS tcp dport 443 accept
     # Allow DNS
     nft add rule inet filter input iif $INTERFACE_NAME ip saddr $DNS_1 ip daddr $INTERFACE_ADDRESS udp dport 53 accept
-    nft add rule inet filter input iif $INTERFACE_NAME ip saddr $DNS_2 ip daddr $INTERFACE_ADDRESS udp dport 53 accept
+    if [ -n "$DNS_2" ]
+    then
+        nft add rule inet filter input iif $INTERFACE_NAME ip saddr $DNS_2 ip daddr $INTERFACE_ADDRESS udp dport 53 accept
+    fi
     # Allow REDIS
     nft add rule inet filter input iif $INTERFACE_NAME ip saddr $INTERFACE_NETWORK ip daddr $INTERFACE_ADDRESS tcp dport 6380 accept
     # Allow PGADMIN
@@ -60,7 +63,10 @@ else
     nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS tcp sport 443 ip daddr 0.0.0.0/0 accept
     # Allow DNS
     nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS ip daddr $DNS_1 udp dport 53 accept
-    nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS ip daddr $DNS_2 udp dport 53 accept
+    if [ -n "$DNS_2" ]
+    then
+        nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS ip daddr $DNS_2 udp dport 53 accept
+    fi
     # Allow REDIS
     nft add rule inet filter output oif $INTERFACE_NAME ip saddr $INTERFACE_ADDRESS tcp sport 6380 ip daddr 0.0.0.0/0 accept
     # Allow PGADMIN

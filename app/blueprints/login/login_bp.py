@@ -45,6 +45,7 @@ def check_user():
     else:
         abort(404)
 
+
 def init_connection(user):
     session["job"] = Job.query.filter_by(id=user.job_id).first().name
     del session["totp"]
@@ -53,9 +54,11 @@ def init_connection(user):
     log.info(f"User {user.username} has logged in")
     if user.role == "User":
         user_root_data_path = DATA_PATH
-        user_data_path = os.path.join(user_root_data_path,"data",str(user.uuid))
-        user_qurantine_path = os.path.join(user_root_data_path,"quarantine",str(user.uuid))
-        user_scan_path = os.path.join(user_root_data_path,"scan",str(user.uuid))
+        user_data_path = os.path.join(user_root_data_path, "data", str(user.uuid))
+        user_qurantine_path = os.path.join(
+            user_root_data_path, "quarantine", str(user.uuid)
+        )
+        user_scan_path = os.path.join(user_root_data_path, "scan", str(user.uuid))
         if not os.path.exists(user_data_path):
             os.mkdir(user_data_path)
             log.info(f"Data user path create : {str(user_data_path)} ")
@@ -65,6 +68,7 @@ def init_connection(user):
         if not os.path.exists(user_scan_path):
             os.mkdir(user_scan_path)
             log.info(f"Data user path create : {str(user_scan_path)} ")
+
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
@@ -87,7 +91,7 @@ def login():
                             return redirect(url_for("login.first_con"))
                         else:
                             init_connection(user)
-                            return  render_template("login.html",con="ok")
+                            return render_template("login.html", con="ok")
                     else:
                         return render_template("login.html", con="ko")
                 else:
@@ -108,7 +112,7 @@ def mfa():
                 totp = pyotp.TOTP(user.OTPSecret)
                 if totp.verify(data["totp"]):
                     init_connection(user)
-                    return render_template("login_totp.html",con="ok")
+                    return render_template("login_totp.html", con="ok")
                 else:
                     log.info(f"User {user.username} enter bad totp")
                     return render_template("login_totp.html", con="ko")
@@ -139,7 +143,7 @@ def first_con():
                         user.set_password(data["newPasswordInput"])
                         db.session.commit()
                         init_connection(user)
-                        return render_template("login_first_con.html",con="ok")
+                        return render_template("login_first_con.html", con="ok")
                     else:
                         return render_template(
                             "login_first_con.html",

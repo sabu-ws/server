@@ -13,11 +13,15 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/")
 def index():
-    # get Endpoint device 
+    # get Endpoint device
     devices = Devices.query.filter(Devices.token != "server").all()
-    number_endpoint_on = Devices.query.filter(Devices.token != "server").filter(Devices.state==1).count()
+    number_endpoint_on = (
+        Devices.query.filter(Devices.token != "server")
+        .filter(Devices.state == 1)
+        .count()
+    )
     number_endpoint_tot = len(devices)
-    
+
     # Server information
     server_ip = NET_get_ip_server()
     hostname = SYS_get_hostname()

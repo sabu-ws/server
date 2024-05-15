@@ -3,6 +3,10 @@
 # STOP SABU SERVICE
 systemctl stop sabu.service >/dev/null
 
+# NFTABLES MAINTENANCE
+sh /sabu/server/core/scripts/filtering_maintenance.sh
+sleep 3
+
 # UPDATE SOURCES
 cd /sabu/server
 git stash
@@ -32,3 +36,7 @@ then
 else
     echo "ERROR: Start service"
 fi
+
+# NFTABLES PROD
+sh /sabu/server/core/scripts/filtering_prod.sh
+sleep 3
