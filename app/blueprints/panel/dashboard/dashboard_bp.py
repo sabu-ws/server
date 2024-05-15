@@ -29,7 +29,7 @@ def index():
     with db.engine.connect() as con:
         #result of this var is : [datetime, nb virus detected, nb all virus in this day] 
         scan_per_day = con.execute(text(   
-               "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC;"
+               "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC LIMIT 7;"
            )).all()
     all_scan_7day = sum([i[2] for i in scan_per_day])
     all_virus_7day = sum([i[1] for i in scan_per_day])

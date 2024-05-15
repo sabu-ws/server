@@ -188,7 +188,6 @@ def scan_route():
 					try_start = True
 				else:
 					to_append = f"The file '{str(filename)}' has not an authorized extension and it can't be scan"
-					log.info(to_append)
 					session["scan_resultat"].append(str(to_append))
 
 		# Folder saving
@@ -223,20 +222,25 @@ def scan_route():
 			return redirect(url_for("browser.index"))
 	elif request.method == "GET" and session["scan"] == False:
 		return redirect(url_for("browser.index"))
-	return render_template("scan.html",scan_id=str(session["scan_id"]))
+	return render_template("scan.html")
 
-@browser_bp.route("/scan/id/<string:id>")
-def scan_id(id=""):
-	id = str(id)
-	res = scanner.GroupResult.restore(id)
-	# log.info(str(res.get()))
-	# log.info(res.ready())
-	if res.ready():
-		function.parse_result()
-		function.end_scan(id)
-		flash("Scan ended")
-		session["scan"] = False 
-	return {"state":res.ready()}
+@browser_bp.route("/scan/state")
+def scan_id():
+	if "scan" in session:
+		if session["scan"]:
+			id = str(session["scan_id"])
+			res = scanner.GroupResult.restore(id)
+			# log.info(str(res.get()))
+			# log.info(res.ready())
+			if res.ready():
+				function.parse_result()
+				function.end_scan(id)
+				flash("Scan ended")
+				session["scan"] = False
+			return {"state":res.ready()}
+
+	return {"state":True}
+
 
 @browser_bp.route("/code",methods=["POST"])
 @check_scan

@@ -13,7 +13,10 @@ from app import (
 	apiws,
 	csrf
 )
-from app.models import Devices, Users
+from app.models import Devices, Users, Extensions
+from app.utils.scan import function,control
+from app.celery import scanner
+from werkzeug.utils import secure_filename
 
 from flask_socketio import emit, join_room, rooms, close_room
 from flask import Blueprint, request, session, jsonify, send_file
@@ -23,6 +26,7 @@ import uuid
 import time
 from io import BytesIO
 import zipfile
+import tempfile
 
 api_bp = Blueprint("api", __name__, template_folder="templates")
 
@@ -122,6 +126,18 @@ def discconnect():
 
 
 # =============================== Start API ===============================
+# =================== controller function
+def check_scan(f):
+	@wraps(f)
+	def func(*args, **kwargs):
+		if "scan" in session:
+			if session["scan"] == True:
+				return jsonify({"message":"scanning","state":session["scan"]})
+		else:
+			session["scan"] = False
+		return f(*args, **kwargs)
+	return func
+# =================== end controller function
 
 @api_bp.route("/status_user",methods=["GET"])
 def status_user():
@@ -133,7 +149,7 @@ def status_user():
 			"username": current_user.username,
 			"name": current_user.name,
 			"firstname":current_user.firstname,
-			"job":current_user.job.name
+			"job":current_user.job.name,
 		}
 	data = {"message": msg,"info": info}
 	return jsonify(data) 
@@ -189,6 +205,7 @@ def set_deconnection():
 @api_bp.route("/get_files/path/",methods=["GET"])
 @check_headers
 @csrf.exempt
+@check_scan
 def get_files_path(MasterListDir=""):
 	if current_user.is_authenticated:
 		user = Users.query.filter_by(id=current_user.id).first()
@@ -207,6 +224,7 @@ def get_files_path(MasterListDir=""):
 @api_bp.route("/get_files/delete/<path:MasterListDir>",methods=["DELETE"])
 @check_headers
 @csrf.exempt
+@check_scan
 def get_files_delete(MasterListDir=""):
 	if current_user.is_authenticated:
 		user = Users.query.filter_by(id=current_user.id).first()
@@ -236,6 +254,7 @@ def get_files_delete(MasterListDir=""):
 @api_bp.route("/get_files/download/<path:MasterListDir>",methods=["GET"])
 @check_headers
 @csrf.exempt
+@check_scan
 def get_files_download(MasterListDir=""):
 	if current_user.is_authenticated:
 		user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
@@ -252,7 +271,7 @@ def get_files_download(MasterListDir=""):
 		if os.path.exists(path):
 			if os.path.isdir(path):
 				timestr = time.strftime("%Y%m%d-%H%M%S")
-				fileName = f"{gen_name_path}_{timestr}.zip".format(timestr)
+				fileName = f"{gen_name_path}_{timestr}.zip"
 				memory_file = BytesIO()
 				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 					for root, dirs, files in os.walk(last):
@@ -267,7 +286,7 @@ def get_files_download(MasterListDir=""):
 				)
 			elif os.path.isfile(path):
 				timestr = time.strftime("%Y%m%d-%H%M%S")
-				fileName = f"{gen_name_path}_{timestr}.zip".format(timestr)
+				fileName = f"{gen_name_path}_{timestr}.zip"
 				memory_file = BytesIO()
 				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 					zipf.write(path)
@@ -281,3 +300,61 @@ def get_files_download(MasterListDir=""):
 		else:
 			return redirect(url_for("login.logout"))
 		return ""
+
+@api_bp.route("/upload",methods=["PUT"])
+@check_headers
+@csrf.exempt
+@check_scan
+def upload_data():
+	if current_user.is_authenticated:
+		user_uuid = Users.query.filter_by(id=current_user.id).first().uuid
+		scan_path = os.path.join(DATA_PATH,"scan",str(user_uuid))
+		session["scan_resultat"] = []
+		if "ZIP4SCAN" in request.files:
+			zip_file = request.files["ZIP4SCAN"]
+			if zip_file.filename != "" :
+				if zip_file.mimetype == "application/zip-compressed" and zip_file.filename[-4:] == ".zip":
+
+					with zipfile.ZipFile(zip_file, "r", zipfile.ZIP_DEFLATED) as zipf:
+						query_extension = Extensions.query.filter_by(valid=True).all()
+						valid_extension = [ext.mimetype for ext in query_extension]
+						try_start = False
+						for member_info in zipf.namelist():
+							split_in_folder = member_info.split("/")
+							if len(split_in_folder) > 15 or ".." in split_in_folder or "%" in split_in_folder:
+								session["scan"] = False
+								return jsonify({"error":"not scan"})
+							get_data_byte = zipf.read(member_info)
+							if control.control(get_data_byte,valid_extension):
+								file_path = os.path.join(scan_path,member_info)
+								open(file_path,"wb").write(get_data_byte)
+								try_start = True
+							else:
+								session["scan_resultat"].append(f"The file '{str(filename)}' has not an authorized extension and it can't be scan")
+
+						if try_start:
+							scan_id = function.start_scan()
+							session["scan_id"] = scan_id
+							return jsonify({"message":"scanning","state":False})
+						else:
+							session["scan"] = False
+							return jsonify({"error":"not scan"})		
+	return jsonify({"error":""})
+
+
+@api_bp.route("/scan/state")
+@check_headers
+@csrf.exempt
+def scan_id():
+	if "scan" in session:
+		if session["scan"] == False:
+			id = str(session["scan_id"])
+			res = scanner.GroupResult.restore(id)
+			# log.info(str(res.get()))
+			# log.info(res.ready())
+			if res.ready():
+				function.parse_result()
+				function.end_scan(id)
+				session["scan"] = False
+			return jsonify({"message":"scanning","state":res.ready()})
+	return jsonify({"message":"scanning","state":True})

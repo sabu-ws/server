@@ -1,4 +1,4 @@
-var url = "/browser/scan/id/"+scan_id
+var url = "/browser/scan/state"
 var interval = setInterval(function() { 
     $.get(url,function(data){
         if (data.state){
