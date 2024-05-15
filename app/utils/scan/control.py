@@ -8,7 +8,7 @@ from magika import Magika
 import os
 
 
-def control(content,list_ext_valid):
+def control(content, list_ext_valid):
     m = Magika()
     res = m.identify_bytes(content)
     log.info(str(res))

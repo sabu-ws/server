@@ -3,20 +3,20 @@ from app.utils.db_mgmt import database_allowed
 
 from flask import Flask
 from flask_login import (
-	UserMixin,
-	login_user,
-	LoginManager,
-	login_required,
-	logout_user,
-	current_user,
+    UserMixin,
+    login_user,
+    LoginManager,
+    login_required,
+    logout_user,
+    current_user,
 )
 from flask_socketio import (
-	SocketIO,
-	emit,
-	disconnect,
+    SocketIO,
+    emit,
+    disconnect,
 )
 
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_session import Session
@@ -36,23 +36,30 @@ import uuid
 
 
 log_format = "%(levelname)s [%(asctime)s] %(name)s  %(message)s"
-logging.basicConfig(format=log_format,level=logging.INFO,filename="/sabu/logs/server/sabu.log",filemode="a")
+logging.basicConfig(
+    format=log_format,
+    level=logging.INFO,
+    filename="/sabu/logs/server/sabu.log",
+    filemode="a",
+)
 logger = logging.getLogger("sabu.server")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(
-	random.choices(string.ascii_letters + string.digits, k=30)
+    random.choices(string.ascii_letters + string.digits, k=30)
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = database_allowed()
 app.config["UPLOAD_FOLDER"] = ROOT_PATH
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
 # Session configure with redis
-app.config["SESSION_TYPE"] = 'redis'
+app.config["SESSION_TYPE"] = "redis"
 app.config["SESSION_KEY_PREFIX"] = "SABU_session_"
 app.config["SESSION_COOKIE_SECURE"] = True
 # redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB_CACHE), password=REDIS_PASSWORD)
-redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT),db=int(REDIS_DB_CACHE))
+redis_client = redis.Redis(
+    host=REDIS_HOST, port=int(REDIS_PORT), db=int(REDIS_DB_CACHE)
+)
 app.config["SESSION_REDIS"] = redis_client
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=12)
 
@@ -66,11 +73,13 @@ app.config["CACHE_REDIS_PORT"] = REDIS_PORT
 app.config["CACHE_REDIS_DB"] = int(REDIS_DB_CACHE)
 
 # Celery config
-redis_client_scanner_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{int(REDIS_PORT)}/{int(REDIS_DB_CELERY)}"
+redis_client_scanner_url = (
+    f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{int(REDIS_PORT)}/{int(REDIS_DB_CELERY)}"
+)
 app.config["broker_url"] = redis_client_scanner_url
 app.config["broker_connection_retry_on_startup"] = True
 app.config["result_backend"] = redis_client_scanner_url
-app.config["broker_transport"] = 'redis'
+app.config["broker_transport"] = "redis"
 
 # Proxy fix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=NB_REVERSE_PROXY, x_proto=NB_REVERSE_PROXY)
@@ -91,7 +100,7 @@ cache = Cache(app)
 # sqlalchemy database
 db = SQLAlchemy()
 db.init_app(app)
-migrate = Migrate(app, db,render_as_batch=True)
+migrate = Migrate(app, db, render_as_batch=True)
 
 
 # login manager
@@ -101,9 +110,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login.login"
 
+
 @login_manager.user_loader
 def load_user(user_id):
-	return Users.query.get(int(user_id))
+    return Users.query.get(int(user_id))
 
 
 # socketio
@@ -113,12 +123,14 @@ socketio = SocketIO(app)
 # Session manager
 session = Session(app)
 
+
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
 
+
 # API ws session
-apiws = ApiWS(app,redis_client,key_prefix="SABU_api_")
+apiws = ApiWS(app, redis_client, key_prefix="SABU_api_")
 
 # Import all views
 from app import views
