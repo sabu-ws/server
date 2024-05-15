@@ -466,7 +466,7 @@ deploy_redis
 deploy_sabu
 
 # DEPLOY NFTABLES
-deploy_nftables()
+deploy_nftables
 
 # END INSTALL
 end_install
