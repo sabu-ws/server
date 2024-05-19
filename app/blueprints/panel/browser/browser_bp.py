@@ -9,7 +9,7 @@ from flask import (
     abort,
 )
 
-from app import app, logger as log
+from app import app, logger as log, current_user
 from app.models import Users
 
 from urllib.parse import unquote, quote
@@ -161,14 +161,16 @@ def release(MasterListDir=""):
     if os.path.exists(path):
         if os.path.isdir(path):
             return "ok"
+            log.info("release is a folder")
         elif os.path.isfile(path):
             quarantine_path = master_path
             to_data_path_build = MasterListDir.split("/")
             to_data_path_build[0] = "data"
-            to_data_path = os.path.join(ROOT_PATH, "/".join(to_data_path_build[:-1]))
+            to_data_path = os.path.join(DATA_PATH, "/".join(to_data_path_build[:-1]))
             if not os.path.exists(to_data_path):
                 os.makedirs(to_data_path)
-            shutil.move(path, to_data_path)
+            ret = shutil.move(path, to_data_path)
+            log.info(f"file {path} has release to {ret} by {current_user.username}")
             return "ok"
     else:
         return redirect(url_for("login.logout"))

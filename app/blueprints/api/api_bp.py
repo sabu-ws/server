@@ -194,7 +194,7 @@ def set_connection():
 					username = str(data["username"])
 					log.info(f"Endpoint {hostname} enter bad username : {username}")
 					return jsonify({"error": "bad credentials"})
-
+	return jsonify({"error":""})
 
 @api_bp.route("/set_deconnection", methods=["POST"])
 @check_headers
@@ -232,7 +232,7 @@ def get_files_path(MasterListDir=""):
 					},
 				}
 			)
-
+	return jsonify({"error":""})
 
 @api_bp.route("/get_files/delete/<path:MasterListDir>", methods=["DELETE"])
 @check_headers
@@ -262,7 +262,7 @@ def get_files_delete(MasterListDir=""):
 				log.info(message)
 				os.remove(last)
 				return jsonify({"message": "file deleted"})
-
+	return jsonify({"error":""})
 
 @api_bp.route("/get_files/download/<path:MasterListDir>", methods=["GET"])
 @check_headers
@@ -302,7 +302,7 @@ def get_files_download(MasterListDir=""):
 				fileName = f"{gen_name_path}_{timestr}.zip"
 				memory_file = BytesIO()
 				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
-					zipf.write(path)
+					zipf.write(MasterListDir)
 				memory_file.seek(0)
 				return send_file(
 					memory_file,
@@ -313,6 +313,7 @@ def get_files_download(MasterListDir=""):
 		else:
 			return redirect(url_for("login.logout"))
 		return ""
+	return jsonify({"error":""})
 
 @api_bp.route("/upload",methods=["PUT"])
 @check_headers
@@ -343,9 +344,11 @@ def upload_data():
 								open(file_path,"wb").write(get_data_byte)
 								try_start = True
 							else:
+								filename = split_in_folder[-1]
 								session["scan_resultat"].append(f"The file '{str(filename)}' has not an authorized extension and it can't be scan")
 
 						if try_start:
+							session["scan"] = True
 							scan_id = function.start_scan()
 							session["scan_id"] = scan_id
 							return jsonify({"message":"scanning","state":False})
@@ -360,7 +363,7 @@ def upload_data():
 @csrf.exempt
 def scan_id():
 	if "scan" in session:
-		if session["scan"] == False:
+		if session["scan"] == True:
 			id = str(session["scan_id"])
 			res = scanner.GroupResult.restore(id)
 			# log.info(str(res.get()))
@@ -371,3 +374,16 @@ def scan_id():
 				session["scan"] = False
 			return jsonify({"message":"scanning","state":res.ready()})
 	return jsonify({"message":"scanning","state":True})
+
+@api_bp.route("/scan/last")
+@check_headers
+@csrf.exempt
+@check_scan
+def scan_last():
+	if current_user.is_authenticated:
+		if "scan_resultat" in session:
+			last_info = session["scan_resultat"]
+		else:
+			last_info = ""
+		return jsonify({"message":"result_scan","result":last_info})
+	return jsonify({"error":""})

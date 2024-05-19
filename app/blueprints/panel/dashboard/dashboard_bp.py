@@ -35,8 +35,9 @@ def index():
         scan_per_day = con.execute(text(   
                "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC LIMIT 7;"
            )).all()
-    all_scan_7day = sum([i[2] for i in scan_per_day])
-    all_virus_7day = sum([i[1] for i in scan_per_day])
+    _7day_virus_scan = [[i[0].strftime("%D"),i[1],i[2]] for i in scan_per_day]
+    sum_scan_7day = sum([i[2] for i in scan_per_day])
+    sum_virus_7day = sum([i[1] for i in scan_per_day])
 
     # all_scan = USBlog.query
 
@@ -44,8 +45,9 @@ def index():
         "ap_dashboard.html",
         number_endpoint_on=number_endpoint_on,
         number_endpoint_tot=number_endpoint_tot,
-        all_scan_7day=all_scan_7day,
-        all_virus_7day=all_virus_7day,
+        all_scan_7day=sum_scan_7day,
+        all_virus_7day=sum_virus_7day,
+        _7day_virus_scan=_7day_virus_scan,
         list_devices=devices,
         hostname=hostname,
         uptime=uptime,

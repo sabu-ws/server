@@ -168,7 +168,7 @@
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">
-    var csrf_token = "{{ csrf_token() }}";
+    var scan_7day = {{ _7day_virus_scan | tojson}};
 </script>
 <script src="{{ url_for('static',filename='js/scripts/dashboard.js') }}"></script>
 {% endblock %}
