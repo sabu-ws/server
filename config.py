@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 DOT_ENV = dotenv_values(".env")
 
 # SABU version
-SABU_VERSION = "2.2.0"
+SABU_VERSION = "2.3.0"
 
 # SABU licence
 SABU_LICENCE = "0"
