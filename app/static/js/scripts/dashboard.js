@@ -95,7 +95,7 @@ const options = {
 if(document.getElementById("ScansViruses-chart") && typeof ApexCharts !== 'undefined') {
     const chart = new ApexCharts(document.getElementById("ScansViruses-chart"), options);
     chart.render();
-    console.log(scan_7day)
+    // console.log(scan_7day)
     const format_data_scan= scan_7day.map(item => ({
         x: item[0],
         y: item[2]
