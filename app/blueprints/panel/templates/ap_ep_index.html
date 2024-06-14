@@ -59,7 +59,11 @@
 											{{ device.hostname }}
 										</td>
 										<td class="px-6 py-4">
-											X.X.X.X
+											{% if device.ip %}
+											{{ device.ip }}
+											{% else %}
+											No Ip
+											{% endif %}
 										</td>
 										<td class="px-6 py-4">
 											<div class="flex items-center">

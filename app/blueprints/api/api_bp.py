@@ -83,13 +83,18 @@ def check_room(f):
 @check_headers
 def join(*args, **kwargs):
 	join_room(request.headers["X-SABUHOSTNAME"], namespace="/api/v2", sid=request.sid)
-	log.info(str(request.sid))
 	device = Devices.query.filter_by(hostname=request.headers["X-SABUHOSTNAME"]).first()
 	socketio.emit(
 		"state", {"state": "up", "uuid": str(device.uuid)}, namespace="/state_ep"
 	)
+	ip=""
+	if "X-Forwarded-For" in request.headers:
+		ip=str(request.headers['X-Forwarded-For'])
+		device.ip=ip
+	else:
+		device.ip=None
 	log.info(
-		f"Endpoint {str(device.hostname)} is connected and join a room {str(request.remote_addr)}"
+		f"Endpoint {str(device.hostname)} is connected and join a room {ip}"
 	)
 	device.state = 1
 	db.session.commit()
@@ -97,7 +102,7 @@ def join(*args, **kwargs):
 
 @socketio.on("connect", namespace="/api/v2")
 def connect(data):
-	print("New client connected sid :", request.sid, request.remote_addr)
+	log.info(f"New client connected sid : ({str(request.sid)})")
 
 
 @socketio.on("disconnect", namespace="/api/v2")
