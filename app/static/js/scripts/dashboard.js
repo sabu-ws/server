@@ -2,7 +2,7 @@
 // ========== CHARTS ==========
 // SCANS & VIRUSES / DAY
 const options = {
-    colors: ["#004aad", "#ff9b00"],
+    colors: ["#0c7ec4", "#f02f2f"],
     series: [],
     chart: {
         type: "bar",
@@ -85,14 +85,17 @@ const options = {
         opacity: 1,
     },
     noData: {
-        text: 'Loading...'
-      }
+        text: 'No Data',
+        style: {
+            color: "#000000"
+        }
+    }
 }
 
 if(document.getElementById("ScansViruses-chart") && typeof ApexCharts !== 'undefined') {
     const chart = new ApexCharts(document.getElementById("ScansViruses-chart"), options);
     chart.render();
-    console.log(scan_7day)
+    // console.log(scan_7day)
     const format_data_scan= scan_7day.map(item => ({
         x: item[0],
         y: item[2]
@@ -104,12 +107,12 @@ if(document.getElementById("ScansViruses-chart") && typeof ApexCharts !== 'undef
     chart.updateSeries([
         {
         name: "Scans",
-        color: "#004aad",
+        color: "#0c7ec4",
         data: format_data_scan,
         },
         {
         name: "Viruses",
-        color: "#ff9b00",
+        color: "#f02f2f",
         data: format_data_virus,
         },
     ])

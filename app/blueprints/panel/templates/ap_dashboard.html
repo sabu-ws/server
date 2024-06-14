@@ -19,7 +19,7 @@
                 <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
                     <div class="flex items-center w-full">
                         <div class="flex-col ml-4">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300">Number of scans</h1>
+                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300">Number of scans / (Last 7 days)</h1>
                             <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ all_scan_7day }}</h1>
                         </div>
                         <div class="m-auto mr-6">
@@ -30,7 +30,7 @@
                 <div class="flex justify-center bg-white dark:bg-gray-700 rounded-2xl shadow-md">
                     <div class="flex items-center w-full">
                         <div class="flex-col ml-4">
-                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300">Number of viruses detected</h1>
+                            <h1 class="text-xs xl:text-base text-gray-500 font-semibold dark:text-gray-300">Number of viruses detected / (Last 7 days)</h1>
                             <h1 class="text-lg xl:text-3xl font-bold text-black dark:text-white">{{ all_virus_7day }}</h1>
                         </div>
                         <div class="m-auto mr-6">
@@ -145,11 +145,11 @@
                             </tbody>
                         </table>
                         {% if list_devices|length == 0 %}
-                        <div id="" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                        <div id="" class="flex justify-center p-4 items-center bg-white dark:bg-gray-700 rounded-b-lg">
                             <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
                         </div>
                         {% else %}
-                        <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-gray-50 dark:bg-gray-600 rounded-b-lg">
+                        <div id="noEndpointFound" style="display: none;" class="flex justify-center p-4 items-center bg-white dark:bg-gray-700 rounded-b-lg">
                             <h1 class="dark:text-white font-semibold">No endpoint found !</h1>
                         </div>
                         {% endif %}  

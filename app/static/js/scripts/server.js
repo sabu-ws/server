@@ -121,7 +121,7 @@ let options_CPU = {
 		enabled: false,
 	},
 	stroke: {
-		width: 6,
+		width: 2,
 	},
 	grid: {
 		show: false,
@@ -172,7 +172,10 @@ let options_CPU = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 
@@ -209,7 +212,7 @@ let options_RAM = {
 		enabled: false,
 	},
 	stroke: {
-		width: 6,
+		width: 2,
 	},
 	grid: {
 		show: false,
@@ -260,7 +263,10 @@ let options_RAM = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 
@@ -314,7 +320,7 @@ let options_NET = {
 		enabled: false,
 	},
 	stroke: {
-		width: 6,
+		width: 2,
 	},
 	grid: {
 		show: false,
@@ -366,14 +372,17 @@ let options_NET = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 
 
 // DISK
 var options_DISK = {
-	colors: ["#ed3e3e", "#189e2e"],
+	colors: ["#ff5354", "#4e9d42"],
 	series: [{
 	name: 'Used',
 	data: []
@@ -422,7 +431,10 @@ var options_DISK = {
 	offsetX: 40
   },
   noData: {
-    text: 'Loading...'
+    text: 'Loading...',
+	style: {
+		color: "#000000"
+	}
   }
 };
 

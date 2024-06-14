@@ -198,7 +198,10 @@ let options_CPU = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 
@@ -286,7 +289,10 @@ let options_RAM = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 
@@ -392,7 +398,10 @@ let options_NET = {
 		}
 	},
 	noData: {
-		text: 'Loading...'
+		text: 'Loading...',
+		style: {
+            color: "#000000"
+        }
 	}
 }
 

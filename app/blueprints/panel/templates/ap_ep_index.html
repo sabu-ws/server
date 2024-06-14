@@ -38,6 +38,9 @@
 											Name
 										</th>
 										<th scope="col" class="px-6 py-3">
+											IP
+										</th>
+										<th scope="col" class="px-6 py-3">
 											Status
 										</th>
 										<th scope="col" class="px-6 py-3">
@@ -56,6 +59,9 @@
 											{{ device.hostname }}
 										</td>
 										<td class="px-6 py-4">
+											X.X.X.X
+										</td>
+										<td class="px-6 py-4">
 											<div class="flex items-center">
 												{% if device.state == 1 %}
 												<div id="state_icon" class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div><span id="state_text">Up</span>
@@ -66,11 +72,11 @@
 										</td>
 										<td class="px-4 py-4">
 											<div class="flex space-x-3">
-												<a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
+												<!-- FEATURE DISABLED <a href="{{ url_for('.index_endpoint',name=device.hostname) }} ">
 													<button type="button" title='View Endpoint' class="buttonModifyRow flex justify-center items-center rounded text-lg font-medium text-darkblue hover:text-gray-500">
 														<i class="fa-solid fa-eye"></i>
 													</button>
-												</a>
+												</a> -->
 												<button type="button" data-modal-show="confirmRemoveModal" title='Remove Endpoint' data-modal-target="confirmRemoveModal" class="buttonDeleteRow flex justify-center items-center rounded text-lg font-medium text-red-600 hover:text-gray-500">
 													<i class="fa-solid fa-trash-can"></i>
 												</button>

@@ -35,7 +35,7 @@ def index():
         scan_per_day = con.execute(text(   
                "SELECT time_bucket('1 day', date_ht) AS bucket, SUM(virus) as nb_virus, COUNT(*) as nb_scan FROM usblog GROUP BY bucket ORDER BY bucket ASC LIMIT 7;"
            )).all()
-    _7day_virus_scan = [[i[0].strftime("%D"),i[1],i[2]] for i in scan_per_day]
+    _7day_virus_scan = [[i[0].strftime("%d/%m/%y"),i[1],i[2]] for i in scan_per_day]
     sum_scan_7day = sum([i[2] for i in scan_per_day])
     sum_virus_7day = sum([i[1] for i in scan_per_day])
 
