@@ -78,6 +78,10 @@ const options = {
         style: {
             fontFamily: "Inter, sans-serif",
             cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+        },
+        // Forcer les labels à afficher des entiers
+        formatter: function (val) {
+            return Math.round(val);
         }
         }
     },
