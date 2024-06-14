@@ -71,10 +71,15 @@ socket.on("state",function(data){
 				$(this).find("#state_text").text("Up")
 				$(this).find("#state_icon").removeClass("bg-red-500")
 				$(this).find("#state_icon").addClass("bg-green-500")
+				$(this).find("#state_animate").remove()
 			}else if(data["state"]==="down"){
 				$(this).find("#state_text").text("Down")
 				$(this).find("#state_icon").removeClass("bg-green-500")
 				$(this).find("#state_icon").addClass("bg-red-500")
+				var create_animate_state = $("<div></div>")
+				create_animate_state.addClass("animate-ping absolute h-2.5 w-2.5 rounded-full bg-red-500 mr-2")
+				create_animate_state.attr("id","state_animate")
+				$(this).find("#state_icon").append(create_animate_state)
 			}
 		}
 	})
