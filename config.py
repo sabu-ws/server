@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 DOT_ENV = dotenv_values(".env")
 
 # SABU version
-SABU_VERSION = "2.4.0"
+SABU_VERSION = "2.4.1"
 
 # SABU licence
 SABU_LICENCE = "0"
@@ -40,4 +40,4 @@ REDIS_DB_CACHE = DOT_ENV["REDIS_DB_CACHE"]
 REDIS_DB_CELERY = DOT_ENV["REDIS_DB_CELERY"]
 
 # Scoring verification
-scoring = 0.9
+scoring = 0.5
