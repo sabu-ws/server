@@ -4,21 +4,18 @@
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart postgresql.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart rsyslog.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart nftables.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl restart clamav-freshclam.service
 
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start sabu.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start nginx.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start postgresql.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start rsyslog.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start nftables.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl start clamav-freshclam.service
 
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop sabu.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop nginx.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop postgresql.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop rsyslog.service
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop nftables.service
-%svc-sabu ALL = (ALL) NOPASSWD: /usr/bin/systemctl stop clamav-freshclam.service
 
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/reboot
 %svc-sabu ALL = (ALL) NOPASSWD: /usr/sbin/shutdown -h now
