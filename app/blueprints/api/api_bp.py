@@ -291,7 +291,7 @@ def get_files_download(MasterListDir=""):
 				timestr = time.strftime("%Y%m%d-%H%M%S")
 				fileName = f"{gen_name_path}_{timestr}.zip"
 				memory_file = BytesIO()
-				log.info(f"User {user.username} get path {path}")
+				log.info(f"User {current_user.username} get path {path}")
 				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 					for root, dirs, files in os.walk(last):
 						for file in files:
@@ -307,7 +307,7 @@ def get_files_download(MasterListDir=""):
 				timestr = time.strftime("%Y%m%d-%H%M%S")
 				fileName = f"{gen_name_path}_{timestr}.zip"
 				memory_file = BytesIO()
-				log.info(f"User {user.username} get file {path}")
+				log.info(f"User {current_user.username} get file {path}")
 				with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 					zipf.write(MasterListDir)
 				memory_file.seek(0)
@@ -356,7 +356,7 @@ def upload_data():
 
 						if try_start:
 							session["scan"] = True
-							log.info(f"User {user.username} start scan")
+							log.info(f"User {current_user.username} start scan")
 							scan_id = function.start_scan()
 							session["scan_id"] = scan_id
 							return jsonify({"message":"scanning","state":False})
