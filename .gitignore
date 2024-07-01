@@ -9,3 +9,6 @@
 
 # dot env
 .env
+
+# tmp file
+file.tmp
