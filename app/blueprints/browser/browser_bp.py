@@ -262,8 +262,8 @@ def scan_id():
 			# log.info(str(res.get()))
 			# log.info(res.ready())
 			if res.ready():
-				function.parse_result()
 				function.end_scan(id)
+				function.parse_result()
 				flash("Scan ended")
 				session["scan"] = False
 			return {"state":res.ready()}
