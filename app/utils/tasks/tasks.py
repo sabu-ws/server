@@ -69,4 +69,7 @@ def retention_files():
 
 
 def maitenance_server():
+    path = os.path.join(SCRIPT_PATH,"maintenance.sh")
+    log.info(path)
+    subprocess.Popen(f"sudo /usr/bin/bash {path}".split())
     log.info("maintenance server")
