@@ -137,6 +137,7 @@ def download(MasterListDir=""):
 			timestr = time.strftime("%Y%m%d-%H%M%S")
 			fileName = f"{name_in_file}_{timestr}.zip".format(timestr)
 			memory_file = BytesIO()
+			log.info(f"User {current_user.username} downloaded file/path {path}")
 			with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
 				for root, dirs, files in os.walk(last):
 					for file in files:
@@ -165,6 +166,7 @@ def delete(MasterListDir=""):
 	last = MasterListDir.split("/")[-1]
 	os.chdir(master_path)
 	if os.path.exists(path):
+		log.info(f"User {current_user.username} deledted file/path {path}")
 		if os.path.isdir(path):
 			for root, dirs, files in os.walk(last, topdown=False):
 				for name in files:
@@ -241,6 +243,7 @@ def scan_route():
 					session["scan_resultat"].append(f"The file '{str(filename)}' has not an authorized extension and it can't be scan")
 		# Start scan
 		if try_start:
+			log.info(f"User {current_user.username} start scan")
 			scan_id = function.start_scan()
 			session["scan_id"] = scan_id
 		else:
@@ -274,6 +277,7 @@ def code():
 	user = Users.query.filter_by(id=current_user.id).first()
 	key_user = f"codeEP_{str(user.uuid)}"
 	if cache.get(key_user) is None:
+		log.info(f"User {current_user.username} get a new endpoint code")
 		cache.set(key_user, user_mgmt.get_code(), timeout=1800)
 	return redirect(request.referrer)
 

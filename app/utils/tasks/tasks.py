@@ -64,12 +64,12 @@ def retention_files():
             path_to_script_retention = os.path.join(
                 SCRIPT_PATH, "delete_files_older.sh"
             )
+            log.info("Retention file executed")
             commande = f"sudo /usr/bin/bash {path_to_script_retention} -p {DATA_PATH} -d {str(get_retention_value)} -r true".split()
             exec_retention = subprocess.Popen(commande)
 
 
 def maitenance_server():
     path = os.path.join(SCRIPT_PATH,"maintenance.sh")
-    log.info(path)
-    subprocess.Popen(f"sudo /usr/bin/bash {path}".split())
     log.info("maintenance server")
+    subprocess.Popen(f"sudo /usr/bin/bash {path}".split())

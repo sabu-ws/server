@@ -293,6 +293,7 @@ def add_job():
                 new_job = Job(name=job_name)
                 db.session.add(new_job)
                 db.session.commit()
+                log.info(f"New job {job_name} had been add by {current_user.username}")
                 flash("New job had been add.", "good")
                 return "ok"
             else:
@@ -312,6 +313,7 @@ def remove_job():
                 job = Job.query.filter_by(name=job_name).first()
                 db.session.delete(job)
                 db.session.commit()
+                log.info(f"The job {job_name} has been deleted by {current_user.username}")
                 flash(f"The job {job_name} has been deleted", "good")
                 return "ok"
             else:

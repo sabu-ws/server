@@ -2112,6 +2112,14 @@ input:checked + .toggle-bg {
   border-color: rgb(243 244 246 / var(--tw-divide-opacity));
 }
 
+.place-self-center {
+  place-self: center;
+}
+
+.self-center {
+  align-self: center;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -3357,10 +3365,6 @@ input:checked + .toggle-bg {
 
 :is(.dark .dark\:fill-white) {
   fill: #ffffff;
-}
-
-:is(.dark .dark\:fill-gray-100) {
-  fill: #F3F4F6;
 }
 
 :is(.dark .dark\:text-blue-400) {

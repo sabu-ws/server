@@ -1,7 +1,6 @@
 import os
 import subprocess
 import time
-from app import logging as log
 # FUNC : scan_yara
 def scan_yara(rule_file: str, scan_path: str, quarantine_path: str, log_path: str):
 

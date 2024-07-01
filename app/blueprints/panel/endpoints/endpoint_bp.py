@@ -1,6 +1,6 @@
 from config import *
 
-from app import db, socketio, logger as log
+from app import db, socketio, logger as log,current_user
 from app.models import Devices
 from app.utils.user_mgmt import force_logout_user
 
@@ -55,8 +55,8 @@ def add_endpoint():
                     )
                     db.session.add(add_device)
                     db.session.commit()
-                    flash(f"Endpoint '{str(add_device.hostname)}' has been add", "good")
-                    log.info(f"New endpoint named '{str(add_device.hostname)}'")
+                    flash(f"Endpoint '{str(add_device.hostname)}' has been add.", "good")
+                    log.info(f"New endpoint named '{str(add_device.hostname)}' added by {current_user.username}")
                     return "ok"
                 else:
                     return force_logout_user()
@@ -96,6 +96,7 @@ def delete_endpoint():
                 db.session.commit()
                 name_ep = ep_qry.hostname
                 flash(f"Endpoint '{name_ep}' has been delete", "good")
+                log.info(f"Endpoint '{name_ep}' has been delete by {current_user.username}")
                 return "ok"
         else:
             post(f"{str(request.root_url)}/logout")

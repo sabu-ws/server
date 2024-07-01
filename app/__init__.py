@@ -34,15 +34,40 @@ import os
 import re
 import uuid
 
+# log_format = '[%(levelname)s] %(asctime)s  %(message)s'
+# logger = logging.getLogger("sabu.server")
+# logger.setLevel(logging.DEBUG)
+# file_handler = logging.FileHandler("/sabu/logs/server/sabu2.log")
+# file_handler.setLevel(logging.DEBUG)
+# formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
+# file_handler.setFormatter(formatter)
+# logger.addHandler(file_handler)
 
-log_format = "%(levelname)s [%(asctime)s] %(name)s  %(message)s"
+
+# log_format = '[%(levelname)s] %(asctime)s %(hostname)s (%(username)s) %(page)s %(action)s : %(message)s'
+log_format = '[%(levelname)s] %(asctime)s  %(message)s'
+
 logging.basicConfig(
-    format=log_format,
-    level=logging.INFO,
-    filename="/sabu/logs/server/sabu.log",
+    format= log_format,
+    level=logging.DEBUG,
+    filename="/sabu/logs/server/sabu2.log",
     filemode="a",
 )
 logger = logging.getLogger("sabu.server")
+# logger = logging.LoggerAdapter(logger, {
+    # 'hostname': "server",
+    # 'username': "system",
+    # 'page': 'index',
+    # 'action': ''
+# })
+
+# class logger:
+    # def info(msg):
+        # return ""
+    # def error(msg):
+        # return ""
+# logger.info('remove_old_files.sh completed successfully', extra={'username': 'mbinet', 'module': 'ENDPOINT', 'action': 'EXEC-SCRIPT'})
+# logger.info('remove_old_files.sh completed successfully')
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "".join(

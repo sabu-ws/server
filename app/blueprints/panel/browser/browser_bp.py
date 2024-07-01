@@ -106,6 +106,7 @@ def download(MasterListDir=""):
         if os.path.isdir(path):
             timestr = time.strftime("%Y%m%d-%H%M%S")
             fileName = f"{last}_{timestr}.zip".format(timestr)
+            log.info(f"User {current_user.username} downloaded file/path {str(path)}")
             memory_file = BytesIO()
             with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zipf:
                 for root, dirs, files in os.walk(last):
@@ -134,6 +135,7 @@ def delete(MasterListDir=""):
     last = MasterListDir.split("/")[-1]
     os.chdir(master_path)
     if os.path.exists(path):
+        log.info(f"User {current_user.username} downloaded file/path {str(path)}")
         if os.path.isdir(path):
             for root, dirs, files in os.walk(last, topdown=False):
                 for name in files:

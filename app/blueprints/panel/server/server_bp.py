@@ -1,5 +1,5 @@
 from config import *
-from app import socketio, db, logger as log, emit
+from app import socketio, db, logger as log, emit, current_user
 from app.models import Devices, Metrics
 from app.forms import ModifyIpForm
 from app.utils.system import (
@@ -131,6 +131,7 @@ def manage_service(data):
     if svc_name in ["nginx", "postgresql", "rsyslog", "nftables", "clamav-freshclam"]:
         if svc_action in ["stop", "start", "restart"]:
             command = f"sudo /usr/bin/systemctl {svc_action} {svc_name}.service"
+            log.info(f"User {current_user.username} has {svc_action} servoce {svc_name}")
             out_svc_command = (
                 subprocess.Popen(command.split(), stdout=subprocess.PIPE)
                 .communicate()[0]
@@ -165,6 +166,7 @@ def index():
 
 @server_bp.route("/logs")
 def logs():
+    log.info(f"User {current_user.username} accessed of system log server")
     return render_template("ap_srv_logs.html")
 
 
@@ -196,7 +198,7 @@ def settings_hostname():
                         get_device.hostname = hostname
                         db.session.commit()
                         flash("The hostname has been change", "good")
-                        log.info(f"The hostname has been change by {str(hostname)}")
+                        log.info(f"The hostname has been change to {hostname} by {str(hostname)}")
                         return redirect(url_for("panel.server.settings"))
                     else:
                         flash("You enter bad charactere for the hostname!", "error")
@@ -223,6 +225,7 @@ def settings_description():
                     get_device.description = request.form["description"]
                     db.session.commit()
                     flash("The description has been change", "good")
+                    log.info(f"The description has been change by {current_user.username}")
                     return redirect(url_for("panel.server.settings"))
                 else:
                     flash(
@@ -264,6 +267,7 @@ def settings_networks():
                     .communicate()[0]
                     .decode()
                 )
+                log.info(f"Network has been change by {current_user.username}")
                 flash("Sussesfull change network configuration", "good")
                 return redirect(url_for("panel.server.settings"))
             else:
@@ -341,7 +345,7 @@ def settings_certificates():
             subprocess.Popen("sudo /usr/bin/systemctl restart nginx.service".split())
             subprocess.Popen("sudo /usr/bin/systemctl restart sabu.service".split())
             flash("The certificates and private key file has been change", "good")
-            log.info("The certificates and private key file has been change")
+            log.info(f"The certificates and private key file has been change by {current_user.username}")
             return redirect(url_for("panel.server.settings"))
         else:
             flash("Please select certificate and key files !", "error")
@@ -354,6 +358,7 @@ def settings_certificates():
 
 @server_bp.route("/reboot")
 def reboot():
+    log.info(f"The server has been reboot by {current_user.username}")
     subprocess.Popen("sudo /usr/sbin/reboot -h now".split())
     flash("The server will be reboot", "info")
     return "ok"
@@ -361,6 +366,7 @@ def reboot():
 
 @server_bp.route("/shutdown")
 def shutdown():
+    log.info(f"The server has been shutdown by {current_user.username}")
     subprocess.Popen("sudo /usr/sbin/shutdown -h now".split())
     flash("The server will be shutdown", "info")
     return "ok"
@@ -375,7 +381,7 @@ def ssh():
 
 @server_bp.route("/services")
 def services():
-    services = ["nginx", "postgresql", "rsyslog", "nftables", "clamav-freshclam"]
+    services = ["nginx", "postgresql", "rsyslog", "nftables"]
     status_svc = []
     runtime_svc = []
     script_service_path = os.path.join(SCRIPT_PATH, "get_service_uptime.sh")

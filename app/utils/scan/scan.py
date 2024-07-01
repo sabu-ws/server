@@ -1,6 +1,6 @@
 from config import *
 from app.celery import scanner
-from core.scripts.tmp.scan_yara import scan_yara
+from core.scripts.scan_yara import scan_yara
 
 import time
 import subprocess
